@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elysium Roleplay | La Nueva Frontera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --dark: #0a0a0c;
+            --grey: #1a1a1e;
+            --text: #e0e0e0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Animación del Logo */
+        .logo-container {
+            text-align: center;
+            padding: 100px 20px;
+            background: radial-gradient(circle, rgba(0,212,255,0.1) 0%, rgba(10,10,12,1) 70%);
+        }
+
+        #logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 80px;
+            font-weight: 700;
+            letter-spacing: 10px;
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+        }
+
+        .btn-join {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            background: transparent;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .btn-join:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 30px var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Grid de Sistemas */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 50px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .card {
+            background: var(--grey);
+            padding: 30px;
+            border-radius: 10px;
+            border-bottom: 3px solid var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 12px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-container">
+        <div id="logo-text">EL</div>
+    </div>
+
+    <section class="hero">
+        <h1>Identidad Binacional 🇦🇷 🇪🇸</h1>
+        <p>Hardcore Roleplay | Economía Dinámica | Sistemas Exclusivos</p>
+        <br>
+        <a href="https://discord.gg/TU_INVITACION" class="btn-join">INGRESAR A LA CIUDAD</a>
+    </section>
+
+    <section class="features">
+        <div class="card">
+            <h3>📱 Tecnología ARES</h3>
+            <p>Sistemas de comunicación encriptados y smartphones de última generación con apps funcionales.</p>
+        </div>
+        <div class="card">
+            <h3>🏥 Realismo Médico</h3>
+            <p>Simulación avanzada de heridas y sistema de triaje profesional para una experiencia inmersiva.</p>
+        </div>
+        <div class="card">
+            <h3>💼 Mercado Dinámico</h3>
+            <p>La economía de Elysium fluctúa según la oferta y la demanda de los ciudadanos.</p>
+        </div>
+    </section>
+
+    <div class="footer">
+        © 2026 ELYSIUM ROLEPLAY - TODOS LOS DERECHOS RESERVADOS
+    </div>
+
+    <script>
+        // Animación del Logo: De "EL" a "Elysium"
+        const logo = document.getElementById('logo-text');
+        const fullText = "ELYSIUM";
+        let index = 2; // Empezamos en EL
+
+        function buildLogo() {
+            if (index < fullText.length) {
+                logo.innerText += fullText[index];
+                index++;
+                setTimeout(buildLogo, 150); // Velocidad de escritura
+            }
+        }
+
+        // Inicia la animación después de 1 segundo de carga
+        setTimeout(buildLogo, 1000);
+    </script>
+</body>
+</html>
