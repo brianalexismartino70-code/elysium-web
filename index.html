@@ -8,14 +8,15 @@
     <style>
         :root { --primary: #00d4ff; --secondary: #0055ff; --bg: #050505; --card-bg: #111; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+        body { background-color: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
         .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); z-index: -1; }
         
         nav { padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--primary); }
         .nav-logo { height: 40px; filter: drop-shadow(0 0 5px var(--primary)); }
+        .nav-links a { color: var(--primary); text-decoration: none; font-weight: bold; font-family: 'Orbitron'; margin-left: 20px; font-size: 0.9rem; }
 
-        .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-        .main-logo { width: 180px; margin-bottom: 20px; animation: pulse 3s infinite ease-in-out; }
+        .hero { height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        .main-logo { width: 200px; margin-bottom: 20px; animation: pulse 3s infinite ease-in-out; border: 2px solid var(--primary); box-shadow: 0 0 15px var(--primary); }
         
         @keyframes pulse {
             0%, 100% { filter: drop-shadow(0 0 10px var(--primary)); transform: scale(1); }
@@ -23,14 +24,23 @@
         }
 
         h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; letter-spacing: 5px; text-transform: uppercase; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
-        .about { padding: 60px 10%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        
+        .section-title { text-align: center; font-family: 'Orbitron'; font-size: 2.2rem; margin-bottom: 40px; color: #fff; }
+        .about, .rules { padding: 80px 10%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .card { background: var(--card-bg); padding: 30px; border-radius: 15px; border: 1px solid #222; transition: 0.4s; }
         .card:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2); }
         .card h3 { font-family: 'Orbitron', sans-serif; color: var(--primary); margin-bottom: 15px; }
+        .card p { color: #ccc; line-height: 1.6; }
 
-        .btn-join { display: inline-block; margin-top: 30px; padding: 15px 40px; font-family: 'Orbitron', sans-serif; background: transparent; color: var(--primary); border: 2px solid var(--primary); text-decoration: none; font-weight: bold; transition: 0.5s; }
+        .rules-list { background: #111; border-radius: 20px; padding: 40px; border-left: 5px solid var(--primary); }
+        .rule-item { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #222; }
+        .rule-item:last-child { border: none; }
+        .rule-item strong { color: var(--primary); font-family: 'Orbitron'; display: block; margin-bottom: 5px; }
+
+        .btn-join { display: inline-block; margin-top: 30px; padding: 15px 40px; font-family: 'Orbitron', sans-serif; background: transparent; color: var(--primary); border: 2px solid var(--primary); text-decoration: none; font-weight: bold; transition: 0.5s; cursor: pointer; }
         .btn-join:hover { background: var(--primary); color: black; box-shadow: 0 0 20px var(--primary); }
+        
         footer { text-align: center; padding: 40px; font-size: 0.8rem; color: #444; border-top: 1px solid #111; }
     </style>
 </head>
@@ -38,8 +48,10 @@
     <div class="stars"></div>
     <nav>
         <img src="./E.png" alt="" class="nav-logo">
-        <div class="links">
-            <a href="https://tienda.elysiumesrp.com" style="color: var(--primary); text-decoration: none; font-weight: bold; font-family: 'Orbitron';">TIENDA</a>
+        <div class="nav-links">
+            <a href="#quienes-somos">NOSOTROS</a>
+            <a href="#normativas">REGLAS</a>
+            <a href="https://tienda.elysiumesrp.com">TIENDA</a>
         </div>
     </nav>
 
@@ -50,8 +62,8 @@
         <a href="https://discord.gg/zMGPdhPG2f" class="btn-join">INGRESAR A LA CIUDAD</a>
     </section>
 
-    <section class="about">
-        <h2 style="text-align: center; font-family: 'Orbitron'; font-size: 2.2rem;">¿QUIÉNES SOMOS?</h2>
+    <section class="about" id="quienes-somos">
+        <h2 class="section-title">¿QUIÉNES SOMOS?</h2>
         <div class="grid">
             <div class="card">
                 <h3>Comunidad Unida</h3>
@@ -68,16 +80,15 @@
         </div>
     </section>
 
-    <section class="about" style="background: rgba(255,255,255,0.02); border-radius: 50px 50px 0 0;">
-        <h2 style="text-align: center; font-family: 'Orbitron'; font-size: 2.2rem;">MEMBRESÍAS VIP</h2>
-        <div class="grid">
-            <div class="card" style="border-top: 4px solid #cd7f32;">
-                <h3 style="color: #cd7f32;">RANGO BRONCE</h3>
-                <p>• Prioridad de entrada Nivel 1</p>
-                <p>• +$50,000 iniciales</p>
-                <p>• Vehículo civil importado</p>
-                <hr style="margin: 15px 0; border: 0.5px solid #222;">
-                <p style="font-weight: bold; font-size: 1.2rem;">$1.500 ARS / Mes</p>
+    <section class="rules" id="normativas">
+        <h2 class="section-title">NORMATIVAS BÁSICAS</h2>
+        <div class="rules-list">
+            <div class="rule-item">
+                <strong>1. VALORAR LA VIDA (NVL)</strong>
+                <p>Debes actuar como lo harías en la vida real ante una amenaza de muerte. Tu vida es lo más preciado.</p>
             </div>
-            <div class="card" style="border-top: 4px solid #00d4ff; background: rgba(0, 212, 255, 0.05);">
-                <h3 style="color: #00
+            <div class="rule-item">
+                <strong>2. NO ROL ANTERIOR (OOC)</strong>
+                <p>Está prohibido usar información fuera de personaje dentro del juego. Mantén la inmersión en todo momento.</p>
+            </div>
+            <div class="rule-item">
