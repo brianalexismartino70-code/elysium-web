@@ -5,91 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elysium RP | Identidad Binacional</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* Variables y Base */
         :root { --primary: #00d4ff; --bg: #050505; --card-bg: #111; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+        .background-fixed { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at bottom, #1B2735 0%, #050505 100%); z-index: -1; }
         
-        body { 
-            background-color: var(--bg); 
-            color: white; 
-            font-family: 'Rajdhani', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Fondo de Estrellas Fijo */
-        .background-fixed {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at bottom, #1B2735 0%, #050505 100%);
-            z-index: -1;
-        }
-
-        /* Navegación */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; background: rgba(0,0,0,0.9);
-            border-bottom: 1px solid var(--primary);
-            position: sticky; top: 0; z-index: 100;
-        }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--primary); position: sticky; top: 0; z-index: 100; }
         .nav-logo { height: 40px; }
-        .nav-links a { 
-            color: var(--primary); text-decoration: none; font-family: 'Orbitron';
-            margin-left: 20px; font-size: 0.8rem; font-weight: bold;
-        }
+        .nav-links a { color: var(--primary); text-decoration: none; font-family: 'Orbitron'; margin-left: 20px; font-size: 0.8rem; font-weight: bold; }
 
-        /* Hero */
-        .hero {
-            height: 80vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-        }
-        .main-logo { 
-            width: 180px; margin-bottom: 20px; 
-            filter: drop-shadow(0 0 15px var(--primary)); 
-        }
-        h1 { font-family: 'Orbitron'; font-size: 3.5rem; letter-spacing: 4px; margin-bottom: 10px; }
-        .hero p { font-size: 1.2rem; letter-spacing: 2px; color: #ccc; }
+        .hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .main-logo { width: 150px; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary)); }
+        h1 { font-family: 'Orbitron'; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 4px; }
 
-        /* Contenedores */
-        .container { padding: 80px 10%; }
-        .section-title { 
-            text-align: center; font-family: 'Orbitron'; font-size: 2rem; 
-            margin-bottom: 50px; text-transform: uppercase; 
-        }
+        .container { padding: 40px 8%; }
+        .section-title { text-align: center; font-family: 'Orbitron'; font-size: 2rem; margin-bottom: 40px; text-transform: uppercase; color: var(--primary); }
 
         /* Dashboard de Normas */
-        .dashboard {
-            display: flex; background: #0a0a0a; border: 1px solid #222;
-            border-radius: 15px; min-height: 500px; overflow: hidden;
-        }
-        .sidebar { width: 260px; background: #111; border-right: 1px solid #222; }
-        .tab-btn {
-            width: 100%; padding: 20px; border: none; background: none;
-            color: #666; text-align: left; cursor: pointer; font-family: 'Orbitron';
-            font-size: 0.7rem; transition: 0.3s; border-left: 4px solid transparent;
-        }
+        .dashboard { display: flex; background: #0a0a0a; border: 1px solid #222; border-radius: 15px; min-height: 600px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .sidebar { width: 280px; background: #111; border-right: 1px solid #222; overflow-y: auto; }
+        .tab-btn { width: 100%; padding: 18px 25px; border: none; background: none; color: #666; text-align: left; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; transition: 0.3s; border-left: 4px solid transparent; border-bottom: 1px solid #1a1a1a; }
+        .tab-btn:hover { color: var(--primary); background: rgba(0, 212, 255, 0.05); }
         .tab-btn.active { color: var(--primary); background: #181818; border-left-color: var(--primary); }
         
-        .content-area { flex: 1; padding: 40px; max-height: 600px; overflow-y: auto; }
-        .tab-content { display: none; }
+        .content-area { flex: 1; padding: 45px; overflow-y: auto; max-height: 700px; scrollbar-width: thin; scrollbar-color: var(--primary) #111; }
+        .tab-content { display: none; animation: fadeIn 0.3s ease; }
         .tab-content.active { display: block; }
         
-        .rule-card { background: #151515; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #222; }
-        .rule-card strong { display: block; color: var(--primary); margin-bottom: 8px; font-family: 'Orbitron'; font-size: 0.9rem; }
-        .rule-card p { color: #999; font-size: 0.95rem; }
+        .rule-card { background: #151515; padding: 22px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #252525; line-height: 1.6; }
+        .rule-card strong { display: block; color: #fff; margin-bottom: 8px; font-family: 'Orbitron'; font-size: 0.95rem; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .rule-card p { color: #aaa; font-size: 0.95rem; text-align: justify; }
 
-        /* Botón Ingresar */
-        .btn-join {
-            margin-top: 30px; padding: 15px 40px; border: 2px solid var(--primary);
-            color: var(--primary); text-decoration: none; font-family: 'Orbitron';
-            font-weight: bold; transition: 0.4s; background: transparent;
-        }
-        .btn-join:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @media (max-width: 850px) {
+        @media (max-width: 900px) {
             .dashboard { flex-direction: column; }
-            .sidebar { width: 100%; display: flex; overflow-x: auto; }
-            .tab-btn { white-space: nowrap; padding: 15px; }
+            .sidebar { width: 100%; display: flex; overflow-x: auto; border-right: none; border-bottom: 1px solid #222; }
+            .tab-btn { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; }
+            .tab-btn.active { border-bottom: 3px solid var(--primary); }
         }
     </style>
 </head>
@@ -109,67 +63,82 @@
     <section class="hero" id="inicio">
         <img src="E.png" alt="Elysium Logo" class="main-logo">
         <h1>ELYSIUM RP</h1>
-        <p>IDENTIDAD BINACIONAL 🇦🇷 🇪🇸</p>
-        <a href="https://discord.gg/zMGPdhPG2f" target="_blank" class="btn-join">INGRESAR A LA CIUDAD</a>
+        <p style="color: #888; letter-spacing: 3px;">REGLAMENTO OFICIAL</p>
     </section>
 
     <section class="container" id="reglas">
-        <h2 class="section-title">Reglamento General</h2>
+        <h2 class="section-title">Conceptos Generales del Rol</h2>
         <div class="dashboard">
             <div class="sidebar">
-                <button class="tab-btn active" onclick="openTab(event, 'normas-basicas')">FUNDAMENTOS</button>
-                <button class="tab-btn" onclick="openTab(event, 'faltas-graves')">FALTAS GRAVES</button>
-                <button class="tab-btn" onclick="openTab(event, 'violencia')">VIOLENCIA</button>
-                <button class="tab-btn" onclick="openTab(event, 'entorno')">ENTORNO</button>
+                <button class="tab-btn active" onclick="openTab(event, 't1')">1. CONCEPTOS BÁSICOS</button>
+                <button class="tab-btn" onclick="openTab(event, 't2')">2. FALTAS GRAVES</button>
+                <button class="tab-btn" onclick="openTab(event, 't3')">3. MUERTE Y DAÑO</button>
+                <button class="tab-btn" onclick="openTab(event, 't4')">4. ENTORNO Y ZONAS</button>
             </div>
 
             <div class="content-area">
-                <div id="normas-basicas" class="tab-content active">
+                <div id="t1" class="tab-content active">
                     <div class="rule-card">
-                        <strong>1.1 IN-CHARACTER (IC)</strong>
-                        <p>Todo lo que ocurre a manos de tu personaje. Las decisiones deben tomarse basadas en su historia y personalidad.</p>
+                        <strong>1.1 IC (In Character)</strong>
+                        <p>Todo aquello que ocurre a manos de nuestro personaje o en el entorno de la ciudad donde se encuentra. Hace que influya en la toma de decisiones. Tené en cuenta que en el Discord hay una categoría con canales IC, tendrás que rolearlos como si fuese tu personaje (Instagram, Mercado Libre, Inmobiliaria, Deep Web).</p>
                     </div>
                     <div class="rule-card">
-                        <strong>1.2 OUT-OF-CHARACTER (OOC)</strong>
-                        <p>Acciones o charlas ajenas al personaje. Solo permitido en canales específicos (/b o Discord técnico).</p>
-                    </div>
-                </div>
-
-                <div id="faltas-graves" class="tab-content">
-                    <div class="rule-card">
-                        <strong>1.4 METAGAMING (MG)</strong>
-                        <p>Usar información obtenida fuera del juego (Discord, directos) para beneficio de tu personaje dentro de la ciudad.</p>
+                        <strong>1.2 OOC (Out Of Character)</strong>
+                        <p>Todas las acciones que ocurren, se hablan o realizan de forma ajena a nuestro personaje en el entorno de la ciudad y, por tanto, fuera del juego.</p>
                     </div>
                     <div class="rule-card">
-                        <strong>1.5 POWERGAMING (PG)</strong>
-                        <p>Realizar acciones imposibles en la vida real o forzar situaciones sobre otros jugadores sin darles opción a reaccionar.</p>
+                        <strong>1.3 RDE (Rol de entorno)</strong>
+                        <p>Todo aquello que no podemos ver OOC pero se interpreta como el propio ambiente NPC de la ciudad. Por ejemplo, no podríamos ir en contramano en la ruta ya que por entorno habrían autos de por medio o meternos con un vehículo por una vereda ya que habría gente transitando. No respetar el rol de entorno conlleva una sanción.</p>
                     </div>
                 </div>
 
-                <div id="violencia" class="tab-content">
+                <div id="t2" class="tab-content">
                     <div class="rule-card">
-                        <strong>1.6 DEATHMATCH (DM)</strong>
-                        <p>Agredir o matar a otros ciudadanos sin un motivo de rol previo y justificado.</p>
+                        <strong>1.4 MG (MetaGaming)</strong>
+                        <p>El MG se produce cuando se usa cualquier tipo de información de fuera del juego dentro del juego, sea de forma intencionada o por error para obtener beneficio. Está prohibido y conlleva una sanción.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>1.5 PG (PowerGaming)</strong>
+                        <p>Hacer cosas que en la vida real no harías, porque no tienen sentido ni lógica o por ser imposibles. También engloba el forzar el rol de otro jugador sin darle la posibilidad a reaccionar tras una acción realizada. Hacer abuso de la tercera persona para sacar ventaja con distintas posibilidades, por ejemplo disparar detrás del muro con la mano, está prohibido y conlleva una sanción.</p>
+                    </div>
+                    <div class="rule-card" style="border-left: 4px solid #ff4444;">
+                        <strong>1.10 CL (Combat Log)</strong>
+                        <p>Salir del servidor o "tirar del cable" para evitar una situación de rol activa (arrestos, robos, muertes). Es una falta gravísima.</p>
+                    </div>
+                </div>
+
+                <div id="t3" class="tab-content">
+                    <div class="rule-card">
+                        <strong>1.6 DM (DeathMatch)</strong>
+                        <p>Jugador que se dedica a agredir o matar al resto de jugadores sin motivo aparente o previo. Está prohibido y conlleva una sanción.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>1.7 VDM (Vehicle DeathMatch)</strong>
+                        <p>Matar o atacar a otro jugador usando un vehículo como arma. Está prohibido y conlleva una sanción.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>1.8 PK (Player Kill)</strong>
+                        <p>Es la muerte no definitiva de un personaje. Conlleva la pérdida de memoria de todo lo sucedido en aquel rol, y actuar en consecuencia a tu estado físico al despertar.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>1.9 PKT (Player Kill Total)</strong>
+                        <p>Es la muerte de nuestro personaje en relación con un contexto de rol completo importante como la salida de una mafia o el fin de una trama larga.</p>
+                    </div>
+                </div>
+
+                <div id="t4" class="tab-content">
+                    <div class="rule-card">
+                        <strong>ZONAS SEGURAS</strong>
+                        <p>Son lugares donde el rol agresivo está prohibido: Hospitales, Comisarías, Garajes Centrales y Puntos de Spawn. No se puede robar, matar o secuestrar en estas áreas.</p>
                     </div>
                     <div class="rule-card">
                         <strong>VALORACIÓN DE VIDA</strong>
-                        <p>Tu vida es el bien más preciado. Si estás bajo amenaza directa, debes priorizar tu integridad física.</p>
-                    </div>
-                </div>
-
-                <div id="entorno" class="tab-content">
-                    <div class="rule-card">
-                        <strong>1.3 ROL DE ENTORNO (RDE)</strong>
-                        <p>Interpretar que la ciudad no está vacía; hay civiles (NPCs), cámaras y leyes que deben ser respetadas incluso si no hay otros jugadores presentes.</p>
+                        <p>Debes actuar como si solo tuvieras una vida. Si te apuntan con un arma y no tienes oportunidad de defensa, debes cooperar. No valorar la vida es motivo de sanción inmediata.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <footer style="text-align: center; padding: 40px; color: #444; font-size: 0.8rem; border-top: 1px solid #111;">
-        <p>&copy; 2026 ELYSIUM ROLEPLAY - TODOS LOS DERECHOS RESERVADOS</p>
-    </footer>
 
     <script>
         function openTab(evt, tabName) {
@@ -184,7 +153,7 @@
                 tablinks[i].classList.remove("active");
             }
             document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.add("active");
+            setTimeout(() => { document.getElementById(tabName).classList.add("active"); }, 10);
             evt.currentTarget.classList.add("active");
         }
     </script>
