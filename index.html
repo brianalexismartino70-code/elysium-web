@@ -7,42 +7,224 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00d4ff; --secondary: #0055ff; --bg: #050505; --card-bg: #111; }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
-        
-        /* Fondo Animado */
-        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); z-index: -1; }
-        
-        /* Navegación */
-        nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.9); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--primary); }
-        .nav-logo { height: 45px; filter: drop-shadow(0 0 5px var(--primary)); }
-        .nav-links a { color: var(--primary); text-decoration: none; font-weight: bold; font-family: 'Orbitron'; margin-left: 20px; font-size: 0.8rem; transition: 0.3s; }
-        .nav-links a:hover { text-shadow: 0 0 10px var(--primary); color: white; }
 
-        /* Hero Section */
-        .hero { height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-        .main-logo { width: 190px; margin-bottom: 25px; animation: pulse 3s infinite ease-in-out; border-radius: 50%; }
-        
-        @keyframes pulse {
-            0%, 100% { filter: drop-shadow(0 0 15px var(--primary)); transform: scale(1); }
-            50% { filter: drop-shadow(0 0 30px var(--secondary)); transform: scale(1.05); }
+        body { 
+            background-color: var(--bg); 
+            color: white; 
+            font-family: 'Rajdhani', sans-serif; 
+            line-height: 1.6;
         }
 
-        h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2.5rem, 8vw, 4rem); letter-spacing: 5px; text-transform: uppercase; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* Contenedores Generales */
-        .section-title { text-align: center; font-family: 'Orbitron'; font-size: 2.2rem; margin-bottom: 40px; color: #fff; text-transform: uppercase; letter-spacing: 3px; }
-        .container { padding: 80px 8%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        /* Estrellas de fondo fijas */
+        .stars { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); 
+            z-index: -1; 
+        }
 
-        /* Tarjetas */
-        .card { background: var(--card-bg); padding: 35px; border-radius: 15px; border: 1px solid #222; transition: 0.4s; }
-        .card:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15); }
-        .card h3 { font-family: 'Orbitron', sans-serif; color: var(--primary); margin-bottom: 15px; }
-        .card p { color: #aaa; line-height: 1.6; }
+        nav { 
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; 
+            background: rgba(0,0,0,0.95); position: sticky; top: 0; z-index: 100; 
+            border-bottom: 1px solid var(--primary); 
+        }
 
-        /* --- DASHBOARD DE NORMAS --- */
-        .dashboard-container { display: flex; background: #0a0a0a; border-radius: 20px; border: 1px solid #222; min-height: 550px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .sidebar { width: 280px; background: #111; border-right: 1px solid #222; padding: 20px 0; }
-        .tab-btn { width: 100%; padding: 18px 25px; border: none; background: none; color: #666; text-align: left; cursor: pointer; font-family: 'Orbitron'; font-size: 0.75rem; transition: 0.3s; display: flex; align-items: center; border-left: 4px solid transparent; }
-        .tab-btn:hover { color: var(--primary
+        .nav-logo { height: 40px; }
+
+        .nav-links a { 
+            color: var(--primary); text-decoration: none; font-weight: bold; 
+            font-family: 'Orbitron'; margin-left: 15px; font-size: 0.8rem; 
+        }
+
+        .hero { 
+            height: 80vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center; padding: 20px; 
+        }
+
+        .main-logo { 
+            width: 180px; margin-bottom: 20px; 
+            filter: drop-shadow(0 0 15px var(--primary));
+        }
+
+        h1 { 
+            font-family: 'Orbitron', sans-serif; font-size: 3rem; 
+            color: #fff; text-transform: uppercase; margin-bottom: 10px;
+        }
+
+        .container { padding: 60px 8%; }
+        .section-title { text-align: center; font-family: 'Orbitron'; font-size: 2rem; margin-bottom: 40px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+
+        .card { 
+            background: var(--card-bg); padding: 30px; border-radius: 12px; 
+            border: 1px solid #222; transition: 0.3s; 
+        }
+
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+
+        .card h3 { font-family: 'Orbitron'; color: var(--primary); margin-bottom: 15px; }
+
+        /* --- NORMAS DASHBOARD --- */
+        .dashboard { 
+            display: flex; background: #0a0a0a; border: 1px solid #222; 
+            border-radius: 15px; min-height: 450px; overflow: hidden; 
+        }
+
+        .sidebar { width: 250px; background: #111; border-right: 1px solid #222; }
+
+        .tab-btn { 
+            width: 100%; padding: 15px 20px; border: none; background: none; 
+            color: #777; text-align: left; cursor: pointer; font-family: 'Orbitron'; 
+            font-size: 0.75rem; border-left: 4px solid transparent;
+        }
+
+        .tab-btn.active { color: var(--primary); background: #181818; border-left-color: var(--primary); }
+
+        .content-area { flex: 1; padding: 35px; max-height: 550px; overflow-y: auto; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .rule-box { background: #151515; padding: 18px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #222; }
+        .rule-box strong { color: #fff; display: block; margin-bottom: 5px; }
+        .rule-box p { color: #999; font-size: 0.9rem; }
+
+        .btn-join { 
+            margin-top: 25px; padding: 15px 35px; font-family: 'Orbitron'; 
+            background: transparent; color: var(--primary); border: 2px solid var(--primary); 
+            text-decoration: none; font-weight: bold; transition: 0.3s; display: inline-block;
+        }
+
+        .btn-join:hover { background: var(--primary); color: #000; }
+
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: #444; border-top: 1px solid #111; }
+
+        @media (max-width: 768px) {
+            .dashboard { flex-direction: column; }
+            .sidebar { width: 100%; display: flex; overflow-x: auto; }
+            .tab-btn { white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<nav>
+    <img src="./E.png" alt="" class="nav-logo">
+    <div class="nav-links">
+        <a href="#inicio">INICIO</a>
+        <a href="#normativas">NORMAS</a>
+        <a href="https://tienda.elysiumesrp.com">TIENDA</a>
+    </div>
+</nav>
+
+<section class="hero" id="inicio">
+    <img src="./E.png" alt="" class="main-logo">
+    <h1>Elysium RP</h1>
+    <p style="letter-spacing: 2px; color: #aaa;">IDENTIDAD BINACIONAL</p>
+    <a href="https://discord.gg/zMGPdhPG2f" class="btn-join">ENTRAR AL DISCORD</a>
+</section>
+
+<section class="container">
+    <h2 class="section-title">¿QUIÉNES SOMOS?</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Comunidad</h3>
+            <p>La unión perfecta entre Argentina y España. Rol serio y gran comunidad.</p>
+        </div>
+        <div class="card">
+            <h3>Economía</h3>
+            <p>Sistema balanceado donde el esfuerzo se premia con progreso real.</p>
+        </div>
+        <div class="card">
+            <h3>Soporte</h3>
+            <p>Staff activo para ayudarte en cualquier problema dentro de la ciudad.</p>
+        </div>
+    </div>
+</section>
+
+<section class="container" id="normativas">
+    <h2 class="section-title">REGLAMENTO</h2>
+    <div class="dashboard">
+        <div class="sidebar">
+            <button class="tab-btn active" onclick="openTab(event, 'funda')">FUNDAMENTOS</button>
+            <button class="tab-btn" onclick="openTab(event, 'trans')">GRAVES</button>
+            <button class="tab-btn" onclick="openTab(event, 'viol')">VIOLENCIA</button>
+            <button class="tab-btn" onclick="openTab(event, 'secu')">SECUESTROS</button>
+        </div>
+        <div class="content-area">
+            <div id="funda" class="tab-content active">
+                <h3>Fundamentos</h3>
+                <div class="rule-box">
+                    <strong>In-Character (IC)</strong>
+                    <p>La vida de tu personaje. Todo debe ser coherente con su historia.</p>
+                </div>
+                <div class="rule-box">
+                    <strong>Out-Of-Character (OOC)</strong>
+                    <p>Comunicación de la persona real. Solo por canales técnicos.</p>
+                </div>
+            </div>
+            <div id="trans" class="tab-content">
+                <h3>Faltas Graves</h3>
+                <div class="rule-box">
+                    <strong>MetaGaming (MG)</strong>
+                    <p>Usar info de fuera del juego para beneficio propio.</p>
+                </div>
+                <div class="rule-box">
+                    <strong>Combat Log (CL)</strong>
+                    <p>Desconectarse en mitad de un rol para evitar consecuencias.</p>
+                </div>
+            </div>
+            <div id="viol" class="tab-content">
+                <h3>Violencia</h3>
+                <div class="rule-box">
+                    <strong>DeathMatch (DM)</strong>
+                    <p>Matar sin razón o rol previo. No se permite el gatillo fácil.</p>
+                </div>
+                <div class="rule-box">
+                    <strong>Valorar Vida</strong>
+                    <p>Tu vida es lo más importante. No te arriesgues sin sentido.</p>
+                </div>
+            </div>
+            <div id="secu" class="tab-content">
+                <h3>Secuestros</h3>
+                <div class="rule-box">
+                    <strong>Límites</strong>
+                    <p>Civil: $50.000 | Banda: $150.000 | Policía: $300.000</p>
+                </div>
+                <div class="rule-box">
+                    <strong>EMS</strong>
+                    <p>Prohibido secuestrar médicos en servicio.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 ELYSIUM ROLEPLAY 🇦🇷 🇪🇸</p>
+</footer>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+        }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        document.getElementById(tabName).className += " active";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+</body>
+</html>
