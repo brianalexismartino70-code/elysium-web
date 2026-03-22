@@ -3,161 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elysium Roleplay | La Nueva Frontera</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Elysium RP | Identidad Binacional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00d4ff;
-            --dark: #0a0a0c;
-            --grey: #1a1a1e;
-            --text: #e0e0e0;
+            --secondary: #0055ff;
+            --bg: #050505;
+            --card-bg: #111;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--dark);
-            color: var(--text);
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
         }
 
-        /* Animación del Logo */
-        .logo-container {
-            text-align: center;
-            padding: 100px 20px;
-            background: radial-gradient(circle, rgba(0,212,255,0.1) 0%, rgba(10,10,12,1) 70%);
+        /* --- EFECTO DE FONDO --- */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            z-index: -1;
         }
 
-        #logo-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 80px;
-            font-weight: 700;
-            letter-spacing: 10px;
-            color: var(--primary);
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        /* --- HEADER / NAV --- */
+        nav {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--primary);
         }
 
-        /* Hero Section */
+        .nav-logo {
+            height: 40px;
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+
+        /* --- HERO SECTION --- */
         .hero {
+            height: 90vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 60vh;
+            align-items: center;
             text-align: center;
+            padding: 20px;
         }
 
-        .hero h1 {
+        .main-logo {
+            width: 200px;
+            margin-bottom: 20px;
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { filter: drop-shadow(0 0 10px var(--primary)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 25px var(--secondary)); transform: scale(1.05); }
+        }
+
+        h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
-            text-transform: uppercase;
+            font-size: 3.5rem;
             letter-spacing: 5px;
-            margin-bottom: 30px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .btn-join {
-            padding: 15px 40px;
-            font-size: 18px;
+        /* --- SECCIÓN QUIÉNES SOMOS --- */
+        .about {
+            padding: 100px 10%;
+            background: linear-gradient(180deg, transparent, #0a0a0a);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid #222;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .card h3 {
             font-family: 'Orbitron', sans-serif;
             color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* --- BOTÓN --- */
+        .btn-join {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-family: 'Orbitron', sans-serif;
             background: transparent;
+            color: var(--primary);
             border: 2px solid var(--primary);
-            cursor: pointer;
-            transition: all 0.3s ease;
             text-decoration: none;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+            font-weight: bold;
+            transition: 0.5s;
+            position: relative;
         }
 
         .btn-join:hover {
             background: var(--primary);
-            color: var(--dark);
-            box-shadow: 0 0 30px var(--primary);
-            transform: translateY(-3px);
+            color: black;
+            box-shadow: 0 0 20px var(--primary);
         }
 
-        /* Grid de Sistemas */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 50px;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .card {
-            background: var(--grey);
-            padding: 30px;
-            border-radius: 10px;
-            border-bottom: 3px solid var(--primary);
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card h3 {
-            color: var(--primary);
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .footer {
+        footer {
             text-align: center;
-            padding: 40px;
-            font-size: 12px;
-            color: #555;
+            padding: 50px;
+            font-size: 0.8rem;
+            color: #444;
         }
     </style>
 </head>
 <body>
 
-    <div class="logo-container">
-        <div id="logo-text">EL</div>
-    </div>
+    <div class="stars"></div>
+
+    <nav>
+        <img src="E.png" alt="Elysium Logo" class="nav-logo">
+        <div class="links">
+            <a href="https://tienda.elysiumesrp.com" style="color: var(--primary); text-decoration: none; font-weight: bold;">TIENDA</a>
+        </div>
+    </nav>
 
     <section class="hero">
-        <h1>Identidad Binacional 🇦🇷 🇪🇸</h1>
-        <p>Hardcore Roleplay | Economía Dinámica | Sistemas Exclusivos</p>
-        <br>
+        <img src="E.png" alt="Elysium Logo" class="main-logo">
+        <h1>Elysium RP</h1>
+        <p style="font-size: 1.5rem; letter-spacing: 2px;">IDENTIDAD BINACIONAL </p>
         <a href="https://discord.gg/zMGPdhPG2f" class="btn-join">INGRESAR A LA CIUDAD</a>
     </section>
 
-    <section class="features">
-        <div class="card">
-            <h3>📱 Tecnología ARES</h3>
-            <p>Sistemas de comunicación encriptados y smartphones de última generación con apps funcionales.</p>
-        </div>
-        <div class="card">
-            <h3>🏥 Realismo Médico</h3>
-            <p>Simulación avanzada de heridas y sistema de triaje profesional para una experiencia inmersiva.</p>
-        </div>
-        <div class="card">
-            <h3>💼 Mercado Dinámico</h3>
-            <p>La economía de Elysium fluctúa según la oferta y la demanda de los ciudadanos.</p>
+    <section class="about">
+        <h2 style="text-align: center; font-family: 'Orbitron'; font-size: 2.5rem;">¿QUIÉNES SOMOS?</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Comunidad Unida</h3>
+                <p>Elysium nace de la unión entre Argentina y España. Buscamos el equilibrio perfecto entre un rol serio (Hardcore RP) y una experiencia divertida para el usuario.</p>
+            </div>
+            <div class="card">
+                <h3>Economía Real</h3>
+                <p>Olvídate de los servidores donde todos son millonarios en un día. Aquí cada peso/euro cuenta. Sistema de trabajos legales e ilegales balanceado por expertos.</p>
+            </div>
+            <div class="card">
+                <h3>Staff Activo</h3>
+                <p>Contamos con un equipo de administración presente 24/7 para garantizar que tu experiencia sea libre de anti-rol y hackers.</p>
+            </div>
         </div>
     </section>
 
-    <div class="footer">
-        © 2026 ELYSIUM ROLEPLAY - TODOS LOS DERECHOS RESERVADOS
-    </div>
+    <footer>
+        <p>&copy; 2026 ELYSIUM ROLEPLAY - TODOS LOS DERECHOS RESERVADOS</p>
+    </footer>
 
-    <script>
-        // Animación del Logo: De "EL" a "Elysium"
-        const logo = document.getElementById('logo-text');
-        const fullText = "ELYSIUM";
-        let index = 2; // Empezamos en EL
-
-        function buildLogo() {
-            if (index < fullText.length) {
-                logo.innerText += fullText[index];
-                index++;
-                setTimeout(buildLogo, 150); // Velocidad de escritura
-            }
-        }
-
-        // Inicia la animación después de 1 segundo de carga
-        setTimeout(buildLogo, 1000);
-    </script>
 </body>
 </html>
