@@ -15,56 +15,48 @@
         body { background-color: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
 
         /* Fondo de Partículas */
-        #particles-js {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at bottom, #0a1118 0%, #050505 100%);
-        }
+        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at bottom, #0a1118 0%, #050505 100%); }
 
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--primary); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(5px); }
         .nav-logo { height: 40px; }
         .nav-links a { color: var(--primary); text-decoration: none; font-family: 'Orbitron'; margin-left: 20px; font-size: 0.8rem; font-weight: bold; transition: 0.3s; }
         .nav-links a:hover { text-shadow: 0 0 10px var(--primary); }
 
-        .hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .main-logo { width: 150px; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary)); }
+        .hero { height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .main-logo { width: 140px; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary)); }
         h1 { font-family: 'Orbitron'; font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 5px; }
 
-        .container { padding: 60px 8%; position: relative; z-index: 1; }
-        .section-title { text-align: center; font-family: 'Orbitron'; font-size: 2.2rem; margin-bottom: 50px; text-transform: uppercase; color: #fff; }
-
-        /* Quiénes Somos */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: rgba(17, 17, 17, 0.8); padding: 35px; border-radius: 15px; border: 1px solid #222; backdrop-filter: blur(10px); transition: 0.4s; }
-        .card:hover { border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); }
-        .card h3 { font-family: 'Orbitron'; color: var(--primary); margin-bottom: 15px; }
+        .container { padding: 40px 8%; position: relative; z-index: 1; }
+        .section-title { text-align: center; font-family: 'Orbitron'; font-size: 2.2rem; margin-bottom: 40px; text-transform: uppercase; color: #fff; }
 
         /* Dashboard de Normas */
-        .dashboard { display: flex; background: rgba(10, 10, 10, 0.9); border: 1px solid #222; border-radius: 15px; min-height: 650px; overflow: hidden; backdrop-filter: blur(10px); }
-        .sidebar { width: 300px; background: rgba(17, 17, 17, 0.5); border-right: 1px solid #222; overflow-y: auto; }
-        .tab-btn { width: 100%; padding: 20px 25px; border: none; background: none; color: #555; text-align: left; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; border-left: 4px solid transparent; border-bottom: 1px solid #1a1a1a; transition: 0.3s; }
-        .tab-btn:hover { color: var(--primary); }
+        .dashboard { display: flex; background: rgba(10, 10, 10, 0.9); border: 1px solid #222; border-radius: 15px; height: 800px; overflow: hidden; backdrop-filter: blur(10px); }
+        .sidebar { width: 320px; background: rgba(17, 17, 17, 0.6); border-right: 1px solid #222; overflow-y: auto; scrollbar-width: thin; }
+        .tab-btn { width: 100%; padding: 15px 20px; border: none; background: none; color: #666; text-align: left; cursor: pointer; font-family: 'Orbitron'; font-size: 0.65rem; border-left: 4px solid transparent; border-bottom: 1px solid #1a1a1a; transition: 0.3s; }
+        .tab-btn:hover { color: var(--primary); background: rgba(0, 212, 255, 0.05); }
         .tab-btn.active { color: var(--primary); background: rgba(24, 24, 24, 0.8); border-left-color: var(--primary); }
         
-        .content-area { flex: 1; padding: 45px; overflow-y: auto; max-height: 750px; scrollbar-width: thin; scrollbar-color: var(--primary) #111; }
+        .content-area { flex: 1; padding: 40px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--primary) #111; }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
         
-        /* Efecto Glow en Reglas */
-        .rule-card { background: rgba(21, 21, 21, 0.6); padding: 25px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #252525; transition: 0.3s ease; }
-        .rule-card:hover { border-color: var(--primary); background: rgba(0, 212, 255, 0.05); box-shadow: 0 0 15px rgba(0, 212, 255, 0.1); transform: scale(1.01); }
-        .rule-card strong { display: block; color: var(--primary); margin-bottom: 10px; font-family: 'Orbitron'; border-bottom: 1px solid #222; padding-bottom: 8px; font-size: 1rem; }
-        .rule-card p { color: #ccc; font-size: 0.95rem; line-height: 1.7; text-align: justify; }
+        .rule-card { background: rgba(21, 21, 21, 0.6); padding: 25px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #252525; transition: 0.3s ease; }
+        .rule-card:hover { border-color: var(--primary); background: rgba(0, 212, 255, 0.05); box-shadow: 0 0 15px rgba(0, 212, 255, 0.1); transform: translateY(-2px); }
+        .rule-card strong { display: block; color: var(--primary); margin-bottom: 10px; font-family: 'Orbitron'; border-bottom: 1px solid #333; padding-bottom: 8px; font-size: 0.95rem; }
+        .rule-card p { color: #ccc; font-size: 0.95rem; line-height: 1.7; text-align: justify; white-space: pre-line; }
+        .example { color: #00d4ffaa !important; font-style: italic; margin-top: 10px; display: block; font-size: 0.85rem; }
+
+        /* Estilos de tabla para rescates */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #111; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #222; font-size: 0.9rem; }
+        th { background: var(--primary); color: #000; font-family: 'Orbitron'; font-size: 0.7rem; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 900px) {
-            .dashboard { flex-direction: column; }
-            .sidebar { width: 100%; display: flex; overflow-x: auto; border-right: none; border-bottom: 1px solid #222; }
+            .dashboard { flex-direction: column; height: auto; }
+            .sidebar { width: 100%; display: flex; overflow-x: auto; height: auto; }
             .tab-btn { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; }
-            .tab-btn.active { border-bottom: 3px solid var(--primary); }
         }
     </style>
 </head>
@@ -77,7 +69,7 @@
         <div class="nav-links">
             <a href="#inicio">INICIO</a>
             <a href="#quienes-somos">NOSOTROS</a>
-            <a href="#reglas">NORMATIVAS</a>
+            <a href="#reglas">REGLAMENTO</a>
             <a href="https://tienda.elysiumesrp.com" target="_blank">TIENDA</a>
         </div>
     </nav>
@@ -88,74 +80,130 @@
         <p style="color: var(--primary); letter-spacing: 5px; font-weight: bold;">IDENTIDAD BINACIONAL</p>
     </section>
 
-    <section class="container" id="quienes-somos">
-        <h2 class="section-title">¿Quiénes Somos?</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Identidad Binacional</h3>
-                <p>Elysium RP une a las comunidades de Argentina y España en un entorno único con sistemas personalizados y un staff comprometido.</p>
-            </div>
-            <div class="card">
-                <h3>Experiencia Hardcore</h3>
-                <p>Nuestra normativa está diseñada para aquellos que buscan profundidad narrativa. Aquí, cada acción tiene una consecuencia real.</p>
+    <section class="container" id="quienes-somos" style="padding-top: 0;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div style="background: rgba(17,17,17,0.8); padding: 30px; border-radius: 15px; border: 1px solid #222; backdrop-filter: blur(10px);">
+                <h3 style="font-family: 'Orbitron'; color: var(--primary); margin-bottom: 10px;">¿Quiénes Somos?</h3>
+                <p style="color: #aaa; line-height: 1.6;">Un servidor nacido de la unión entre Argentina y España, enfocado en el realismo y la profundidad narrativa. Aquí tu historia importa.</p>
             </div>
         </div>
     </section>
 
     <section class="container" id="reglas">
-        <h2 class="section-title">Reglamento General</h2>
+        <h2 class="section-title">Normativa Oficial</h2>
         <div class="dashboard">
             <div class="sidebar">
                 <button class="tab-btn active" onclick="openTab(event, 't1')">I. FUNDAMENTOS</button>
                 <button class="tab-btn" onclick="openTab(event, 't2')">II. TRANSGRESIONES</button>
                 <button class="tab-btn" onclick="openTab(event, 't3')">III. VIOLENCIA</button>
+                <button class="tab-btn" onclick="openTab(event, 't4')">IV. MEMORIA</button>
+                <button class="tab-btn" onclick="event, openTab(event, 't5')">V. COMANDOS</button>
+                <button class="tab-btn" onclick="openTab(event, 't6')">VI. ZONAS SEGURAS</button>
                 <button class="tab-btn" onclick="openTab(event, 't7')">VII. IDENTIDAD</button>
+                <button class="tab-btn" onclick="openTab(event, 't8')">VIII. COMUNICACIÓN</button>
+                <button class="tab-btn" onclick="openTab(event, 't9')">IX. SECUESTROS</button>
+                <button class="tab-btn" onclick="openTab(event, 't10')">X. DEUDAS</button>
+                <button class="tab-btn" onclick="openTab(event, 't11')">XI. ABUSOS</button>
             </div>
 
             <div class="content-area">
                 <div id="t1" class="tab-content active">
                     <div class="rule-card">
                         <strong>Art. 1.1 – In-Character (IC)</strong>
-                        <p>Es todo lo que concierne a la vida de tu personaje. Incluye canales de Discord como Instagram, Mercado Libre, Inmobiliaria y Deep Web.</p>
+                        <p>Es todo lo que concierne a la vida, acciones y palabras de tu personaje dentro del entorno virtual. La interpretación debe ser constante y coherente con su historia.</p>
                     </div>
                     <div class="rule-card">
                         <strong>Art. 1.2 – Out-Of-Character (OOC)</strong>
-                        <p>Todas las acciones que ocurren de forma ajena a nuestro personaje en el entorno de la ciudad y fuera del juego.</p>
+                        <p>Es la comunicación o acción de la persona real detrás de la pantalla. El uso de canales OOC (chat local /b o Discord) debe ser excepcional y técnico.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>Art. 1.3 - Actitud Anti-Rol (AA)</strong>
+                        <p>Se define como Actitud Anti-Rol a toda acción, comentario o comportamiento que ignore deliberadamente las bases de la interpretación, busque arruinar la experiencia de otros usuarios o demuestre un desinterés total por la narrativa del servidor.</p>
                     </div>
                 </div>
 
                 <div id="t2" class="tab-content">
                     <div class="rule-card">
                         <strong>Art. 2.1 – MetaGaming (MG)</strong>
-                        <p>El uso de información de fuera del juego dentro del mismo para obtener beneficio. Está prohibido y conlleva una sanción.</p>
+                        <p>Adquisición de información fuera del juego (Discord, directos, mensajes privados) para ser utilizada en beneficio del personaje dentro de la ciudad.</p>
+                        <span class="example">Ejemplo: Ir a una ubicación de una banda porque lo viste en un stream.</span>
                     </div>
                     <div class="rule-card">
                         <strong>Art. 2.2 – PowerGaming (PG)</strong>
-                        <p>Hacer cosas imposibles en la vida real o forzar el rol de otro jugador sin darle posibilidad a reaccionar.</p>
+                        <p>Realizar acciones que superan las capacidades físicas humanas o las leyes de la física. También incluye forzar un rol sobre otro jugador sin darle opción a defenderse o reaccionar por /do.</p>
+                        <span class="example">Ejemplo: Conducir un deportivo por una montaña o levantar un coche con las manos.</span>
+                    </div>
+                    <div class="rule-card">
+                        <strong>Art. 2.3 – Bunny Jump (BJ)</strong>
+                        <p>El acto de saltar repetidamente mientras se corre para ganar velocidad. Queda estrictamente prohibido.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>Art. 2.4 – Combat Log (CL)</strong>
+                        <p>Desconectarse del servidor o forzar un "crash" durante una situación de rol activa para evitar las consecuencias.</p>
                     </div>
                 </div>
 
                 <div id="t3" class="tab-content">
                     <div class="rule-card">
                         <strong>Art. 3.1 – DeathMatch (DM)</strong>
-                        <p>Agredir o matar a otros jugadores sin motivo de rol aparente o previo. Está prohibido.</p>
+                        <p>Agredir o causar la muerte a otro ciudadano sin que exista una interacción de rol previa. El "gatillo fácil" será motivo de expulsión inmediata.</p>
                     </div>
                     <div class="rule-card">
-                        <strong>Art. 3.2 – Vehicle DeathMatch (VDM)</strong>
-                        <p>Matar o atacar a otro jugador usando un vehículo como arma. Conlleva sanción grave.</p>
+                        <strong>Art. 3.4 – Valoración de Existencia (VE)</strong>
+                        <p>Obligación de priorizar la integridad física del personaje sobre cualquier bien material. Si tienes un arma apuntándote a la cabeza, tu única opción lógica es la rendición.</p>
+                    </div>
+                </div>
+
+                <div id="t6" class="tab-content">
+                    <div class="rule-card">
+                        <strong>Art. 6.1 – Perímetro de Seguridad</strong>
+                        <p>6.1.1: Hospitales y centros de salud.
+                        6.1.2: Comisarías y centros judiciales.
+                        6.1.3: Garajes centrales y puntos de aparición inicial.</p>
                     </div>
                 </div>
 
                 <div id="t7" class="tab-content">
                     <div class="rule-card">
                         <strong>Art. 7.1 – Registro de Identidad</strong>
-                        <p>Prohibido el uso de nombres famosos, personajes de ficción o nombres obscenos.</p>
+                        <p>7.1.1: No se permiten nombres obscenos o satíricos.
+                        7.1.2: Prohibido nombres de famosos o personajes de ficción (Messi, Montana, etc).
+                        7.1.3: No se permiten apodos o nicks de internet.</p>
                     </div>
                     <div class="rule-card">
-                        <strong>Art. 7.3 – Estética</strong>
-                        <p>Prohibido el uso de prendas invisibles (Bug Abuse) o circular con máscaras sin motivo de rol.</p>
+                        <strong>Art. 7.3 – Vestimenta</strong>
+                        <p>7.3.1: Prendas invisibles se consideran Bug Abuse.
+                        7.3.2: Máscaras solo en situaciones de rol ilegal; circular con ellas es motivo de detención policial.</p>
                     </div>
                 </div>
+
+                <div id="t9" class="tab-content">
+                    <div class="rule-card">
+                        <strong>Art. 9.1 – Secuestros</strong>
+                        <p>9.1.1: Requiere mínimo de 4 oficiales de LSPD.
+                        9.1.2: Debe existir motivación previa (deudas, guerra de bandas).</p>
+                    </div>
+                    <h3 style="font-family: 'Orbitron'; font-size: 0.8rem; color: var(--primary);">LÍMITES DE RESCATE</h3>
+                    <table>
+                        <thead>
+                            <tr><th>Tipo de Víctima</th><th>Rescate Máx</th><th>Tiempo Máx</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Civil Común</td><td>$50.000</td><td>20 Min</td></tr>
+                            <tr><td>Miembro de Banda</td><td>$150.000</td><td>40 Min</td></tr>
+                            <tr><td>Oficial de Policía</td><td>$300.000</td><td>45 Min</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="t11" class="tab-content">
+                    <div class="rule-card">
+                        <strong>Art. 11.2 – Abuso de Scripts</strong>
+                        <p>11.2.2: Prohibido usar comandos o binds para cancelar animaciones de curación, recarga o reparación.</p>
+                    </div>
+                </div>
+                
+                <p style="text-align:center; font-size: 0.7rem; color: #444;">El resto de normativas detalladas se encuentran en el PDF oficial de Elysium.</p>
             </div>
         </div>
     </section>
@@ -169,29 +217,8 @@
                 "shape": { "type": "circle" },
                 "opacity": { "value": 0.4, "random": true },
                 "size": { "value": 3, "random": true },
-                "move": { "enable": true, "speed": 1.5, "direction": "top", "random": true, "straight": false, "out_mode": "out" }
+                "move": { "enable": true, "speed": 1.5, "direction": "top", "random": true, "out_mode": "out" }
             },
             "interactivity": {
                 "events": { "onhover": { "enable": true, "mode": "bubble" } },
-                "modes": { "bubble": { "size": 5, "distance": 200, "duration": 2, "opacity": 0.8, "speed": 3 } }
-            }
-        });
-
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) { 
-                tabcontent[i].style.display = "none"; 
-                tabcontent[i].classList.remove("active");
-            }
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) { 
-                tablinks[i].classList.remove("active"); 
-            }
-            document.getElementById(tabName).style.display = "block";
-            setTimeout(() => { document.getElementById(tabName).classList.add("active"); }, 10);
-            evt.currentTarget.classList.add("active");
-        }
-    </script>
-</body>
-</html>
+                "modes": { "bubble": { "size": 5
