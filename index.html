@@ -22,7 +22,6 @@
             overflow-x: hidden;
         }
 
-        /* --- EFECTO DE FONDO --- */
         .stars {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -30,7 +29,6 @@
             z-index: -1;
         }
 
-        /* --- HEADER / NAV --- */
         nav {
             padding: 20px 5%;
             display: flex;
@@ -48,9 +46,8 @@
             filter: drop-shadow(0 0 5px var(--primary));
         }
 
-        /* --- HERO SECTION --- */
         .hero {
-            height: 90vh;
+            height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -60,7 +57,7 @@
         }
 
         .main-logo {
-            width: 200px;
+            width: 220px;
             margin-bottom: 20px;
             animation: pulse 3s infinite ease-in-out;
         }
@@ -80,27 +77,23 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- SECCIÓN QUIÉNES SOMOS --- */
         .about {
-            padding: 100px 10%;
-            background: linear-gradient(180deg, transparent, #0a0a0a);
+            padding: 60px 10%;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
-            margin-top: 50px;
+            margin-top: 40px;
         }
 
         .card {
             background: var(--card-bg);
-            padding: 40px;
+            padding: 30px;
             border-radius: 15px;
             border: 1px solid #222;
             transition: 0.4s;
-            position: relative;
-            overflow: hidden;
         }
 
         .card:hover {
@@ -115,8 +108,8 @@
             margin-bottom: 15px;
         }
 
-        /* --- BOTÓN --- */
         .btn-join {
+            display: inline-block;
             margin-top: 30px;
             padding: 15px 40px;
             font-family: 'Orbitron', sans-serif;
@@ -126,7 +119,6 @@
             text-decoration: none;
             font-weight: bold;
             transition: 0.5s;
-            position: relative;
         }
 
         .btn-join:hover {
@@ -137,7 +129,7 @@
 
         footer {
             text-align: center;
-            padding: 50px;
+            padding: 40px;
             font-size: 0.8rem;
             color: #444;
         }
@@ -148,40 +140,28 @@
     <div class="stars"></div>
 
     <nav>
-        <img src="E.png" alt="Elysium Logo" class="nav-logo">
+        <img src="E.png" alt="" class="nav-logo">
         <div class="links">
-            <a href="https://tienda.elysiumesrp.com" style="color: var(--primary); text-decoration: none; font-weight: bold;">TIENDA</a>
+            <a href="https://tienda.elysiumesrp.com" style="color: var(--primary); text-decoration: none; font-weight: bold; font-family: 'Orbitron';">TIENDA</a>
         </div>
     </nav>
 
     <section class="hero">
-        <img src="E.png" alt="Elysium Logo" class="main-logo">
+        <img src="E.png" alt="" class="main-logo">
         <h1>Elysium RP</h1>
-        <p style="font-size: 1.5rem; letter-spacing: 2px;">IDENTIDAD BINACIONAL </p>
+        <p style="font-size: 1.5rem; letter-spacing: 2px;">IDENTIDAD BINACIONAL 🇦🇷 🇪🇸</p>
         <a href="https://discord.gg/zMGPdhPG2f" class="btn-join">INGRESAR A LA CIUDAD</a>
     </section>
 
     <section class="about">
-        <h2 style="text-align: center; font-family: 'Orbitron'; font-size: 2.5rem;">¿QUIÉNES SOMOS?</h2>
+        <h2 style="text-align: center; font-family: 'Orbitron'; font-size: 2.2rem;">¿QUIÉNES SOMOS?</h2>
         <div class="grid">
             <div class="card">
                 <h3>Comunidad Unida</h3>
-                <p>Elysium nace de la unión entre Argentina y España. Buscamos el equilibrio perfecto entre un rol serio (Hardcore RP) y una experiencia divertida para el usuario.</p>
+                <p>Elysium nace de la unión entre Argentina y España. Buscamos el equilibrio perfecto entre Hardcore RP y diversión.</p>
             </div>
             <div class="card">
-                <h3>Economía Real</h3>
-                <p>Olvídate de los servidores donde todos son millonarios en un día. Aquí cada peso/euro cuenta. Sistema de trabajos legales e ilegales balanceado por expertos.</p>
+                <h3>Economía Dinámica</h3>
+                <p>Sistema balanceado donde el esfuerzo tiene recompensa. Trabajos legales e ilegales con sistemas exclusivos.</p>
             </div>
             <div class="card">
-                <h3>Staff Activo</h3>
-                <p>Contamos con un equipo de administración presente 24/7 para garantizar que tu experiencia sea libre de anti-rol y hackers.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 ELYSIUM ROLEPLAY - TODOS LOS DERECHOS RESERVADOS</p>
-    </footer>
-
-</body>
-</html>
