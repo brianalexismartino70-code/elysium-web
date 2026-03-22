@@ -25,7 +25,8 @@
 
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--primary); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(5px); }
         .nav-logo { height: 40px; }
-        .nav-links a { color: var(--primary); text-decoration: none; font-family: 'Orbitron'; margin-left: 20px; font-size: 0.8rem; font-weight: bold; }
+        .nav-links a { color: var(--primary); text-decoration: none; font-family: 'Orbitron'; margin-left: 20px; font-size: 0.8rem; font-weight: bold; transition: 0.3s; }
+        .nav-links a:hover { text-shadow: 0 0 10px var(--primary); }
 
         .hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .main-logo { width: 150px; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary)); }
@@ -36,18 +37,161 @@
 
         /* Quiénes Somos */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: rgba(17, 17, 17, 0.8); padding: 35px; border-radius: 15px; border: 1px solid #222; backdrop-filter: blur(10px); }
+        .card { background: rgba(17, 17, 17, 0.8); padding: 35px; border-radius: 15px; border: 1px solid #222; backdrop-filter: blur(10px); transition: 0.4s; }
+        .card:hover { border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); }
         .card h3 { font-family: 'Orbitron'; color: var(--primary); margin-bottom: 15px; }
 
         /* Dashboard de Normas */
-        .dashboard { display: flex; background: rgba(10, 10, 10, 0.9); border: 1px solid #222; border-radius: 15px; min-height: 600px; overflow: hidden; backdrop-filter: blur(10px); }
+        .dashboard { display: flex; background: rgba(10, 10, 10, 0.9); border: 1px solid #222; border-radius: 15px; min-height: 650px; overflow: hidden; backdrop-filter: blur(10px); }
         .sidebar { width: 300px; background: rgba(17, 17, 17, 0.5); border-right: 1px solid #222; overflow-y: auto; }
-        .tab-btn { width: 100%; padding: 20px 25px; border: none; background: none; color: #555; text-align: left; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; border-left: 4px solid transparent; border-bottom: 1px solid #1a1a1a; }
+        .tab-btn { width: 100%; padding: 20px 25px; border: none; background: none; color: #555; text-align: left; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; border-left: 4px solid transparent; border-bottom: 1px solid #1a1a1a; transition: 0.3s; }
+        .tab-btn:hover { color: var(--primary); }
         .tab-btn.active { color: var(--primary); background: rgba(24, 24, 24, 0.8); border-left-color: var(--primary); }
         
-        .content-area { flex: 1; padding: 45px; overflow-y: auto; max-height: 750px; }
+        .content-area { flex: 1; padding: 45px; overflow-y: auto; max-height: 750px; scrollbar-width: thin; scrollbar-color: var(--primary) #111; }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
         
-        .rule-card { background: rgba(21, 21, 21, 0.6); padding: 25px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #252525; }
-        .rule-card strong { display: block; color: var(--primary); margin-bottom: 10px; font-family:
+        /* Efecto Glow en Reglas */
+        .rule-card { background: rgba(21, 21, 21, 0.6); padding: 25px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #252525; transition: 0.3s ease; }
+        .rule-card:hover { border-color: var(--primary); background: rgba(0, 212, 255, 0.05); box-shadow: 0 0 15px rgba(0, 212, 255, 0.1); transform: scale(1.01); }
+        .rule-card strong { display: block; color: var(--primary); margin-bottom: 10px; font-family: 'Orbitron'; border-bottom: 1px solid #222; padding-bottom: 8px; font-size: 1rem; }
+        .rule-card p { color: #ccc; font-size: 0.95rem; line-height: 1.7; text-align: justify; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) {
+            .dashboard { flex-direction: column; }
+            .sidebar { width: 100%; display: flex; overflow-x: auto; border-right: none; border-bottom: 1px solid #222; }
+            .tab-btn { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; }
+            .tab-btn.active { border-bottom: 3px solid var(--primary); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <nav>
+        <img src="E.png" alt="Logo" class="nav-logo">
+        <div class="nav-links">
+            <a href="#inicio">INICIO</a>
+            <a href="#quienes-somos">NOSOTROS</a>
+            <a href="#reglas">NORMATIVAS</a>
+            <a href="https://tienda.elysiumesrp.com" target="_blank">TIENDA</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="inicio">
+        <img src="E.png" alt="Elysium Logo" class="main-logo">
+        <h1>ELYSIUM RP</h1>
+        <p style="color: var(--primary); letter-spacing: 5px; font-weight: bold;">IDENTIDAD BINACIONAL</p>
+    </section>
+
+    <section class="container" id="quienes-somos">
+        <h2 class="section-title">¿Quiénes Somos?</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Identidad Binacional</h3>
+                <p>Elysium RP une a las comunidades de Argentina y España en un entorno único con sistemas personalizados y un staff comprometido.</p>
+            </div>
+            <div class="card">
+                <h3>Experiencia Hardcore</h3>
+                <p>Nuestra normativa está diseñada para aquellos que buscan profundidad narrativa. Aquí, cada acción tiene una consecuencia real.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="reglas">
+        <h2 class="section-title">Reglamento General</h2>
+        <div class="dashboard">
+            <div class="sidebar">
+                <button class="tab-btn active" onclick="openTab(event, 't1')">I. FUNDAMENTOS</button>
+                <button class="tab-btn" onclick="openTab(event, 't2')">II. TRANSGRESIONES</button>
+                <button class="tab-btn" onclick="openTab(event, 't3')">III. VIOLENCIA</button>
+                <button class="tab-btn" onclick="openTab(event, 't7')">VII. IDENTIDAD</button>
+            </div>
+
+            <div class="content-area">
+                <div id="t1" class="tab-content active">
+                    <div class="rule-card">
+                        <strong>Art. 1.1 – In-Character (IC)</strong>
+                        <p>Es todo lo que concierne a la vida de tu personaje. Incluye canales de Discord como Instagram, Mercado Libre, Inmobiliaria y Deep Web.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>Art. 1.2 – Out-Of-Character (OOC)</strong>
+                        <p>Todas las acciones que ocurren de forma ajena a nuestro personaje en el entorno de la ciudad y fuera del juego.</p>
+                    </div>
+                </div>
+
+                <div id="t2" class="tab-content">
+                    <div class="rule-card">
+                        <strong>Art. 2.1 – MetaGaming (MG)</strong>
+                        <p>El uso de información de fuera del juego dentro del mismo para obtener beneficio. Está prohibido y conlleva una sanción.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>Art. 2.2 – PowerGaming (PG)</strong>
+                        <p>Hacer cosas imposibles en la vida real o forzar el rol de otro jugador sin darle posibilidad a reaccionar.</p>
+                    </div>
+                </div>
+
+                <div id="t3" class="tab-content">
+                    <div class="rule-card">
+                        <strong>Art. 3.1 – DeathMatch (DM)</strong>
+                        <p>Agredir o matar a otros jugadores sin motivo de rol aparente o previo. Está prohibido.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>Art. 3.2 – Vehicle DeathMatch (VDM)</strong>
+                        <p>Matar o atacar a otro jugador usando un vehículo como arma. Conlleva sanción grave.</p>
+                    </div>
+                </div>
+
+                <div id="t7" class="tab-content">
+                    <div class="rule-card">
+                        <strong>Art. 7.1 – Registro de Identidad</strong>
+                        <p>Prohibido el uso de nombres famosos, personajes de ficción o nombres obscenos.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>Art. 7.3 – Estética</strong>
+                        <p>Prohibido el uso de prendas invisibles (Bug Abuse) o circular con máscaras sin motivo de rol.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 110, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.4, "random": true },
+                "size": { "value": 3, "random": true },
+                "move": { "enable": true, "speed": 1.5, "direction": "top", "random": true, "straight": false, "out_mode": "out" }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "bubble" } },
+                "modes": { "bubble": { "size": 5, "distance": 200, "duration": 2, "opacity": 0.8, "speed": 3 } }
+            }
+        });
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) { 
+                tabcontent[i].style.display = "none"; 
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) { 
+                tablinks[i].classList.remove("active"); 
+            }
+            document.getElementById(tabName).style.display = "block";
+            setTimeout(() => { document.getElementById(tabName).classList.add("active"); }, 10);
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
