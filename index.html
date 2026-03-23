@@ -523,6 +523,54 @@
             setTimeout(() => { targetTab.classList.add("active"); }, 10);
             evt.currentTarget.classList.add("active");
         }
+        // =========================================
+    // ESTADO DEL SERVIDOR - CONEXIÓN API FIVEM
+    // =========================================
+    
+    // ATENCIÓN: Reemplaza 'XXXXXX' con el código Cfx.re de Elysium (el que está al final de tu link de conexión)
+    const cfxCode = '89pryv'; 
+    
+    const playerCountElement = document.getElementById('player-count');
+    const statusIndicator = document.getElementById('status-dot');
+
+    async function fetchServerStatus() {
+        if (!playerCountElement || !statusIndicator) return;
+
+        try {
+            const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${cfxCode}`);
+            
+            if (!response.ok) throw new Error('Servidor inalcanzable');
+            
+            const data = await response.json();
+            const players = data.Data.clients;
+            const maxPlayers = data.Data.sv_maxclients;
+            
+            // Actualiza el texto con los jugadores reales
+            playerCountElement.textContent = `Jugadores: ${players} / ${maxPlayers}`;
+            
+            // Asegura que brille en Cyan si está Online
+            statusIndicator.style.backgroundColor = 'var(--primary)'; 
+            statusIndicator.style.boxShadow = '0 0 12px var(--primary)';
+            statusIndicator.style.animation = 'pulseNeon 1.5s infinite';
+            
+        } catch (error) {
+            console.error('Elysium offline o error de API:', error);
+            
+            // Estado Offline / Mantenimiento
+            playerCountElement.textContent = 'Servidor en Mantenimiento';
+            statusIndicator.style.backgroundColor = '#ff3333'; // Rojo
+            statusIndicator.style.boxShadow = '0 0 12px #ff3333';
+            statusIndicator.style.animation = 'none'; // Detiene el parpadeo
+        }
+    }
+
+    // Llama a la función al instante y luego cada 60 segundos
+    fetchServerStatus();
+    setInterval(fetchServerStatus, 60000);
+
+</script>
+</body>
+</html>
     </script>
 </body>
 </html>
