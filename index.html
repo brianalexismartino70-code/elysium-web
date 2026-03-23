@@ -1019,6 +1019,27 @@
         // Marcador 3: Benny's Motorworks
         L.marker([1250, 2350], {icon: iconMech}).addTo(map)
             .bindPopup('<b>Taller Mecánico</b><br>Reparaciones y tuning de vehículos.');
+        // =========================================
+        // HERRAMIENTA DE ADMIN: OBTENER COORDENADAS
+        // =========================================
+        // Crea un popup interactivo
+        const popupCoordenadas = L.popup();
+
+        // Función que se dispara al hacer clic en el mapa
+        function mostrarCoordenadas(e) {
+            const lat = Math.round(e.latlng.lat);
+            const lng = Math.round(e.latlng.lng);
+            
+            popupCoordenadas
+                .setLatLng(e.latlng)
+                .setContent(`📍 Coordenadas exactas:<br><b style="color: #00d4ff; font-size: 16px;">[${lat}, ${lng}]</b><br><br><small>Copia estos números para crear tu marcador.</small>`)
+                .openOn(map);
+            
+            console.log(`L.marker([${lat}, ${lng}], {icon: iconTuIcono}).addTo(map).bindPopup('<b>Nuevo Lugar</b>');`);
+        }
+
+        // Activamos el detector de clics en el mapa
+        map.on('click', mostrarCoordenadas);
     });
         // =========================================
     // FLUCTUACIÓN ALEATORIA (Bolsa de Valores)
