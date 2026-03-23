@@ -990,7 +990,8 @@
         
         // 3. Cargamos la imagen satelital de GTA V (URL directa de alta calidad)
         // NOTA: Más adelante puedes descargar esta imagen y subirla a tu propio GitHub
-        const image = L.imageOverlay('https://i.imgur.com/vB1k5k2.jpeg', bounds).addTo(map);
+        // Reemplazamos el link de Imgur por tu imagen local
+        const image = L.imageOverlay('mapa-gta.jpg', bounds).addTo(map);
         
         // 4. Centramos la cámara al cargar
         map.fitBounds(bounds);
