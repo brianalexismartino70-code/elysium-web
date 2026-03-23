@@ -54,7 +54,7 @@
         /* CAPAS SUPERIORES */
         nav, .hero, .container { position: relative; z-index: 10; }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(0,0,0,0.7); border-bottom: 1px solid rgba(0, 212, 255, 0.3); position: sticky; top: 0; backdrop-filter: blur(15px); box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(0,0,0,0.7); border-bottom: 1px solid rgba(0, 212, 255, 0.3); position: sticky; top: 0; backdrop-filter: blur(15px); box-shadow: 0 4px 30px rgba(0,0,0,0.5); z-index: 999; }
         .nav-logo { height: 45px; transition: transform 0.3s; }
         .nav-logo:hover { transform: scale(1.1); }
         .nav-links a { color: var(--primary); text-decoration: none; font-family: 'Orbitron'; margin-left: 25px; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px; transition: 0.3s; position: relative; }
@@ -566,132 +566,100 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         if(window.particlesJS) {
-            particlesJS("particles-js", {
-                "particles": {
-                    "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
-                    "color": { "value": "#00d4ff" },
-                    "shape": { "type": "circle" },
-                    "opacity": { "value": 0.5, "random": false },
-                    "size": { "value": 2, "random": true },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#00d4ff",
-                        "opacity": 0.2,
-                        "width": 1
-                    },
-                    "move": { 
-                        "enable": true, "speed": 1.5, "direction": "none", 
-                        "random": true, "out_mode": "out", "bounce": false
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": { 
-                        "onhover": { "enable": true, "mode": "grab" },
-                        "onclick": { "enable": true, "mode": "push" }
-                    },
-                    "modes": { 
-                        "grab": { "distance": 200, "line_linked": { "opacity": 0.5 } },
-                        "push": { "particles_nb": 4 }
-                    }
-                },
-                "retina_detect": true
-            });
-        }
+// 1. PARTICULAS DE FONDO (MAGIA BLANCA/NEÓN)
+    particlesJS("particles-js", {
+        "particles": {
+            "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#00d4ff" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.5, "random": false },
+            "size": { "value": 2, "random": true },
+            "line_linked": { "enable": true, "distance": 150, "color": "#00d4ff", "opacity": 0.2, "width": 1 },
+            "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "out_mode": "out", "bounce": false }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
+            "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.5 } }, "push": { "particles_nb": 4 } }
+        },
+        "retina_detect": true
+    });
 
-        // CONTROLADOR DE PESTAÑAS
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            var targetTab = document.getElementById(tabName);
-            
-            if (!targetTab) return; 
-
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) { 
-                tabcontent[i].style.display = "none"; 
-                tabcontent[i].classList.remove("active");
-            }
-            
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) { 
-                tablinks[i].classList.remove("active"); 
-            }
-            
-            targetTab.style.display = "block";
-            setTimeout(() => { targetTab.classList.add("active"); }, 10);
-            evt.currentTarget.classList.add("active");
+    // 2. SISTEMA DE PESTAÑAS PARA LAS REGLAS
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        var targetTab = document.getElementById(tabName);
+        if (!targetTab) return;
+        
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            tabcontent[i].classList.remove("active");
         }
-        // =========================================
-    // ESTADO DEL SERVIDOR - CONEXIÓN API FIVEM
-    // =========================================
-    
-    // ATENCIÓN: Reemplaza 'XXXXXX' con el código Cfx.re de Elysium (el que está al final de tu link de conexión)
-<a href="fivem://connect/cfx.re/join/89pryv" class="btn-neon" onclick="gtag('event', 'click_entrar_ciudad', {
-  'event_category': 'Interaccion',
-  'event_label': 'Boton_Conectar_Principal'
-});">Entrar a la Ciudad</a>
+        
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        
+        targetTab.style.display = "block";
+        setTimeout(() => { targetTab.classList.add("active"); }, 10);
+        evt.currentTarget.classList.add("active");
+    }
+
+    // 3. ESTADO DEL SERVIDOR EN VIVO (API)
+    // ATENCIÓN: Recuerda reemplazar las 'XXXXXX' con el código Cfx de Elysium
+    const cfxCode = '89pryv'; 
+    const playerCountElement = document.getElementById('player-count');
+    const statusIndicator = document.getElementById('status-dot');
 
     async function fetchServerStatus() {
         if (!playerCountElement || !statusIndicator) return;
-
         try {
             const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${cfxCode}`);
-            
             if (!response.ok) throw new Error('Servidor inalcanzable');
-            
             const data = await response.json();
             const players = data.Data.clients;
             const maxPlayers = data.Data.sv_maxclients;
             
-            // Actualiza el texto con los jugadores reales
             playerCountElement.textContent = `Jugadores: ${players} / ${maxPlayers}`;
-            
-            // Asegura que brille en Cyan si está Online
             statusIndicator.style.backgroundColor = 'var(--primary)'; 
             statusIndicator.style.boxShadow = '0 0 12px var(--primary)';
             statusIndicator.style.animation = 'pulseNeon 1.5s infinite';
-            
         } catch (error) {
-            console.error('Elysium offline o error de API:', error);
-            
-            // Estado Offline / Mantenimiento
+            console.error('Error al contactar el servidor:', error);
             playerCountElement.textContent = 'Servidor en Mantenimiento';
-            statusIndicator.style.backgroundColor = '#ff3333'; // Rojo
+            statusIndicator.style.backgroundColor = '#ff3333'; 
             statusIndicator.style.boxShadow = '0 0 12px #ff3333';
-            statusIndicator.style.animation = 'none'; // Detiene el parpadeo
+            statusIndicator.style.animation = 'none'; 
         }
     }
 
-    // Llama a la función al instante y luego cada 60 segundos
-    fetchServerStatus();
-    setInterval(fetchServerStatus, 60000);
-// =========================================
-    // MAGIA VISUAL - APARICIÓN AL HACER SCROLL
-    // =========================================
-    
-    // Creamos un observador que vigila cuándo las tarjetas entran en la pantalla
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                // Le damos un pequeño retraso en cascada a cada tarjeta
-                const delay = Array.from(document.querySelectorAll('.about-card')).indexOf(entry.target) * 150;
-                
-                setTimeout(() => {
-                    entry.target.classList.add('visible');
-                }, delay);
-                
-                // Dejamos de observar la tarjeta una vez que ya apareció
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.2 // Se activa cuando el 20% de la tarjeta es visible
-    });
+    // 4. ANIMACIÓN DE "QUIÉNES SOMOS" AL HACER SCROLL
+    document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    // Calculamos un retraso para que aparezcan en cascada
+                    const allCards = Array.from(document.querySelectorAll('.about-card'));
+                    const delay = allCards.indexOf(entry.target) * 150;
+                    
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay);
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
 
-    // Le decimos al observador que vigile todas las tarjetas
-    document.querySelectorAll('.about-card').forEach((card) => {
-        observer.observe(card);
+        document.querySelectorAll('.about-card').forEach((card) => {
+            observer.observe(card);
+        });
+
+        // Inicia el contador de jugadores apenas carga la página
+        fetchServerStatus();
+        setInterval(fetchServerStatus, 60000);
     });
 </script>
 </body>
