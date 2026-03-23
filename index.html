@@ -874,6 +874,76 @@
 @keyframes pulseLogo { from { transform: scale(1); text-shadow: 0 0 10px var(--primary); } to { transform: scale(1.1); text-shadow: 0 0 30px var(--primary), 0 0 50px var(--primary); } }
 @keyframes fillBar { 0% { width: 0%; } 50% { width: 70%; } 100% { width: 100%; } }
 @keyframes blinkText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        /* =========================================
+   ESTILOS DE LA TERMINAL DARK WEB
+   ========================================= */
+/* El botón invisible flotando en la esquina inferior derecha */
+#hacker-trigger {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    color: rgba(255, 255, 255, 0.05); /* Casi invisible */
+    cursor: crosshair;
+    z-index: 9999;
+    font-size: 10px;
+}
+
+#dark-terminal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background: #000;
+    color: #00ff41;
+    font-family: 'Courier New', Courier, monospace;
+    z-index: 999999;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+#dark-terminal.oculto {
+    display: none !important;
+}
+
+.terminal-header {
+    border-bottom: 1px dashed #00ff41;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.btn-cerrar-terminal {
+    background: none; border: none; color: #ff3333; cursor: pointer;
+    font-family: 'Courier New', Courier, monospace; font-weight: bold;
+}
+.btn-cerrar-terminal:hover { background: #ff3333; color: #000; }
+
+#terminal-output {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+#terminal-output p { margin: 5px 0; }
+
+.comando-resaltado { color: #fff; font-weight: bold; }
+.respuesta-error { color: #ff3333; }
+.respuesta-secreta { color: #00d4ff; text-shadow: 0 0 5px #00d4ff; }
+
+.terminal-input-line { display: flex; align-items: center; }
+.prompt { margin-right: 10px; color: #00ff41; font-weight: bold; }
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    color: #00ff41;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    flex-grow: 1;
+    outline: none;
+}
     </style>   
 </head>
 <body>
@@ -1535,7 +1605,80 @@
         // Limpiamos el input
         document.getElementById('char-name').value = "";
     }
+        // =========================================
+    // LÓGICA DE LA TERMINAL DARK WEB
+    // =========================================
+    const terminal = document.getElementById('dark-terminal');
+    const inputTerminal = document.getElementById('terminal-input');
+    const outputTerminal = document.getElementById('terminal-output');
+
+    function abrirTerminal() {
+        terminal.classList.remove('oculto');
+        setTimeout(() => inputTerminal.focus(), 100);
+    }
+
+    function cerrarTerminal() {
+        terminal.classList.add('oculto');
+        inputTerminal.value = '';
+    }
+
+    inputTerminal.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            const comando = inputTerminal.value.trim().toLowerCase();
+            if (comando !== "") {
+                procesarComando(comando);
+            }
+            inputTerminal.value = ''; // Limpia el input
+            outputTerminal.scrollTop = outputTerminal.scrollHeight; // Auto-scroll hacia abajo
+        }
+    });
+
+    function procesarComando(cmd) {
+        // Imprime lo que el usuario escribió
+        outputTerminal.innerHTML += `<p><span class="prompt">root@elysium:~#</span> ${cmd}</p>`;
+
+        // Lógica de los comandos
+        switch (cmd) {
+            case 'ayuda':
+                outputTerminal.innerHTML += `<p>Comandos disponibles: <span class="comando-resaltado">info, limpiar, reglas_mafia, salir</span></p>`;
+                break;
+            case 'info':
+                outputTerminal.innerHTML += `<p>ELYSIUM NETWORK. Encriptación nivel 4. Ningún rastro es guardado.</p>`;
+                break;
+            case 'limpiar':
+                outputTerminal.innerHTML = '';
+                break;
+            case 'salir':
+                cerrarTerminal();
+                break;
+            case 'reglas_mafia':
+                outputTerminal.innerHTML += `<p class="respuesta-secreta">>> ACCESO CLASIFICADO << <br>La lealtad no se compra, se demuestra. <br>Si buscas armas pesadas, habla con 'El Ruso' en el muelle a las 02:00 AM IC.</p>`;
+                break;
+            case 'latam':
+                outputTerminal.innerHTML += `<p class="respuesta-secreta">Iniciando protocolo LATAM RP... Redireccionando a proyecto base... Error 404: Fronteras no encontradas.</p>`;
+                break;
+            default:
+                outputTerminal.innerHTML += `<p class="respuesta-error">Comando no reconocido: ${cmd}. Escribe 'ayuda'.</p>`;
+        }
+    }
 </script>
+    <div id="hacker-trigger" onclick="abrirTerminal()" title="No hay nada que ver aquí...">.</div>
+
+<div id="dark-terminal" class="oculto">
+    <div class="terminal-header">
+        <span>ELYSIUM_OS v1.0.4 - ACCESO NO AUTORIZADO</span>
+        <button onclick="cerrarTerminal()" class="btn-cerrar-terminal">[X] DESCONECTAR</button>
+    </div>
+    <div id="terminal-output">
+        <p>Conexión segura establecida...</p>
+        <p>Bienvenido a la red paralela de Los Santos.</p>
+        <p>Escribe <span class="comando-resaltado">ayuda</span> para ver los comandos disponibles.</p>
+    </div>
+    <div class="terminal-input-line">
+        <span class="prompt">root@elysium:~#</span>
+        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
+    </div>
+</div>
 </body>
 </html>
     </script>
