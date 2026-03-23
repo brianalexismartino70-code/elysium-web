@@ -109,6 +109,37 @@
             position: relative;
             overflow: hidden;
         }
+        /* =========================================
+   QUIÉNES SOMOS - EFECTO SCROLL MÁGICO
+   ========================================= */
+.about-card {
+    background: var(--card-glass);
+    padding: 35px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    
+    /* Preparación para la magia del Scroll */
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+/* Esta clase se agregará automáticamente con JavaScript al hacer scroll */
+.about-card.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Efecto Hover potenciado (cuando el usuario pasa el ratón) */
+.about-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--primary);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 212, 255, 0.1);
+    z-index: 2;
+}
         .about-card::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(0,212,255,0.1) 0%, transparent 70%);
@@ -635,7 +666,33 @@
     // Llama a la función al instante y luego cada 60 segundos
     fetchServerStatus();
     setInterval(fetchServerStatus, 60000);
+// =========================================
+    // MAGIA VISUAL - APARICIÓN AL HACER SCROLL
+    // =========================================
+    
+    // Creamos un observador que vigila cuándo las tarjetas entran en la pantalla
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                // Le damos un pequeño retraso en cascada a cada tarjeta
+                const delay = Array.from(document.querySelectorAll('.about-card')).indexOf(entry.target) * 150;
+                
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, delay);
+                
+                // Dejamos de observar la tarjeta una vez que ya apareció
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2 // Se activa cuando el 20% de la tarjeta es visible
+    });
 
+    // Le decimos al observador que vigile todas las tarjetas
+    document.querySelectorAll('.about-card').forEach((card) => {
+        observer.observe(card);
+    });
 </script>
 </body>
 </html>
