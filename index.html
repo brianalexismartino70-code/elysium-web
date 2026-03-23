@@ -1009,23 +1009,21 @@
         const iconMech = L.divIcon({ className: 'custom-pin', html: '🔧', iconSize: [30, 30] });
 
         // Marcador 1: Comisaría Mission Row
-        L.marker([1480, 2217], {icon: iconLSPD}).addTo(map)
+        L.marker([998, 2018], {icon: iconLSPD}).addTo(map)
             .bindPopup('<b>LSPD Mission Row</b><br>Sede central de la policía de Los Santos.');
 
         // Marcador 2: Hospital Pillbox
-        L.marker([1568, 2030], {icon: iconEMS}).addTo(map)
+        L.marker([1134, 1972], {icon: iconEMS}).addTo(map)
             .bindPopup('<b>Pillbox Medical</b><br>Centro de atención médica principal.');
 
         // Marcador 3: Benny's Motorworks
         L.marker([1250, 2350], {icon: iconMech}).addTo(map)
             .bindPopup('<b>Taller Mecánico</b><br>Reparaciones y tuning de vehículos.');
-        // =========================================
-        // HERRAMIENTA DE ADMIN: OBTENER COORDENADAS
-        // =========================================
-        // Crea un popup interactivo
+/* =========================================
+           HERRAMIENTA DE ADMIN: OBTENER COORDENADAS (DESACTIVADA)
+           ========================================= 
         const popupCoordenadas = L.popup();
 
-        // Función que se dispara al hacer clic en el mapa
         function mostrarCoordenadas(e) {
             const lat = Math.round(e.latlng.lat);
             const lng = Math.round(e.latlng.lng);
@@ -1038,8 +1036,8 @@
             console.log(`L.marker([${lat}, ${lng}], {icon: iconTuIcono}).addTo(map).bindPopup('<b>Nuevo Lugar</b>');`);
         }
 
-        // Activamos el detector de clics en el mapa
         map.on('click', mostrarCoordenadas);
+        ========================================= */
     });
         // =========================================
     // FLUCTUACIÓN ALEATORIA (Bolsa de Valores)
