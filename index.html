@@ -686,9 +686,78 @@
 #mapa {
     display: none !important;
 }
+        /* =========================================
+   PRELOADER CINEMÁTICO ESTILO FIVEM
+   ========================================= */
+#cinematic-preloader {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background: #05080c; /* Fondo oscuro sólido */
+    z-index: 99999; /* Por encima de absolutamente todo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+/* Esta clase se agregará con JS para desaparecer la pantalla */
+#cinematic-preloader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.preloader-content { text-align: center; }
+
+.preloader-logo {
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    font-size: 5rem;
+    margin: 0 0 20px 0;
+    text-shadow: 0 0 20px var(--primary);
+    animation: pulseLogo 1.5s infinite alternate;
+}
+
+.preloader-bar {
+    width: 250px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 0 auto 15px auto;
+    overflow: hidden;
+}
+
+.preloader-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+    animation: fillBar 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.preloader-text {
+    font-family: 'Rajdhani', sans-serif;
+    color: #00d4ff;
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+    animation: blinkText 1s infinite;
+}
+
+/* Las Animaciones */
+@keyframes pulseLogo { from { transform: scale(1); text-shadow: 0 0 10px var(--primary); } to { transform: scale(1.1); text-shadow: 0 0 30px var(--primary), 0 0 50px var(--primary); } }
+@keyframes fillBar { 0% { width: 0%; } 50% { width: 70%; } 100% { width: 100%; } }
+@keyframes blinkText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
     </style>   
 </head>
 <body>
+    <div id="cinematic-preloader">
+        <div class="preloader-content">
+            <h1 class="preloader-logo">E</h1>
+            <div class="preloader-bar">
+                <div class="preloader-fill"></div>
+            </div>
+            <p class="preloader-text">ESTABLECIENDO CONEXIÓN...</p>
+        </div>
+    </div>
 
     <div id="particles-js"></div>
 
@@ -1275,6 +1344,15 @@
             // Inyectamos el nuevo porcentaje en el HTML
             span.textContent = `(${sign}${randomPercent}%)`;
         });
+    });
+        // =========================================
+    // CONTROL DEL PRELOADER CINEMÁTICO
+    // =========================================
+    window.addEventListener('load', () => {
+        // Le damos unos 1.5 segundos extra para que se aprecie la animación de la barra
+        setTimeout(() => {
+            document.getElementById('cinematic-preloader').classList.add('fade-out');
+        }, 1500);
     });
 </script>
 </body>
