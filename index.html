@@ -1011,6 +1011,24 @@
         L.marker([1250, 2350], {icon: iconMech}).addTo(map)
             .bindPopup('<b>Taller Mecánico</b><br>Reparaciones y tuning de vehículos.');
     });
+        // =========================================
+    // FLUCTUACIÓN ALEATORIA (Bolsa de Valores)
+    // =========================================
+    document.addEventListener("DOMContentLoaded", () => {
+        // Seleccionamos todos los porcentajes verdes (up) y rojos (down)
+        const economySpans = document.querySelectorAll('.ticker-track .up, .ticker-track .down');
+        
+        economySpans.forEach(span => {
+            // Generamos un número aleatorio entre 1 y 9
+            const randomPercent = Math.floor(Math.random() * 9) + 1;
+            
+            // Respetamos si es una subida (+) o bajada (-) según su clase original
+            const sign = span.classList.contains('up') ? '+' : '-';
+            
+            // Inyectamos el nuevo porcentaje en el HTML
+            span.textContent = `(${sign}${randomPercent}%)`;
+        });
+    });
 </script>
 </body>
 </html>
