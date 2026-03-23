@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Reemplaza G-XXXXXXXXXX con tu ID de Medición real de Analytics
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
     <title>Elysium RP | Sin Fronteras</title>
     
     <link rel="icon" type="image/png" href="E.png">
@@ -137,6 +146,65 @@
         .rule-card strong { display: inline-block; color: var(--primary); margin-bottom: 15px; font-family: 'Orbitron'; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; font-size: 1.1rem; letter-spacing: 0.5px; }
         .rule-card p { color: #ccd6f6; font-size: 1rem; line-height: 1.7; text-align: justify; }
         .rule-card i { color: #a8b2d1; font-size: 0.9rem; display: block; margin-top: 10px; padding-left: 15px; border-left: 2px solid rgba(0,212,255,0.4); }
+        /* =========================================
+   TARJETAS DE NORMATIVAS - EFECTO CASCADA Y NEÓN
+   ========================================= */
+.rule-card {
+    background: rgba(15, 20, 25, 0.5);
+    padding: 25px 30px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    opacity: 0; /* Lo ocultamos inicialmente para la animación */
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+/* El borde de color a la izquierda */
+.rule-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--primary);
+    border-radius: 15px 0 0 15px;
+    opacity: 0.7;
+    transition: 0.3s ease;
+}
+
+/* Efecto hover al pasar el ratón */
+.rule-card:hover {
+    background: rgba(0, 212, 255, 0.05);
+    border-color: rgba(0, 212, 255, 0.3);
+    transform: translateX(5px) translateY(0) !important; /* Movimiento sutil a la derecha */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.rule-card:hover::before {
+    opacity: 1;
+    box-shadow: 0 0 15px var(--primary);
+}
+
+/* Animación en cascada cuando la pestaña está activa */
+.tab-content.active .rule-card {
+    animation: slideUpFadeCard 0.5s ease forwards;
+}
+
+/* Retrasos escalonados para que caigan una tras otra */
+.tab-content.active .rule-card:nth-child(1) { animation-delay: 0.1s; }
+.tab-content.active .rule-card:nth-child(2) { animation-delay: 0.2s; }
+.tab-content.active .rule-card:nth-child(3) { animation-delay: 0.3s; }
+.tab-content.active .rule-card:nth-child(4) { animation-delay: 0.4s; }
+.tab-content.active .rule-card:nth-child(5) { animation-delay: 0.5s; }
+
+/* El Keyframe para las tarjetas */
+@keyframes slideUpFadeCard {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
         
         table { width: 100%; border-collapse: collapse; margin-top: 25px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
         th, td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; color: #ccd6f6; }
