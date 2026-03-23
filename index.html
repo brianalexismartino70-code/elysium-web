@@ -1605,62 +1605,73 @@
         // Limpiamos el input
         document.getElementById('char-name').value = "";
     }
-        // =========================================
-    // LÓGICA DE LA TERMINAL DARK WEB
+// =========================================
+    // LÓGICA DE LA TERMINAL DARK WEB (VERSIÓN BLINDADA)
     // =========================================
-    const terminal = document.getElementById('dark-terminal');
-    const inputTerminal = document.getElementById('terminal-input');
-    const outputTerminal = document.getElementById('terminal-output');
+    
+    // 1. Funciones globales (Para que el HTML las encuentre siempre)
+    window.abrirTerminal = function() {
+        const terminal = document.getElementById('dark-terminal');
+        const inputTerminal = document.getElementById('terminal-input');
+        if (terminal) {
+            terminal.classList.remove('oculto');
+            // Espera un milisegundo y pone el cursor listo para escribir
+            setTimeout(() => { if(inputTerminal) inputTerminal.focus(); }, 100);
+        }
+    };
 
-    function abrirTerminal() {
-        terminal.classList.remove('oculto');
-        setTimeout(() => inputTerminal.focus(), 100);
-    }
+    window.cerrarTerminal = function() {
+        const terminal = document.getElementById('dark-terminal');
+        const inputTerminal = document.getElementById('terminal-input');
+        if (terminal) terminal.classList.add('oculto');
+        if (inputTerminal) inputTerminal.value = '';
+    };
 
-    function cerrarTerminal() {
-        terminal.classList.add('oculto');
-        inputTerminal.value = '';
-    }
+    // 2. Lógica interna de los comandos
+    document.addEventListener("DOMContentLoaded", () => {
+        const inputTerminal = document.getElementById('terminal-input');
+        const outputTerminal = document.getElementById('terminal-output');
 
-    inputTerminal.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            const comando = inputTerminal.value.trim().toLowerCase();
-            if (comando !== "") {
-                procesarComando(comando);
+        if (inputTerminal) {
+            inputTerminal.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    const comando = inputTerminal.value.trim().toLowerCase();
+                    if (comando !== "") {
+                        procesarComando(comando, outputTerminal);
+                    }
+                    inputTerminal.value = ''; // Limpia lo que escribiste
+                    outputTerminal.scrollTop = outputTerminal.scrollHeight; // Auto-scroll
+                }
+            });
+        }
+
+        function procesarComando(cmd, output) {
+            output.innerHTML += `<p><span class="prompt">root@elysium:~#</span> ${cmd}</p>`;
+            
+            switch (cmd) {
+                case 'ayuda':
+                    output.innerHTML += `<p>Comandos disponibles: <span class="comando-resaltado">info, limpiar, reglas_mafia, salir</span></p>`;
+                    break;
+                case 'info':
+                    output.innerHTML += `<p>ELYSIUM NETWORK. Encriptación nivel 4. Ningún rastro es guardado.</p>`;
+                    break;
+                case 'limpiar':
+                    output.innerHTML = '';
+                    break;
+                case 'salir':
+                    window.cerrarTerminal();
+                    break;
+                case 'reglas_mafia':
+                    output.innerHTML += `<p class="respuesta-secreta">>> ACCESO CLASIFICADO << <br>La lealtad no se compra, se demuestra. <br>Si buscas armas pesadas, habla con 'El Ruso' en el muelle a las 02:00 AM IC.</p>`;
+                    break;
+                case 'latam':
+                    output.innerHTML += `<p class="respuesta-secreta">Iniciando protocolo LATAM RP... Redireccionando a proyecto base... Error 404: Fronteras no encontradas.</p>`;
+                    break;
+                default:
+                    output.innerHTML += `<p class="respuesta-error">Comando no reconocido: ${cmd}. Escribe 'ayuda'.</p>`;
             }
-            inputTerminal.value = ''; // Limpia el input
-            outputTerminal.scrollTop = outputTerminal.scrollHeight; // Auto-scroll hacia abajo
         }
     });
-
-    function procesarComando(cmd) {
-        // Imprime lo que el usuario escribió
-        outputTerminal.innerHTML += `<p><span class="prompt">root@elysium:~#</span> ${cmd}</p>`;
-
-        // Lógica de los comandos
-        switch (cmd) {
-            case 'ayuda':
-                outputTerminal.innerHTML += `<p>Comandos disponibles: <span class="comando-resaltado">info, limpiar, reglas_mafia, salir</span></p>`;
-                break;
-            case 'info':
-                outputTerminal.innerHTML += `<p>ELYSIUM NETWORK. Encriptación nivel 4. Ningún rastro es guardado.</p>`;
-                break;
-            case 'limpiar':
-                outputTerminal.innerHTML = '';
-                break;
-            case 'salir':
-                cerrarTerminal();
-                break;
-            case 'reglas_mafia':
-                outputTerminal.innerHTML += `<p class="respuesta-secreta">>> ACCESO CLASIFICADO << <br>La lealtad no se compra, se demuestra. <br>Si buscas armas pesadas, habla con 'El Ruso' en el muelle a las 02:00 AM IC.</p>`;
-                break;
-            case 'latam':
-                outputTerminal.innerHTML += `<p class="respuesta-secreta">Iniciando protocolo LATAM RP... Redireccionando a proyecto base... Error 404: Fronteras no encontradas.</p>`;
-                break;
-            default:
-                outputTerminal.innerHTML += `<p class="respuesta-error">Comando no reconocido: ${cmd}. Escribe 'ayuda'.</p>`;
-        }
-    }
 </script>
     <div id="hacker-trigger" onclick="abrirTerminal()" title="No hay nada que ver aquí...">.</div>
 
