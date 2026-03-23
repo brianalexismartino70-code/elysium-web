@@ -447,6 +447,53 @@
 }
 .leaflet-popup-tip { background: var(--primary); }
 .leaflet-popup-content b { color: var(--primary); font-family: 'Orbitron', sans-serif; }
+        /* =========================================
+   TICKER DE ECONOMÍA (Bolsa de Valores IC)
+   ========================================= */
+.economy-ticker {
+    width: 100%;
+    background: rgba(5, 8, 12, 0.95);
+    border-bottom: 1px solid var(--primary);
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    z-index: 9998; /* Un punto por debajo de la nav principal */
+    padding: 10px 0;
+    margin-top: 76px; /* Empuja el ticker hacia abajo para que no quede oculto detrás de la nav fija */
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.1);
+}
+
+.ticker-track {
+    display: inline-block;
+    /* 25s es la velocidad. Si quieres que vaya más rápido, bájalo a 15s */
+    animation: scrollTicker 25s linear infinite;
+}
+
+/* Magia: Si el usuario pasa el ratón, la cinta se detiene para que pueda leer */
+.economy-ticker:hover .ticker-track {
+    animation-play-state: paused;
+    cursor: default;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 40px;
+    letter-spacing: 1px;
+}
+
+/* Colores para las subidas y bajadas de la economía */
+.ticker-item .up { color: #00ffcc; text-shadow: 0 0 5px rgba(0, 255, 204, 0.5); margin-left: 5px; }
+.ticker-item .down { color: #ff3333; text-shadow: 0 0 5px rgba(255, 51, 51, 0.5); margin-left: 5px; }
+
+/* La animación que hace que todo se mueva hacia la izquierda */
+@keyframes scrollTicker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } 
+}
     </style>   
 </head>
 <body>
@@ -462,6 +509,23 @@
             <a href="https://tienda.elysiumesrp.com" target="_blank">TIENDA</a>
         </div>
     </nav>
+    <div class="economy-ticker">
+    <div class="ticker-track">
+        <span class="ticker-item">📈 Pan: $15 <span class="up">(+2%)</span></span>
+        <span class="ticker-item">📉 Oro: $1,200 <span class="down">(-5%)</span></span>
+        <span class="ticker-item">🚗 Impuestos de Vehículos: 12%</span>
+        <span class="ticker-item">💰 Multa Exceso Velocidad: $500</span>
+        <span class="ticker-item">🏢 Alquiler Centro: $2,500/semana</span>
+        <span class="ticker-item">⛽ Gasolina: $5/litro <span class="up">(+1%)</span></span>
+        
+        <span class="ticker-item">📈 Pan: $15 <span class="up">(+2%)</span></span>
+        <span class="ticker-item">📉 Oro: $1,200 <span class="down">(-5%)</span></span>
+        <span class="ticker-item">🚗 Impuestos de Vehículos: 12%</span>
+        <span class="ticker-item">💰 Multa Exceso Velocidad: $500</span>
+        <span class="ticker-item">🏢 Alquiler Centro: $2,500/semana</span>
+        <span class="ticker-item">⛽ Gasolina: $5/litro <span class="up">(+1%)</span></span>
+    </div>
+</div>
 
  <section class="hero" id="inicio">
     <img src="E.png" alt="Elysium Logo" class="main-logo">
