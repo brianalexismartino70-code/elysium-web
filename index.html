@@ -19,6 +19,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
     <style>
         :root { 
@@ -404,7 +407,46 @@
 
 /* Color de los puntitos de abajo */
 .swiper-pagination-bullet { background: rgba(255,255,255,0.5); }
-.swiper-pagination-bullet-active { background: var(--primary) !important; box-shadow: 0 0 10px var(--primary); }       
+.swiper-pagination-bullet-active { background: var(--primary) !important; box-shadow: 0 0 10px var(--primary); } 
+        /* =========================================
+   MAPA INTERACTIVO DE LOS SANTOS
+   ========================================= */
+.map-container {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    margin-bottom: 50px;
+}
+
+#gta-map {
+    width: 100%;
+    height: 600px; /* Altura del mapa */
+    border-radius: 15px;
+    background-color: #0fa8d2; /* Color del océano de fondo */
+    z-index: 1; /* Para que no se ponga encima del menú de navegación */
+}
+
+/* Estilo para los iconos/pines del mapa */
+.custom-pin {
+    font-size: 28px;
+    filter: drop-shadow(0 0 8px var(--primary));
+    text-align: center;
+    line-height: 1;
+}
+
+/* Estilo para las ventanitas (Popups) al hacer clic en un pin */
+.leaflet-popup-content-wrapper {
+    background: rgba(15, 20, 25, 0.95);
+    color: white;
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    font-family: 'Rajdhani', sans-serif;
+}
+.leaflet-popup-tip { background: var(--primary); }
+.leaflet-popup-content b { color: var(--primary); font-family: 'Orbitron', sans-serif; }
     </style>   
 </head>
 <body>
@@ -469,6 +511,16 @@
             
         </div>
         <div class="swiper-pagination"></div>
+    </div>
+</section>
+    <section class="container" id="mapa">
+    <h2 class="section-title">Mapa de Los Santos</h2>
+    <p style="text-align: center; color: #a8b2d1; margin-bottom: 30px; font-family: 'Rajdhani', sans-serif;">
+        Explora la ciudad, descubre las zonas seguras y ubica los puntos de interés antes de tu vuelo a Elysium.
+    </p>
+    
+    <div class="map-container glass-effect">
+        <div id="gta-map"></div>
     </div>
 </section>
 
@@ -854,6 +906,47 @@
             });
         }, 500);
     });   
+        // =========================================
+    // MOTOR DEL MAPA INTERACTIVO (LEAFLET)
+    // =========================================
+    document.addEventListener("DOMContentLoaded", () => {
+        // 1. Configuramos el mapa para que use una imagen plana (CRS.Simple)
+        const map = L.map('gta-map', {
+            crs: L.CRS.Simple,
+            minZoom: -1.5,
+            maxZoom: 2,
+            zoomControl: true
+        });
+
+        // 2. Definimos las dimensiones del mapa (4096x4096px es el estándar de GTA V)
+        const bounds = [[0, 0], [4096, 4096]];
+        
+        // 3. Cargamos la imagen satelital de GTA V (URL directa de alta calidad)
+        // NOTA: Más adelante puedes descargar esta imagen y subirla a tu propio GitHub
+        const image = L.imageOverlay('https://i.imgur.com/vB1k5k2.jpeg', bounds).addTo(map);
+        
+        // 4. Centramos la cámara al cargar
+        map.fitBounds(bounds);
+        map.setView([2048, 2048], -1); // Centro de la ciudad
+
+        // 5. CREACIÓN DE PINES (Marcadores)
+        // Convertimos simples emojis en pines interactivos iluminados
+        const iconLSPD = L.divIcon({ className: 'custom-pin', html: '🚓', iconSize: [30, 30] });
+        const iconEMS = L.divIcon({ className: 'custom-pin', html: '🚑', iconSize: [30, 30] });
+        const iconMech = L.divIcon({ className: 'custom-pin', html: '🔧', iconSize: [30, 30] });
+
+        // Marcador 1: Comisaría Mission Row
+        L.marker([1450, 2200], {icon: iconLSPD}).addTo(map)
+            .bindPopup('<b>LSPD Mission Row</b><br>Sede central de la policía de Los Santos.');
+
+        // Marcador 2: Hospital Pillbox
+        L.marker([1550, 2050], {icon: iconEMS}).addTo(map)
+            .bindPopup('<b>Pillbox Medical</b><br>Centro de atención médica principal.');
+
+        // Marcador 3: Benny's Motorworks
+        L.marker([1250, 2350], {icon: iconMech}).addTo(map)
+            .bindPopup('<b>Taller Mecánico</b><br>Reparaciones y tuning de vehículos.');
+    });
 </script>
 </body>
 </html>
