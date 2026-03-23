@@ -24,6 +24,134 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
     <style>
+        /* =========================================
+   ADUANA Y VISADOS (Boarding Pass)
+   ========================================= */
+.visa-generator {
+    max-width: 600px;
+    margin: 0 auto 50px auto;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.visa-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#char-name {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    width: 250px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#char-name:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+}
+
+/* La tarjeta oculta por defecto */
+.hidden-visa {
+    display: none !important;
+}
+
+.visa-card {
+    background: linear-gradient(135deg, rgba(15,20,25,0.9), rgba(5,8,12,0.9));
+    border: 1px solid var(--primary);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: left;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0, 212, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    animation: slideDownVisa 0.5s ease forwards;
+}
+
+.visa-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed rgba(255,255,255,0.2);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-family: 'Orbitron', sans-serif;
+    color: #a8b2d1;
+    font-size: 0.8rem;
+}
+
+.visa-body {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.visa-photo {
+    font-size: 4rem;
+    background: rgba(255,255,255,0.05);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.visa-info label {
+    font-size: 0.7rem;
+    color: #6a7491;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.visa-info h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 5px 0 15px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.approved {
+    color: #00ffcc;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.visa-stamp {
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    border: 2px solid #ff3333;
+    color: #ff3333;
+    padding: 5px 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transform: rotate(-15deg);
+    opacity: 0.7;
+}
+
+.visa-barcode {
+    font-family: monospace;
+    font-size: 2rem;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    margin-top: 15px;
+    letter-spacing: -2px;
+}
+
+@keyframes slideDownVisa {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
         :root { 
             --primary: #00d4ff; 
             --primary-glow: rgba(0, 212, 255, 0.6);
@@ -1061,6 +1189,37 @@
             </div>
         </div>
     </section>
+    <section class="container" id="aduana">
+    <h2 class="section-title">Aduana de Los Santos</h2>
+    <p style="text-align: center; color: #a8b2d1; margin-bottom: 30px; font-family: 'Rajdhani', sans-serif;">
+        Prepara tu documentación. Genera tu Boarding Pass oficial y compártelo en la comunidad.
+    </p>
+    
+    <div class="visa-generator glass-effect">
+        <div class="visa-controls">
+            <input type="text" id="char-name" placeholder="Nombre y Apellido del Personaje" maxlength="25">
+            <button class="btn-neon" onclick="generateVisa()">Emitir Pase</button>
+        </div>
+        
+        <div id="visa-card" class="visa-card hidden-visa">
+            <div class="visa-header">
+                <span>VUELO: ELY-2026</span>
+                <span>DESTINO: LOS SANTOS</span>
+            </div>
+            <div class="visa-body">
+                <div class="visa-photo">👤</div>
+                <div class="visa-info">
+                    <label>PASAJERO / CIUDADANO:</label>
+                    <h3 id="display-name">---</h3>
+                    <label>ESTADO MIGRATORIO:</label>
+                    <p class="approved">ACCESO APROBADO</p>
+                </div>
+                <div class="visa-stamp">ELYSIUM<br>BORDER PATROL</div>
+            </div>
+            <div class="visa-barcode">||| | || ||| || | ||| || || | |||</div>
+        </div>
+    </div>
+</section>
     <footer class="site-footer">
     <div class="footer-container">
         
@@ -1354,6 +1513,28 @@
             document.getElementById('cinematic-preloader').classList.add('fade-out');
         }, 1500);
     });
+        // =========================================
+    // LÓGICA DEL GENERADOR DE VISADOS
+    // =========================================
+    function generateVisa() {
+        const inputName = document.getElementById('char-name').value.trim();
+        const visaCard = document.getElementById('visa-card');
+        const displayName = document.getElementById('display-name');
+
+        if (inputName === "") {
+            alert("⚠️ Por favor, ingresa el nombre de tu personaje para emitir el visado.");
+            return;
+        }
+
+        // Inyectamos el nombre en la tarjeta
+        displayName.textContent = inputName;
+        
+        // Removemos la clase que oculta la tarjeta para que aparezca con la animación
+        visaCard.classList.remove('hidden-visa');
+        
+        // Limpiamos el input
+        document.getElementById('char-name').value = "";
+    }
 </script>
 </body>
 </html>
