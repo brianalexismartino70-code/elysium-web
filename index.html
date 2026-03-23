@@ -459,14 +459,19 @@
     border-bottom: 1px solid var(--primary);
     color: #fff;
     font-family: 'Rajdhani', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
+    
+    /* 1. Lo hacemos más pequeño y fino */
+    font-size: 0.85rem; 
+    padding: 6px 0; 
+    
+    /* 2. Ajustamos la posición */
+    margin-top: 60px; /* Se pega justo debajo de tu barra de navegación */
+    margin-bottom: 40px; /* Obliga al logo principal a bajar para que no se pisen */
+    
     overflow: hidden;
     white-space: nowrap;
     position: relative;
-    z-index: 9998; /* Un punto por debajo de la nav principal */
-    padding: 10px 0;
-    margin-top: 76px; /* Empuja el ticker hacia abajo para que no quede oculto detrás de la nav fija */
+    z-index: 9998; 
     box-shadow: 0 4px 15px rgba(0, 212, 255, 0.1);
 }
 
