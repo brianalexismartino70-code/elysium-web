@@ -1476,6 +1476,90 @@
         </div>
     </section>
 <section class="container" id="aduana">
+    <section class="container" id="aduana">
+    
+    <div class="particles-container">
+        <div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div>
+    </div>
+
+    <div class="aduana-header-container">
+        ```
+
+### 2. El CSS (El Blur y la animación)
+Ve a tu bloque `<style>`. Vas a **borrar únicamente la regla de `#aduana`** que tenías antes (la que tenía el `background: linear-gradient...`) y en su lugar vas a pegar todo este bloque nuevo. 
+
+*(Nota: Fíjate que ahora dividimos el aduana en dos partes, el contenedor y un `::before` que es el que recibe el desenfoque).*
+
+```css
+/* =========================================
+   EFECTOS ÉPICOS: ADUANA, BLUR Y PARTÍCULAS
+   ========================================= */
+#aduana {
+    position: relative;
+    padding: 60px 20px;
+    border-radius: 20px;
+    margin-top: 50px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    overflow: hidden; /* Fundamental: evita que el desenfoque y las luces se salgan de la caja */
+}
+
+/* LA CAPA DEL FONDO DESENFOCADO (Blur) */
+#aduana::before {
+    content: '';
+    position: absolute;
+    /* Lo hacemos un poco más grande para que los bordes del blur no se vean feos */
+    top: -15px; left: -15px; right: -15px; bottom: -15px; 
+    /* Tu fondo oscuro + la imagen de la LSPD */
+    background: linear-gradient(to bottom, rgba(5,8,12,0.9) 0%, rgba(5,8,12,0.5) 50%, rgba(5,8,12,0.9) 100%), url('fondo-lspd.webp') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed; /* Efecto ventana 3D */
+    filter: blur(6px); /* Aquí controlas qué tan borroso es (6px es ideal) */
+    z-index: 0;
+}
+
+/* Obligamos al contenido (textos y tarjeta) a estar por encima del fondo borroso */
+.aduana-header-container, .visa-generator {
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================================
+   SISTEMA DE LUCECITAS FLOTANTES (BOKEH)
+   ========================================= */
+.particles-container {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1; /* Por encima del fondo, por debajo del texto */
+    pointer-events: none; /* Para que no estorben si haces clic */
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5); /* Color blanco semitransparente */
+    border-radius: 50%;
+    filter: blur(4px); /* Las luces también están desenfocadas */
+    animation: floatUp 15s linear infinite; /* Suben infinitamente */
+    bottom: -50px; /* Nacen desde abajo de la caja */
+}
+
+/* Configuramos 6 partículas en distintas posiciones y velocidades */
+.particle:nth-child(1) { width: 25px; height: 25px; left: 15%; animation-duration: 12s; animation-delay: 0s; }
+.particle:nth-child(2) { width: 15px; height: 15px; left: 35%; animation-duration: 18s; animation-delay: 2s; }
+.particle:nth-child(3) { width: 35px; height: 35px; left: 55%; animation-duration: 14s; animation-delay: 5s; }
+.particle:nth-child(4) { width: 20px; height: 20px; left: 75%; animation-duration: 20s; animation-delay: 1s; }
+.particle:nth-child(5) { width: 30px; height: 30px; left: 85%; animation-duration: 16s; animation-delay: 4s; }
+.particle:nth-child(6) { width: 10px; height: 10px; left: 95%; animation-duration: 11s; animation-delay: 3s; }
+
+/* El motor que las hace subir y desvanecerse */
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(-600px) scale(1.5); opacity: 0; }
+}
     
     <div class="aduana-header-container">
         
