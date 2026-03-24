@@ -20,6 +20,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
@@ -690,27 +692,38 @@
 .highlight-link { color: #00d4ff !important; font-weight: bold; }
 
 /* Estilos de la Columna 3 (Redes Sociales) */
-.social-links { display: flex; flex-direction: column; gap: 10px; }
-.social-btn {
-    display: inline-block;
-    padding: 8px 15px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
+/* Estilos de la Columna 3 (Redes Sociales Verticales y Centradas) */
+.social-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el título y los íconos */
+}
+
+.social-icons-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio vertical entre cada logo */
+    align-items: center;
+    margin-top: 10px;
+}
+
+.social-icon {
+    color: #a8b2d1;
+    font-size: 1.8rem; /* Tamaño de los logos */
     text-decoration: none;
-    border-radius: 5px;
     transition: all 0.3s ease;
-    text-align: center;
-    width: fit-content;
 }
-.social-btn:hover {
-    background: rgba(0, 212, 255, 0.1);
-    border-color: var(--primary);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
-    transform: translateY(-2px);
+
+/* Efectos de neón individuales al pasar el ratón */
+.social-icon.discord:hover { color: #5865F2; text-shadow: 0 0 15px rgba(88, 101, 242, 0.6); transform: scale(1.1); }
+.social-icon.tiktok:hover { color: #fff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.6); transform: scale(1.1); }
+.social-icon.instagram:hover { color: #E1306C; text-shadow: 0 0 15px rgba(225, 48, 108, 0.6); transform: scale(1.1); }
+.social-icon.youtube:hover { color: #FF0000; text-shadow: 0 0 15px rgba(255, 0, 0, 0.6); transform: scale(1.1); }
+
+/* Ajuste para celulares */
+@media (max-width: 768px) {
+    .social-icons-vertical { flex-direction: row; justify-content: center; } /* En celular se ponen horizontales para ahorrar espacio */
 }
-.discord-btn { border-color: rgba(88, 101, 242, 0.5); }
-.discord-btn:hover { background: #5865F2; border-color: #5865F2; box-shadow: 0 0 15px rgba(88, 101, 242, 0.4); }
 
 /* Copyright */
 .footer-bottom { text-align: center; padding-top: 20px; font-size: 0.9rem; color: #6a7491; }
@@ -1446,13 +1459,13 @@
             </ul>
         </div>
 
-        <div class="footer-col social-col">
+<div class="footer-col social-col">
             <h3>Comunidad</h3>
-            <div class="social-links">
-                <a href="https://discord.gg/4mTVJhu3gx" target="_blank" class="social-btn discord-btn">Discord</a>
-                <a href="#" target="_blank" class="social-btn">TikTok</a>
-                <a href="#" target="_blank" class="social-btn">Instagram</a>
-                <a href="#" target="_blank" class="social-btn">YouTube</a>
+            <div class="social-icons-vertical">
+                <a href="https://discord.gg/4mTVJhu3gx" target="_blank" class="social-icon discord" title="Discord"><i class="fa-brands fa-discord"></i></a>
+                <a href="#" target="_blank" class="social-icon tiktok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" target="_blank" class="social-icon instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" target="_blank" class="social-icon youtube" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
             </div>
         </div>
 
