@@ -944,6 +944,107 @@
     flex-grow: 1;
     outline: none;
 }
+        /* =========================================
+   ESTILOS DE LA GUÍA DE 3 PASOS
+   ========================================= */
+.steps-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step-card {
+    flex: 1;
+    min-width: 300px;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 212, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15);
+    border-color: rgba(0, 212, 255, 0.4);
+}
+
+.step-number {
+    position: absolute;
+    top: -15px;
+    right: 10px;
+    font-size: 6rem;
+    font-family: 'Orbitron', sans-serif;
+    color: rgba(255, 255, 255, 0.03);
+    font-weight: bold;
+    z-index: 0;
+}
+
+.step-card h3 {
+    color: var(--primary);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.step-card p {
+    color: #a8b2d1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.step-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-step {
+    display: block;
+    text-align: center;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.btn-step:hover { background: rgba(255, 255, 255, 0.1); border-color: #fff; }
+
+/* Botones con colores específicos */
+.btn-fivem { border-color: #f47d20; color: #f47d20; }
+.btn-fivem:hover { background: #f47d20; color: #fff; box-shadow: 0 0 15px rgba(244, 125, 32, 0.4); }
+
+.btn-discord { border-color: #5865F2; color: #5865F2; }
+.btn-discord:hover { background: #5865F2; color: #fff; box-shadow: 0 0 15px rgba(88, 101, 242, 0.4); }
+
+/* Código copiable del F8 */
+.code-box {
+    background: #000;
+    color: #00ff41;
+    font-family: monospace;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px dashed #00d4ff;
+    text-align: center;
+    margin-bottom: 10px;
+    user-select: all; /* Hace que al hacer clic se seleccione todo el texto para copiar fácil */
+}
     </style>   
 </head>
 <body>
@@ -1004,6 +1105,43 @@
             </svg>
             Comunidad Discord
         </a>
+    </div>
+</section>
+    <section class="container" id="como-jugar">
+    <h2 class="section-title">¿Cómo entrar a la ciudad?</h2>
+    <p style="text-align: center; color: #a8b2d1; margin-bottom: 40px; font-family: 'Rajdhani', sans-serif;">
+        Sigue estos 3 pasos para obtener tu pasaje a Los Santos y comenzar tu nueva vida.
+    </p>
+
+    <div class="steps-grid">
+        <div class="step-card glass-effect">
+            <div class="step-number">01</div>
+            <h3>Consigue GTA V</h3>
+            <p>Necesitas una copia original y legítima de Grand Theft Auto V para PC. Las versiones piratas no funcionan en nuestro ecosistema.</p>
+            <div class="step-links">
+                <a href="https://store.steampowered.com/app/271590/Grand_Theft_Auto_V/" target="_blank" class="btn-step">Comprar en Steam</a>
+                <a href="https://store.epicgames.com/es-MX/p/grand-theft-auto-v" target="_blank" class="btn-step">Comprar en Epic Games</a>
+            </div>
+        </div>
+
+        <div class="step-card glass-effect">
+            <div class="step-number">02</div>
+            <h3>Instala FiveM</h3>
+            <p>FiveM es el cliente multijugador que te permite acceder a servidores personalizados. Descárgalo, instálalo y vincúlalo con tu cuenta de Rockstar.</p>
+            <div class="step-links">
+                <a href="https://fivem.net/" target="_blank" class="btn-step btn-fivem">Descargar Cliente Oficial</a>
+            </div>
+        </div>
+
+        <div class="step-card glass-effect">
+            <div class="step-number">03</div>
+            <h3>Únete a Elysium</h3>
+            <p>Abre FiveM, presiona la tecla <b>F8</b> en tu teclado para abrir la consola y pega el siguiente comando, o entra a nuestro Discord para pasar la Whitelist.</p>
+            <div class="step-links">
+                <div class="code-box">connect elysiumesrp.com</div>
+                <a href="https://discord.gg/4mTVJhu3gx" target="_blank" class="btn-step btn-discord">Ir al Discord</a>
+            </div>
+        </div>
     </div>
 </section>
 
