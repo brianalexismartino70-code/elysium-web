@@ -29,6 +29,45 @@
         /* =========================================
    ADUANA Y VISADOS (Boarding Pass)
    ========================================= */
+        /* =========================================
+   EFECTOS ÉPICOS: ADUANA Y LOGO
+   ========================================= */
+
+/* 1. El Fondo con Desvanecido y Efecto Parallax */
+#aduana {
+    position: relative;
+    /* El linear-gradient hace que los bordes superior e inferior sean oscuros y el centro deje ver la imagen */
+    background: linear-gradient(to bottom, #05080c 0%, rgba(5,8,12,0.3) 20%, rgba(5,8,12,0.3) 80%, #05080c 100%), url('fondo-aduana.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Esto crea el efecto ventana 3D al hacer scroll */
+    padding: 80px 20px;
+    border-radius: 20px;
+    margin-top: 40px;
+}
+
+/* 2. Contenedor del título y logo */
+.aduana-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* 3. El Logo y su animación de 190 grados */
+.logo-aduana {
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5)); /* Brillo de neón */
+    animation: girarLogo 3s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+/* El motor de la animación */
+@keyframes girarLogo {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(190deg); } /* Gira exactamente 190 grados y vuelve */
+}
 .visa-generator {
     max-width: 600px;
     margin: 0 auto 50px auto;
@@ -1411,7 +1450,11 @@
         </div>
     </section>
     <section class="container" id="aduana">
-    <h2 class="section-title">Aduana de Los Santos</h2>
+<div class="aduana-header">
+        <img src="logo-aduana.png" alt="Sello LSPD" class="logo-aduana" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Los_Angeles_Police_Department_Seal.svg/512px-Los_Angeles_Police_Department_Seal.svg.png'">
+        <h2 class="section-title" style="margin-bottom: 0; border: none;">Aduana de Los Santos</h2>
+    </div>
+    
     <p style="text-align: center; color: #a8b2d1; margin-bottom: 30px; font-family: 'Rajdhani', sans-serif;">
         Prepara tu documentación. Genera tu Boarding Pass oficial y compártelo en la comunidad.
     </p>
