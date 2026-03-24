@@ -32,24 +32,12 @@
 /* =========================================
    EFECTOS ÉPICOS: ADUANA Y LOGO
    ========================================= */
-#aduana {
-    position: relative;
-    /* Aplicamos tu imagen de fondo de la LSPD con un filtro oscuro para leer bien la tarjeta */
-    background: linear-gradient(to bottom, rgba(5,8,12,0.95) 0%, rgba(5,8,12,0.5) 50%, rgba(5,8,12,0.95) 100%), url('fondo-lspd.webp') no-repeat center center;
-    background-size: cover;
-    background-attachment: fixed; /* Efecto ventana 3D */
-    padding: 60px 20px;
-    border-radius: 20px;
-    margin-top: 50px;
-    border: 1px solid rgba(0, 212, 255, 0.2);
-    box-shadow: 0 0 30px rgba(0,0,0,0.8);
-}
+/* (Deja el #aduana tal como lo tienes ahora con tu fondo de la comisaría) */
 
-/* Reglas de alineación perfecta */
 .aduana-header-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra el contenido horizontalmente */
+    align-items: center;
     width: 100%;
     margin-bottom: 30px;
 }
@@ -59,29 +47,36 @@
     justify-content: center;
     align-items: center;
     gap: 15px;
-    margin-bottom: 10px; /* Separación exacta entre el título y el texto de abajo */
+    margin-bottom: 10px;
+}
+
+/* El logo a la izquierda */
+.logo-aduana {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+    animation: girarLogo 5s linear infinite;
+    object-fit: cover; /* Evita que el logo se deforme */
+}
+
+/* EL TRUCO: El contrapeso a la derecha (Mide lo mismo que el logo) */
+.logo-spacer {
+    width: 65px;
+    height: 65px;
 }
 
 .aduana-subtitle {
     color: #a8b2d1;
     font-family: 'Rajdhani', sans-serif;
     text-align: center;
-    margin: 0; /* Evita que márgenes invisibles lo empujen a la izquierda */
+    margin: 0 auto;
     max-width: 600px;
-}
-
-/* El logo girando 360 grados */
-.logo-aduana {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%; /* Hace que el logo cuadrado se vuelva un círculo perfecto */
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.6); /* Le da un aura de neón al parche */
-    animation: girarLogo 5s linear infinite; /* "linear" hace que gire sin pausas ni rebotes */
 }
 
 @keyframes girarLogo {
     0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); } /* Vuelta completa */
+    100% { transform: rotate(360deg); }
 }
 .visa-generator {
     max-width: 600px;
@@ -1485,8 +1480,11 @@
     <div class="aduana-header-container">
         
         <div class="aduana-title-wrapper">
-            <img src="logo-lspd.jpg" alt="Sello LSPD" class="logo-aduana">
+            <img src="logo-lspd.png" alt="Sello LSPD" class="logo-aduana" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2560/2560555.png'">
+            
             <h2 class="section-title" style="margin-bottom: 0; border: none; padding-bottom: 0;">Aduana de Los Santos</h2>
+            
+            <div class="logo-spacer"></div>
         </div>
         
         <p class="aduana-subtitle">
