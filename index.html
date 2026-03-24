@@ -1110,6 +1110,22 @@
         </div>
     </div>
 
+    <script>
+        // Forzamos a que la pantalla negra se quite a los 2.5 segundos
+        setTimeout(() => {
+            const preloader = document.getElementById('cinematic-preloader');
+            if (preloader) {
+                preloader.classList.add('fade-out');
+                
+                // Lo borramos por completo después de que termine la animación
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 800);
+            }
+        }, 2500);
+    </script>
+</body>
+
     <div id="particles-js"></div>
 
     <nav>
