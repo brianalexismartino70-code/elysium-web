@@ -32,38 +32,51 @@
 /* =========================================
    EFECTOS ÉPICOS: ADUANA Y LOGO
    ========================================= */
-#aduana {
-    position: relative;
-    /* Usamos un fondo oscuro de ciberseguridad garantizado que no se cae */
-    background: linear-gradient(to bottom, rgba(5,8,12,1) 0%, rgba(5,8,12,0.3) 50%, rgba(5,8,12,1) 100%), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
-    background-size: cover;
-    background-attachment: fixed; /* Efecto Parallax */
-    padding: 60px 20px;
-    border-radius: 20px;
-    margin-top: 50px;
+/* (Deja el #aduana tal como lo tienes ahora con tu fondo de la comisaría) */
+
+.aduana-header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
 }
 
+.aduana-title-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+/* El logo a la izquierda */
 .logo-aduana {
-    width: 60px;
-    height: 60px;
-    filter: invert(1) drop-shadow(0 0 10px #00d4ff); /* Vuelve el logo blanco y le da neón azul */
-    animation: girarLogo 3s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+    animation: girarLogo 5s linear infinite;
+    object-fit: cover; /* Evita que el logo se deforme */
 }
 
-@keyframes girarLogo {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(190deg); }
+/* EL TRUCO: El contrapeso a la derecha (Mide lo mismo que el logo) */
+.logo-spacer {
+    width: 65px;
+    height: 65px;
+}
+
+.aduana-subtitle {
+    color: #a8b2d1;
+    font-family: 'Rajdhani', sans-serif;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 600px;
 }
 
 @keyframes girarLogo {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-/* El motor de la animación */
-@keyframes girarLogo {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(190deg); } /* Gira exactamente 190 grados y vuelve */
 }
 .visa-generator {
     max-width: 600px;
@@ -1464,14 +1477,17 @@
     </section>
 <section class="container" id="aduana">
     
-    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 30px;">
+    <div class="aduana-header-container">
         
-        <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 10px;">
-            <img src="https://cdn-icons-png.flaticon.com/512/2560/2560555.png" alt="Sello LSPD" class="logo-aduana">
+        <div class="aduana-title-wrapper">
+            <img src="logo-lspd.png" alt="Sello LSPD" class="logo-aduana" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2560/2560555.png'">
+            
             <h2 class="section-title" style="margin-bottom: 0; border: none; padding-bottom: 0;">Aduana de Los Santos</h2>
+            
+            <div class="logo-spacer"></div>
         </div>
         
-        <p style="color: #a8b2d1; font-family: 'Rajdhani', sans-serif; max-width: 600px; margin: 0;">
+        <p class="aduana-subtitle">
             Prepara tu documentación. Genera tu Boarding Pass oficial y compártelo en la comunidad.
         </p>
         
