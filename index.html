@@ -1500,20 +1500,27 @@
 }
 
 /* LA CAPA DEL FONDO DESENFOCADO (Blur) */
+#aduana {
+    position: relative;
+    padding: 60px 20px;
+    border-radius: 20px;
+    margin-top: 50px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    overflow: hidden;
+}
+
 #aduana::before {
     content: '';
     position: absolute;
-    /* Lo hacemos un poco más grande para que los bordes del blur no se vean feos */
     top: -15px; left: -15px; right: -15px; bottom: -15px; 
-    /* Tu fondo oscuro + la imagen de la LSPD */
     background: linear-gradient(to bottom, rgba(5,8,12,0.9) 0%, rgba(5,8,12,0.5) 50%, rgba(5,8,12,0.9) 100%), url('fondo-lspd.webp') no-repeat center center;
     background-size: cover;
-    background-attachment: fixed; /* Efecto ventana 3D */
-    filter: blur(6px); /* Aquí controlas qué tan borroso es (6px es ideal) */
+    background-attachment: fixed;
+    filter: blur(6px);
     z-index: 0;
 }
 
-/* Obligamos al contenido (textos y tarjeta) a estar por encima del fondo borroso */
 .aduana-header-container, .visa-generator {
     position: relative;
     z-index: 2;
