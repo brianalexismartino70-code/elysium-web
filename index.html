@@ -33,42 +33,6 @@
    EFECTOS ÉPICOS: ADUANA Y LOGO
    ========================================= */
 /* (Deja el #aduana tal como lo tienes ahora con tu fondo de la comisaría) */
-        /* =========================================
-   ESTILOS DEL CONTADOR EN VIVO
-   ========================================= */
-.server-status-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 12px 25px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    margin: 0 auto 30px auto;
-    width: fit-content;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.1rem;
-    color: #fff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
-.status-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    transition: all 0.4s ease;
-}
-
-.status-dot.online {
-    background-color: #00ff41;
-    box-shadow: 0 0 15px #00ff41;
-}
-
-.status-dot.offline {
-    background-color: #ff3333;
-    box-shadow: 0 0 15px #ff3333;
-}
 
 .aduana-header-container {
     display: flex;
@@ -1213,7 +1177,7 @@
         
         <a href="fivem://connect/cfx.re/join/kr546a" class="btn-neon">Entrar a la Ciudad</a>
         
-        <a href="https://discord.gg/elysiumesrp" target="_blank" class="btn-neon btn-discord">
+        <a href="https://discord.gg/4mTVJhu3gx" target="_blank" class="btn-neon btn-discord">
             <svg viewBox="0 0 127.14 96.36" width="22" height="22" style="vertical-align: text-bottom; margin-right: 8px; fill: currentColor;">
                 <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.36,46,96.25,53,91.08,65.69,84.69,65.69Z"/>
             </svg>
@@ -1253,7 +1217,7 @@
             <p>Abre FiveM, presiona la tecla <b>F8</b> en tu teclado para abrir la consola y pega el siguiente comando, o entra a nuestro Discord para pasar la Whitelist.</p>
             <div class="step-links">
                 <div class="code-box">connect elysiumesrp.com</div>
-                <a href="https://discord.gg/elysiumesrp" target="_blank" class="btn-step btn-discord">Ir al Discord</a>
+                <a href="https://discord.gg/4mTVJhu3gx" target="_blank" class="btn-step btn-discord">Ir al Discord</a>
             </div>
         </div>
     </div>
@@ -1575,7 +1539,7 @@
 <div class="footer-col social-col">
             <h3>Comunidad</h3>
             <div class="social-icons-vertical">
-                <a href="https://discord.gg/elysiumesrp" target="_blank" class="social-icon discord" title="Discord"><i class="fa-brands fa-discord"></i></a>
+                <a href="https://discord.gg/4mTVJhu3gx" target="_blank" class="social-icon discord" title="Discord"><i class="fa-brands fa-discord"></i></a>
                 <a href="#" target="_blank" class="social-icon tiktok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 <a href="#" target="_blank" class="social-icon instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" target="_blank" class="social-icon youtube" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
@@ -1641,54 +1605,31 @@
 
     // 3. ESTADO DEL SERVIDOR EN VIVO (API)
     // ATENCIÓN: Recuerda reemplazar las 'XXXXXX' con el código Cfx de Elysium
-const cfxCode = 'PON_TU_CODIGO_AQUI'; 
+    const cfxCode = '89pryv'; 
+    const playerCountElement = document.getElementById('player-count');
+    const statusIndicator = document.getElementById('status-dot');
 
-        async function checkServerStatus() {
-            const textElement = document.getElementById('server-text');
-            const dotElement = document.getElementById('status-dot');
-
-            try {
-                // Hacemos ping a la API maestra de Cfx.re
-                const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${cfxCode}`);
-                
-                if (!response.ok) throw new Error('Servidor inalcanzable');
-
-                const data = await response.json();
-                
-                // Extraemos los jugadores actuales y el máximo permitido
-                const players = data.Data.clients;
-                const maxPlayers = data.Data.sv_maxclients;
-
-                // Actualizamos la web a ONLINE (Verde)
-                textElement.innerHTML = `CIUDAD ACTIVA: <span style="color: #00ff41; text-shadow: 0 0 10px #00ff41;">${players} / ${maxPlayers}</span> CIUDADANOS`;
-                dotElement.classList.remove('offline');
-                dotElement.classList.add('online');
-
-            } catch (error) {
-                // Si la ciudad está caída o reiniciando (Rojo)
-                textElement.innerHTML = `SERVIDOR OFFLINE / REINICIANDO`;
-                dotElement.classList.remove('online');
-                dotElement.classList.add('offline');
-            }
-        }
-
-        // Consultamos al cargar la página
-        checkServerStatus();
-        
-        // Y le decimos que actualice los datos automáticamente cada 60 segundos
-        setInterval(checkServerStatus, 60000);
-    </script>
+    async function fetchServerStatus() {
+        if (!playerCountElement || !statusIndicator) return;
+        try {
+            const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${cfxCode}`);
+            if (!response.ok) throw new Error('Servidor inalcanzable');
+            const data = await response.json();
+            const players = data.Data.clients;
+            const maxPlayers = data.Data.sv_maxclients;
             
             playerCountElement.textContent = `Jugadores: ${players} / ${maxPlayers}`;
             statusIndicator.style.backgroundColor = 'var(--primary)'; 
             statusIndicator.style.boxShadow = '0 0 12px var(--primary)';
             statusIndicator.style.animation = 'pulseNeon 1.5s infinite';
-        catch (error) 
+        } catch (error) {
             console.error('Error al contactar el servidor:', error);
-<div class="server-status-box">
-        <div id="status-dot" class="status-dot offline"></div>
-        <span id="server-text">Conectando con el satélite...</span>
-    </div>
+            playerCountElement.textContent = 'Servidor en Mantenimiento';
+            statusIndicator.style.backgroundColor = '#ff3333'; 
+            statusIndicator.style.boxShadow = '0 0 12px #ff3333';
+            statusIndicator.style.animation = 'none'; 
+        }
+    }
 
     // 4. ANIMACIÓN DE "QUIÉNES SOMOS" AL HACER SCROLL
     document.addEventListener("DOMContentLoaded", () => {
@@ -1823,7 +1764,7 @@ const cfxCode = 'PON_TU_CODIGO_AQUI';
         // Marcador 3: Benny's Motorworks
         L.marker([1250, 2350], {icon: iconMech}).addTo(map)
             .bindPopup('<b>Taller Mecánico</b><br>Reparaciones y tuning de vehículos.');
- =========================================
+/* =========================================
            HERRAMIENTA DE ADMIN: OBTENER COORDENADAS (DESACTIVADA)
            ========================================= 
         const popupCoordenadas = L.popup();
@@ -1841,7 +1782,7 @@ const cfxCode = 'PON_TU_CODIGO_AQUI';
         }
 
         map.on('click', mostrarCoordenadas);
-        ========================================= 
+        ========================================= */
     });
         // =========================================
     // FLUCTUACIÓN ALEATORIA (Bolsa de Valores)
