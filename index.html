@@ -1641,24 +1641,49 @@
 
     // 3. ESTADO DEL SERVIDOR EN VIVO (API)
     // ATENCIÓN: Recuerda reemplazar las 'XXXXXX' con el código Cfx de Elysium
-    const cfxCode = 'kr546a'; 
-    const playerCountElement = document.getElementById('player-count');
-    const statusIndicator = document.getElementById('status-dot');
+const cfxCode = 'PON_TU_CODIGO_AQUI'; 
 
-    async function fetchServerStatus() {
-        if (!playerCountElement || !statusIndicator) return;
-        try {
-            const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${kr546a}`);
-            if (!response.ok) throw new Error('Servidor inalcanzable');
-            const data = await response.json();
-            const players = data.Data.clients;
-            const maxPlayers = data.Data.sv_maxclients;
+        async function checkServerStatus() {
+            const textElement = document.getElementById('server-text');
+            const dotElement = document.getElementById('status-dot');
+
+            try {
+                // Hacemos ping a la API maestra de Cfx.re
+                const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${cfxCode}`);
+                
+                if (!response.ok) throw new Error('Servidor inalcanzable');
+
+                const data = await response.json();
+                
+                // Extraemos los jugadores actuales y el máximo permitido
+                const players = data.Data.clients;
+                const maxPlayers = data.Data.sv_maxclients;
+
+                // Actualizamos la web a ONLINE (Verde)
+                textElement.innerHTML = `CIUDAD ACTIVA: <span style="color: #00ff41; text-shadow: 0 0 10px #00ff41;">${players} / ${maxPlayers}</span> CIUDADANOS`;
+                dotElement.classList.remove('offline');
+                dotElement.classList.add('online');
+
+            } catch (error) {
+                // Si la ciudad está caída o reiniciando (Rojo)
+                textElement.innerHTML = `SERVIDOR OFFLINE / REINICIANDO`;
+                dotElement.classList.remove('online');
+                dotElement.classList.add('offline');
+            }
+        }
+
+        // Consultamos al cargar la página
+        checkServerStatus();
+        
+        // Y le decimos que actualice los datos automáticamente cada 60 segundos
+        setInterval(checkServerStatus, 60000);
+    </script>
             
             playerCountElement.textContent = `Jugadores: ${players} / ${maxPlayers}`;
             statusIndicator.style.backgroundColor = 'var(--primary)'; 
             statusIndicator.style.boxShadow = '0 0 12px var(--primary)';
             statusIndicator.style.animation = 'pulseNeon 1.5s infinite';
-        } catch (error) {
+        catch (error) 
             console.error('Error al contactar el servidor:', error);
 <div class="server-status-box">
         <div id="status-dot" class="status-dot offline"></div>
@@ -1798,7 +1823,7 @@
         // Marcador 3: Benny's Motorworks
         L.marker([1250, 2350], {icon: iconMech}).addTo(map)
             .bindPopup('<b>Taller Mecánico</b><br>Reparaciones y tuning de vehículos.');
-/* =========================================
+ =========================================
            HERRAMIENTA DE ADMIN: OBTENER COORDENADAS (DESACTIVADA)
            ========================================= 
         const popupCoordenadas = L.popup();
@@ -1816,7 +1841,7 @@
         }
 
         map.on('click', mostrarCoordenadas);
-        ========================================= */
+        ========================================= 
     });
         // =========================================
     // FLUCTUACIÓN ALEATORIA (Bolsa de Valores)
