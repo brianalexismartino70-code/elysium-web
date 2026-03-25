@@ -1624,12 +1624,10 @@
             statusIndicator.style.animation = 'pulseNeon 1.5s infinite';
         } catch (error) {
             console.error('Error al contactar el servidor:', error);
-            playerCountElement.textContent = 'Servidor en Mantenimiento';
-            statusIndicator.style.backgroundColor = '#ff3333'; 
-            statusIndicator.style.boxShadow = '0 0 12px #ff3333';
-            statusIndicator.style.animation = 'none'; 
-        }
-    }
+<div class="server-status-box">
+        <div id="status-dot" class="status-dot offline"></div>
+        <span id="server-text">Conectando con el satélite...</span>
+    </div>
 
     // 4. ANIMACIÓN DE "QUIÉNES SOMOS" AL HACER SCROLL
     document.addEventListener("DOMContentLoaded", () => {
