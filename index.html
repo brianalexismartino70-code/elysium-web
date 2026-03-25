@@ -33,6 +33,42 @@
    EFECTOS ÉPICOS: ADUANA Y LOGO
    ========================================= */
 /* (Deja el #aduana tal como lo tienes ahora con tu fondo de la comisaría) */
+        /* =========================================
+   ESTILOS DEL CONTADOR EN VIVO
+   ========================================= */
+.server-status-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 12px 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 0 auto 30px auto;
+    width: fit-content;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+}
+
+.status-dot.online {
+    background-color: #00ff41;
+    box-shadow: 0 0 15px #00ff41;
+}
+
+.status-dot.offline {
+    background-color: #ff3333;
+    box-shadow: 0 0 15px #ff3333;
+}
 
 .aduana-header-container {
     display: flex;
@@ -1605,7 +1641,7 @@
 
     // 3. ESTADO DEL SERVIDOR EN VIVO (API)
     // ATENCIÓN: Recuerda reemplazar las 'XXXXXX' con el código Cfx de Elysium
-    const cfxCode = '89pryv'; 
+    const cfxCode = 'kr546a'; 
     const playerCountElement = document.getElementById('player-count');
     const statusIndicator = document.getElementById('status-dot');
 
