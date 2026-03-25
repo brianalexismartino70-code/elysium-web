@@ -1612,7 +1612,7 @@
     async function fetchServerStatus() {
         if (!playerCountElement || !statusIndicator) return;
         try {
-            const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${cfxCode}`);
+            const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${kr546a}`);
             if (!response.ok) throw new Error('Servidor inalcanzable');
             const data = await response.json();
             const players = data.Data.clients;
