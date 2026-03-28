@@ -34,6 +34,15 @@
    ========================================= */
 /* (Deja el #aduana tal como lo tienes ahora con tu fondo de la comisaría) */
 
+ .server-status-card {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3)); /* Brillo neón cian */
+}       
+
 .aduana-header-container {
     display: flex;
     flex-direction: column;
@@ -1169,6 +1178,15 @@
     <img src="E.png" alt="Elysium Logo" class="main-logo">
     <h1>ELYSIUM RP</h1>
     <p class="subtitle">Sin Fronteras</p>
+
+ <div class="server-status-card">
+    <iframe src="https://fivem-server-widget.vercel.app/api?ip=kr546a&theme=dark" 
+            width="400px" 
+            height="150px" 
+            frameborder="0" 
+            scrolling="no">
+    </iframe>
+</div>    
     
 <div class="server-status-card glass-effect">
         <div class="status-indicator" id="status-dot"></div>
