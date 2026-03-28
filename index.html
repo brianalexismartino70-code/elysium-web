@@ -3,678 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elysium | ES - FiveM Hardcore RP</title>
+    <title>Elysium RP | Sin Fronteras</title>
+    
+    <link rel="icon" type="image/png" href="E.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
     <style>
-        /* ============================== */
-        /* VARIABLES Y RESET BÁSICO     */
-        /* ============================== */
-        :root {
-            --primary: #00d4ff; /* Celeste Neón Principal */
+        :root { 
+            --primary: #00d4ff; 
             --primary-glow: rgba(0, 212, 255, 0.6);
-            --bg-dark: #050505;
-            --bg-glass: rgba(20, 20, 20, 0.7);
-            --border-neon: rgba(0, 212, 255, 0.3);
-            --text-main: #e0e0e0;
-            --text-muted: #a8b2d1;
+            --bg: #030508; 
+            --card-glass: rgba(15, 20, 25, 0.6);
         }
-
-        * { margin: 0; padding: 0; box-shadow: none; border: none; outline: none; box-sizing: border-box; }
         
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Rajdhani', sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: white; 
+            font-family: 'Rajdhani', sans-serif; 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
         }
 
-        h1, h2, h3 { font-family: 'Orbitron', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-        /* ============================== */
-        /* MOTOR DE PARTÍCULAS (Fondo)   */
-        /* ============================== */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0; left: 0;
-            z-index: -1;
-        }
+        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: radial-gradient(circle at center, #0a1118 0%, #020305 100%); }
 
-        /* ============================== */
-        /* LOGO PRINCIPAL                */
-        /* ============================== */
-        .header-logo {
-            text-align: center;
-            padding: 40px 20px;
-        }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(0,0,0,0.8); border-bottom: 1px solid rgba(0, 212, 255, 0.3); position: sticky; top: 0; backdrop-filter: blur(15px); z-index: 999; }
+        .nav-logo { height: 45px; }
+        .nav-links a { color: var(--primary); text-decoration: none; font-family: 'Orbitron'; margin-left: 25px; font-size: 0.85rem; font-weight: bold; transition: 0.3s; }
+        .nav-links a:hover { text-shadow: 0 0 15px var(--primary); color: #fff; }
 
-        .header-logo img {
-            max-width: 250px;
-            filter: drop-shadow(0 0 15px var(--primary-glow));
-            transition: transform 0.3s ease;
-        }
+        /* HERO SECTION */
+        .hero { height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; z-index: 10; }
+        .main-logo { width: 160px; margin-bottom: 25px; animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+        h1 { font-family: 'Orbitron'; font-size: clamp(3rem, 7vw, 5rem); letter-spacing: 6px; color: #fff; text-shadow: 0 0 30px var(--primary-glow); }
+        .subtitle { color: var(--primary); letter-spacing: 8px; font-weight: 700; text-transform: uppercase; }
 
-        .header-logo img:hover { transform: scale(1.05); }
-
-        /* ============================== */
-        /* CONTENEDORES GLOBALES         */
-        /* ============================== */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .glass-effect {
-            background: var(--bg-glass);
-            border: 1px solid var(--border-neon);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,212,255,0.05);
-            transition: all 0.3s ease;
-        }
-
-        /* ============================== */
-        /* ESTADO DEL SERVIDOR Y BOTÓN   */
-        /* ============================== */
-        .status-container {
-            text-align: center;
-            padding: 30px;
-            margin-bottom: 40px;
-        }
-
-        .status-header { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 15px; }
-
-        .status-header h2 { color: #fff; font-size: 1.8rem; }
-
-        .status-indicator {
-            width: 15px; height: 15px;
-            border-radius: 50%;
-            background-color: #00ff41; /* Verde Online */
-            box-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
-            animation: pulse-online 2s infinite;
-        }
-
-        @keyframes pulse-online {
-            0% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 255, 65, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0); }
-        }
-
-        .player-count {
-            color: var(--text-muted);
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 500;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-
-        /* Botón JUGAR AHORA mejorado */
+        /* BOTÓN JUGAR */
         .btn-play-now {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 15px 40px;
-            background: linear-gradient(45deg, var(--primary), #00ffcc);
-            color: #050505;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 900;
-            border-radius: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px var(--primary-glow), inset 0 0 10px rgba(255,255,255,0.5);
-            cursor: pointer;
+            margin-top: 30px; padding: 15px 40px; background: linear-gradient(45deg, var(--primary), #00ffcc);
+            color: #000; text-decoration: none; font-family: 'Orbitron'; font-weight: 900; border-radius: 10px;
+            box-shadow: 0 0 20px var(--primary-glow); transition: 0.3s;
         }
+        .btn-play-now:hover { transform: scale(1.05); box-shadow: 0 0 40px var(--primary); }
 
-        .btn-play-now:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 0 30px var(--primary), 0 0 50px #00ffcc;
-        }
+        /* TICKER ECONOMÍA */
+        .economy-ticker { width: 100%; background: rgba(5, 8, 12, 0.9); border-bottom: 1px solid var(--primary); padding: 8px 0; overflow: hidden; white-space: nowrap; z-index: 100; }
+        .ticker-track { display: inline-block; animation: scrollTicker 30s linear infinite; }
+        .ticker-item { padding: 0 40px; font-size: 0.9rem; }
+        @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        .btn-play-now i { margin-right: 10px; }
+        /* STAFF SECTION */
+        .staff-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 40px; }
+        .staff-card { background: var(--card-glass); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); text-align: center; width: 300px; }
+        .staff-img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--primary); object-fit: cover; margin-bottom: 15px; }
+        .staff-role { padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; font-family: 'Orbitron'; margin-bottom: 10px; display: inline-block; }
+        .owner-role { background: #ff3366; box-shadow: 0 0 10px #ff3366; }
+        .mod-role { background: #00d4ff; color: #000; }
 
-        /* ============================== */
-        /* SECCIÓN DESCRIPCIÓN           */
-        /* ============================== */
-        .desc-title { color: #fff; text-align: center; margin-bottom: 15px; }
+        /* REGLAS DASHBOARD */
+        .dashboard { display: flex; background: rgba(8, 12, 16, 0.9); border: 1px solid var(--border-neon); border-radius: 20px; height: 600px; overflow: hidden; }
+        .sidebar { width: 300px; border-right: 1px solid rgba(255,255,255,0.1); overflow-y: auto; }
+        .tab-btn { width: 100%; padding: 15px; background: none; color: #8892b0; text-align: left; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; border: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .tab-btn.active { color: var(--primary); background: rgba(0,212,255,0.1); border-left: 4px solid var(--primary); }
+        .content-area { flex: 1; padding: 30px; overflow-y: auto; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .rule-card { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 10px; margin-bottom: 15px; border-left: 3px solid var(--primary); }
 
-        .desc-text {
-            color: var(--text-muted);
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
+        /* ADUANA */
+        .visa-card { background: #111; border: 1px solid var(--primary); border-radius: 15px; padding: 25px; margin-top: 20px; position: relative; display: none; }
+        .visa-card.visible { display: block; animation: slideIn 0.5s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ============================== */
-        /* SECCIÓN MAPAS Y LOGOS         */
-        /* ============================== */
-        .map-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 20px;
-        }
+        /* TERMINAL HACKER */
+        #hacker-trigger { position: fixed; bottom: 10px; right: 10px; opacity: 0.1; cursor: pointer; font-size: 10px; z-index: 1000; }
+        #dark-terminal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #0f0; font-family: monospace; z-index: 10000; padding: 20px; display: none; }
 
-        .map-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .map-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .map-item:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px var(--primary-glow);
-        }
-
-        .map-item:hover img { transform: scale(1.1); }
-
-        .map-overlay {
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            color: #fff;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .map-item:hover .map-overlay { opacity: 1; }
-
-        /* ============================== */
-        /* GALERÍA 3D                   */
-        /* ============================== */
-        #galeria {
-            text-align: center;
-            margin: 60px 0;
-        }
-
-        .titulo-galeria { color: #fff; margin-bottom: 30px; }
-
-        .image-gallery {
-            position: relative;
-            width: 300px;
-            height: 200px;
-            margin: 0 auto;
-            transform-style: preserve-3d;
-            animation: rotateGallery 20s linear infinite;
-        }
-
-        .image-gallery span {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            transform-origin: center;
-            transform-style: preserve-3d;
-            transform: rotateY(calc(var(--i) * 60deg)) translateZ(350px);
-            -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, rgba(0,0,0,0.2));
-        }
-
-        .image-gallery span img {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid var(--border-neon);
-            transition: 0.5s;
-        }
-
-        .image-gallery span:hover img {
-            transform: translateY(-20px);
-            border-color: var(--primary);
-            box-shadow: 0 0 20px var(--primary-glow);
-        }
-
-        @keyframes rotateGallery {
-            0% { transform: perspective(1000px) rotateY(0deg); }
-            100% { transform: perspective(1000px) rotateY(360deg); }
-        }
-
-        /* Detener la galería al pasar el ratón */
-        .image-gallery:hover { animation-play-state: paused; }
-
-        /* ============================== */
-        /* SECCIÓN DEL EQUIPO (STAFF)   */
-        /* ============================== */
-        #staff {
-            margin-top: 60px;
-        }
-
-        .section-title { color: #fff; text-align: center; margin-bottom: 10px; }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-        }
-
-        .staff-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .staff-card {
-            flex: 1;
-            min-width: 250px;
-            max-width: 300px;
-            text-align: center;
-            padding: 30px 20px;
-        }
-
-        .staff-img-container {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 25px auto;
-            border-radius: 50%;
-            padding: 5px;
-            background: linear-gradient(45deg, var(--primary), transparent);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
-        }
-
-        .staff-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #050505;
-        }
-
-        .staff-role {
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 6px 20px;
-            border-radius: 20px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: #fff;
-            white-space: nowrap;
-            letter-spacing: 1px;
-        }
-
-        /* Colores de Roles */
-        .owner-role { background: #ff3366; box-shadow: 0 0 10px #ff3366; } /* Rojo */
-        .mod-role { background: #00d4ff; box-shadow: 0 0 10px #00d4ff; color: #000; } /* Celeste */
-        .dev-role { background: #00ffcc; box-shadow: 0 0 10px #00ffcc; color: #000; } /* Cyan */
-
-        .staff-card h3 {
-            color: #fff;
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-        }
-
-        .staff-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* ============================== */
-        /* DASHBOARD DE NORMATIVAS TABS */
-        /* ============================== */
-        #normativa {
-            margin-top: 60px;
-        }
-
-        .dashboard {
-            display: flex;
-            height: 600px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-
-        .tab-menu {
-            width: 250px;
-            background: rgba(10, 10, 10, 0.8);
-            border-right: 1px solid var(--border-neon);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tab-link {
-            background: none;
-            color: var(--text-muted);
-            padding: 20px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-align: left;
-            border: none;
-            border-left: 3px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .tab-link:hover { background: rgba(0, 212, 255, 0.05); color: #fff; }
-
-        .tab-link.active {
-            color: var(--primary);
-            background: rgba(0, 212, 255, 0.1);
-            border-left-color: var(--primary);
-        }
-
-        .content-area {
-            flex: 1;
-            padding: 40px;
-            overflow-y: auto;
-            scroll-behavior: smooth;
-        }
-
-        /* Scrollbar personalizada */
-        .content-area::-webkit-scrollbar { width: 8px; }
-        .content-area::-webkit-scrollbar-track { background: transparent; }
-        .content-area::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.2); border-radius: 10px; }
-        .content-area::-webkit-scrollbar-thumb:hover { background: var(--primary); }
-
-        .norm-tab-content { display: none; animation: fadeIn 0.5s; }
-        .norm-tab-content.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .norm-tab-content h3 { color: #fff; margin-bottom: 25px; border-bottom: 1px solid var(--border-neon); padding-bottom: 10px; }
-
-        .rule-card {
-            background: rgba(0,0,0,0.2);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 2px solid transparent;
-        }
-
-        .rule-card:hover { border-left-color: var(--primary); background: rgba(0, 212, 255, 0.02); }
-
-        .rule-card strong { color: var(--primary); font-family: monospace; font-size: 1.1rem; display: block; margin-bottom: 5px; }
-
-        .rule-card p { color: var(--text-muted); line-height: 1.7; font-size: 1rem; }
-
-        /* ============================== */
-        /* MEDIA QUERIES (Móviles)        */
-        /* ============================== */
-        @media (max-width: 900px) {
-            .dashboard { flex-direction: column; height: auto; min-height: 600px; }
-            .tab-menu { width: 100%; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid var(--border-neon); }
-            .tab-link { flex: 1 1 auto; padding: 15px; font-size: 1rem; border-left: none; border-bottom: 3px solid transparent; justify-content: center; }
-            .tab-link.active { border-left-color: transparent; border-bottom-color: var(--primary); }
-            .content-area { padding: 25px; }
-            .rule-card strong { font-size: 1rem; }
-            .rule-card p { font-size: 0.9rem; }
-            
-            .image-gallery { width: 200px; height: 133px; }
-            .image-gallery span { transform: rotateY(calc(var(--i) * 60deg)) translateZ(200px); }
-            
-            .header-logo img { max-width: 200px; }
-            .btn-play-now { padding: 12px 25px; font-size: 1rem; }
-        }
-
+        .container { padding: 60px 8%; position: relative; z-index: 10; }
+        .section-title { text-align: center; font-family: 'Orbitron'; font-size: 2.5rem; margin-bottom: 40px; }
+        
+        /* PRELOADER */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #05080c; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
+        #preloader.hidden { opacity: 0; visibility: hidden; }
     </style>
 </head>
 <body>
 
+    <div id="preloader">
+        <div style="text-align: center;">
+            <h1 style="font-size: 5rem; text-shadow: 0 0 20px var(--primary);">E</h1>
+            <p style="color: var(--primary); letter-spacing: 5px;">CARGANDO CIUDAD...</p>
+        </div>
+    </div>
+
     <div id="particles-js"></div>
 
-    <header class="header-logo">
-        <img src="https://elysiumesrp.com/E.png" alt="Elysium ES RP Logo">
-    </header>
+    <nav>
+        <img src="E.png" alt="Logo" class="nav-logo">
+        <div class="nav-links">
+            <a href="#inicio">INICIO</a>
+            <a href="#staff">STAFF</a>
+            <a href="#reglas">REGLAS</a>
+            <a href="https://tienda.elysiumesrp.com" target="_blank">TIENDA</a>
+        </div>
+    </nav>
 
-    <section class="container">
-        <div class="glass-effect status-container">
-            <div class="status-header">
-                <h2>Servidor Ciudad Principal</h2>
-                <div class="status-indicator"></div>
-            </div>
-            <p class="player-count">Ciudadanos en línea: <span id="player-num">...</span> / 128</p>
-            
-            <a href="fivem://connect/cfx.re/join/kr546a" class="btn-play-now" onclick="notificarConexion()">
-                <i class="fa-solid fa-gamepad"></i> JUGAR AHORA
-            </a>
+    <div class="economy-ticker">
+        <div class="ticker-track">
+            <span class="ticker-item">📈 Pan: $15 <span style="color: #0f0;">(+2%)</span></span>
+            <span class="ticker-item">📉 Oro: $1,200 <span style="color: #f00;">(-5%)</span></span>
+            <span class="ticker-item">🚗 Impuestos: 12%</span>
+            <span class="ticker-item">💰 Multa Velocidad: $500</span>
+            <span class="ticker-item">⛽ Nafta: $5/L</span>
+            <span class="ticker-item">📈 Pan: $15 <span style="color: #0f0;">(+2%)</span></span>
         </div>
-    </section>
+    </div>
 
-    <section class="container">
-        <div class="glass-effect" style="padding: 40px;">
-            <h2 class="desc-title">FiveM Hardcore RP Latino</h2>
-            <p class="desc-text">Elysium ES es una comunidad dedicada a la interpretación de rol de alto nivel. Buscamos ofrecer una experiencia inmersiva, justa y apasionante en español. Nuestra ciudad cuenta con scripts optimizados, mapeos exclusivos y una economía equilibrada para que vivas tu propia historia en Los Santos.</p>
-        </div>
-    </section>
-
-    <section class="container map-grid">
-        <div class="map-item glass-effect">
-            <img src="https://elysiumesrp.com/wp8853423.webp" alt="Elysium Landscape">
-            <div class="map-overlay">Distrito Centro</div>
-        </div>
-        <div class="map-item glass-effect">
-            <img src="https://elysiumesrp.com/police-map-fivem-1536x848.webp" alt="LSPD Maps">
-            <div class="map-overlay">Mapa de Jurisdicción LSPD</div>
-        </div>
-        <div class="map-item glass-effect">
-            <img src="https://elysiumesrp.com/982-1-1024x576.webp" alt="LS Customs">
-            <div class="map-overlay">LS Customs - Taller Oficial</div>
-        </div>
-        <div class="map-item glass-effect">
-            <img src="https://elysiumesrp.com/4903967.webp" alt="Nightlife">
-            <div class="map-overlay">Vida Nocturna</div>
-        </div>
-    </section>
-
-    <section class="container" id="galeria">
-        <h2 class="titulo-galeria">Vistas de la Ciudad</h2>
-        <div class="image-gallery">
-            <span style="--i:1;"><img src="https://elysiumesrp.com/wp8853423.webp" alt="View 1"></span>
-            <span style="--i:2;"><img src="https://elysiumesrp.com/police-map-fivem-1536x848.webp" alt="View 2"></span>
-            <span style="--i:3;"><img src="https://elysiumesrp.com/982-1-1024x576.webp" alt="View 3"></span>
-            <span style="--i:4;"><img src="https://elysiumesrp.com/mapa-gta.jpg" alt="View 4"></span>
-            <span style="--i:5;"><img src="https://elysiumesrp.com/ fondo-lspd.webp" alt="View 5"></span>
-            <span style="--i:6;"><img src="https://elysiumesrp.com/E.png" alt="View 6"></span>
-        </div>
+    <section class="hero" id="inicio">
+        <img src="E.png" alt="Elysium Logo" class="main-logo">
+        <h1>ELYSIUM RP</h1>
+        <p class="subtitle">Sin Fronteras</p>
+        <a href="fivem://connect/cfx.re/join/kr546a" class="btn-play-now" onclick="notificarConexion()">JUGAR AHORA</a>
     </section>
 
     <section class="container" id="staff">
-        <h2 class="section-title">Nuestra Administración</h2>
-        <p class="section-subtitle">Conoce al equipo encargado de mantener la ciudad funcionando al 100%.</p>
-
+        <h2 class="section-title">Líderes de Elysium</h2>
         <div class="staff-grid">
-            <div class="staff-card glass-effect">
-                <div class="staff-img-container">
-                    <img src="images/brian.jpg" alt="Co-Propietario" class="staff-img">
-                    <div class="staff-role owner-role">OWNER</div>
-                </div>
+            <div class="staff-card">
+                <img src="brian.jpg" alt="Brian Martino" class="staff-img">
+                <br><span class="staff-role owner-role">OWNER</span>
                 <h3>Brian Martino</h3>
                 <p>Owner y Propietario</p>
-                <p>Dirección General y Desarrollo</p>
+                <p>Director General del Proyecto</p>
             </div>
-
-            <div class="staff-card glass-effect">
-                <div class="staff-img-container">
-                    <img src="images/staff.jpg" alt="Moderación" class="staff-img">
-                    <div class="staff-role mod-role">MODERACIÓN</div>
-                </div>
+            <div class="staff-card">
+                <img src="staff.jpg" alt="Staff" class="staff-img">
+                <br><span class="staff-role mod-role">ADMINISTRACIÓN</span>
                 <h3>Equipo de Soporte</h3>
-                <p>Vigilancia de Normativas</p>
-                <p>Asistencia a Ciudadanos</p>
+                <p>Gestión de Ciudadanos</p>
             </div>
+        </div>
+    </section>
 
-            <div class="staff-card glass-effect">
-                <div class="staff-img-container">
-                    <img src="images/designer.jpg" alt="Diseñador" class="staff-img">
-                    <div class="staff-role dev-role">DESIGNER</div>
+    <section class="container" id="reglas">
+        <h2 class="section-title">Normativa de la Ciudad</h2>
+        <div class="dashboard">
+            <div class="sidebar">
+                <button class="tab-btn active" onclick="openTab(event, 't1')">CONCEPTOS BÁSICOS</button>
+                <button class="tab-btn" onclick="openTab(event, 't2')">FALTAS GRAVES</button>
+                <button class="tab-btn" onclick="openTab(event, 't3')">ZONAS SEGURAS</button>
+                <button class="tab-btn" onclick="openTab(event, 't4')">ROL ILEGAL</button>
+            </div>
+            <div class="content-area">
+                <div id="t1" class="tab-content active">
+                    <div class="rule-card">
+                        <strong>IC / OOC</strong>
+                        <p>IC es la vida de tu personaje. OOC es tu vida real fuera del juego. Nunca mezcles ambos.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>MetaGaming (MG)</strong>
+                        <p>Usar información de fuera del juego (como Discord o streams) para beneficio de tu personaje.</p>
+                    </div>
                 </div>
-                <h3>Dpto. Creativo</h3>
-                <p>Modelado 3D de EUP</p>
-                <p>Mapeos Exclusivos</p>
+                <div id="t2" class="tab-content">
+                    <div class="rule-card">
+                        <strong>PowerGaming (PG)</strong>
+                        <p>Hacer cosas imposibles en la vida real o forzar el rol de los demás sin darles opción.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>Combat Log</strong>
+                        <p>Desconectarse en medio de un rol o situación de peligro para evitar las consecuencias.</p>
+                    </div>
+                </div>
+                <div id="t3" class="tab-content">
+                    <div class="rule-card">
+                        <strong>Hospital y Comisaría</strong>
+                        <p>Son zonas de paz absoluta. No se permite ningún tipo de rol agresivo aquí.</p>
+                    </div>
+                </div>
+                <div id="t4" class="tab-content">
+                    <div class="rule-card">
+                        <strong>Valorar Vida</strong>
+                        <p>Si te apuntan con un arma, tu personaje tiene miedo. Debes colaborar para salvar tu vida.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="container" id="normativa">
-        <h2 class="desc-title">Portal de Normativas</h2>
-        <div class="glass-effect dashboard">
-            <nav class="tab-menu">
-                <button class="tab-link active" onclick="abrirPestana(event, 'basicas')">
-                    <i class="fas fa-gavel"></i> Reglas Básicas
-                </button>
-                <button class="tab-link" onclick="abrirPestana(event, 'entorno')">
-                    <i class="fas fa-tree"></i> Entorno y Vida
-                </button>
-                <button class="tab-link" onclick="abrirPestana(event, 'ilegal')">
-                    <i class="fas fa-mask"></i> Rol Ilegal
-                </button>
-                <button class="tab-link" onclick="abrirPestana(event, 'ilegal_policia')">
-                    <i class="fas fa-shield-alt"></i> Ilegal vs Policía
-                </button>
-            </nav>
-
-            <main class="content-area">
-                <article id="basicas" class="norm-tab-content active">
-                    <h3>Normativa Básica de Convivencia</h3>
-                    <div class="rule-card">
-                        <strong>CK (Character Kill)</strong>
-                        <p>Muerte definitiva del personaje. Requiere ticket previo con historia sólida y aprobación administrativa.</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>DM (Deathmatch)</strong>
-                        <p>Atacar o matar a otros jugadores sin un motivo de peso on-role. Prohibido totalmente.</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>FailRP</strong>
-                        <p>Actuar de manera ilógica o contraria a la realidad (ej: saltar 20 metros con un auto y seguir como si nada).</p>
-                    </div>
-                </article>
-
-                <article id="entorno" class="norm-tab-content">
-                    <h3>Conceptos de Vida y Entorno</h3>
-                    <div class="rule-card">
-                        <strong>NV (No Valorar Vida)</strong>
-                        <p>No reaccionar con miedo ante una amenaza real de muerte (ej: insultar a alguien que te apunta con un arma).</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>PG (Powergaming)</strong>
-                        <p>Hacer cosas que en la vida real serían físicamente imposibles o abusar de mecánicas del juego.</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>Zonas Seguras</strong>
-                        <p>LSPD, Hospital, Plaza Central. No se puede cometer actos delictivos ni iniciar conflictos en estas áreas.</p>
-                    </div>
-                </article>
-
-                <article id="ilegal" class="norm-tab-content">
-                    <h3>Normativa General Ilegal</h3>
-                    <div class="rule-card">
-                        <strong>Límite de Miembros</strong>
-                        <p>Máximo 4 personas por acto delictivo menor (robos a tiendas, atracos a personas).</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>Robos a mano armada</strong>
-                        <p>Debes tener un motivo sólido y un plan de huida. No se puede robar 'porque sí'.</p>
-                    </div>
-                </article>
-
-                <article id="ilegal_policia" class="norm-tab-content">
-                    <h3>Interacciones Ilegales y LSPD</h3>
-                    <div class="rule-card">
-                        <strong>Límite en Grandes Robos</strong>
-                        <p>Máximo 6 miembros ilegales vs 8 policías para robos a Bancos o Joyerías.</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>Corrupción Policial</strong>
-                        <p>Prohibida sin ticket aprobado. Solo un jefe o alto rango puede otorgar permisos de corrupción limitada.</p>
-                    </div>
-                </article>
-            </main>
+    <section class="container" id="aduana">
+        <h2 class="section-title">Aduana Los Santos</h2>
+        <div style="text-align: center; background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px;">
+            <input type="text" id="visa-name" placeholder="Nombre de tu Personaje" style="padding: 10px; border-radius: 5px; border: none; width: 250px;">
+            <button onclick="generarVisa()" class="btn-play-now" style="padding: 10px 20px; font-size: 0.9rem;">Generar Pasaje</button>
+            
+            <div id="visa-result" class="visa-card">
+                <h3 id="display-name" style="color: var(--primary);">NOMBRE</h3>
+                <p>ESTADO: 🟢 APROBADO PARA EL VUELO</p>
+                <p style="font-size: 0.8rem; margin-top: 10px;">Vuelo: ELY-2026 | Destino: Los Santos</p>
+            </div>
         </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
-    <script>
-        // 1. Configuración de Particles.js
-        particlesJS('particles-js', {
-            "particles": {
-                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#00d4ff" }, // Celeste neón
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.5, "random": false },
-                "size": { "value": 3, "random": true },
-                "line_linked": { "enable": true, "distance": 150, "color": "#00d4ff", "opacity": 0.2, "width": 1 },
-                "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
-                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } }
-            },
-            "retina_detect": true
-        });
-
-        // 2. Simulación de Jugadores Online
-        let playerNum = 0;
-        const targetNum = 87; // Número simulado
-        const elPlayer = document.getElementById('player-num');
-
-        function actualizarContador() {
-            if (playerNum < targetNum) {
-                playerNum++;
-                elPlayer.innerText = playerNum;
-                setTimeout(actualizarContador, 20); // Velocidad de subida
-            }
-        }
-        actualizarContador();
-
-        // 3. Sistema de Pestañas (Tabs) de Normativas
-        function abrirPestana(evt, tabId) {
-            // Esconder todo el contenido de pestañas
-            const tabcontent = document.getElementsByClassName("norm-tab-content");
-            for (let i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
-            }
-
-            // Quitar la clase "active" de todos los botones
-            const tablinks = document.getElementsByClassName("tab-link");
-            for (let i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-
-            // Mostrar la pestaña actual y añadir la clase "active" al botón
-            document.getElementById(tabId).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-
-        // 4. Función interactiva para el botón JUGAR AHORA
-        function notificarConexion() {
-            alert("Iniciando FiveM... Asegúrate de tener Steam abierto y el juego instalado en tu PC para conectar a la ciudad de Elysium.");
-        }
-    </script>
-</body>
-</html>
+    <div id="hacker-trigger" onclick="mostrarTerminal()">.</div>
+    <div id="dark-terminal">
+        <p>>>> ACCESO NIVEL 4 CONCEDIDO...</p>
+        <p>Bienvenido al sistema central de Elysium.</p>
+        <p>Escribe 'ayuda' para ver
