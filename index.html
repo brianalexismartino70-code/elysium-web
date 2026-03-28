@@ -34,14 +34,47 @@
    ========================================= */
 /* (Deja el #aduana tal como lo tienes ahora con tu fondo de la comisaría) */
 
- .server-status-card {
-    margin-top: 20px;
-    margin-bottom: 20px;
+.server-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #00ffff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.status-dot-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3)); /* Brillo neón cian */
-}       
+    gap: 10px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: #00ff00; /* Verde cuando esté online */
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 8px #00ff00;
+}
+
+.fivem-badge {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.fivem-badge:hover {
+    transform: scale(1.02);
+}    
 
 .aduana-header-container {
     display: flex;
@@ -1179,14 +1212,15 @@
     <h1>ELYSIUM RP</h1>
     <p class="subtitle">Sin Fronteras</p>
 
- <div class="server-status-card">
-    <iframe src="https://fivem-server-widget.vercel.app/api?ip=kr546a&theme=dark" 
-            width="400px" 
-            height="150px" 
-            frameborder="0" 
-            scrolling="no">
-    </iframe>
-</div>    
+<div class="server-card">
+    <div class="status-dot-container">
+        <span class="dot"></span>
+        <p>Estado del Servidor</p>
+    </div>
+    <a href="fivem://connect/cfx.re/join/kr546a">
+        <img src="https://servers.fivem.net/widget/kr546a.png" alt="Elysium Status" class="fivem-badge">
+    </a>
+</div>
     
 <div class="server-status-card glass-effect">
         <div class="status-indicator" id="status-dot"></div>
