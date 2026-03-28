@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elysium RP | La Evolución del Hardcore</title>
-    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XMC8M5F5X"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -12,271 +10,343 @@
       gtag('js', new Date());
       gtag('config', 'G-1XMC8M5F5X');
     </script>
-
+    <title>Elysium RP | Sin Fronteras - Hardcore</title>
+    
     <link rel="icon" type="image/png" href="E.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <style>
         :root { 
             --primary: #00d4ff; 
-            --secondary: #00ffcc;
+            --primary-glow: rgba(0, 212, 255, 0.6);
+            --bg: #030508; 
+            --card-glass: rgba(15, 20, 25, 0.7);
             --accent: #ff3366;
-            --bg: #020406; 
-            --glass: rgba(10, 15, 20, 0.8);
-            --border: rgba(0, 212, 255, 0.2);
         }
-
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
             background-color: var(--bg); 
-            color: #fff; 
+            color: white; 
             font-family: 'Rajdhani', sans-serif; 
-            overflow-x: hidden;
-            line-height: 1.6;
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
         }
 
-        /* --- PRELOADER CINEMÁTICO --- */
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: #000; z-index: 99999; display: flex; justify-content: center; align-items: center;
-            transition: transform 1s cubic-bezier(1, 0, 0, 1);
-        }
-        #preloader.hidden { transform: translateY(-100%); }
-        .loader-content { text-align: center; }
-        .loader-logo { font-size: 6rem; font-family: 'Orbitron'; color: var(--primary); text-shadow: 0 0 20px var(--primary); animation: pulse 2s infinite; }
+        /* SCROLLBAR NEÓN */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; box-shadow: 0 0 10px var(--primary); }
 
-        /* --- FONDO DINÁMICO --- */
-        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; }
-
-        /* --- NAVEGACIÓN PRO --- */
-        nav {
-            position: fixed; top: 0; width: 100%; padding: 20px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; transition: 0.4s;
-        }
-        nav.scrolled { background: rgba(0,0,0,0.9); padding: 10px 5%; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
-        .nav-logo { height: 50px; filter: drop-shadow(0 0 5px var(--primary)); }
-        .nav-links a { color: #fff; text-decoration: none; font-family: 'Orbitron'; font-weight: 700; margin-left: 30px; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; }
-        .nav-links a:hover { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
-
-        /* --- HERO SECTION GLITCH --- */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
-        .hero-title { 
-            font-family: 'Orbitron'; font-size: clamp(3rem, 10vw, 7rem); font-weight: 900; 
-            text-transform: uppercase; letter-spacing: 10px; position: relative;
-            background: linear-gradient(to bottom, #fff, var(--primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .hero-title::before {
-            content: 'ELYSIUM'; position: absolute; left: -2px; text-shadow: 2px 0 #ff3366;
-            top: 0; color: #fff; background: var(--bg); overflow: hidden; clip: rect(0,900px,0,0);
-            animation: glitch-1 3s infinite linear alternate-reverse;
+        #particles-js {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0; 
+            pointer-events: none; 
+            background: radial-gradient(circle at center, #0a1118 0%, #020305 100%);
         }
 
-        /* --- BOTÓN JUGAR AHORA --- */
-        .btn-play {
-            margin-top: 40px; padding: 18px 50px; border-radius: 5px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: #000; font-family: 'Orbitron'; font-weight: 900; text-decoration: none;
-            letter-spacing: 3px; font-size: 1.2rem; transition: 0.4s;
-            box-shadow: 0 0 30px var(--primary-glow);
+        /* NAVEGACIÓN PRO */
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 5%; background: rgba(0,0,0,0.85); 
+            border-bottom: 1px solid rgba(0, 212, 255, 0.3); 
+            position: sticky; top: 0; backdrop-filter: blur(15px); 
+            z-index: 999; 
         }
-        .btn-play:hover { transform: scale(1.1) rotate(-1deg); box-shadow: 0 0 60px var(--primary); }
+        .nav-logo { height: 45px; transition: 0.3s; }
+        .nav-logo:hover { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 10px var(--primary)); }
+        .nav-links a { color: var(--primary); text-decoration: none; font-family: 'Orbitron'; margin-left: 25px; font-size: 0.85rem; font-weight: bold; transition: 0.3s; }
+        .nav-links a:hover { text-shadow: 0 0 15px var(--primary); color: #fff; }
 
-        /* --- SECCIONES --- */
-        .section { padding: 100px 10%; position: relative; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-family: 'Orbitron'; font-size: 3rem; color: #fff; margin-bottom: 10px; }
-        .section-header .line { width: 100px; height: 4px; background: var(--primary); margin: 0 auto; box-shadow: 0 0 15px var(--primary); }
+        /* HERO GLITCH EFFECT */
+        .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .main-logo { width: 170px; margin-bottom: 25px; animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        
+        .glitch-title {
+            font-family: 'Orbitron'; font-size: clamp(3rem, 8vw, 6rem); font-weight: 900;
+            letter-spacing: 10px; color: #fff; text-shadow: 0 0 20px var(--primary-glow);
+            position: relative;
+        }
 
-        /* --- STAFF CARDS ULTRA --- */
-        .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        /* BOTÓN JUGAR AHORA ÉPICO */
+        .btn-play-now {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 18px 50px;
+            background: linear-gradient(45deg, var(--primary), #00ffcc);
+            color: #050505;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: 0.4s;
+            box-shadow: 0 0 25px var(--primary-glow);
+            border: none;
+            cursor: pointer;
+        }
+        .btn-play-now:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 0 50px var(--primary);
+        }
+
+        /* SECCIÓN STAFF REINVENTADA */
+        .staff-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
         .staff-card {
-            background: var(--glass); border: 1px solid var(--border); border-radius: 20px;
-            padding: 40px; text-align: center; transition: 0.5s; overflow: hidden; position: relative;
+            background: var(--card-glass); border: 1px solid var(--border); border-radius: 20px;
+            padding: 40px; text-align: center; transition: 0.5s; width: 320px;
         }
-        .staff-card:hover { border-color: var(--primary); transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
-        .staff-card::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); transition: 0.5s;
-        }
-        .staff-card:hover::before { left: 100%; }
+        .staff-card:hover { border-color: var(--primary); transform: translateY(-15px); box-shadow: 0 0 30px var(--primary-glow); }
         .staff-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--primary); padding: 5px; margin-bottom: 20px; object-fit: cover; }
-        .role-tag { background: var(--accent); color: #fff; padding: 5px 20px; border-radius: 50px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: bold; }
-        .role-tag.owner { background: linear-gradient(45deg, #ff3366, #ff9900); }
+        .role-tag { 
+            background: var(--accent); padding: 6px 20px; border-radius: 50px; 
+            font-family: 'Orbitron'; font-size: 0.75rem; font-weight: bold; 
+            box-shadow: 0 0 15px var(--accent);
+        }
+        .role-tag.owner { background: linear-gradient(45deg, #ff3366, #ff9900); box-shadow: 0 0 20px #ff3366; }
 
-        /* --- DASHBOARD DE REGLAS --- */
-        .rules-container { display: grid; grid-template-columns: 300px 1fr; background: rgba(0,0,0,0.5); border: 1px solid var(--border); border-radius: 15px; height: 700px; overflow: hidden; }
-        .rules-tabs { background: rgba(5, 10, 15, 0.9); overflow-y: auto; }
-        .rule-tab { width: 100%; padding: 20px; background: none; border: none; border-left: 4px solid transparent; color: #6a7491; text-align: left; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; transition: 0.3s; }
-        .rule-tab.active { color: var(--primary); background: rgba(0, 212, 255, 0.05); border-left-color: var(--primary); }
-        .rules-content { padding: 40px; overflow-y: auto; }
+        /* REGLAS DASHBOARD (LAS 11 PESTAÑAS) */
+        .dashboard { display: flex; background: rgba(8, 12, 16, 0.9); border: 1px solid var(--primary); border-radius: 20px; height: 800px; overflow: hidden; backdrop-filter: blur(20px); }
+        .sidebar { width: 320px; background: rgba(5, 8, 12, 0.95); border-right: 1px solid rgba(255,255,255,0.05); overflow-y: auto; }
+        .tab-btn { width: 100%; padding: 20px; border: none; background: none; color: #8892b0; text-align: left; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; border-bottom: 1px solid rgba(255,255,255,0.02); transition: 0.3s; }
+        .tab-btn.active { color: var(--primary); background: rgba(0,212,255,0.1); border-left: 5px solid var(--primary); font-weight: bold; }
+        .content-area { flex: 1; padding: 45px; overflow-y: auto; }
+        .rule-card { background: rgba(15, 20, 25, 0.6); padding: 25px; border-radius: 15px; margin-bottom: 25px; border-left: 4px solid var(--primary); transition: 0.3s; }
+        .rule-card:hover { transform: translateX(10px); background: rgba(0, 212, 255, 0.05); }
 
-        /* --- FOOTER --- */
-        footer { padding: 60px 10%; background: #010204; border-top: 1px solid var(--border); text-align: center; }
+        /* ADUANA PRO */
+        .visa-card { background: #000; border: 2px solid var(--primary); border-radius: 15px; padding: 30px; position: relative; overflow: hidden; display: none; margin-top: 30px; }
+        .visa-card.visible { display: block; animation: slideUp 0.6s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* KEYFRAMES */
-        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.1); } }
-        @keyframes glitch-1 { 0% { clip: rect(20px,9999px,10px,0); } 20% { clip: rect(40px,9999px,30px,0); } 40% { clip: rect(10px,9999px,60px,0); } 100% { clip: rect(80px,9999px,90px,0); } }
+        /* TERMINAL */
+        #dark-terminal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #0f0; font-family: monospace; z-index: 10000; padding: 30px; display: none; }
 
+        /* PRELOADER CINEMÁTICO */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #010203; z-index: 99999; display: flex; justify-content: center; align-items: center; transition: 0.8s cubic-bezier(1, 0, 0, 1); }
+        #preloader.hidden { transform: translateY(-100%); }
     </style>
 </head>
 <body>
 
     <div id="preloader">
-        <div class="loader-content">
-            <div class="loader-logo">E</div>
-            <p style="letter-spacing: 10px; color: var(--primary); margin-top: 20px;">ELYSIUM RP</p>
+        <div style="text-align: center;">
+            <h1 style="font-size: 6rem; font-family: 'Orbitron'; color: #fff; text-shadow: 0 0 30px var(--primary);">E</h1>
+            <p style="letter-spacing: 12px; color: var(--primary); margin-top: 20px; font-weight: bold;">INICIANDO ELYSIUM OS</p>
         </div>
     </div>
 
     <div id="particles-js"></div>
 
-    <nav id="navbar">
-        <img src="E.png" alt="Elysium Logo" class="nav-logo">
+    <nav>
+        <img src="E.png" alt="Logo" class="nav-logo">
         <div class="nav-links">
             <a href="#inicio">INICIO</a>
             <a href="#quienes-somos">NOSOTROS</a>
             <a href="#staff">ALTO MANDO</a>
-            <a href="#reglas">NORMATIVA</a>
+            <a href="#reglas">REGLAMENTO</a>
             <a href="https://tienda.elysiumesrp.com" target="_blank">TIENDA</a>
         </div>
     </nav>
 
     <section class="hero" id="inicio">
-        <h1 class="hero-title" data-aos="zoom-in">ELYSIUM</h1>
+        <img src="E.png" alt="Elysium Logo" class="main-logo" data-aos="zoom-in">
+        <h1 class="glitch-title" data-aos="fade-up">ELYSIUM RP</h1>
         <p class="subtitle" data-aos="fade-up" data-aos-delay="200">Sin Fronteras</p>
-        <div data-aos="fade-up" data-aos-delay="400">
-            <a href="fivem://connect/cfx.re/join/kr546a" class="btn-play" onclick="notificarConexion()">JUGAR AHORA</a>
+        
+        <div class="glass-effect" style="margin-top: 30px;" data-aos="fade-up" data-aos-delay="400">
+            <span id="player-count" style="font-weight: bold; color: var(--primary);">DETECTANDO CIUDADANOS...</span><br>
+            <a href="fivem://connect/cfx.re/join/kr546a" class="btn-play-now" onclick="notificarConexion()">JUGAR AHORA</a>
         </div>
     </section>
 
-    <section class="section" id="quienes-somos" data-aos="fade-up">
-        <div class="section-header">
-            <h2>NUESTRA FILOSOFÍA</h2>
-            <div class="line"></div>
-        </div>
-        <div class="staff-grid">
-            <div class="staff-card">
-                <i class="fas fa-microchip" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
-                <h3>SISTEMAS EXCLUSIVOS</h3>
-                <p>Desarrollo propio enfocado en la inmersión total. Economía balanceada y scripts optimizados para el máximo rendimiento.</p>
-            </div>
-            <div class="staff-card">
-                <i class="fas fa-user-shield" style="font-size: 3rem; color: var(--secondary); margin-bottom: 20px;"></i>
-                <h3>COMUNIDAD HARDCORE</h3>
-                <p>Un entorno serio donde tus decisiones tienen consecuencias reales. Aquí la narrativa es lo primero.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="staff">
-        <div class="section-header">
-            <h2>ALTO MANDO</h2>
-            <div class="line"></div>
-        </div>
+    <section class="container" id="staff">
+        <h2 class="section-title" data-aos="fade-down">Alto Mando de la Ciudad</h2>
         <div class="staff-grid">
             <div class="staff-card" data-aos="flip-left">
-                <div class="staff-img-container">
-                    <img src="images/brian.jpg" alt="Brian Martino" class="staff-img">
-                </div>
-                <span class="role-tag owner">OWNER Y PROPIETARIO</span>
-                <h3 style="margin-top: 15px;">BRIAN MARTINO</h3>
-                <p>Director General del Proyecto. Encargado del desarrollo técnico y visión estratégica de Elysium.</p>
+                <img src="brian.jpg" alt="Brian Martino" class="staff-img">
+                <br><span class="role-tag owner">OWNER Y PROPIETARIO</span>
+                <h3 style="margin-top: 15px; font-family: 'Orbitron';">Brian Martino</h3>
+                <p style="color: #a8b2d1;">Director General. Responsable del desarrollo técnico y la visión global de Elysium RP.</p>
             </div>
             <div class="staff-card" data-aos="flip-right" data-aos-delay="200">
-                <img src="images/staff.jpg" alt="Equipo de Staff" class="staff-img">
-                <span class="role-tag">ADMINISTRACIÓN</span>
-                <h3 style="margin-top: 15px;">EQUIPO DE SOPORTE</h3>
-                <p>Gestión ciudadana y moderación activa para garantizar un juego limpio y seguro.</p>
+                <img src="staff.jpg" alt="Staff" class="staff-img">
+                <br><span class="role-tag">ADMINISTRACIÓN</span>
+                <h3 style="margin-top: 15px; font-family: 'Orbitron';">Equipo de Soporte</h3>
+                <p style="color: #a8b2d1;">Moderación activa y asistencia técnica 24/7 para garantizar la mejor experiencia.</p>
             </div>
         </div>
     </section>
 
-    <section class="section" id="reglas">
-        <div class="section-header">
-            <h2>NORMATIVA OFICIAL</h2>
-            <div class="line"></div>
-        </div>
-        <div class="rules-container" data-aos="fade-up">
-            <div class="rules-tabs">
-                <button class="rule-tab active" onclick="showRule(event, 't1')">I. FUNDAMENTOS NARRATIVOS</button>
-                <button class="rule-tab" onclick="showRule(event, 't2')">II. TRANSGRESIONES</button>
-                <button class="rule-tab" onclick="showRule(event, 't3')">III. VIOLENCIA</button>
-                <button class="rule-tab" onclick="showRule(event, 't4')">IV. ESTADOS Y MEMORIA</button>
-                <button class="rule-tab" onclick="showRule(event, 't5')">V. ZONAS SEGURAS</button>
+    <section class="container" id="reglas">
+        <h2 class="section-title" data-aos="fade-down">Portal de Normativa</h2>
+        <div class="dashboard" data-aos="fade-up">
+            <div class="sidebar">
+                <button class="tab-btn active" onclick="openTab(event, 't1')">I. FUNDAMENTOS NARRATIVOS</button>
+                <button class="tab-btn" onclick="openTab(event, 't2')">II. TRANSGRESIONES</button>
+                <button class="tab-btn" onclick="openTab(event, 't3')">III. VIOLENCIA Y CONFLICTO</button>
+                <button class="tab-btn" onclick="openTab(event, 't4')">IV. ESTADOS Y MEMORIA</button>
+                <button class="tab-btn" onclick="openTab(event, 't5')">V. INTERACCIÓN TÉCNICA</button>
+                <button class="tab-btn" onclick="openTab(event, 't6')">VI. ZONAS SEGURAS</button>
+                <button class="tab-btn" onclick="openTab(event, 't7')">VII. IDENTIDAD Y ESTÉTICA</button>
+                <button class="tab-btn" onclick="openTab(event, 't8')">VIII. COMUNICACIÓN (IC)</button>
+                <button class="tab-btn" onclick="openTab(event, 't9')">IX. SECUESTROS</button>
+                <button class="tab-btn" onclick="openTab(event, 't10')">X. PRÉSTAMOS Y DEUDAS</button>
+                <button class="tab-btn" onclick="openTab(event, 't11')">XI. BLOQUEOS Y ABUSOS</button>
             </div>
-            <div class="rules-content">
-                <div id="t1" class="rule-body active">
+
+            <div class="content-area">
+                <div id="t1" class="tab-content active">
                     <div class="rule-card">
                         <strong>Art. 1.1 – In-Character (IC)</strong>
-                        <p>Es todo lo que concierne a la vida y acciones de tu personaje. La interpretación debe ser constante y coherente.</p>
+                        <p>Es todo lo que concierne a la vida, acciones y palabras de tu personaje dentro del entorno virtual. La interpretación debe ser constante y coherente con su historia.</p>
                     </div>
                     <div class="rule-card">
                         <strong>Art. 1.2 – Out-Of-Character (OOC)</strong>
-                        <p>Comunicación de la persona real. Prohibido mezclar con el juego.</p>
+                        <p>Es la comunicación o acción de la persona real detrás de la pantalla. El uso de canales OOC debe ser excepcional y técnico.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>Art. 1.3 - Actitud Anti-Rol (AA)</strong>
+                        <p>Toda acción que ignore deliberadamente las bases de la interpretación o busque arruinar la experiencia ajena.</p>
                     </div>
                 </div>
-                <div id="t2" class="rule-body" style="display:none;">
-                    <div class="rule-card"><strong>Art. 2.1 – MetaGaming (MG)</strong><p>Uso de información externa para beneficio IC.</p></div>
+
+                <div id="t2" class="tab-content" style="display:none;">
+                    <div class="rule-card">
+                        <strong>Art. 2.1 – MetaGaming (MG)</strong>
+                        <p>Adquisición de información fuera del juego (Discord, streams) para beneficio propio dentro de la ciudad.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>Art. 2.2 – PowerGaming (PG)</strong>
+                        <p>Realizar acciones imposibles físicamente o forzar un rol sobre otro jugador sin darle opción a reaccionar.</p>
+                    </div>
                 </div>
-                <div id="t3" class="rule-body" style="display:none;">
-                    <div class="rule-card"><strong>Art. 3.1 – DeathMatch (DM)</strong><p>Matar sin motivo de rol justificado.</p></div>
+
+                <div id="t3" class="tab-content" style="display:none;">
+                    <div class="rule-card">
+                        <strong>Art. 3.1 – DeathMatch (DM)</strong>
+                        <p>Agredir o matar a otro ciudadano sin una interacción de rol previa válida y justificada.</p>
+                    </div>
+                    <div class="rule-card">
+                        <strong>Art. 3.4 – Valoración de Vida</strong>
+                        <p>Priorizar la integridad física del personaje. Si tienes un arma apuntándote, debes rendirte.</p>
+                    </div>
+                </div>
+
+                <div id="t9" class="tab-content" style="display:none;">
+                    <h3>Normativa de Secuestros</h3>
+                    <table>
+                        <tr><th>Tipo de Víctima</th><th>Rescate Máx.</th><th>Tiempo Máx.</th></tr>
+                        <tr><td>Civil</td><td>$50,000</td><td>20 Min</td></tr>
+                        <tr><td>Policía</td><td>$300,000</td><td>45 Min</td></tr>
+                    </table>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <h2 class="hero-title" style="font-size: 2rem;">ELYSIUM</h2>
-        <p style="margin: 20px 0; color: #6a7491;">&copy; 2026 elysiumesrp.com | Todos los derechos reservados.</p>
+    <section class="container" id="mapa">
+        <h2 class="section-title">Mapa Satelital de Los Santos</h2>
+        <div class="map-container" data-aos="zoom-in">
+            <div id="gta-map"></div>
+        </div>
+    </section>
+
+    <section class="container" id="aduana">
+        <h2 class="section-title">Aduana de Ingreso</h2>
+        <div class="visa-generator glass-effect" data-aos="fade-up">
+            <input type="text" id="visa-input" placeholder="Nombre de tu Personaje" style="padding: 12px; border-radius: 8px; border: none; width: 250px;">
+            <button class="btn-neon" onclick="generarVisa()">Generar Boarding Pass</button>
+            
+            <div id="visa-card" class="visa-card">
+                <h3 id="visa-name" style="color: var(--primary); font-family: 'Orbitron';">NOMBRE</h3>
+                <p style="color: #0f0; font-weight: bold;">>>> ACCESO CONCEDIDO <<<</p>
+                <p style="font-size: 0.8rem; margin-top: 15px;">Vuelo: ELY-2026 | Sello: Elysium Border Patrol</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 60px 10%; background: #010203; border-top: 1px solid var(--primary); text-align: center;">
+        <h2 style="font-family: 'Orbitron'; letter-spacing: 5px;">ELYSIUM <span style="color: var(--primary);">RP</span></h2>
+        <p style="margin: 20px 0; color: #6a7491;">&copy; 2026 elysiumesrp.com | Liderado por Brian Martino</p>
         <div class="nav-links">
-            <a href="#"><i class="fab fa-discord"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="https://discord.gg/4mTVJhu3gx" target="_blank"><i class="fab fa-discord"></i></a>
             <a href="#"><i class="fab fa-tiktok"></i></a>
         </div>
     </footer>
 
+    <div id="hacker-trigger" onclick="abrirTerminal()" style="position: fixed; bottom: 5px; right: 5px; opacity: 0.05; cursor: crosshair;">.</div>
+    <div id="dark-terminal">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #0f0; padding-bottom: 10px;">
+            <span>ELYSIUM_OS v1.0.4 - DARK ACCESS</span>
+            <button onclick="cerrarTerminal()" style="background: none; border: none; color: red; cursor: pointer;">[X]</button>
+        </div>
+        <div id="term-output" style="margin-top: 20px;">
+            <p>Sincronizando con la red de Los Santos...</p>
+        </div>
+        <input type="text" id="term-input" style="background: none; border: none; color: #0f0; width: 100%; outline: none; margin-top: 10px;" onkeypress="handleCommand(event)">
+    </div>
+
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
         // AOS Inicialización
         AOS.init({ duration: 1000, once: true });
 
         // Preloader Logic
         window.addEventListener('load', () => {
-            setTimeout(() => { document.getElementById('preloader').classList.add('hidden'); }, 1500);
+            setTimeout(() => { document.getElementById('preloader').classList.add('hidden'); }, 2000);
         });
 
-        // Navbar Color Change
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if(window.scrollY > 50) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
+        // Particles
+        particlesJS("particles-js", {
+            "particles": { "number": { "value": 70 }, "color": { "value": "#00d4ff" }, "line_linked": { "enable": true, "opacity": 0.2 }, "move": { "enable": true, "speed": 1.5 } }
         });
 
-        // Rules Switcher
-        function showRule(evt, tabId) {
-            const bodies = document.querySelectorAll('.rule-body');
-            bodies.forEach(b => b.style.display = 'none');
-            const tabs = document.querySelectorAll('.rule-tab');
+        // Tabs Logic
+        function openTab(evt, tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(c => c.style.display = 'none');
+            const tabs = document.querySelectorAll('.tab-btn');
             tabs.forEach(t => t.classList.remove('active'));
             document.getElementById(tabId).style.display = 'block';
             evt.currentTarget.classList.add('active');
         }
 
-        // Particles 
-        particlesJS("particles-js", {
-            "particles": { "number": { "value": 80 }, "color": { "value": "#00d4ff" }, "line_linked": { "enable": true, "opacity": 0.2 }, "move": { "enable": true, "speed": 1.5 } }
-        });
+        // Aduana Logic
+        function generarVisa() {
+            const name = document.getElementById('visa-input').value;
+            if(name) {
+                document.getElementById('visa-name').innerText = name.toUpperCase();
+                document.getElementById('visa-card').classList.add('visible');
+            }
+        }
+
+        // Terminal Logic
+        function abrirTerminal() { document.getElementById('dark-terminal').style.display = 'block'; }
+        function cerrarTerminal() { document.getElementById('dark-terminal').style.display = 'none'; }
+        
+        // Mapa Logic
+        const map = L.map('gta-map', { crs: L.CRS.Simple, minZoom: -1.5, maxZoom: 2 });
+        const bounds = [[0, 0], [4096, 4096]];
+        L.imageOverlay('mapa-gta.jpg', bounds).addTo(map);
+        map.fitBounds(bounds);
+        map.setView([2048, 2048], -1);
 
         function notificarConexion() {
-            alert("Sincronizando con los satélites de Elysium... Iniciando FiveM.");
+            alert("Estableciendo conexión con el servidor de Elysium... Iniciando FiveM.");
         }
     </script>
 </body>
