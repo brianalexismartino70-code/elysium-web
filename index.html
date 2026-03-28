@@ -427,6 +427,10 @@
         tr:hover td { background: rgba(0, 212, 255, 0.05); color: #fff; }
 
         @media (max-width: 900px) {
+            .content-area { padding: 20px; } /* Reduce el padding interior en móviles */
+            .rule-card { padding: 15px; } /* Reduce el relleno de cada tarjeta */
+            .rule-card strong { font-size: 1rem; }
+            .rule-card p { font-size: 0.9rem; }
             .dashboard { flex-direction: column; height: auto; min-height: 600px; }
             .sidebar { width: 100%; display: flex; overflow-x: auto; height: auto; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
             .tab-btn { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; padding: 15px; }
@@ -483,7 +487,35 @@
     box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary);
     transform: translateY(-2px);
 }
-        
+
+  /* Estilos del nuevo botón JUGAR AHORA */
+.btn-play-now {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 40px;
+    background: linear-gradient(45deg, var(--primary), #00ffcc);
+    color: #050505;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px var(--primary-glow), inset 0 0 10px rgba(255,255,255,0.5);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-play-now:hover {
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 0 30px var(--primary), 0 0 50px #00ffcc;
+}
+
+.btn-play-now i {
+    margin-right: 10px;
+}      
 /* =========================================
    VARIANTE: BOTÓN DISCORD
    ========================================= */
@@ -1107,6 +1139,34 @@
     margin-bottom: 10px;
     user-select: all; /* Hace que al hacer clic se seleccione todo el texto para copiar fácil */
 }
+        /* (Tus otros estilos de la web...) */
+
+.code-box {
+    background: #000;
+    color: #00ff41;
+    font-family: monospace;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px dashed #00d4ff;
+    text-align: center;
+    margin-bottom: 10px;
+    user-select: all; 
+}
+
+/* PEGA AQUÍ LOS ESTILOS DEL STAFF */
+/* Estilos para la sección del Staff */
+.staff-grid {
+    display: flex;
+    justify-content: center;
+/* ... todo el resto del código CSS del staff ... */
+.staff-card p {
+    color: #a8b2d1;
+    font-size: 0.9rem;
+}
+/* HASTA AQUÍ */
+
+</style>   
+</head>
     </style>   
 </head>
 <body>
@@ -1143,6 +1203,39 @@
         <div class="nav-links">
             <a href="#inicio">INICIO</a>
             <a href="#quienes-somos">NOSOTROS</a>
+            <section class="container" id="staff">
+    <h2 class="section-title">Líderes de Elysium</h2>
+    <p style="text-align: center; color: #a8b2d1; margin-bottom: 40px; font-family: 'Rajdhani', sans-serif;">Conoce al equipo encargado de mantener la ciudad funcionando al 100%.</p>
+
+    <div class="staff-grid">
+        <div class="staff-card glass-effect">
+            <div class="staff-img-container">
+                <img src="https://via.placeholder.com/300x300.png?text=Co-Owner" alt="Co-Propietario" class="staff-img">
+                <div class="staff-role owner-role">CO-OWNER</div>
+            </div>
+            <h3>Brian Martino</h3>
+            <p>Dirección General y Desarrollo</p>
+        </div>
+
+        <div class="staff-card glass-effect">
+            <div class="staff-img-container">
+                <img src="https://via.placeholder.com/300x300.png?text=Staff" alt="Moderación" class="staff-img">
+                <div class="staff-role mod-role">MODERACIÓN</div>
+            </div>
+            <h3>Equipo de Soporte</h3>
+            <p>Vigilancia y Asistencia Técnica</p>
+        </div>
+
+        <div class="staff-card glass-effect">
+            <div class="staff-img-container">
+                <img src="https://via.placeholder.com/300x300.png?text=Designer" alt="Diseñador" class="staff-img">
+                <div class="staff-role dev-role">DESIGNER</div>
+            </div>
+            <h3>Departamento Creativo</h3>
+            <p>Modelado 3D y EUP</p>
+        </div>
+    </div>
+</section>
             <a href="#reglas">REGLAMENTO</a>
             <a href="https://tienda.elysiumesrp.com" target="_blank">TIENDA</a>
         </div>
@@ -1902,6 +1995,27 @@
             }
         }
     });
+
+  /* (Todo el código de tu terminal hacker...) */
+                case 'latam':
+                    output.innerHTML += `<p class="respuesta-secreta">Iniciando protocolo LATAM RP... Redireccionando a proyecto base... Error 404: Fronteras no encontradas.</p>`;
+                    break;
+                default:
+                    output.innerHTML += `<p class="respuesta-error">Comando no reconocido: ${cmd}. Escribe 'ayuda'.</p>`;
+            }
+        }
+    });
+
+    /* PEGA AQUÍ LA FUNCIÓN DEL BOTÓN */
+    function notificarConexion() {
+        alert("Iniciando FiveM... Asegúrate de tener Steam abierto y el juego instalado.");
+    }
+
+</script>
+
+<div id="hacker-trigger" onclick="abrirTerminal()" title="No hay nada que ver aquí...">.</div>
+</body>
+</html>      
 </script>
     <div id="hacker-trigger" onclick="abrirTerminal()" title="No hay nada que ver aquí...">.</div>
 
