@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>Elysium RP | La Cúspide del Hardcore Roleplay</title>
+    <meta name="description" content="Únete a Elysium RP, la comunidad de FiveM Hardcore más inmersiva. Economía realista, mafias, LSPD y un desarrollo técnico sin precedentes.">
+    <meta name="keywords" content="FiveM, GTA V Roleplay, Elysium RP, Servidor Hardcore, LSPD, Mafias, Roleplay Español">
+    <meta name="author" content="Brian Martino - Elysium RP">
+    <meta name="theme-color" content="#00d4ff">
+    
+    <meta property="og:title" content="Elysium RP | Sin Fronteras">
+    <meta property="og:description" content="Ciudadanía abierta. Descubre el servidor con los sistemas más avanzados y la comunidad más seria.">
+    <meta property="og:image" content="https://elysiumesrp.com/E.png">
+    <meta property="og:url" content="https://elysiumesrp.com">
+    <meta property="og:type" content="website">
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XMC8M5F5X"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -10,343 +24,496 @@
       gtag('js', new Date());
       gtag('config', 'G-1XMC8M5F5X');
     </script>
-    <title>Elysium RP | Sin Fronteras - Hardcore</title>
     
     <link rel="icon" type="image/png" href="E.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
     <style>
+        /* ==========================================================================
+           1. CORE VARIABLES & RESET
+           ========================================================================== */
         :root { 
             --primary: #00d4ff; 
             --primary-glow: rgba(0, 212, 255, 0.6);
-            --bg: #030508; 
-            --card-glass: rgba(15, 20, 25, 0.7);
+            --secondary: #00ffcc;
             --accent: #ff3366;
+            --bg-dark: #020406; 
+            --bg-panel: rgba(10, 14, 20, 0.85);
+            --glass-border: rgba(0, 212, 255, 0.15);
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        html { scroll-behavior: smooth; }
         body { 
-            background-color: var(--bg); 
-            color: white; 
-            font-family: 'Rajdhani', sans-serif; 
-            overflow-x: hidden; 
-            scroll-behavior: smooth; 
+            background-color: var(--bg-dark); color: var(--text-main); 
+            font-family: 'Rajdhani', sans-serif; overflow-x: hidden; line-height: 1.6; 
         }
 
-        /* SCROLLBAR NEÓN */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; box-shadow: 0 0 10px var(--primary); }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, var(--primary), var(--secondary)); border-radius: 5px; }
 
-        #particles-js {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0; 
-            pointer-events: none; 
-            background: radial-gradient(circle at center, #0a1118 0%, #020305 100%);
+        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; background: radial-gradient(circle at center, #0a1118 0%, #010203 100%); }
+
+        /* ==========================================================================
+           2. TYPOGRAPHY & TITLES
+           ========================================================================== */
+        h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; }
+        .section-title { 
+            text-align: center; font-size: 3rem; margin-bottom: 20px; 
+            color: #fff; letter-spacing: 4px; position: relative;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
         }
+        .section-subtitle { text-align: center; color: var(--primary); font-size: 1.2rem; margin-bottom: 60px; letter-spacing: 2px; }
+        .divider { width: 150px; height: 3px; background: linear-gradient(90deg, transparent, var(--primary), transparent); margin: 0 auto 50px auto; }
 
-        /* NAVEGACIÓN PRO */
+        /* ==========================================================================
+           3. NAVIGATION & PRELOADER
+           ========================================================================== */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #000;
+            z-index: 999999; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1s ease, visibility 1s;
+        }
+        .cyber-loader { font-family: 'Orbitron'; font-size: 5rem; color: var(--primary); text-shadow: 0 0 30px var(--primary); animation: glitch-anim 1s infinite; }
+        .loader-bar-bg { width: 300px; height: 2px; background: rgba(255,255,255,0.1); margin-top: 30px; position: relative; overflow: hidden; }
+        .loader-bar-fill { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--primary); box-shadow: 0 0 15px var(--primary); animation: load-fill 2s forwards ease-in-out; }
+
         nav { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 15px 5%; background: rgba(0,0,0,0.85); 
-            border-bottom: 1px solid rgba(0, 212, 255, 0.3); 
-            position: sticky; top: 0; backdrop-filter: blur(15px); 
-            z-index: 999; 
+            position: fixed; width: 100%; top: 0; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; transition: var(--transition-smooth); 
         }
-        .nav-logo { height: 45px; transition: 0.3s; }
-        .nav-logo:hover { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 10px var(--primary)); }
-        .nav-links a { color: var(--primary); text-decoration: none; font-family: 'Orbitron'; margin-left: 25px; font-size: 0.85rem; font-weight: bold; transition: 0.3s; }
-        .nav-links a:hover { text-shadow: 0 0 15px var(--primary); color: #fff; }
+        nav.scrolled { background: rgba(2, 4, 6, 0.95); padding: 10px 5%; border-bottom: 1px solid var(--glass-border); backdrop-filter: blur(15px); }
+        .nav-logo { height: 50px; filter: drop-shadow(0 0 8px var(--primary)); transition: 0.3s; }
+        .nav-logo:hover { transform: scale(1.1); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: #fff; text-decoration: none; font-family: 'Orbitron'; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; position: relative; padding-bottom: 5px; }
+        .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 2px; background: var(--primary); transition: 0.3s; box-shadow: 0 0 10px var(--primary); }
+        .nav-links a:hover::after { width: 100%; }
 
-        /* HERO GLITCH EFFECT */
-        .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .main-logo { width: 170px; margin-bottom: 25px; animation: float 4s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        /* ==========================================================================
+           4. HERO SECTION
+           ========================================================================== */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+        .hero-glitch { font-size: clamp(4rem, 10vw, 8rem); font-weight: 900; color: #fff; letter-spacing: 15px; position: relative; text-shadow: 0 0 30px var(--primary-glow); }
+        .hero-glitch::before, .hero-glitch::after { content: 'ELYSIUM'; position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8; }
+        .hero-glitch::before { color: var(--primary); z-index: -1; animation: glitch-left 2s infinite linear alternate-reverse; }
+        .hero-glitch::after { color: var(--accent); z-index: -2; animation: glitch-right 3s infinite linear alternate-reverse; }
         
-        .glitch-title {
-            font-family: 'Orbitron'; font-size: clamp(3rem, 8vw, 6rem); font-weight: 900;
-            letter-spacing: 10px; color: #fff; text-shadow: 0 0 20px var(--primary-glow);
-            position: relative;
+        .hero-btn { 
+            margin-top: 50px; padding: 20px 60px; font-family: 'Orbitron'; font-size: 1.5rem; font-weight: 900; 
+            background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; 
+            border: none; border-radius: 5px; cursor: pointer; text-decoration: none; text-transform: uppercase;
+            box-shadow: 0 0 30px var(--primary-glow); transition: var(--transition-smooth); clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
         }
+        .hero-btn:hover { transform: scale(1.1); box-shadow: 0 0 60px var(--primary); background: #fff; }
 
-        /* BOTÓN JUGAR AHORA ÉPICO */
-        .btn-play-now {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 18px 50px;
-            background: linear-gradient(45deg, var(--primary), #00ffcc);
-            color: #050505;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 900;
-            border-radius: 12px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            transition: 0.4s;
-            box-shadow: 0 0 25px var(--primary-glow);
-            border: none;
-            cursor: pointer;
-        }
-        .btn-play-now:hover {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 0 50px var(--primary);
-        }
+        /* ==========================================================================
+           5. ECONOMY TICKER
+           ========================================================================== */
+        .economy-ticker { width: 100%; background: #000; border-bottom: 1px solid var(--primary); border-top: 1px solid var(--primary); padding: 10px 0; overflow: hidden; white-space: nowrap; font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 2px; }
+        .ticker-wrapper { display: inline-block; animation: ticker-scroll 30s linear infinite; }
+        .ticker-item { margin-right: 50px; color: #fff; }
+        .ticker-up { color: var(--secondary); text-shadow: 0 0 10px var(--secondary); }
+        .ticker-down { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
 
-        /* SECCIÓN STAFF REINVENTADA */
-        .staff-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-        .staff-card {
-            background: var(--card-glass); border: 1px solid var(--border); border-radius: 20px;
-            padding: 40px; text-align: center; transition: 0.5s; width: 320px;
-        }
-        .staff-card:hover { border-color: var(--primary); transform: translateY(-15px); box-shadow: 0 0 30px var(--primary-glow); }
-        .staff-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--primary); padding: 5px; margin-bottom: 20px; object-fit: cover; }
-        .role-tag { 
-            background: var(--accent); padding: 6px 20px; border-radius: 50px; 
-            font-family: 'Orbitron'; font-size: 0.75rem; font-weight: bold; 
-            box-shadow: 0 0 15px var(--accent);
-        }
-        .role-tag.owner { background: linear-gradient(45deg, #ff3366, #ff9900); box-shadow: 0 0 20px #ff3366; }
+        /* ==========================================================================
+           6. SECTIONS COMMON
+           ========================================================================== */
+        .container { max-width: 1400px; margin: 0 auto; padding: 100px 5%; position: relative; z-index: 10; }
+        .glass-panel { background: var(--bg-panel); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); padding: 40px; }
 
-        /* REGLAS DASHBOARD (LAS 11 PESTAÑAS) */
-        .dashboard { display: flex; background: rgba(8, 12, 16, 0.9); border: 1px solid var(--primary); border-radius: 20px; height: 800px; overflow: hidden; backdrop-filter: blur(20px); }
-        .sidebar { width: 320px; background: rgba(5, 8, 12, 0.95); border-right: 1px solid rgba(255,255,255,0.05); overflow-y: auto; }
-        .tab-btn { width: 100%; padding: 20px; border: none; background: none; color: #8892b0; text-align: left; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; border-bottom: 1px solid rgba(255,255,255,0.02); transition: 0.3s; }
-        .tab-btn.active { color: var(--primary); background: rgba(0,212,255,0.1); border-left: 5px solid var(--primary); font-weight: bold; }
-        .content-area { flex: 1; padding: 45px; overflow-y: auto; }
-        .rule-card { background: rgba(15, 20, 25, 0.6); padding: 25px; border-radius: 15px; margin-bottom: 25px; border-left: 4px solid var(--primary); transition: 0.3s; }
-        .rule-card:hover { transform: translateX(10px); background: rgba(0, 212, 255, 0.05); }
+        /* ==========================================================================
+           7. FACTIONS & JOBS (NUEVO)
+           ========================================================================== */
+        .factions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .faction-card { height: 350px; border-radius: 10px; overflow: hidden; position: relative; cursor: crosshair; }
+        .faction-img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; filter: grayscale(80%) brightness(0.5); }
+        .faction-card:hover .faction-img { filter: grayscale(0%) brightness(1); transform: scale(1.1); }
+        .faction-content { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(to top, #000, transparent); transition: 0.4s; }
+        .faction-card h3 { color: #fff; font-size: 1.5rem; margin-bottom: 5px; text-shadow: 0 0 10px #000; }
+        .faction-card p { color: var(--primary); font-family: 'Orbitron'; font-size: 0.8rem; font-weight: bold; opacity: 0; transform: translateY(20px); transition: 0.4s; }
+        .faction-card:hover p { opacity: 1; transform: translateY(0); }
 
-        /* ADUANA PRO */
-        .visa-card { background: #000; border: 2px solid var(--primary); border-radius: 15px; padding: 30px; position: relative; overflow: hidden; display: none; margin-top: 30px; }
-        .visa-card.visible { display: block; animation: slideUp 0.6s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        /* ==========================================================================
+           8. VEHICLE SHOWCASE (NUEVO)
+           ========================================================================== */
+        .vehicle-showcase { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+        .vehicle-info { flex: 1; min-width: 300px; }
+        .vehicle-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+        .stat-box { background: rgba(0,0,0,0.5); border: 1px solid var(--primary); padding: 15px; border-radius: 5px; text-align: center; }
+        .stat-box h4 { color: var(--text-muted); font-size: 0.7rem; margin-bottom: 5px; }
+        .stat-box span { color: #fff; font-family: 'Orbitron'; font-size: 1.2rem; font-weight: bold; text-shadow: 0 0 10px var(--primary); }
+        .vehicle-image { flex: 1.5; min-width: 300px; position: relative; }
+        .vehicle-image img { width: 100%; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); animation: float-car 4s ease-in-out infinite; }
 
-        /* TERMINAL */
-        #dark-terminal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #0f0; font-family: monospace; z-index: 10000; padding: 30px; display: none; }
+        /* ==========================================================================
+           9. STAFF SECTION (HIGH COMMAND)
+           ========================================================================== */
+        .staff-grid { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
+        .staff-member { position: relative; width: 350px; text-align: center; }
+        .staff-avatar { width: 200px; height: 200px; margin: 0 auto 30px auto; position: relative; border-radius: 50%; padding: 10px; background: linear-gradient(45deg, var(--bg-dark), var(--bg-panel)); box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        .staff-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--glass-border); }
+        .staff-avatar::before { content: ''; position: absolute; top: -5px; left: -5px; width: calc(100% + 10px); height: calc(100% + 10px); border-radius: 50%; border: 2px dashed var(--primary); animation: spin-slow 10s linear infinite; }
+        .staff-member h3 { font-size: 1.8rem; color: #fff; margin-bottom: 5px; }
+        .staff-role { display: inline-block; padding: 5px 25px; background: var(--bg-panel); border: 1px solid var(--primary); border-radius: 20px; font-family: 'Orbitron'; font-size: 0.8rem; color: var(--primary); margin-bottom: 15px; box-shadow: 0 0 15px var(--primary-glow); }
+        .staff-member.owner .staff-role { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 15px rgba(255,51,102,0.5); }
+        .staff-member.owner .staff-avatar::before { border-color: var(--accent); }
 
-        /* PRELOADER CINEMÁTICO */
-        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #010203; z-index: 99999; display: flex; justify-content: center; align-items: center; transition: 0.8s cubic-bezier(1, 0, 0, 1); }
-        #preloader.hidden { transform: translateY(-100%); }
+        /* ==========================================================================
+           10. RULES DASHBOARD (ULTRA)
+           ========================================================================== */
+        .rules-layout { display: grid; grid-template-columns: 350px 1fr; gap: 30px; height: 800px; }
+        .rules-sidebar { background: rgba(0,0,0,0.6); border: 1px solid var(--glass-border); border-radius: 15px; overflow-y: auto; padding: 20px; }
+        .rule-btn { width: 100%; background: none; border: none; text-align: left; padding: 20px; color: var(--text-muted); font-family: 'Orbitron'; font-size: 0.8rem; cursor: pointer; border-radius: 8px; transition: 0.3s; margin-bottom: 5px; }
+        .rule-btn:hover { background: rgba(255,255,255,0.05); color: #fff; padding-left: 30px; }
+        .rule-btn.active { background: linear-gradient(90deg, rgba(0,212,255,0.15), transparent); color: var(--primary); border-left: 4px solid var(--primary); padding-left: 30px; font-weight: bold; }
+        .rules-content { background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 15px; padding: 40px; overflow-y: auto; }
+        .rule-section { display: none; animation: fade-in-up 0.5s ease; }
+        .rule-section.active { display: block; }
+        .rule-card { background: rgba(255,255,255,0.02); border-left: 3px solid var(--primary); padding: 25px; border-radius: 0 10px 10px 0; margin-bottom: 20px; transition: 0.3s; }
+        .rule-card:hover { background: rgba(0,212,255,0.05); transform: translateX(10px); }
+        .rule-card strong { font-family: 'Orbitron'; color: var(--primary); font-size: 1.1rem; display: block; margin-bottom: 10px; }
+
+        /* ==========================================================================
+           11. TERMINAL & FOOTER
+           ========================================================================== */
+        .community-hub { text-align: center; }
+        .social-links { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
+        .social-icon { width: 80px; height: 80px; border-radius: 50%; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); display: flex; justify-content: center; align-items: center; font-size: 2rem; color: #fff; text-decoration: none; transition: 0.4s; }
+        .social-icon:hover { transform: translateY(-10px); background: var(--primary); color: #000; box-shadow: 0 15px 30px var(--primary-glow); }
+
+        footer { background: #010203; border-top: 1px solid var(--glass-border); padding: 60px 5% 20px 5%; text-align: center; }
+
+        #terminal-trigger { position: fixed; bottom: 10px; right: 10px; color: rgba(255,255,255,0.1); font-size: 12px; cursor: pointer; z-index: 9999; }
+        #hacker-os { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050505; z-index: 100000; padding: 40px; font-family: 'Courier New', monospace; color: #0f0; display: none; }
+        .os-header { border-bottom: 1px solid #0f0; padding-bottom: 10px; display: flex; justify-content: space-between; margin-bottom: 20px; }
+        #os-output { height: calc(100% - 150px); overflow-y: auto; margin-bottom: 20px; }
+        .os-input-wrapper { display: flex; align-items: center; }
+        #os-input { background: none; border: none; color: #0f0; font-family: 'Courier New', monospace; font-size: 1.2rem; width: 100%; outline: none; margin-left: 10px; }
+
+        /* KEYFRAMES */
+        @keyframes glitch-anim { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.05) skewX(-5deg); text-shadow: -5px 0 red, 5px 0 blue; } }
+        @keyframes load-fill { to { width: 100%; } }
+        @keyframes glitch-left { 0% { transform: translate(0); } 20% { transform: translate(-5px, 2px); } 40% { transform: translate(-5px, -2px); } 60% { transform: translate(5px, 2px); } 80% { transform: translate(5px, -2px); } 100% { transform: translate(0); } }
+        @keyframes glitch-right { 0% { transform: translate(0); } 20% { transform: translate(5px, -2px); } 40% { transform: translate(5px, 2px); } 60% { transform: translate(-5px, -2px); } 80% { transform: translate(-5px, 2px); } 100% { transform: translate(0); } }
+        @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes spin-slow { 100% { transform: rotate(360deg); } }
+        @keyframes float-car { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
     </style>
 </head>
 <body>
 
     <div id="preloader">
-        <div style="text-align: center;">
-            <h1 style="font-size: 6rem; font-family: 'Orbitron'; color: #fff; text-shadow: 0 0 30px var(--primary);">E</h1>
-            <p style="letter-spacing: 12px; color: var(--primary); margin-top: 20px; font-weight: bold;">INICIANDO ELYSIUM OS</p>
-        </div>
+        <h1 class="cyber-loader">ELYSIUM</h1>
+        <div class="loader-bar-bg"><div class="loader-bar-fill"></div></div>
+        <p style="margin-top: 20px; font-family: 'Orbitron'; letter-spacing: 5px; color: var(--text-muted);">Sincronizando Base de Datos...</p>
     </div>
 
     <div id="particles-js"></div>
 
-    <nav>
-        <img src="E.png" alt="Logo" class="nav-logo">
+    <nav id="navbar">
+        <img src="E.png" alt="Logo Elysium" class="nav-logo">
         <div class="nav-links">
-            <a href="#inicio">INICIO</a>
-            <a href="#quienes-somos">NOSOTROS</a>
+            <a href="#inicio">SISTEMA CORE</a>
+            <a href="#facciones">FACCIONES</a>
+            <a href="#vehiculos">CONCESIONARIO</a>
             <a href="#staff">ALTO MANDO</a>
-            <a href="#reglas">REGLAMENTO</a>
-            <a href="https://tienda.elysiumesrp.com" target="_blank">TIENDA</a>
+            <a href="#reglamento">NORMATIVA</a>
         </div>
     </nav>
 
+    <div style="position: fixed; top: 90px; width: 100%; z-index: 998;">
+        <div class="economy-ticker">
+            <div class="ticker-wrapper">
+                <span class="ticker-item">📊 ECONOMÍA EN VIVO:</span>
+                <span class="ticker-item">Oro: $1,450 <span class="ticker-up">▲ 4%</span></span>
+                <span class="ticker-item">Armas Ilegales: Demanda Alta</span>
+                <span class="ticker-item">Gasolina: $4.5/L <span class="ticker-down">▼ 1%</span></span>
+                <span class="ticker-item">Impuestos LSPD: 12%</span>
+                <span class="ticker-item">📊 ECONOMÍA EN VIVO:</span>
+                <span class="ticker-item">Oro: $1,450 <span class="ticker-up">▲ 4%</span></span>
+                <span class="ticker-item">Armas Ilegales: Demanda Alta</span>
+                <span class="ticker-item">Gasolina: $4.5/L <span class="ticker-down">▼ 1%</span></span>
+            </div>
+        </div>
+    </div>
+
     <section class="hero" id="inicio">
-        <img src="E.png" alt="Elysium Logo" class="main-logo" data-aos="zoom-in">
-        <h1 class="glitch-title" data-aos="fade-up">ELYSIUM RP</h1>
-        <p class="subtitle" data-aos="fade-up" data-aos-delay="200">Sin Fronteras</p>
-        
-        <div class="glass-effect" style="margin-top: 30px;" data-aos="fade-up" data-aos-delay="400">
-            <span id="player-count" style="font-weight: bold; color: var(--primary);">DETECTANDO CIUDADANOS...</span><br>
-            <a href="fivem://connect/cfx.re/join/kr546a" class="btn-play-now" onclick="notificarConexion()">JUGAR AHORA</a>
+        <img src="E.png" alt="Elysium Logo" class="main-logo" data-aos="zoom-in" data-aos-duration="1500">
+        <h1 class="hero-glitch">ELYSIUM</h1>
+        <p style="font-size: 1.5rem; letter-spacing: 10px; color: var(--primary); text-transform: uppercase; margin-bottom: 20px;">Sin Fronteras</p>
+        <p style="max-width: 600px; text-align: center; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px;" data-aos="fade-up">El entorno de Roleplay Hardcore definitivo. Forja tu destino, lidera el inframundo o defiende la ley. Cada decisión tiene peso.</p>
+        <a href="fivem://connect/cfx.re/join/kr546a" class="hero-btn" onclick="notificarConexion()" data-aos="fade-up" data-aos-delay="200">INICIAR CONEXIÓN</a>
+    </section>
+
+    <section class="container" id="facciones">
+        <h2 class="section-title" data-aos="fade-right">Ecosistema Social</h2>
+        <div class="divider"></div>
+        <div class="factions-grid">
+            <div class="faction-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="police-map-fivem-1536x848.webp" alt="LSPD" class="faction-img">
+                <div class="faction-content">
+                    <h3>LSPD</h3>
+                    <p>MANTEN EL ORDEN. Protege a los ciudadanos, investiga el crimen organizado y forma parte de la unidad de élite SWAT.</p>
+                </div>
+            </div>
+            <div class="faction-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="fondo-lspd.webp" alt="EMS" class="faction-img">
+                <div class="faction-content">
+                    <h3>MEDICAL SERVICES</h3>
+                    <p>SALVA VIDAS. Únete al departamento médico, opera en situaciones de alto riesgo y domina la medicina forense.</p>
+                </div>
+            </div>
+            <div class="faction-card" data-aos="fade-up" data-aos-delay="300">
+                <img src="wp8853423.webp" alt="Ilegal" class="faction-img">
+                <div class="faction-content">
+                    <h3>INFRAMUNDO</h3>
+                    <p>CONQUISTA LAS CALLES. Carteles, mafias y pandillas. Controla el tráfico de armas, drogas y domina el mercado negro.</p>
+                </div>
+            </div>
+            <div class="faction-card" data-aos="fade-up" data-aos-delay="400">
+                <img src="982-1-1024x576.webp" alt="Mecánicos" class="faction-img">
+                <div class="faction-content">
+                    <h3>LS CUSTOMS</h3>
+                    <p>DOMINA EL MOTOR. Modifica, repara y personaliza los vehículos de la ciudad. El corazón de la cultura automovilística.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="vehiculos">
+        <div class="glass-panel" data-aos="zoom-in">
+            <h2 class="section-title">Concesionario VIP</h2>
+            <div class="divider"></div>
+            <div class="vehicle-showcase">
+                <div class="vehicle-info">
+                    <h3 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 10px;">PEGASSI ZENTORNO</h3>
+                    <p style="color: var(--text-muted); font-size: 1.1rem;">Importación exclusiva. Motor V12 biturbo modificado para evasión a alta velocidad. Solo para los líderes de la ciudad.</p>
+                    <div class="vehicle-stats">
+                        <div class="stat-box"><h4>VELOCIDAD MÁX</h4><span>345 KM/H</span></div>
+                        <div class="stat-box"><h4>ACELERACIÓN</h4><span>2.4s (0-100)</span></div>
+                        <div class="stat-box"><h4>TRACCIÓN</h4><span>AWD Sport</span></div>
+                        <div class="stat-box"><h4>VALOR MERCADO</h4><span>$2,500,000</span></div>
+                    </div>
+                    <button class="hero-btn" style="padding: 15px 30px; font-size: 1rem; margin-top: 30px; clip-path: none; border-radius: 5px;">VER CATÁLOGO COMPLETO</button>
+                </div>
+                <div class="vehicle-image">
+                    <img src="https://gta5mod.net/wp-content/uploads/2020/05/2019-Lamborghini-Aventador-SVJ-Add-On-OIV-1.jpg" alt="Zentorno" style="border-radius: 10px;">
+                </div>
+            </div>
         </div>
     </section>
 
     <section class="container" id="staff">
-        <h2 class="section-title" data-aos="fade-down">Alto Mando de la Ciudad</h2>
+        <h2 class="section-title" data-aos="fade-up">Alto Mando</h2>
+        <div class="divider"></div>
         <div class="staff-grid">
-            <div class="staff-card" data-aos="flip-left">
-                <img src="brian.jpg" alt="Brian Martino" class="staff-img">
-                <br><span class="role-tag owner">OWNER Y PROPIETARIO</span>
-                <h3 style="margin-top: 15px; font-family: 'Orbitron';">Brian Martino</h3>
-                <p style="color: #a8b2d1;">Director General. Responsable del desarrollo técnico y la visión global de Elysium RP.</p>
+            <div class="staff-member owner" data-aos="fade-up" data-aos-delay="100">
+                <div class="staff-avatar"><img src="images/brian.jpg" onerror="this.src='E.png'" alt="Brian Martino"></div>
+                <div class="staff-role">OWNER Y PROPIETARIO</div>
+                <h3>BRIAN MARTINO</h3>
+                <p style="color: var(--text-muted);">Director General y Desarrollador Jefe. Arquitecto de los sistemas lógicos y la economía de Elysium.</p>
             </div>
-            <div class="staff-card" data-aos="flip-right" data-aos-delay="200">
-                <img src="staff.jpg" alt="Staff" class="staff-img">
-                <br><span class="role-tag">ADMINISTRACIÓN</span>
-                <h3 style="margin-top: 15px; font-family: 'Orbitron';">Equipo de Soporte</h3>
-                <p style="color: #a8b2d1;">Moderación activa y asistencia técnica 24/7 para garantizar la mejor experiencia.</p>
+            <div class="staff-member" data-aos="fade-up" data-aos-delay="200">
+                <div class="staff-avatar"><img src="images/staff.jpg" onerror="this.src='E.png'" alt="Equipo Administrativo"></div>
+                <div class="staff-role">ADMINISTRACIÓN</div>
+                <h3>SOPORTE GLOBAL</h3>
+                <p style="color: var(--text-muted);">El escudo de la comunidad. Vigilancia 24/7, moderación de rol y atención ciudadana mediante tickets.</p>
             </div>
-        </div>
-    </section>
-
-    <section class="container" id="reglas">
-        <h2 class="section-title" data-aos="fade-down">Portal de Normativa</h2>
-        <div class="dashboard" data-aos="fade-up">
-            <div class="sidebar">
-                <button class="tab-btn active" onclick="openTab(event, 't1')">I. FUNDAMENTOS NARRATIVOS</button>
-                <button class="tab-btn" onclick="openTab(event, 't2')">II. TRANSGRESIONES</button>
-                <button class="tab-btn" onclick="openTab(event, 't3')">III. VIOLENCIA Y CONFLICTO</button>
-                <button class="tab-btn" onclick="openTab(event, 't4')">IV. ESTADOS Y MEMORIA</button>
-                <button class="tab-btn" onclick="openTab(event, 't5')">V. INTERACCIÓN TÉCNICA</button>
-                <button class="tab-btn" onclick="openTab(event, 't6')">VI. ZONAS SEGURAS</button>
-                <button class="tab-btn" onclick="openTab(event, 't7')">VII. IDENTIDAD Y ESTÉTICA</button>
-                <button class="tab-btn" onclick="openTab(event, 't8')">VIII. COMUNICACIÓN (IC)</button>
-                <button class="tab-btn" onclick="openTab(event, 't9')">IX. SECUESTROS</button>
-                <button class="tab-btn" onclick="openTab(event, 't10')">X. PRÉSTAMOS Y DEUDAS</button>
-                <button class="tab-btn" onclick="openTab(event, 't11')">XI. BLOQUEOS Y ABUSOS</button>
-            </div>
-
-            <div class="content-area">
-                <div id="t1" class="tab-content active">
-                    <div class="rule-card">
-                        <strong>Art. 1.1 – In-Character (IC)</strong>
-                        <p>Es todo lo que concierne a la vida, acciones y palabras de tu personaje dentro del entorno virtual. La interpretación debe ser constante y coherente con su historia.</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>Art. 1.2 – Out-Of-Character (OOC)</strong>
-                        <p>Es la comunicación o acción de la persona real detrás de la pantalla. El uso de canales OOC debe ser excepcional y técnico.</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>Art. 1.3 - Actitud Anti-Rol (AA)</strong>
-                        <p>Toda acción que ignore deliberadamente las bases de la interpretación o busque arruinar la experiencia ajena.</p>
-                    </div>
-                </div>
-
-                <div id="t2" class="tab-content" style="display:none;">
-                    <div class="rule-card">
-                        <strong>Art. 2.1 – MetaGaming (MG)</strong>
-                        <p>Adquisición de información fuera del juego (Discord, streams) para beneficio propio dentro de la ciudad.</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>Art. 2.2 – PowerGaming (PG)</strong>
-                        <p>Realizar acciones imposibles físicamente o forzar un rol sobre otro jugador sin darle opción a reaccionar.</p>
-                    </div>
-                </div>
-
-                <div id="t3" class="tab-content" style="display:none;">
-                    <div class="rule-card">
-                        <strong>Art. 3.1 – DeathMatch (DM)</strong>
-                        <p>Agredir o matar a otro ciudadano sin una interacción de rol previa válida y justificada.</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>Art. 3.4 – Valoración de Vida</strong>
-                        <p>Priorizar la integridad física del personaje. Si tienes un arma apuntándote, debes rendirte.</p>
-                    </div>
-                </div>
-
-                <div id="t9" class="tab-content" style="display:none;">
-                    <h3>Normativa de Secuestros</h3>
-                    <table>
-                        <tr><th>Tipo de Víctima</th><th>Rescate Máx.</th><th>Tiempo Máx.</th></tr>
-                        <tr><td>Civil</td><td>$50,000</td><td>20 Min</td></tr>
-                        <tr><td>Policía</td><td>$300,000</td><td>45 Min</td></tr>
-                    </table>
-                </div>
+            <div class="staff-member" data-aos="fade-up" data-aos-delay="300">
+                <div class="staff-avatar"><img src="images/designer.jpg" onerror="this.src='E.png'" alt="Diseño"></div>
+                <div class="staff-role">DISEÑO Y 3D</div>
+                <h3>DPTO. CREATIVO</h3>
+                <p style="color: var(--text-muted);">Mapeados exclusivos, modelado de ropa (EUP) y creación de la identidad visual de la ciudad.</p>
             </div>
         </div>
     </section>
 
-    <section class="container" id="mapa">
-        <h2 class="section-title">Mapa Satelital de Los Santos</h2>
-        <div class="map-container" data-aos="zoom-in">
-            <div id="gta-map"></div>
-        </div>
-    </section>
-
-    <section class="container" id="aduana">
-        <h2 class="section-title">Aduana de Ingreso</h2>
-        <div class="visa-generator glass-effect" data-aos="fade-up">
-            <input type="text" id="visa-input" placeholder="Nombre de tu Personaje" style="padding: 12px; border-radius: 8px; border: none; width: 250px;">
-            <button class="btn-neon" onclick="generarVisa()">Generar Boarding Pass</button>
+    <section class="container" id="reglamento">
+        <h2 class="section-title" data-aos="fade-up">Código Penal y Normativas</h2>
+        <div class="divider"></div>
+        <div class="rules-layout" data-aos="fade-up">
+            <div class="rules-sidebar">
+                <button class="rule-btn active" onclick="switchRule('t1')">01. FUNDAMENTOS NARRATIVOS</button>
+                <button class="rule-btn" onclick="switchRule('t2')">02. TRANSGRESIONES GRAVES</button>
+                <button class="rule-btn" onclick="switchRule('t3')">03. VIOLENCIA Y CONFLICTO</button>
+                <button class="rule-btn" onclick="switchRule('t4')">04. ESTADOS Y MEMORIA (PK/CK)</button>
+                <button class="rule-btn" onclick="switchRule('t5')">05. INTERACCIÓN TÉCNICA (/ME /DO)</button>
+                <button class="rule-btn" onclick="switchRule('t6')">06. ZONAS SEGURAS</button>
+                <button class="rule-btn" onclick="switchRule('t7')">07. IDENTIDAD Y ESTÉTICA</button>
+                <button class="rule-btn" onclick="switchRule('t8')">08. COMUNICACIÓN IC Y REDES</button>
+                <button class="rule-btn" onclick="switchRule('t9')">09. SECUESTROS Y REHENES</button>
+                <button class="rule-btn" onclick="switchRule('t10')">10. PRÉSTAMOS Y DEUDAS</button>
+                <button class="rule-btn" onclick="switchRule('t11')">11. BLOQUEOS Y ABUSOS</button>
+            </div>
             
-            <div id="visa-card" class="visa-card">
-                <h3 id="visa-name" style="color: var(--primary); font-family: 'Orbitron';">NOMBRE</h3>
-                <p style="color: #0f0; font-weight: bold;">>>> ACCESO CONCEDIDO <<<</p>
-                <p style="font-size: 0.8rem; margin-top: 15px;">Vuelo: ELY-2026 | Sello: Elysium Border Patrol</p>
+            <div class="rules-content">
+                <div id="t1" class="rule-section active">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">I. FUNDAMENTOS NARRATIVOS</h3>
+                    <div class="rule-card"><strong>Art. 1.1 – In-Character (IC)</strong><p>Es todo lo que concierne a la vida, acciones y palabras de tu personaje dentro del entorno virtual. La interpretación debe ser constante y coherente con su historia, miedos y ambiciones.</p></div>
+                    <div class="rule-card"><strong>Art. 1.2 – Out-Of-Character (OOC)</strong><p>Es la comunicación de la persona real. Queda estrictamente prohibido utilizar canales OOC (como Discord o chat global) para interferir o quejarse de un rol en curso.</p></div>
+                    <div class="rule-card"><strong>Art. 1.3 - Actitud Anti-Rol (AA)</strong><p>Toda acción que ignore deliberadamente las bases de la interpretación, busque arruinar la experiencia ajena o 'trollear'. Conlleva baneo directo.</p></div>
+                </div>
+
+                <div id="t2" class="rule-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">II. TRANSGRESIONES GRAVES</h3>
+                    <div class="rule-card"><strong>Art. 2.1 – MetaGaming (MG)</strong><p>Adquisición de información fuera del juego para beneficio propio dentro de la ciudad. Ejemplo: Ir a ayudar a un amigo porque te avisó por Discord.</p></div>
+                    <div class="rule-card"><strong>Art. 2.2 – PowerGaming (PG)</strong><p>Realizar acciones imposibles físicamente o forzar un rol sobre otro jugador sin darle opción a reaccionar. Eres un humano, no un superhéroe.</p></div>
+                    <div class="rule-card"><strong>Art. 2.4 – Combat Log (CL)</strong><p>Desconectarse del servidor durante una situación de rol activa (tiroteo, arresto, secuestro) para evadir las consecuencias. Las caídas de conexión deben ser justificadas con pruebas.</p></div>
+                </div>
+
+                <div id="t3" class="rule-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">III. VIOLENCIA Y CONFLICTO</h3>
+                    <div class="rule-card"><strong>Art. 3.1 – DeathMatch (DM)</strong><p>Agredir o matar a otro ciudadano sin un motivo de rol previo de peso. El gatillo fácil arruina la experiencia.</p></div>
+                    <div class="rule-card"><strong>Art. 3.4 – Valoración de Vida (NVL)</strong><p>Si tu vida está en peligro inminente (ej. te apuntan con un arma 2 personas), debes rendirte y priorizar tu supervivencia.</p></div>
+                </div>
+
+                <div id="t4" class="rule-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">IV. ESTADOS Y MEMORIA</h3>
+                    <div class="rule-card"><strong>Art. 4.1 – Player Kill (PK)</strong><p>Muerte temporal. Al despertar en el hospital, olvidas todo el rol que te llevó a la muerte. No puedes volver a la zona del conflicto.</p></div>
+                    <div class="rule-card"><strong>Art. 4.3 – Character Kill (CK)</strong><p>Muerte definitiva del personaje y pérdida de todos los bienes. Requiere aprobación administrativa y un ticket con pruebas del rol previo.</p></div>
+                </div>
+
+                <div id="t9" class="rule-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">IX. SECUESTROS Y REHENES</h3>
+                    <div class="rule-card">
+                        <strong>Tabla de Rescates Oficial</strong>
+                        <table style="width: 100%; text-align: left; margin-top: 10px; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid var(--primary); color: var(--primary);">
+                                <th style="padding: 10px;">Víctima</th><th style="padding: 10px;">Rescate Máx</th><th style="padding: 10px;">Tiempo Retención</th>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <td style="padding: 10px;">Civil Base</td><td style="padding: 10px;">$50,000</td><td style="padding: 10px;">20 Min</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;">Alto Mando LSPD</td><td style="padding: 10px;">$300,000</td><td style="padding: 10px;">45 Min</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div id="t5" class="rule-section"><h3 style="color: var(--primary);">V. INTERACCIÓN TÉCNICA</h3><p style="color: var(--text-muted); padding: 20px;">[Aquí van las reglas de /me y /do]</p></div>
+                <div id="t6" class="rule-section"><h3 style="color: var(--primary);">VI. ZONAS SEGURAS</h3><p style="color: var(--text-muted); padding: 20px;">[Aquí van las reglas de Hospitales y Comisarías]</p></div>
+                <div id="t7" class="rule-section"><h3 style="color: var(--primary);">VII. IDENTIDAD Y ESTÉTICA</h3><p style="color: var(--text-muted); padding: 20px;">[Aquí van las reglas de nombres irreales y ropa invisible]</p></div>
+                <div id="t8" class="rule-section"><h3 style="color: var(--primary);">VIII. COMUNICACIÓN IC</h3><p style="color: var(--text-muted); padding: 20px;">[Aquí van las reglas de radios y Twitter en el celular]</p></div>
+                <div id="t10" class="rule-section"><h3 style="color: var(--primary);">X. PRÉSTAMOS</h3><p style="color: var(--text-muted); padding: 20px;">[Aquí van las reglas de estafas permitidas y usura]</p></div>
+                <div id="t11" class="rule-section"><h3 style="color: var(--primary);">XI. BLOQUEOS Y ABUSOS</h3><p style="color: var(--text-muted); padding: 20px;">[Aquí van las reglas sobre bug abuse y macros]</p></div>
             </div>
         </div>
     </section>
 
-    <footer style="padding: 60px 10%; background: #010203; border-top: 1px solid var(--primary); text-align: center;">
-        <h2 style="font-family: 'Orbitron'; letter-spacing: 5px;">ELYSIUM <span style="color: var(--primary);">RP</span></h2>
-        <p style="margin: 20px 0; color: #6a7491;">&copy; 2026 elysiumesrp.com | Liderado por Brian Martino</p>
-        <div class="nav-links">
-            <a href="https://discord.gg/4mTVJhu3gx" target="_blank"><i class="fab fa-discord"></i></a>
-            <a href="#"><i class="fab fa-tiktok"></i></a>
+    <section class="container community-hub" data-aos="zoom-in">
+        <h2 class="section-title">Únete a la Red</h2>
+        <p style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 40px;">Pasa la Whitelist y conviértete en ciudadano verificado de Elysium.</p>
+        <div class="social-links">
+            <a href="https://discord.gg/4mTVJhu3gx" class="social-icon" target="_blank" style="background: #5865F2; border-color: #5865F2;"><i class="fa-brands fa-discord"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
         </div>
+    </section>
+
+    <footer>
+        <h2 style="font-family: 'Orbitron'; font-size: 2.5rem; letter-spacing: 5px; margin-bottom: 20px;">ELYSIUM <span style="color: var(--primary);">RP</span></h2>
+        <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 30px auto;">Desarrollado y dirigido por Brian Martino. Una experiencia sin fronteras diseñada para jugadores que exigen la máxima calidad en Roleplay.</p>
+        <div style="width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 20px;"></div>
+        <p style="color: #475569; font-size: 0.9rem;">&copy; 2026 elysiumesrp.com. Todos los derechos reservados.</p>
     </footer>
 
-    <div id="hacker-trigger" onclick="abrirTerminal()" style="position: fixed; bottom: 5px; right: 5px; opacity: 0.05; cursor: crosshair;">.</div>
-    <div id="dark-terminal">
-        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #0f0; padding-bottom: 10px;">
-            <span>ELYSIUM_OS v1.0.4 - DARK ACCESS</span>
-            <button onclick="cerrarTerminal()" style="background: none; border: none; color: red; cursor: pointer;">[X]</button>
+    <div id="terminal-trigger" onclick="openOS()">sys_override_</div>
+    <div id="hacker-os">
+        <div class="os-header">
+            <span>[ELYSIUM_OS_KERNEL_v2.1] CONEXIÓN SEGURA ENCRIPTADA</span>
+            <button onclick="closeOS()" style="background: none; border: none; color: #f00; cursor: pointer; font-family: 'Orbitron'; font-weight: bold;">[ CERRAR CONEXIÓN ]</button>
         </div>
-        <div id="term-output" style="margin-top: 20px;">
-            <p>Sincronizando con la red de Los Santos...</p>
+        <div id="os-output">
+            <p>> Estableciendo túnel seguro...</p>
+            <p>> Bienvenido al sistema raíz. Escribe <span style="color: #fff; font-weight: bold;">help</span> para comandos.</p>
         </div>
-        <input type="text" id="term-input" style="background: none; border: none; color: #0f0; width: 100%; outline: none; margin-top: 10px;" onkeypress="handleCommand(event)">
+        <div class="os-input-wrapper">
+            <span>root@elysium:~#</span>
+            <input type="text" id="os-input" autocomplete="off" spellcheck="false" onkeypress="handleOS(event)">
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
-        // AOS Inicialización
-        AOS.init({ duration: 1000, once: true });
+        // 1. INIT ANIMATIONS
+        AOS.init({ duration: 1000, once: true, offset: 50 });
 
-        // Preloader Logic
+        // 2. PRELOADER CINEMÁTICO
         window.addEventListener('load', () => {
-            setTimeout(() => { document.getElementById('preloader').classList.add('hidden'); }, 2000);
+            setTimeout(() => { document.getElementById('preloader').classList.add('hidden'); }, 2500);
         });
 
-        // Particles
+        // 3. PARTICLES BG
         particlesJS("particles-js", {
-            "particles": { "number": { "value": 70 }, "color": { "value": "#00d4ff" }, "line_linked": { "enable": true, "opacity": 0.2 }, "move": { "enable": true, "speed": 1.5 } }
+            "particles": { "number": { "value": 80 }, "color": { "value": "#00d4ff" }, "shape": { "type": "circle" }, "opacity": { "value": 0.5 }, "size": { "value": 2 }, "line_linked": { "enable": true, "distance": 150, "color": "#00d4ff", "opacity": 0.2, "width": 1 }, "move": { "enable": true, "speed": 1 } },
+            "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } } }
         });
 
-        // Tabs Logic
-        function openTab(evt, tabId) {
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(c => c.style.display = 'none');
-            const tabs = document.querySelectorAll('.tab-btn');
-            tabs.forEach(t => t.classList.remove('active'));
-            document.getElementById(tabId).style.display = 'block';
-            evt.currentTarget.classList.add('active');
+        // 4. NAVBAR SCROLL
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // 5. RULES TABS LOGIC
+        function switchRule(tabId) {
+            document.querySelectorAll('.rule-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.rule-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
         }
 
-        // Aduana Logic
-        function generarVisa() {
-            const name = document.getElementById('visa-input').value;
-            if(name) {
-                document.getElementById('visa-name').innerText = name.toUpperCase();
-                document.getElementById('visa-card').classList.add('visible');
+        // 6. TERMINAL OS LOGIC
+        function openOS() { 
+            document.getElementById('hacker-os').style.display = 'block'; 
+            document.getElementById('os-input').focus();
+        }
+        function closeOS() { document.getElementById('hacker-os').style.display = 'none'; }
+        
+        function handleOS(e) {
+            if (e.key === 'Enter') {
+                const inputEl = document.getElementById('os-input');
+                const outEl = document.getElementById('os-output');
+                const cmd = inputEl.value.toLowerCase().trim();
+                
+                outEl.innerHTML += `<p>> root@elysium:~# ${cmd}</p>`;
+                
+                if (cmd === 'help') {
+                    outEl.innerHTML += `<p style="color: var(--primary);">Comandos disponibles: info, status, clear, latam</p>`;
+                } else if (cmd === 'clear') {
+                    outEl.innerHTML = '';
+                } else if (cmd === 'latam') {
+                    outEl.innerHTML += `<p style="color: #ff3366;">[ERROR 404] Proyecto antiguo archivado. La era de Latam RP ha finalizado... Redirigiendo protocolos a ELYSIUM RP.</p>`;
+                } else if (cmd === 'info') {
+                    outEl.innerHTML += `<p>Elysium RP - Base de Datos Central. Acceso Admin: Brian Martino.</p>`;
+                } else if (cmd !== '') {
+                    outEl.innerHTML += `<p style="color: red;">Comando no reconocido.</p>`;
+                }
+                
+                inputEl.value = '';
+                outEl.scrollTop = outEl.scrollHeight;
             }
         }
 
-        // Terminal Logic
-        function abrirTerminal() { document.getElementById('dark-terminal').style.display = 'block'; }
-        function cerrarTerminal() { document.getElementById('dark-terminal').style.display = 'none'; }
-        
-        // Mapa Logic
-        const map = L.map('gta-map', { crs: L.CRS.Simple, minZoom: -1.5, maxZoom: 2 });
-        const bounds = [[0, 0], [4096, 4096]];
-        L.imageOverlay('mapa-gta.jpg', bounds).addTo(map);
-        map.fitBounds(bounds);
-        map.setView([2048, 2048], -1);
-
         function notificarConexion() {
-            alert("Estableciendo conexión con el servidor de Elysium... Iniciando FiveM.");
+            alert("Inicializando protocolo de conexión con Elysium RP... Por favor abre FiveM.");
         }
     </script>
 </body>
