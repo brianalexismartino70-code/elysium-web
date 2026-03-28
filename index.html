@@ -34,99 +34,6 @@
    ========================================= */
 /* (Deja el #aduana tal como lo tienes ahora con tu fondo de la comisaría) */
 
-/* 🚀 Baja el logo para que no quede pegado arriba */
-.logo-container {
-    margin-top: 80px; /* Ajustá este número si querés que baje más */
-    display: flex;
-    justify-content: center;
-}
-
-/* 🛡️ Evita que el logo se choque con el menú */
-header + main, 
-.hero-section { 
-    padding-top: 120px !important; /* Esto empuja TODO el contenido hacia abajo */
-}
-
-.logo-animation {
-    margin-bottom: 20px;
-    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.5));
-}
-
-.btn-small-discord {
-    background: rgba(88, 101, 242, 0.2);
-    border: 1px solid #5865F2;
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 0.8rem;
-    transition: 0.3s;
-}
-
-.btn-small-discord:hover {
-    background: #5865F2;
-    box-shadow: 0 0 15px #5865F2;
-}        
-
-/* 🧼 Limpieza del cuadro de estado */
-.server-card {
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid #00ffff;
-    border-radius: 12px;
-    padding: 15px;
-    margin: 30px auto; /* Centra el cuadro y le da aire */
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-}
-
-.btn-connect {
-    display: block;
-    background: #00ffff;
-    color: #000;
-    padding: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    margin-top: 10px;
-    transition: 0.3s;
-}
-.btn-connect:hover {
-    background: #fff;
-    box-shadow: 0 0 20px #00ffff;
-}        
-
-.status-dot-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-}
-
-.dot {
-    height: 10px;
-    width: 10px;
-    background-color: #00ff00; /* Verde cuando esté online */
-    border-radius: 50%;
-    display: inline-block;
-    box-shadow: 0 0 8px #00ff00;
-}
-
-.fivem-badge {
-    width: 100%;
-    max-width: 350px;
-    border-radius: 5px;
-    transition: transform 0.3s;
-}
-
-.fivem-badge:hover {
-    transform: scale(1.02);
-}    
-
 .aduana-header-container {
     display: flex;
     flex-direction: column;
@@ -1203,7 +1110,15 @@ header + main,
     </style>   
 </head>
 <body>
-    
+    <div id="cinematic-preloader">
+        <div class="preloader-content">
+            <h1 class="preloader-logo">E</h1>
+            <div class="preloader-bar">
+                <div class="preloader-fill"></div>
+            </div>
+            <p class="preloader-text">ESTABLECIENDO CONEXIÓN...</p>
+        </div>
+    </div>
 
     <script>
         // Forzamos a que la pantalla negra se quite a los 2.5 segundos
@@ -1254,22 +1169,6 @@ header + main,
     <img src="E.png" alt="Elysium Logo" class="main-logo">
     <h1>ELYSIUM RP</h1>
     <p class="subtitle">Sin Fronteras</p>
-
-<div class="server-card">
-    <div class="status-dot-container">
-        <span class="dot"></span> <p>SERVIDOR ONLINE</p>
-    </div>
-    
-    <a href="fivem://connect/cfx.re/join/kr546a" class="btn-connect">
-        CONECTAR A LA CIUDAD
-    </a>
-
-    <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center;">
-        <a href="https://discord.gg/elysiumesrp" class="btn-small-discord" target="_blank">
-            DISCORD
-        </a>
-    </div>
-</div>
     
 <div class="server-status-card glass-effect">
         <div class="status-indicator" id="status-dot"></div>
@@ -2001,20 +1900,6 @@ header + main,
             }
         }
     });
-        
-</script> <script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/69c85330e246401c3606c493/1jkr89u40';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
-
 </script>
     <div id="hacker-trigger" onclick="abrirTerminal()" title="No hay nada que ver aquí...">.</div>
 
