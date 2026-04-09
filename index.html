@@ -246,8 +246,17 @@
         .nav-links a:hover::after { width: 100%; }
         .nav-links a:hover { text-shadow: 0 0 15px var(--primary); color: #fff; }
 
-        /* HERO - ANIMACIONES MÁGICAS */
-        .hero { height: 65vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+       /* HERO - ANIMACIONES MÁGICAS (Corregido para que entre el contador) */
+     .hero { 
+     min-height: 80vh; 
+     height: auto; 
+     padding: 120px 20px 50px 20px; /* Le da espacio arriba para que el Nav no tape el logo */
+     display: flex; 
+     flex-direction: column; 
+     justify-content: center; 
+     align-items: center; 
+     text-align: center; 
+     }
         
         /* Efecto de Levitación en el Logo */
         @keyframes float {
