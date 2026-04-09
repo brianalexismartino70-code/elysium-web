@@ -2056,13 +2056,14 @@
             <i class="fa-solid fa-radio fm-icon"></i>
             <div>
                 <p class="fm-title">ELYSIUM FM</p>
-                <p class="fm-track">Lo-Fi Beats / Chill</p>
+                <p id="current-track" class="fm-track">Sintonizando...</p>
             </div>
         </div>
-        <button id="play-btn" class="fm-btn" onclick="toggleRadio()">
-            <i class="fa-solid fa-play"></i>
-        </button>
-        <audio id="elysium-radio" src="https://stream.zeno.fm/f3wvbbqmdg8uv"></audio>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <button class="fm-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
+            <button id="play-btn" class="fm-btn" onclick="toggleRadio()"><i class="fa-solid fa-play"></i></button>
+        </div>
+        <audio id="elysium-radio"></audio>
     </div>
 
     <script>
