@@ -2068,20 +2068,48 @@
 
     <script>
         const radio = document.getElementById("elysium-radio");
+        const trackText = document.getElementById("current-track");
         const playBtnIcon = document.querySelector("#play-btn i");
-        radio.volume = 0.3; 
+
+        // LISTA DE TEMAS (Aquí pones los nombres y los links .mp3)
+        const playlist = [
+            { title: "Si Estás Con Alguien - Omar Courtz", url: "LINK_AQUÍ.mp3" },
+            { title: "Viene BASQUIAT... - JHAYCO", url: "LINK_AQUÍ.mp3" },
+            { title: "Otra Noche En Miami - Bad Bunny", url: "LINK_AQUÍ.mp3" }
+        ];
+
+        let currentTrackIndex = 0;
+        radio.volume = 0.3;
+
+        function loadTrack(index) {
+            const track = playlist[index];
+            radio.src = track.url;
+            trackText.innerText = track.title;
+        }
 
         function toggleRadio() {
             if (radio.paused) {
+                if (!radio.src) loadTrack(currentTrackIndex);
                 radio.play();
-                playBtnIcon.classList.remove("fa-play");
-                playBtnIcon.classList.add("fa-pause");
+                playBtnIcon.classList.replace("fa-play", "fa-pause");
             } else {
                 radio.pause();
-                playBtnIcon.classList.remove("fa-pause");
-                playBtnIcon.classList.add("fa-play");
+                playBtnIcon.classList.replace("fa-pause", "fa-play");
             }
         }
+
+        function nextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+            loadTrack(currentTrackIndex);
+            radio.play();
+            playBtnIcon.classList.replace("fa-play", "fa-pause");
+        }
+
+        // Cuando termina una canción, pasa a la siguiente automáticamente
+        radio.onended = () => { nextTrack(); };
+
+        // Cargar el primer tema al iniciar
+        loadTrack(currentTrackIndex);
     </script>
     <div id="hacker-trigger" onclick="abrirTerminal()" title="No hay nada que ver aquí...">.</div>
 
