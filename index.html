@@ -1183,6 +1183,47 @@
     .time-box span { font-size: 1.8rem; }
     .countdown-title { font-size: 1.2rem; }
 }
+/* =========================================
+   ESTILOS WEAZEL NEWS
+   ========================================= */
+.weazel-news-bar {
+    display: flex; background: #0a0a0a; color: #fff;
+    border-top: 2px solid #d32f2f; border-bottom: 2px solid #d32f2f;
+    font-family: 'Rajdhani', sans-serif; font-size: 1.1rem;
+    position: relative; overflow: hidden; z-index: 15;
+}
+.weazel-label {
+    background: #d32f2f; color: white; padding: 10px 20px;
+    font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 0.9rem;
+    display: flex; align-items: center; z-index: 2;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.8); letter-spacing: 1px;
+}
+.weazel-marquee {
+    display: flex; align-items: center; white-space: nowrap;
+    animation: scrollNews 25s linear infinite; padding-left: 100%;
+}
+.weazel-separator { color: #d32f2f; margin: 0 30px; font-weight: bold; }
+@keyframes scrollNews { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+/* =========================================
+   ESTILOS ELYSIUM FM
+   ========================================= */
+.elysium-fm {
+    position: fixed; bottom: 30px; right: 30px;
+    display: flex; align-items: center; gap: 20px;
+    padding: 12px 25px; border-radius: 50px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    background: rgba(5, 8, 12, 0.8); backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 15px rgba(0, 212, 255, 0.1);
+    z-index: 1000; transition: all 0.3s ease;
+}
+.elysium-fm:hover { border-color: #00d4ff; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0, 212, 255, 0.4); }
+.fm-info { display: flex; align-items: center; gap: 15px; }
+.fm-icon { color: #00d4ff; font-size: 1.5rem; animation: pulseNeon 2s infinite alternate; }
+.fm-title { font-family: 'Orbitron', sans-serif; color: #fff; margin: 0; font-size: 0.9rem; font-weight: bold; letter-spacing: 1px; }
+.fm-track { margin: 0; font-size: 0.75rem; color: #a8b2d1; }
+.fm-btn { background: transparent; border: none; color: #00d4ff; font-size: 1.5rem; cursor: pointer; transition: 0.3s; }
+.fm-btn:hover { color: #fff; text-shadow: 0 0 15px #00d4ff; transform: scale(1.1); }        
     </style>   
 </head>
 <body>
@@ -1223,6 +1264,18 @@
             <a href="https://tienda.elysiumesrp.com" target="_blank">TIENDA</a>
         </div>
     </nav>
+    <div class="weazel-news-bar">
+        <div class="weazel-label">
+            <i class="fa-solid fa-tower-broadcast" style="margin-right: 8px;"></i> WEAZEL NEWS
+        </div>
+        <div class="weazel-marquee">
+            <span>🚨 <b>ÚLTIMO MOMENTO:</b> El Gobierno anuncia la apertura oficial de las fronteras para el 8 de Mayo.</span>
+            <span class="weazel-separator">|</span>
+            <span>🏢 <b>ECONOMÍA:</b> Las acciones en la bolsa de Los Santos alcanzan máximos históricos.</span>
+            <span class="weazel-separator">|</span>
+            <span>🚓 <b>LSPD INFORMA:</b> Se abren las postulaciones para la academia de cadetes. Revisa la normativa.</span>
+        </div>
+    </div>
     <div class="economy-ticker">
     <div class="ticker-track">
         <span class="ticker-item">📈 Pan: $15 <span class="up">(+2%)</span></span>
@@ -1998,6 +2051,37 @@
         }
     });
 </script>
+    <div class="elysium-fm">
+        <div class="fm-info">
+            <i class="fa-solid fa-radio fm-icon"></i>
+            <div>
+                <p class="fm-title">ELYSIUM FM</p>
+                <p class="fm-track">Lo-Fi Beats / Chill</p>
+            </div>
+        </div>
+        <button id="play-btn" class="fm-btn" onclick="toggleRadio()">
+            <i class="fa-solid fa-play"></i>
+        </button>
+        <audio id="elysium-radio" src="https://stream.zeno.fm/f3wvbbqmdg8uv"></audio>
+    </div>
+
+    <script>
+        const radio = document.getElementById("elysium-radio");
+        const playBtnIcon = document.querySelector("#play-btn i");
+        radio.volume = 0.3; 
+
+        function toggleRadio() {
+            if (radio.paused) {
+                radio.play();
+                playBtnIcon.classList.remove("fa-play");
+                playBtnIcon.classList.add("fa-pause");
+            } else {
+                radio.pause();
+                playBtnIcon.classList.remove("fa-pause");
+                playBtnIcon.classList.add("fa-play");
+            }
+        }
+    </script>
     <div id="hacker-trigger" onclick="abrirTerminal()" title="No hay nada que ver aquí...">.</div>
 
 <div id="dark-terminal" class="oculto">
