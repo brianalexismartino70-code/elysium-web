@@ -1107,6 +1107,73 @@
     margin-bottom: 10px;
     user-select: all; /* Hace que al hacer clic se seleccione todo el texto para copiar fácil */
 }
+        /* =========================================
+   ESTILOS DE LA CUENTA REGRESIVA
+   ========================================= */
+.countdown-container {
+    text-align: center;
+    padding: 30px;
+    margin: 40px auto;
+    max-width: 650px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    background: rgba(5, 8, 12, 0.7);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+    position: relative;
+}
+
+.countdown-title {
+    color: #00d4ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.time-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 80px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+.time-box span {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.time-box p {
+    font-family: 'Rajdhani', sans-serif;
+    color: #a8b2d1;
+    margin: 5px 0 0 0;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 500px) {
+    .countdown { gap: 10px; }
+    .time-box { min-width: 60px; padding: 10px; }
+    .time-box span { font-size: 1.8rem; }
+    .countdown-title { font-size: 1.2rem; }
+}
     </style>   
 </head>
 <body>
@@ -1184,6 +1251,27 @@
             Comunidad Discord
         </a>
     </div>
+   <div class="countdown-container glass-effect">
+        <h3 class="countdown-title">GRAN APERTURA DE LA CIUDAD</h3>
+        <div id="countdown" class="countdown">
+            <div class="time-box">
+                <span id="days">00</span>
+                <p>DÍAS</p>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <p>HORAS</p>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <p>MIN</p>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <p>SEG</p>
+            </div>
+        </div>
+    </div>  
 </section>
     <section class="container" id="como-jugar">
     <h2 class="section-title">¿Cómo entrar a la ciudad?</h2>
@@ -1918,6 +2006,31 @@
         <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
     </div>
 </div>
+    <script>
+        // Fecha de apertura: 8 de Mayo de 2026, 20:00:00
+        const launchDate = new Date("May 8, 2026 20:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "<h2 style='color:#00ff41; font-family:Orbitron; text-shadow: 0 0 15px #00ff41;'>¡LAS PUERTAS DE ELYSIUM ESTÁN ABIERTAS!</h2>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }, 1000);
+    </script>
 </body>
 </html>
     </script>
