@@ -1223,7 +1223,56 @@
 .fm-title { font-family: 'Orbitron', sans-serif; color: #fff; margin: 0; font-size: 0.9rem; font-weight: bold; letter-spacing: 1px; }
 .fm-track { margin: 0; font-size: 0.75rem; color: #a8b2d1; }
 .fm-btn { background: transparent; border: none; color: #00d4ff; font-size: 1.5rem; cursor: pointer; transition: 0.3s; }
-.fm-btn:hover { color: #fff; text-shadow: 0 0 15px #00d4ff; transform: scale(1.1); }        
+.fm-btn:hover { color: #fff; text-shadow: 0 0 15px #00d4ff; transform: scale(1.1); } 
+ /* =========================================
+   ESTILOS CONTROL DE VOLUMEN
+   ========================================= */
+.fm-volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 10px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    padding-left: 15px;
+}
+
+.fm-volume-control i {
+    color: #a8b2d1;
+    font-size: 0.9rem;
+    width: 15px; /* Mantiene fijo el ancho para que la barra no salte al cambiar el ícono */
+}
+
+#fm-volume {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 70px;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* El "botón" deslizable brillante */
+#fm-volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #00d4ff;
+    box-shadow: 0 0 10px #00d4ff;
+    transition: 0.2s;
+}
+
+#fm-volume::-webkit-slider-thumb:hover {
+    transform: scale(1.3);
+}
+
+/* Ocultar barra de volumen en celulares para que no se deforme el menú */
+@media (max-width: 600px) {
+    .fm-volume-control { display: none; }
+}       
     </style>   
 </head>
 <body>
@@ -2085,6 +2134,22 @@
 
         let currentTrackIndex = 0;
         radio.volume = 0.3;
+        const volumeSlider = document.getElementById("fm-volume");
+        const volIcon = document.getElementById("vol-icon");
+
+        // Escucha cuando mueves la barra y ajusta el volumen en tiempo real
+        volumeSlider.addEventListener("input", (e) => {
+            radio.volume = e.target.value;
+            
+            // Cambia el ícono dinámicamente según el nivel de volumen
+            if (radio.volume === 0) {
+                volIcon.className = "fa-solid fa-volume-xmark";
+            } else if (radio.volume < 0.5) {
+                volIcon.className = "fa-solid fa-volume-low";
+            } else {
+                volIcon.className = "fa-solid fa-volume-high";
+            }
+        });
 
         function loadTrack(index) {
             const track = playlist[index];
