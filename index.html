@@ -1272,7 +1272,49 @@
 /* Ocultar barra de volumen en celulares para que no se deforme el menú */
 @media (max-width: 600px) {
     .fm-volume-control { display: none; }
-}       
+}
+
+/* =========================================
+   ESTILOS DE FONDO PARALLAX Y DÓLARES
+   ========================================= */
+.hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 80vh; /* Mantiene tu logo a salvo */
+    padding: 120px 20px 50px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.parallax-bg {
+    position: absolute;
+    top: -10%; left: -10%;
+    width: 120%; height: 120%; 
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    transition: transform 0.1s ease-out;
+    filter: brightness(0.4); /* Oscuro para que resalte el neón */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+/* Los billetes individuales */
+.dolar {
+    position: absolute;
+    width: 65px; /* Tamaño del billete */
+    height: auto;
+    z-index: 5;
+    pointer-events: none; 
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.8));
+}        
     </style>   
 </head>
 <body>
@@ -1344,9 +1386,14 @@
 </div>
 
  <section class="hero" id="inicio">
-    <img src="E.png" alt="Elysium Logo" class="main-logo">
-    <h1>ELYSIUM RP</h1>
-    <p class="subtitle">Sin Fronteras</p>
+    <div class="parallax-bg" style="background-image: url('ELYSIUM.png');"></div>
+    
+    <div id="dolares-container"></div>
+
+    <div class="hero-content">
+        <img src="E.png" alt="Elysium Logo" class="main-logo">
+        <h1>ELYSIUM RP</h1>
+        <p class="subtitle">Sin Fronteras</p>
     
 <div class="server-status-card glass-effect">
         <div class="status-indicator" id="status-dot"></div>
@@ -2223,6 +2270,56 @@
             document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
             document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
         }, 1000);
+    </script>
+    <script>
+        const heroSection = document.querySelector('.hero');
+        const parallaxBg = document.querySelector('.parallax-bg');
+        const particlesContainer = document.getElementById('dolares-container');
+
+        // Cantidad de billetes en pantalla (puedes subir este número si quieres más)
+        const numDolares = 20; 
+        const dolares = [];
+
+        for (let i = 0; i < numDolares; i++) {
+            const billete = document.createElement('img');
+            billete.src = 'cash.jpg'; // El nombre exacto de tu imagen en GitHub
+            billete.className = 'dolar';
+            
+            // Posición, rotación y profundidad aleatoria
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            const rotation = Math.random() * 360;
+            const depth = Math.random() * 1.5 + 0.5; // Efecto 3D de profundidad
+
+            billete.style.left = x + '%';
+            billete.style.top = y + '%';
+            billete.style.transform = `rotate(${rotation}deg) scale(${depth})`;
+            billete.style.opacity = Math.random() * 0.6 + 0.4;
+
+            if(particlesContainer) {
+                particlesContainer.appendChild(billete);
+                dolares.push({ el: billete, x, y, depth, rot: rotation });
+            }
+        }
+
+        // Movimiento interactivo con el mouse
+        if(heroSection) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX - window.innerWidth / 2) / 60;
+                const moveY = (e.clientY - window.innerHeight / 2) / 60;
+
+                // Mueve el fondo del Ferrari sutilmente
+                if(parallaxBg) parallaxBg.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
+
+                // Mueve los billetes creando el efecto 3D
+                dolares.forEach(d => {
+                    const speed = d.depth * 25; // Más cerca = más rápido
+                    const finalX = moveX * speed;
+                    const finalY = moveY * speed;
+                    d.el.style.transform = `translate(${finalX}px, ${finalY}px) scale(${d.depth}) rotate(${d.rot + moveX}deg)`;
+                });
+            });
+        }
     </script>
 </body>
 </html>
