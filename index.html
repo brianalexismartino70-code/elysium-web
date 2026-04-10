@@ -1309,12 +1309,13 @@
 /* Los billetes individuales */
 .dolar {
     position: absolute;
-    width: 65px; /* Tamaño del billete */
+    width: 85px; /* Un poco más grandes para que se luzcan los detalles */
     height: auto;
     z-index: 5;
     pointer-events: none; 
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.8));
-}        
+    /* LA MAGIA: Sombra negra para profundidad + Brillo cyan muy sutil */
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9)) drop-shadow(0 0 4px rgba(0, 212, 255, 0.3));
+}      
     </style>   
 </head>
 <body>
@@ -2282,7 +2283,7 @@
 
         for (let i = 0; i < numDolares; i++) {
             const billete = document.createElement('img');
-            billete.src = 'cash-transparente.png'; // El nombre exacto de tu imagen en GitHub
+            billete.src = 'cash-clean.png'; // El nombre exacto de tu imagen en GitHub
             billete.className = 'dolar';
             
             // Posición, rotación y profundidad aleatoria
