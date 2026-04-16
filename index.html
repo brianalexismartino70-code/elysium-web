@@ -1315,7 +1315,84 @@
     pointer-events: none; 
     /* LA MAGIA: Sombra negra para profundidad + Brillo cyan muy sutil */
     filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9)) drop-shadow(0 0 4px rgba(0, 212, 255, 0.3));
-}      
+}
+
+/* =========================================
+   SISTEMA DE POSTULACIONES STAFF
+   ========================================= */
+.apply-container {
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    padding: 40px;
+    border-radius: 20px;
+    background: var(--card-glass);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(0, 212, 255, 0.05);
+}
+
+.apply-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    color: var(--primary);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+.form-group select option {
+    background: #05080c;
+    color: #fff;
+}
+
+.form-alert {
+    display: none;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.alert-success {
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid #00ff41;
+    color: #00ff41;
+}
+        
     </style>   
 </head>
 <body>
@@ -1353,6 +1430,7 @@
             <a href="#inicio">INICIO</a>
             <a href="#quienes-somos">NOSOTROS</a>
             <a href="#reglas">REGLAMENTO</a>
+            <a href="#postulaciones">STAFF</a>
             <a href="https://tienda.elysiumesrp.com" target="_blank">TIENDA</a>
         </div>
     </nav>
@@ -1766,6 +1844,120 @@
         </div>
     </div>
 </section>
+    <section class="container" id="postulaciones">
+    <h2 class="section-title">Únete al Equipo Administrativo</h2>
+    <p style="text-align: center; color: #a8b2d1; margin-bottom: 40px; font-family: 'Rajdhani', sans-serif;">
+        Buscamos mentes maduras, creativas y comprometidas para mantener el orden en Elysium. <br>Demuestra tu conocimiento completando este formulario de acceso.
+    </p>
+
+    <div class="apply-container">
+        <form id="staffForm" class="apply-form" onsubmit="enviarPostulacion(event)">
+            
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div class="form-group" style="flex: 1; min-width: 250px;">
+                    <label>👤 USUARIO DE DISCORD (Ej: brian#1234)</label>
+                    <input type="text" id="staff-discord" required placeholder="Tu usuario exacto">
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 150px;">
+                    <label>🔞 EDAD (+16 RECOMENDADO)</label>
+                    <input type="number" id="staff-edad" required min="14" max="99" placeholder="Tu edad real">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>🎖️ PUESTO AL QUE APLICAS</label>
+                <select id="staff-puesto" required>
+                    <option value="" disabled selected>Selecciona una vacante...</option>
+                    <option value="Soporte Técnico">Soporte Técnico (Atención de Tickets)</option>
+                    <option value="Moderador">Moderador (Vigilancia In-Game)</option>
+                    <option value="Playmaker">Playmaker (Creador de Eventos)</option>
+                    <option value="Tester / Dev">Tester / Desarrollo</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>🧠 CASO PRÁCTICO 1: ANTI-ROL</label>
+                <p style="color:#6a7491; font-size: 0.9rem; margin-bottom: 5px;">Ves a un usuario atropellando a 5 personas a propósito en el garaje central. ¿Cómo procedes paso a paso usando comandos de administración?</p>
+                <textarea id="staff-caso1" required placeholder="Explica detalladamente tu accionar..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>🗣️ CASO PRÁCTICO 2: CONFLICTO EN TICKET</label>
+                <p style="color:#6a7491; font-size: 0.9rem; margin-bottom: 5px;">Dos usuarios se insultan agresivamente por un chat de Discord acusándose de MetaGaming, pero ninguno tiene video (POV). ¿Qué haces?</p>
+                <textarea id="staff-caso2" required placeholder="Tu resolución como Staff..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-neon" style="width: 100%; border-radius: 8px;" id="btn-enviar-staff">
+                ENVIAR POSTULACIÓN CLASIFICADA
+            </button>
+
+            <div id="form-alert" class="form-alert alert-success">
+                ✅ ENCRIPTACIÓN COMPLETADA. Tu expediente ha sido enviado a la Directiva.
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+    function enviarPostulacion(e) {
+        e.preventDefault(); // Evita que la página recargue
+
+        // 🔴🔴🔴 REEMPLAZA ESTE LINK POR LA URL DE TU WEBHOOK DE DISCORD 🔴🔴🔴
+        const webhookUrl = 'https://discord.com/api/webhooks/1494480290687750175/raaeigmfcdLV2HQa6z3cak8D8nAI-lQKRKCmHi_NABUFtVnkPbJ1zqBt5rHg_PcxNTzv';
+        
+        const discordUser = document.getElementById('staff-discord').value;
+        const edad = document.getElementById('staff-edad').value;
+        const puesto = document.getElementById('staff-puesto').value;
+        const caso1 = document.getElementById('staff-caso1').value;
+        const caso2 = document.getElementById('staff-caso2').value;
+        const btn = document.getElementById('btn-enviar-staff');
+
+        // Cambiamos el texto del botón mientras envía
+        btn.innerText = "TRANSMITIENDO DATOS...";
+        btn.disabled = true;
+
+        // Armamos el Embed visual para Discord
+        const payload = {
+            content: "<@&1484961848167104522>", // 👈 Puedes poner la ID de tu rol de Directiva/Fundador para que les pingee
+            embeds: [
+                {
+                    title: "📋 NUEVA POSTULACIÓN STAFF RECIBIDA",
+                    color: 52224, // Color Verde Neón
+                    fields: [
+                        { name: "Usuario", value: `\`${discordUser}\``, inline: true },
+                        { name: "Edad", value: `\`${edad} años\``, inline: true },
+                        { name: "Puesto Solicitado", value: `**${puesto}**`, inline: false },
+                        { name: "Resolución Caso 1 (VDM)", value: `> ${caso1}`, inline: false },
+                        { name: "Resolución Caso 2 (Ticket)", value: `> ${caso2}`, inline: false }
+                    ],
+                    footer: { text: "Elysium RP | Sistema de Seguridad Web" },
+                    timestamp: new Date().toISOString()
+                }
+            ]
+        };
+
+        // Enviamos los datos a Discord
+        fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).then(response => {
+            if(response.ok) {
+                document.getElementById('staffForm').reset();
+                btn.style.display = 'none';
+                document.getElementById('form-alert').style.display = 'block';
+            } else {
+                alert("Hubo un error al enviar la postulación. Contacta a un administrador.");
+                btn.innerText = "REINTENTAR";
+                btn.disabled = false;
+            }
+        }).catch(error => {
+            alert("Error de conexión con el servidor.");
+            btn.innerText = "ENVIAR POSTULACIÓN CLASIFICADA";
+            btn.disabled = false;
+        });
+    }
+</script>
     <footer class="site-footer">
     <div class="footer-container">
         
