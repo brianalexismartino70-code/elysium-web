@@ -1845,98 +1845,203 @@
     </div>
 </section>
     <section class="container" id="postulaciones">
-    <h2 class="section-title">Únete al Equipo Administrativo</h2>
+    <h2 class="section-title">Únete al Equipo Directivo</h2>
     <p style="text-align: center; color: #a8b2d1; margin-bottom: 40px; font-family: 'Rajdhani', sans-serif;">
-        Buscamos mentes maduras, creativas y comprometidas para mantener el orden en Elysium. <br>Demuestra tu conocimiento completando este formulario de acceso.
+        Buscamos la excelencia. Este no es un formulario básico; evaluaremos tu capacidad analítica, resolución de conflictos y conocimientos técnicos. Tómate tu tiempo.
     </p>
 
     <div class="apply-container">
         <form id="staffForm" class="apply-form" onsubmit="enviarPostulacion(event)">
             
-            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                <div class="form-group" style="flex: 1; min-width: 250px;">
-                    <label>👤 USUARIO DE DISCORD (Ej: brian#1234)</label>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 10px;">
+                <div class="form-group" style="flex: 1; min-width: 200px;">
+                    <label>👤 DISCORD (Ej: usuario#1234)</label>
                     <input type="text" id="staff-discord" required placeholder="Tu usuario exacto">
                 </div>
-                <div class="form-group" style="flex: 1; min-width: 150px;">
-                    <label>🔞 EDAD (+16 RECOMENDADO)</label>
-                    <input type="number" id="staff-edad" required min="14" max="99" placeholder="Tu edad real">
+                <div class="form-group" style="flex: 1; min-width: 100px;">
+                    <label>🔞 EDAD</label>
+                    <input type="number" id="staff-edad" required min="14" max="99" placeholder="Edad real">
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 200px;">
+                    <label>⏱️ DISPONIBILIDAD</label>
+                    <input type="text" id="staff-horario" required placeholder="Ej: L a V de 18:00 a 23:00 (GMT-3)">
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>🎖️ PUESTO AL QUE APLICAS</label>
-                <select id="staff-puesto" required>
-                    <option value="" disabled selected>Selecciona una vacante...</option>
-                    <option value="Soporte Técnico">Soporte Técnico (Atención de Tickets)</option>
-                    <option value="Moderador">Moderador (Vigilancia In-Game)</option>
-                    <option value="Playmaker">Playmaker (Creador de Eventos)</option>
-                    <option value="Tester / Dev">Tester / Desarrollo</option>
+            <div class="form-group" style="margin-bottom: 20px; border-bottom: 1px solid rgba(0, 212, 255, 0.2); padding-bottom: 20px;">
+                <label>🎖️ SELECCIONA TU ESPECIALIDAD</label>
+                <select id="staff-puesto" required onchange="cambiarPreguntas()">
+                    <option value="" disabled selected>Selecciona el área a la que postulas...</option>
+                    <option value="Soporte y Moderación">Soporte y Moderación (Normativas y Reportes)</option>
+                    <option value="Playmaker">Playmaker (Animador y Creador de Eventos)</option>
+                    <option value="Desarrollo">Programador / Dev (Qbox, Lua, SQL)</option>
+                    <option value="Diseño y Mapeo">Mapeador / Modelador 3D</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>🧠 CASO PRÁCTICO 1: ANTI-ROL</label>
-                <p style="color:#6a7491; font-size: 0.9rem; margin-bottom: 5px;">Ves a un usuario atropellando a 5 personas a propósito en el garaje central. ¿Cómo procedes paso a paso usando comandos de administración?</p>
-                <textarea id="staff-caso1" required placeholder="Explica detalladamente tu accionar..."></textarea>
+                <label>⚖️ PRUEBA DE INTEGRIDAD (Obligatoria)</label>
+                <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un usuario que es tu amigo OOC, o un donador VIP del servidor, comete una falta grave (ej. Insultos racistas por /b). Al sancionarlo, te abre ticket pidiendo que "se la dejes pasar por ser él". ¿Qué haces y cómo le respondes?</p>
+                <textarea id="pregunta-general" required placeholder="Redacta tu respuesta..."></textarea>
             </div>
 
-            <div class="form-group">
-                <label>🗣️ CASO PRÁCTICO 2: CONFLICTO EN TICKET</label>
-                <p style="color:#6a7491; font-size: 0.9rem; margin-bottom: 5px;">Dos usuarios se insultan agresivamente por un chat de Discord acusándose de MetaGaming, pero ninguno tiene video (POV). ¿Qué haces?</p>
-                <textarea id="staff-caso2" required placeholder="Tu resolución como Staff..."></textarea>
+            <div id="bloque-mod" style="display: none; flex-direction: column; gap: 20px;">
+                <div class="form-group">
+                    <label>🚨 CASO 1: METAGAMING AVANZADO</label>
+                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un policía detiene un auto por un semáforo. Sin rol previo, va directo al maletero, lo abre y encuentra armas ilegales. Justifica por /do que "el perro policía marcó el maletero", pero no existe ningún perro ni hizo rol de entorno previo. ¿A quién sancionas, por qué regla y cómo lo gestionas en el ticket?</p>
+                    <textarea id="mod-caso1" placeholder="Tu veredicto paso a paso..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>💰 CASO 2: ECONOMÍA ROTA</label>
+                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Especteando, ves a un civil nivel 1 farmeando basura. Llega un auto de lujo, se baja un usuario veterano y le transfiere $500,000 USD al civil "porque le cayó bien". ¿Qué regla se está rompiendo y cuál es tu protocolo de acción?</p>
+                    <textarea id="mod-caso2" placeholder="Tu resolución..."></textarea>
+                </div>
             </div>
 
-            <button type="submit" class="btn-neon" style="width: 100%; border-radius: 8px;" id="btn-enviar-staff">
-                ENVIAR POSTULACIÓN CLASIFICADA
+            <div id="bloque-playmaker" style="display: none; flex-direction: column; gap: 20px;">
+                <div class="form-group">
+                    <label>🎭 CASO 1: EL EVENTO COLAPSADO</label>
+                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Organizaste una carrera ilegal en el muelle. Hay 50 personas y el servidor empieza a perder FPS críticos (Lag) por la cantidad de autos. Como Playmaker, ¿cómo salvas la situación DENTRO DE ROL (IC) para dispersar a la gente sin usar comandos de admin visibles?</p>
+                    <textarea id="pm-caso1" placeholder="Tu improvisación IC..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>🎬 CASO 2: CREACIÓN DE TRAMA</label>
+                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Tienes permisos para spawnear 1 NPC y 1 vehículo. Diseña un mini-evento rápido de 10 minutos para darle rol a 2 policías de patrulla que están aburridos.</p>
+                    <textarea id="pm-caso2" placeholder="Describe el escenario..."></textarea>
+                </div>
+            </div>
+
+            <div id="bloque-dev" style="display: none; flex-direction: column; gap: 20px;">
+                <div class="form-group">
+                    <label>💻 CASO 1: EXPLOIT DE DUPES (QBOX)</label>
+                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Detectamos que los usuarios pueden duplicar dinero si pulsan la tecla 'E' muy rápido al vender drogas. ¿Qué concepto de programación (Lua/JS) aplicarías en el código (Server-side) para evitar este exploit?</p>
+                    <textarea id="dev-caso1" placeholder="Explica la lógica técnica (Debounce, Server Callbacks, etc)..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>🗄️ CASO 2: SQL FATAL ERROR</label>
+                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un jugador compra un auto en el concesionario, el dinero se le descuenta, pero el auto no aparece en su garaje. Al revisar la consola de txAdmin/F8, ¿qué tabla de la base de datos revisarías y qué buscarías?</p>
+                    <textarea id="dev-caso2" placeholder="Tu proceso de debugging..."></textarea>
+                </div>
+            </div>
+
+            <div id="bloque-mapper" style="display: none; flex-direction: column; gap: 20px;">
+                <div class="form-group">
+                    <label>🏗️ CASO 1: CAÍDA AL VACÍO (BLUE HELL)</label>
+                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Implementaste una comisaría custom (MLO), pero algunos jugadores reportan que al pasar por la puerta caen debajo del mapa o los FPS se desploman de 100 a 20. ¿Qué falta configurar en el MLO/CodeWalker?</p>
+                    <textarea id="mapper-caso1" placeholder="Menciona portales, oclusión, etc..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>🎨 CASO 2: PORTFOLIO (EXCLUYENTE)</label>
+                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Pega aquí enlaces (Imgur, YouTube, GitHub) a trabajos anteriores que hayas optimizado o creado desde cero.</p>
+                    <textarea id="mapper-caso2" placeholder="Links de tus trabajos..."></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-neon" style="width: 100%; border-radius: 8px; margin-top: 20px;" id="btn-enviar-staff">
+                ENVIAR POSTULACIÓN OFICIAL
             </button>
 
             <div id="form-alert" class="form-alert alert-success">
-                ✅ ENCRIPTACIÓN COMPLETADA. Tu expediente ha sido enviado a la Directiva.
+                ✅ ENCRIPTACIÓN COMPLETADA. Tu expediente ha sido enviado a la Directiva de Elysium.
             </div>
         </form>
     </div>
 </section>
 
 <script>
-    function enviarPostulacion(e) {
-        e.preventDefault(); // Evita que la página recargue
+    // 1. LÓGICA PARA MOSTRAR U OCULTAR PREGUNTAS DINÁMICAMENTE
+    function cambiarPreguntas() {
+        const puesto = document.getElementById('staff-puesto').value;
+        
+        // Ocultamos todos primero
+        document.getElementById('bloque-mod').style.display = 'none';
+        document.getElementById('bloque-playmaker').style.display = 'none';
+        document.getElementById('bloque-dev').style.display = 'none';
+        document.getElementById('bloque-mapper').style.display = 'none';
+        
+        // Quitamos la obligación (required) a todos los campos ocultos
+        const textareas = document.querySelectorAll('#staffForm textarea:not(#pregunta-general)');
+        textareas.forEach(ta => { ta.required = false; ta.value = ''; });
 
-        // 🔴🔴🔴 REEMPLAZA ESTE LINK POR LA URL DE TU WEBHOOK DE DISCORD 🔴🔴🔴
+        // Mostramos el bloque correcto y le ponemos "required" a sus campos
+        if (puesto === 'Soporte y Moderación') {
+            document.getElementById('bloque-mod').style.display = 'flex';
+            document.getElementById('mod-caso1').required = true;
+            document.getElementById('mod-caso2').required = true;
+        } 
+        else if (puesto === 'Playmaker') {
+            document.getElementById('bloque-playmaker').style.display = 'flex';
+            document.getElementById('pm-caso1').required = true;
+            document.getElementById('pm-caso2').required = true;
+        } 
+        else if (puesto === 'Desarrollo') {
+            document.getElementById('bloque-dev').style.display = 'flex';
+            document.getElementById('dev-caso1').required = true;
+            document.getElementById('dev-caso2').required = true;
+        }
+        else if (puesto === 'Diseño y Mapeo') {
+            document.getElementById('bloque-mapper').style.display = 'flex';
+            document.getElementById('mapper-caso1').required = true;
+            document.getElementById('mapper-caso2').required = true;
+        }
+    }
+
+    // 2. LÓGICA PARA ENVIAR A DISCORD VIA WEBHOOK
+    function enviarPostulacion(e) {
+        e.preventDefault(); 
+
+        // 🔴 REEMPLAZA ESTO CON LA URL DE TU WEBHOOK DE DISCORD 🔴
         const webhookUrl = 'https://discord.com/api/webhooks/1494480290687750175/raaeigmfcdLV2HQa6z3cak8D8nAI-lQKRKCmHi_NABUFtVnkPbJ1zqBt5rHg_PcxNTzv';
         
-        const discordUser = document.getElementById('staff-discord').value;
-        const edad = document.getElementById('staff-edad').value;
-        const puesto = document.getElementById('staff-puesto').value;
-        const caso1 = document.getElementById('staff-caso1').value;
-        const caso2 = document.getElementById('staff-caso2').value;
         const btn = document.getElementById('btn-enviar-staff');
-
-        // Cambiamos el texto del botón mientras envía
         btn.innerText = "TRANSMITIENDO DATOS...";
         btn.disabled = true;
 
-        // Armamos el Embed visual para Discord
+        // Capturamos los datos base
+        const discordUser = document.getElementById('staff-discord').value;
+        const edad = document.getElementById('staff-edad').value;
+        const horario = document.getElementById('staff-horario').value;
+        const puesto = document.getElementById('staff-puesto').value;
+        const integridad = document.getElementById('pregunta-general').value;
+
+        // Armamos los "Fields" (Campos) del Embed base
+        let embedFields = [
+            { name: "👤 Usuario Discord", value: `\`${discordUser}\``, inline: true },
+            { name: "🔞 Edad", value: `\`${edad} años\``, inline: true },
+            { name: "⏱️ Disponibilidad", value: `\`${horario}\``, inline: true },
+            { name: "🎖️ Especialidad", value: `**${puesto.toUpperCase()}**`, inline: false },
+            { name: "⚖️ Prueba de Integridad (OOC/VIP)", value: `> ${integridad}`, inline: false }
+        ];
+
+        // Añadimos las respuestas específicas según el rol que hayan elegido
+        if (puesto === 'Soporte y Moderación') {
+            embedFields.push({ name: "🚨 Respuesta Caso 1 (Metagaming)", value: `> ${document.getElementById('mod-caso1').value}`, inline: false });
+            embedFields.push({ name: "💰 Respuesta Caso 2 (Economía Rota)", value: `> ${document.getElementById('mod-caso2').value}`, inline: false });
+        } else if (puesto === 'Playmaker') {
+            embedFields.push({ name: "🎭 Respuesta Caso 1 (Evento Colapsado)", value: `> ${document.getElementById('pm-caso1').value}`, inline: false });
+            embedFields.push({ name: "🎬 Respuesta Caso 2 (Trama LSPD)", value: `> ${document.getElementById('pm-caso2').value}`, inline: false });
+        } else if (puesto === 'Desarrollo') {
+            embedFields.push({ name: "💻 Respuesta Caso 1 (Exploits)", value: `> ${document.getElementById('dev-caso1').value}`, inline: false });
+            embedFields.push({ name: "🗄️ Respuesta Caso 2 (SQL Debugging)", value: `> ${document.getElementById('dev-caso2').value}`, inline: false });
+        } else if (puesto === 'Diseño y Mapeo') {
+            embedFields.push({ name: "🏗️ Respuesta Caso 1 (Oclusión/MLO)", value: `> ${document.getElementById('mapper-caso1').value}`, inline: false });
+            embedFields.push({ name: "🎨 Portfolio (Links)", value: `> ${document.getElementById('mapper-caso2').value}`, inline: false });
+        }
+
         const payload = {
-            content: "<@&1484961848167104522>", // 👈 Puedes poner la ID de tu rol de Directiva/Fundador para que les pingee
+            content: "<@&1484961848167104522>", // 👈 Puedes cambiar esta ID para que avise a la directiva
             embeds: [
                 {
-                    title: "📋 NUEVA POSTULACIÓN STAFF RECIBIDA",
-                    color: 52224, // Color Verde Neón
-                    fields: [
-                        { name: "Usuario", value: `\`${discordUser}\``, inline: true },
-                        { name: "Edad", value: `\`${edad} años\``, inline: true },
-                        { name: "Puesto Solicitado", value: `**${puesto}**`, inline: false },
-                        { name: "Resolución Caso 1 (VDM)", value: `> ${caso1}`, inline: false },
-                        { name: "Resolución Caso 2 (Ticket)", value: `> ${caso2}`, inline: false }
-                    ],
-                    footer: { text: "Elysium RP | Sistema de Seguridad Web" },
+                    title: `📑 EXPEDIENTE DE POSTULACIÓN: ${discordUser.toUpperCase()}`,
+                    color: 16766720, // Color Amarillo/Dorado
+                    fields: embedFields,
+                    thumbnail: { url: "https://i.imgur.com/kK53Wv5.png" }, // Opcional: Pon tu logo de Elysium aquí
+                    footer: { text: "Elysium RP | Evaluaciones Administrativas" },
                     timestamp: new Date().toISOString()
                 }
             ]
         };
 
-        // Enviamos los datos a Discord
         fetch(webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1944,16 +2049,17 @@
         }).then(response => {
             if(response.ok) {
                 document.getElementById('staffForm').reset();
+                cambiarPreguntas(); // Vuelve a ocultar todo
                 btn.style.display = 'none';
                 document.getElementById('form-alert').style.display = 'block';
             } else {
                 alert("Hubo un error al enviar la postulación. Contacta a un administrador.");
-                btn.innerText = "REINTENTAR";
+                btn.innerText = "REINTENTAR ENVÍO";
                 btn.disabled = false;
             }
         }).catch(error => {
             alert("Error de conexión con el servidor.");
-            btn.innerText = "ENVIAR POSTULACIÓN CLASIFICADA";
+            btn.innerText = "ENVIAR POSTULACIÓN OFICIAL";
             btn.disabled = false;
         });
     }
