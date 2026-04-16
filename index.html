@@ -1847,31 +1847,31 @@
     <section class="container" id="postulaciones">
     <h2 class="section-title">Únete al Equipo Directivo</h2>
     <p style="text-align: center; color: #a8b2d1; margin-bottom: 40px; font-family: 'Rajdhani', sans-serif;">
-        Buscamos la excelencia. Este no es un formulario básico; evaluaremos tu capacidad analítica, resolución de conflictos y conocimientos técnicos. Tómate tu tiempo.
+        Buscamos la excelencia. Este examen consta de <b>20 preguntas de alta complejidad</b> (10 Generales y 10 de Especialidad). <br>Evaluaremos tu capacidad analítica, resolución de conflictos y conocimientos técnicos. Tómate tu tiempo.
     </p>
 
     <div class="apply-container">
         <form id="staffForm" class="apply-form" onsubmit="enviarPostulacion(event)">
             
-            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 10px;">
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 10px; align-items: flex-end;">
                 <div class="form-group" style="flex: 1; min-width: 200px;">
-                    <label>👤 DISCORD (Ej: usuario#1234)</label>
+                    <label>👤 DISCORD ID (Ej: usuario#1234)</label>
                     <input type="text" id="staff-discord" required placeholder="Tu usuario exacto">
                 </div>
                 <div class="form-group" style="flex: 1; min-width: 100px;">
-                    <label>🔞 EDAD</label>
-                    <input type="number" id="staff-edad" required min="18" max="99" placeholder="Edad real">
+                    <label>🔞 EDAD REAL</label>
+                    <input type="number" id="staff-edad" required min="18" max="99" placeholder="Tu edad">
                 </div>
                 <div class="form-group" style="flex: 1; min-width: 200px;">
                     <label>⏱️ DISPONIBILIDAD</label>
-                    <input type="text" id="staff-horario" required placeholder="Ej: L a V de 18:00 a 23:00 (GMT-3)">
+                    <input type="text" id="staff-horario" required placeholder="Ej: L a V de 18 a 23 hs (GMT-3)">
                 </div>
             </div>
 
-            <div class="form-group" style="margin-bottom: 20px; border-bottom: 1px solid rgba(0, 212, 255, 0.2); padding-bottom: 20px;">
+            <div class="form-group" style="margin-bottom: 30px; border-bottom: 1px solid rgba(0, 212, 255, 0.2); padding-bottom: 20px;">
                 <label>🎖️ SELECCIONA TU ESPECIALIDAD</label>
                 <select id="staff-puesto" required onchange="cambiarPreguntas()">
-                    <option value="" disabled selected>Selecciona el área a la que postulas...</option>
+                    <option value="" disabled selected>Selecciona el área a la que postulas para cargar tu examen...</option>
                     <option value="Soporte y Moderación">Soporte y Moderación (Normativas y Reportes)</option>
                     <option value="Playmaker">Playmaker (Animador y Creador de Eventos)</option>
                     <option value="Desarrollo">Programador / Dev (Qbox, Lua, SQL)</option>
@@ -1879,163 +1879,177 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label>⚖️ PRUEBA DE INTEGRIDAD (Obligatoria)</label>
-                <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un usuario que es tu amigo OOC, o un donador VIP del servidor, comete una falta grave (ej. Insultos racistas por /b). Al sancionarlo, te abre ticket pidiendo que "se la dejes pasar por ser él". ¿Qué haces y cómo le respondes?</p>
-                <textarea id="pregunta-general" required placeholder="Redacta tu respuesta..."></textarea>
+            <div id="bloque-general" style="display: none; flex-direction: column; gap: 20px; margin-bottom: 30px;">
+                <h3 style="color: var(--primary); font-family: 'Orbitron'; border-bottom: 1px solid #333; padding-bottom: 10px;">FASE 1: ÉTICA Y NORMATIVA GENERAL (10 Preguntas)</h3>
+                
+                <div class="form-group"><label>1. Integridad:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un Donador VIP de alto rango comete una falta grave y te pide por Discord que "se la dejes pasar por esta vez". ¿Cómo procedes?</p><textarea id="gen-1" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>2. Metagaming vs Sospecha:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Escuchas a un usuario en voz de Discord dar la ubicación de un robo, pero dentro del juego no ves que nadie use esa información. ¿Sancionas?</p><textarea id="gen-2" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>3. Abuso de Poder (Staff):</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">¿Puede un Staff usar noclip o revive en un rol donde participa como civil (IC) si lo matan por culpa de un bug evidente del servidor?</p><textarea id="gen-3" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>4. Bug Abuse vs Desconocimiento:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un nivel 1 duplica un ítem sin querer y avisa en ticket. Un veterano lo hace 50 veces y lo guarda en el maletero. ¿Cómo procedes con cada uno?</p><textarea id="gen-4" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>5. Falta de Respeto al Staff:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un usuario te insulta gravemente por mensaje directo de Discord tras ser sancionado en un ticket. ¿Qué protocolo sigues?</p><textarea id="gen-5" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>6. Rol de Entorno Automático:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Hay un tiroteo de bandas masivo a las 12:00 PM (Hora IC) en la plaza central. Los usuarios dicen "mandé entorno por sistema". ¿Es válido o requiere rol manual por /do?</p><textarea id="gen-6" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>7. Prioridad Administrativa (Triage):</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Al mismo tiempo ocurre: A) Un modder tirando autos en comisaría. B) Un rol de secuestro a la espera de un Admin. C) Un usuario bugeado bajo el mapa. ¿En qué orden actúas y por qué?</p><textarea id="gen-7" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>8. Uso correcto del /do:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Escribe un ejemplo de un /do correctamente utilizado durante un cacheo policial, y un ejemplo de un /do utilizado para forzar rol (PG).</p><textarea id="gen-8" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>9. Compañerismo y Corrupción:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Especteando, ves a un compañero Staff de mayor rango que tú dándole armas ilegalmente a su facción. ¿Qué haces exactamente?</p><textarea id="gen-9" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>10. Límites de Sanción (Blacklist):</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">¿Qué acciones específicas justifican, bajo tu criterio, expulsar a un jugador permanentemente (Wipe/Blacklist) sin derecho a apelación?</p><textarea id="gen-10" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
             </div>
 
             <div id="bloque-mod" style="display: none; flex-direction: column; gap: 20px;">
-                <div class="form-group">
-                    <label>🚨 CASO 1: METAGAMING AVANZADO</label>
-                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un policía detiene un auto por un semáforo. Sin rol previo, va directo al maletero, lo abre y encuentra armas ilegales. Justifica por /do que "el perro policía marcó el maletero", pero no existe ningún perro ni hizo rol de entorno previo. ¿A quién sancionas, por qué regla y cómo lo gestionas en el ticket?</p>
-                    <textarea id="mod-caso1" placeholder="Tu veredicto paso a paso..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>💰 CASO 2: ECONOMÍA ROTA</label>
-                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Especteando, ves a un civil nivel 1 farmeando basura. Llega un auto de lujo, se baja un usuario veterano y le transfiere $500,000 USD al civil "porque le cayó bien". ¿Qué regla se está rompiendo y cuál es tu protocolo de acción?</p>
-                    <textarea id="mod-caso2" placeholder="Tu resolución..."></textarea>
-                </div>
+                <h3 style="color: var(--primary); font-family: 'Orbitron'; border-bottom: 1px solid #333; padding-bottom: 10px;">FASE 2: ESPECIALIDAD MODERACIÓN (10 Preguntas)</h3>
+                <div class="form-group"><label>11. Metagaming Avanzado (MG):</label><p style="color:#6a7491; font-size: 0.85rem;">Un policía abre el maletero de un sospechoso sin rol y dice por /do "El perro lo marcó", pero no roleó perro antes ni lo tiene. ¿Veredicto?</p><textarea id="mod-11" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>12. Economía Rota (Regalo):</label><p style="color:#6a7491; font-size: 0.85rem;">Ves a un veterano transferir $500,000 a un civil nivel 1 "porque le cayó bien". ¿Qué regla rompe y qué haces?</p><textarea id="mod-12" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>13. Forzar CK (Character Kill):</label><p style="color:#6a7491; font-size: 0.85rem;">Un criminal mata a 3 policías. El Sargento lo abate y exige que se le haga CK al criminal. ¿Es procedente?</p><textarea id="mod-13" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>14. Secuestro a EMS:</label><p style="color:#6a7491; font-size: 0.85rem;">Una banda secuestra a un médico para llevarlo a su barrio a reanimar a su jefe abatido. ¿Es válido bajo normativa general de RP?</p><textarea id="mod-14" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>15. Baiting / Low RP:</label><p style="color:#6a7491; font-size: 0.85rem;">Un jugador pasa a 200km/h frente a comisaría tocando la bocina repetidamente para que lo persigan. ¿Sanción administrativa o rol policial?</p><textarea id="mod-15" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>16. VDM Involuntario:</label><p style="color:#6a7491; font-size: 0.85rem;">En un tiroteo, un civil intenta huir en su auto y por el pánico atropella y mata a un asaltante. ¿Es sancionable por VDM?</p><textarea id="mod-16" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>17. Combat Log Justificado:</label><p style="color:#6a7491; font-size: 0.85rem;">Un jugador se desconecta en medio de un arresto. Vuelve en 5 mins y abre ticket diciendo "se me cortó la luz", pero apareció en su casa. ¿Procedimiento?</p><textarea id="mod-17" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>18. Evasión de Rol (Agua):</label><p style="color:#6a7491; font-size: 0.85rem;">Un ladrón es acorralado en el muelle, se tira al mar y empieza a nadar hacia el límite del mapa para no ser atrapado. ¿Qué regla rompe?</p><textarea id="mod-18" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>19. Revenge Kill (RK):</label><p style="color:#6a7491; font-size: 0.85rem;">Un jugador es reanimado por un EMS tras un tiroteo. Dice que recuerda la cara del que le disparó, saca otra arma y va a buscarlo. ¿Por qué esto es ilegal?</p><textarea id="mod-19" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>20. Valorar Vida (NVV):</label><p style="color:#6a7491; font-size: 0.85rem;">Un jugador está apuntado por 3 asaltantes, pero él saca su arma y mata a 2 antes de caer. Justifica que "su personaje es ex-militar". ¿Qué sanción aplica?</p><textarea id="mod-20" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
             </div>
 
             <div id="bloque-playmaker" style="display: none; flex-direction: column; gap: 20px;">
-                <div class="form-group">
-                    <label>🎭 CASO 1: EL EVENTO COLAPSADO</label>
-                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Organizaste una carrera ilegal en el muelle. Hay 50 personas y el servidor empieza a perder FPS críticos (Lag) por la cantidad de autos. Como Playmaker, ¿cómo salvas la situación DENTRO DE ROL (IC) para dispersar a la gente sin usar comandos de admin visibles?</p>
-                    <textarea id="pm-caso1" placeholder="Tu improvisación IC..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>🎬 CASO 2: CREACIÓN DE TRAMA</label>
-                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Tienes permisos para spawnear 1 NPC y 1 vehículo. Diseña un mini-evento rápido de 10 minutos para darle rol a 2 policías de patrulla que están aburridos.</p>
-                    <textarea id="pm-caso2" placeholder="Describe el escenario..."></textarea>
-                </div>
+                <h3 style="color: var(--primary); font-family: 'Orbitron'; border-bottom: 1px solid #333; padding-bottom: 10px;">FASE 2: ESPECIALIDAD PLAYMAKER (10 Preguntas)</h3>
+                <div class="form-group"><label>11. El Evento Colapsado:</label><p style="color:#6a7491; font-size: 0.85rem;">Organizaste una carrera y hay un lag crítico por exceso de autos. ¿Cómo dispersas a la gente IC (dentro de rol) sin usar poderes visibles?</p><textarea id="pm-11" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>12. Trama para LSPD:</label><p style="color:#6a7491; font-size: 0.85rem;">Diseña un mini-evento improvisado de 10 minutos para darle juego a 2 patrulleros que están inactivos por falta de robos.</p><textarea id="pm-12" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>13. Evento Legal (No Violento):</label><p style="color:#6a7491; font-size: 0.85rem;">Idea un evento para civiles que no implique ni armas, ni carreras de autos, ni peleas. Algo 100% legal y social.</p><textarea id="pm-13" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>14. Uso de Peds (NPCs):</label><p style="color:#6a7491; font-size: 0.85rem;">¿Cómo usarías a los NPCs del juego para dar pistas en una búsqueda del tesoro sin enviar mensajes globales por /anuncio?</p><textarea id="pm-14" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>15. Límite de Poder Playmaker:</label><p style="color:#6a7491; font-size: 0.85rem;">Estás de ped civil dirigiendo un evento y un jugador te roba el auto de exhibición. ¿Usas poderes de admin (/kick o /kill) para detenerlo?</p><textarea id="pm-15" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>16. Economía de Eventos:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Por qué es un error gravísimo dar $1,000,000 USD de premio en el primer evento de la semana de apertura del servidor?</p><textarea id="pm-16" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>17. Rol de Mafias / Investigación:</label><p style="color:#6a7491; font-size: 0.85rem;">Crea el esquema de un evento para mafias que requiera investigar e interrogar antes de poder llegar al botín.</p><textarea id="pm-17" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>18. Fallo de Guion (Inmersión):</label><p style="color:#6a7491; font-size: 0.85rem;">El script de la bomba que plantaste para el evento falla y no explota. Hay 20 personas mirando. ¿Cómo improvisas para no romper el rol?</p><textarea id="pm-18" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>19. Difusión Subterránea:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Qué métodos In-Character utilizarías para anunciar una pelea clandestina sin que se entere la policía inmediatamente?</p><textarea id="pm-19" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>20. Coordinación con Staff:</label><p style="color:#6a7491; font-size: 0.85rem;">Antes de lanzar un evento masivo donde habrá explosiones, ¿Qué información es vital comunicarle por privado a la Directiva y Soporte?</p><textarea id="pm-20" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
             </div>
 
             <div id="bloque-dev" style="display: none; flex-direction: column; gap: 20px;">
-                <div class="form-group">
-                    <label>💻 CASO 1: EXPLOIT DE DUPES (QBOX)</label>
-                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Detectamos que los usuarios pueden duplicar dinero si pulsan la tecla 'E' muy rápido al vender drogas. ¿Qué concepto de programación (Lua/JS) aplicarías en el código (Server-side) para evitar este exploit?</p>
-                    <textarea id="dev-caso1" placeholder="Explica la lógica técnica (Debounce, Server Callbacks, etc)..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>🗄️ CASO 2: SQL FATAL ERROR</label>
-                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un jugador compra un auto en el concesionario, el dinero se le descuenta, pero el auto no aparece en su garaje. Al revisar la consola de txAdmin/F8, ¿qué tabla de la base de datos revisarías y qué buscarías?</p>
-                    <textarea id="dev-caso2" placeholder="Tu proceso de debugging..."></textarea>
-                </div>
+                <h3 style="color: var(--primary); font-family: 'Orbitron'; border-bottom: 1px solid #333; padding-bottom: 10px;">FASE 2: ESPECIALIDAD DESARROLLO (10 Preguntas)</h3>
+                <div class="form-group"><label>11. Exploit Dupes (QBOX):</label><p style="color:#6a7491; font-size: 0.85rem;">Usuarios duplican dinero al presionar 'E' rápido en un vendedor. ¿Qué técnica de programación aplicas en el Server-Side para evitarlo?</p><textarea id="dev-11" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>12. SQL Fatal Error:</label><p style="color:#6a7491; font-size: 0.85rem;">Jugador compra auto, descuenta dinero, pero no aparece en garaje. ¿Qué tablas y columnas revisas en HeidiSQL o phpMyAdmin?</p><textarea id="dev-12" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>13. Optimización de Bucles:</label><p style="color:#6a7491; font-size: 0.85rem;">Diferencia entre un script que consume 0.01ms y uno de 0.50ms en un "while true do". ¿Cómo optimizas el Wait()?</p><textarea id="dev-13" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>14. Qbox Callbacks:</label><p style="color:#6a7491; font-size: 0.85rem;">Escribe la lógica básica (sin código perfecto) de un lib.callback para verificar si un jugador tiene un objeto específico.</p><textarea id="dev-14" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>15. Sincronización (Network):</label><p style="color:#6a7491; font-size: 0.85rem;">Un script spawnea un NPC de forma local. Un jugador lo ve, pero el de al lado no. ¿Cómo fuerzas la sincronización en red (Networked)?</p><textarea id="dev-15" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>16. Seguridad y Validaciones:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Por qué jamás debes enviar el "precio" de un objeto desde el Cliente hacia el Server Event (TriggerServerEvent) al hacer una compra?</p><textarea id="dev-16" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>17. UI / NUI Events:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Qué función de FiveM utilizas para enviar datos desde un script de Lua hacia una interfaz hecha en HTML/JavaScript?</p><textarea id="dev-17" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>18. Conflictos Git:</label><p style="color:#6a7491; font-size: 0.85rem;">Otro Dev modificó el mismo script (server.lua) que tú y al hacer git pull tienes un conflicto. ¿Cómo lo resuelves?</p><textarea id="dev-18" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>19. Debugging Fugas de Memoria:</label><p style="color:#6a7491; font-size: 0.85rem;">El servidor sufre "hitch warnings" severos. ¿Qué herramientas de txAdmin o F8 (resmon/netobjviewer) utilizas para diagnosticarlo?</p><textarea id="dev-19" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>20. Migración ESX a Qbox:</label><p style="color:#6a7491; font-size: 0.85rem;">Nombra al menos 2 funciones nativas de ESX (ej: xPlayer.getMoney) y sus equivalentes directos en el framework de Qbox/QBCore.</p><textarea id="dev-20" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
             </div>
 
             <div id="bloque-mapper" style="display: none; flex-direction: column; gap: 20px;">
-                <div class="form-group">
-                    <label>🏗️ CASO 1: CAÍDA AL VACÍO (BLUE HELL)</label>
-                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Implementaste una comisaría custom (MLO), pero algunos jugadores reportan que al pasar por la puerta caen debajo del mapa o los FPS se desploman de 100 a 20. ¿Qué falta configurar en el MLO/CodeWalker?</p>
-                    <textarea id="mapper-caso1" placeholder="Menciona portales, oclusión, etc..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>🎨 CASO 2: PORTFOLIO (EXCLUYENTE)</label>
-                    <p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Pega aquí enlaces (Imgur, YouTube, GitHub) a trabajos anteriores que hayas optimizado o creado desde cero.</p>
-                    <textarea id="mapper-caso2" placeholder="Links de tus trabajos..."></textarea>
-                </div>
+                <h3 style="color: var(--primary); font-family: 'Orbitron'; border-bottom: 1px solid #333; padding-bottom: 10px;">FASE 2: ESPECIALIDAD DISEÑO Y MAPEO (10 Preguntas)</h3>
+                <div class="form-group"><label>11. Caída al Vacío (MLO):</label><p style="color:#6a7491; font-size: 0.85rem;">Jugadores caen por debajo del mapa al entrar a tu interior. ¿Qué flag de colisión o portal olvidaste configurar?</p><textarea id="map-11" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>12. Oclusión (Occlusion Portals):</label><p style="color:#6a7491; font-size: 0.85rem;">Explica brevemente para qué sirve la oclusión en un MLO y cómo afecta a los FPS de los jugadores que pasan por fuera.</p><textarea id="map-12" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>13. Optimización de Texturas (.ytd):</label><p style="color:#6a7491; font-size: 0.85rem;">¿Por qué exportar e importar texturas de paredes y suelos en resolución 4K (4096x) es un error fatal para un servidor de FiveM?</p><textarea id="map-13" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>14. Niveles de Detalle (LOD):</label><p style="color:#6a7491; font-size: 0.85rem;">¿Qué son los modelos de geometría High, Med, Low, y vLow y por qué deben existir en un prop grande?</p><textarea id="map-14" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>15. Iluminación Interior:</label><p style="color:#6a7491; font-size: 0.85rem;">Hiciste un bunker subterráneo, pero de día entra luz del sol traspasando el techo. ¿Cómo bloqueas el ciclo día/noche en ese MLO?</p><textarea id="map-15" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>16. Archivos YTYP:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Qué función cumple exactamente el archivo con extensión .ytyp al empaquetar un mapa custom?</p><textarea id="map-16" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>17. Límite de Polígonos:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Cuál es el límite aproximado de polígonos/vértices que consideras máximo para un prop decorativo sin que genere "texture loss"?</p><textarea id="map-17" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>18. Audio y Ecos en Interiores:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Qué parámetro modificas en el archivo de audio para que al disparar dentro de un túnel el sonido tenga eco/reverberación?</p><textarea id="map-18" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>19. Superposición de Mapeos (Conflictos):</label><p style="color:#6a7491; font-size: 0.85rem;">Instalas dos mapas comprados que están en la misma calle y las paredes parpadean (Z-fighting). ¿Cómo lo solucionas?</p><textarea id="map-19" maxlength="1000" placeholder="Tu respuesta..."></textarea></div>
+                <div class="form-group"><label>20. Portfolio de Trabajos (Excluyente):</label><p style="color:#6a7491; font-size: 0.85rem;">Pega enlaces de Imgur, YouTube o capturas de mapas creados/editados por ti.</p><textarea id="map-20" maxlength="1000" placeholder="Tus enlaces aquí..."></textarea></div>
             </div>
 
-            <button type="submit" class="btn-neon" style="width: 100%; border-radius: 8px; margin-top: 20px;" id="btn-enviar-staff">
-                ENVIAR POSTULACIÓN OFICIAL
+            <button type="submit" class="btn-neon" style="width: 100%; border-radius: 8px; margin-top: 30px; font-size: 1.2rem; padding: 20px;" id="btn-enviar-staff">
+                ENVIAR EXAMEN FINAL A DIRECTIVA
             </button>
 
             <div id="form-alert" class="form-alert alert-success">
-                ✅ ENCRIPTACIÓN COMPLETADA. Tu expediente ha sido enviado a la Directiva de Elysium.
+                ✅ EXAMEN RECIBIDO. Tu expediente de 20 preguntas está en manos de la Administración.
             </div>
         </form>
     </div>
 </section>
 
 <script>
-    // 1. LÓGICA PARA MOSTRAR U OCULTAR PREGUNTAS DINÁMICAMENTE
+    // 1. LÓGICA PARA MOSTRAR/OCULTAR Y CONFIGURAR CAMPOS OBLIGATORIOS
     function cambiarPreguntas() {
         const puesto = document.getElementById('staff-puesto').value;
         
-        // Ocultamos todos primero
+        // Mostrar bloque general y ocultar específicos
+        document.getElementById('bloque-general').style.display = 'flex';
         document.getElementById('bloque-mod').style.display = 'none';
         document.getElementById('bloque-playmaker').style.display = 'none';
         document.getElementById('bloque-dev').style.display = 'none';
         document.getElementById('bloque-mapper').style.display = 'none';
         
-        // Quitamos la obligación (required) a todos los campos ocultos
-        const textareas = document.querySelectorAll('#staffForm textarea:not(#pregunta-general)');
-        textareas.forEach(ta => { ta.required = false; ta.value = ''; });
+        // Reiniciar requerimientos
+        const todasRespuestas = document.querySelectorAll('#staffForm textarea');
+        todasRespuestas.forEach(ta => { ta.required = false; ta.value = ''; });
 
-        // Mostramos el bloque correcto y le ponemos "required" a sus campos
+        // Hacer requeridas las 10 generales
+        for(let i=1; i<=10; i++){ document.getElementById('gen-'+i).required = true; }
+
+        // Hacer requeridas las 10 específicas según selección
         if (puesto === 'Soporte y Moderación') {
             document.getElementById('bloque-mod').style.display = 'flex';
-            document.getElementById('mod-caso1').required = true;
-            document.getElementById('mod-caso2').required = true;
+            for(let i=11; i<=20; i++){ document.getElementById('mod-'+i).required = true; }
         } 
         else if (puesto === 'Playmaker') {
             document.getElementById('bloque-playmaker').style.display = 'flex';
-            document.getElementById('pm-caso1').required = true;
-            document.getElementById('pm-caso2').required = true;
+            for(let i=11; i<=20; i++){ document.getElementById('pm-'+i).required = true; }
         } 
         else if (puesto === 'Desarrollo') {
             document.getElementById('bloque-dev').style.display = 'flex';
-            document.getElementById('dev-caso1').required = true;
-            document.getElementById('dev-caso2').required = true;
+            for(let i=11; i<=20; i++){ document.getElementById('dev-'+i).required = true; }
         }
         else if (puesto === 'Diseño y Mapeo') {
             document.getElementById('bloque-mapper').style.display = 'flex';
-            document.getElementById('mapper-caso1').required = true;
-            document.getElementById('mapper-caso2').required = true;
+            for(let i=11; i<=20; i++){ document.getElementById('map-'+i).required = true; }
         }
     }
 
-    // 2. LÓGICA PARA ENVIAR A DISCORD VIA WEBHOOK
+    // 2. LÓGICA PARA ENVIAR VÍA WEBHOOK (DIVIDIDO EN 2 EMBEDS)
     function enviarPostulacion(e) {
         e.preventDefault(); 
 
         // 🔴 REEMPLAZA ESTO CON LA URL DE TU WEBHOOK DE DISCORD 🔴
-        const webhookUrl = 'https://discord.com/api/webhooks/1494480290687750175/raaeigmfcdLV2HQa6z3cak8D8nAI-lQKRKCmHi_NABUFtVnkPbJ1zqBt5rHg_PcxNTzv';
+        const webhookUrl = 'https://discord.com/api/webhooks/AQUI_TU_WEBHOOK';
         
         const btn = document.getElementById('btn-enviar-staff');
-        btn.innerText = "TRANSMITIENDO DATOS...";
+        btn.innerText = "ENCRIPTANDO Y ENVIANDO EXAMEN...";
         btn.disabled = true;
 
-        // Capturamos los datos base
         const discordUser = document.getElementById('staff-discord').value;
         const edad = document.getElementById('staff-edad').value;
         const horario = document.getElementById('staff-horario').value;
         const puesto = document.getElementById('staff-puesto').value;
-        const integridad = document.getElementById('pregunta-general').value;
 
-        // Armamos los "Fields" (Campos) del Embed base
-        let embedFields = [
-            { name: "👤 Usuario Discord", value: `\`${discordUser}\``, inline: true },
-            { name: "🔞 Edad", value: `\`${edad} años\``, inline: true },
-            { name: "⏱️ Disponibilidad", value: `\`${horario}\``, inline: true },
-            { name: "🎖️ Especialidad", value: `**${puesto.toUpperCase()}**`, inline: false },
-            { name: "⚖️ Prueba de Integridad (OOC/VIP)", value: `> ${integridad}`, inline: false }
+        // Recopilamos las 10 generales
+        let fieldsEmbed1 = [
+            { name: "Perfil", value: `👤 **Discord:** ${discordUser}\n🔞 **Edad:** ${edad}\n⏱️ **Horario:** ${horario}\n🎖️ **Postula a:** ${puesto}`, inline: false }
         ];
+        
+        for(let i=1; i<=10; i++){
+            let respuesta = document.getElementById('gen-'+i).value || "Sin respuesta";
+            if(respuesta.length > 1000) respuesta = respuesta.substring(0, 1000) + "...";
+            fieldsEmbed1.push({ name: `Pregunta General ${i}`, value: `> ${respuesta}`, inline: false });
+        }
 
-        // Añadimos las respuestas específicas según el rol que hayan elegido
-        if (puesto === 'Soporte y Moderación') {
-            embedFields.push({ name: "🚨 Respuesta Caso 1 (Metagaming)", value: `> ${document.getElementById('mod-caso1').value}`, inline: false });
-            embedFields.push({ name: "💰 Respuesta Caso 2 (Economía Rota)", value: `> ${document.getElementById('mod-caso2').value}`, inline: false });
-        } else if (puesto === 'Playmaker') {
-            embedFields.push({ name: "🎭 Respuesta Caso 1 (Evento Colapsado)", value: `> ${document.getElementById('pm-caso1').value}`, inline: false });
-            embedFields.push({ name: "🎬 Respuesta Caso 2 (Trama LSPD)", value: `> ${document.getElementById('pm-caso2').value}`, inline: false });
-        } else if (puesto === 'Desarrollo') {
-            embedFields.push({ name: "💻 Respuesta Caso 1 (Exploits)", value: `> ${document.getElementById('dev-caso1').value}`, inline: false });
-            embedFields.push({ name: "🗄️ Respuesta Caso 2 (SQL Debugging)", value: `> ${document.getElementById('dev-caso2').value}`, inline: false });
-        } else if (puesto === 'Diseño y Mapeo') {
-            embedFields.push({ name: "🏗️ Respuesta Caso 1 (Oclusión/MLO)", value: `> ${document.getElementById('mapper-caso1').value}`, inline: false });
-            embedFields.push({ name: "🎨 Portfolio (Links)", value: `> ${document.getElementById('mapper-caso2').value}`, inline: false });
+        // Recopilamos las 10 específicas
+        let prefix = puesto === 'Soporte y Moderación' ? 'mod-' : 
+                     puesto === 'Playmaker' ? 'pm-' : 
+                     puesto === 'Desarrollo' ? 'dev-' : 'map-';
+                     
+        let fieldsEmbed2 = [];
+        for(let i=11; i<=20; i++){
+            let respuesta = document.getElementById(prefix+i).value || "Sin respuesta";
+            if(respuesta.length > 1000) respuesta = respuesta.substring(0, 1000) + "...";
+            fieldsEmbed2.push({ name: `Pregunta Especialidad ${i}`, value: `> ${respuesta}`, inline: false });
         }
 
         const payload = {
-            content: "<@&1484961848167104522>", // 👈 Puedes cambiar esta ID para que avise a la directiva
+            content: "<@&1484732037230231612> 🚨 **NUEVO EXAMEN RECIBIDO**", 
             embeds: [
                 {
-                    title: `📑 EXPEDIENTE DE POSTULACIÓN: ${discordUser.toUpperCase()}`,
-                    color: 16766720, // Color Amarillo/Dorado
-                    fields: embedFields,
-                    thumbnail: { url: "https://i.imgur.com/kK53Wv5.png" }, // Opcional: Pon tu logo de Elysium aquí
+                    title: `PARTE 1: PERFIL Y ÉTICA (${discordUser})`,
+                    color: 16766720,
+                    fields: fieldsEmbed1
+                },
+                {
+                    title: `PARTE 2: ESPECIALIDAD EN ${puesto.toUpperCase()}`,
+                    color: 52224,
+                    fields: fieldsEmbed2,
                     footer: { text: "Elysium RP | Evaluaciones Administrativas" },
                     timestamp: new Date().toISOString()
                 }
@@ -2049,17 +2063,21 @@
         }).then(response => {
             if(response.ok) {
                 document.getElementById('staffForm').reset();
-                cambiarPreguntas(); // Vuelve a ocultar todo
+                document.getElementById('bloque-general').style.display = 'none';
+                document.getElementById('bloque-mod').style.display = 'none';
+                document.getElementById('bloque-playmaker').style.display = 'none';
+                document.getElementById('bloque-dev').style.display = 'none';
+                document.getElementById('bloque-mapper').style.display = 'none';
                 btn.style.display = 'none';
                 document.getElementById('form-alert').style.display = 'block';
             } else {
-                alert("Hubo un error al enviar la postulación. Contacta a un administrador.");
+                alert("Discord rechazó el envío. Intenta hacer las respuestas un poco más cortas.");
                 btn.innerText = "REINTENTAR ENVÍO";
                 btn.disabled = false;
             }
         }).catch(error => {
             alert("Error de conexión con el servidor.");
-            btn.innerText = "ENVIAR POSTULACIÓN OFICIAL";
+            btn.innerText = "ENVIAR EXAMEN FINAL A DIRECTIVA";
             btn.disabled = false;
         });
     }
