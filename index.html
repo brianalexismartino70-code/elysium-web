@@ -26,6 +26,15 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
     <style>
+
+    /* =========================================
+   PARCHE ANTI-LAG PARA EFECTOS DE CRISTAL
+   ========================================= */
+.glass-effect, .about-card, .apply-container, nav {
+    backdrop-filter: blur(6px) !important; 
+    -webkit-backdrop-filter: blur(6px) !important;
+    background: rgba(10, 14, 18, 0.85) !important; 
+}    
         /* =========================================
    ADUANA Y VISADOS (Boarding Pass)
    ========================================= */
@@ -1333,8 +1342,6 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
     height: auto;
     z-index: 5;
     pointer-events: none; 
-    /* LA MAGIA: Sombra negra para profundidad + Brillo cyan muy sutil */
-    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9)) drop-shadow(0 0 4px rgba(0, 212, 255, 0.3));
 }
 
 /* =========================================
@@ -2378,25 +2385,23 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
         const parallaxBg = document.querySelector('.parallax-bg');
         const particlesContainer = document.getElementById('dolares-container');
 
-        // Cantidad de billetes en pantalla (puedes subir este número si quieres más)
-        const numDolares = 20; 
+        const numDolares = 15; // Bajamos a 15 para aliviar la carga
         const dolares = [];
 
         for (let i = 0; i < numDolares; i++) {
             const billete = document.createElement('img');
-            billete.src = 'cash-clean.png'; // El nombre exacto de tu imagen en GitHub
+            billete.src = 'cash-clean.png'; 
             billete.className = 'dolar';
             
-            // Posición, rotación y profundidad aleatoria
             const x = Math.random() * 100;
             const y = Math.random() * 100;
             const rotation = Math.random() * 360;
-            const depth = Math.random() * 1.5 + 0.5; // Efecto 3D de profundidad
+            const depth = Math.random() * 1.5 + 0.5; 
 
             billete.style.left = x + '%';
             billete.style.top = y + '%';
             billete.style.transform = `rotate(${rotation}deg) scale(${depth})`;
-            billete.style.opacity = Math.random() * 0.6 + 0.4;
+            billete.style.opacity = Math.random() * 0.4 + 0.2; 
 
             if(particlesContainer) {
                 particlesContainer.appendChild(billete);
@@ -2404,22 +2409,28 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
             }
         }
 
-        // Movimiento interactivo con el mouse
+        let isTicking = false; // Sistema anti-lag
+
         if(heroSection) {
             heroSection.addEventListener('mousemove', (e) => {
-                const moveX = (e.clientX - window.innerWidth / 2) / 60;
-                const moveY = (e.clientY - window.innerHeight / 2) / 60;
+                if (!isTicking) {
+                    window.requestAnimationFrame(() => {
+                        const moveX = (e.clientX - window.innerWidth / 2) / 80;
+                        const moveY = (e.clientY - window.innerHeight / 2) / 80;
 
-                // Mueve el fondo del Ferrari sutilmente
-                if(parallaxBg) parallaxBg.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
+                        // translate3d obliga a la Tarjeta Gráfica a procesar el fondo
+                        if(parallaxBg) parallaxBg.style.transform = `translate3d(${-moveX}px, ${-moveY}px, 0)`;
 
-                // Mueve los billetes creando el efecto 3D
-                dolares.forEach(d => {
-                    const speed = d.depth * 25; // Más cerca = más rápido
-                    const finalX = moveX * speed;
-                    const finalY = moveY * speed;
-                    d.el.style.transform = `translate(${finalX}px, ${finalY}px) scale(${d.depth}) rotate(${d.rot + moveX}deg)`;
-                });
+                        dolares.forEach(d => {
+                            const speed = d.depth * 15; 
+                            const finalX = moveX * speed;
+                            const finalY = moveY * speed;
+                            d.el.style.transform = `translate3d(${finalX}px, ${finalY}px, 0) scale(${d.depth}) rotate(${d.rot + moveX}deg)`;
+                        });
+                        isTicking = false;
+                    });
+                    isTicking = true;
+                }
             });
         }
     </script>
