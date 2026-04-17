@@ -1935,6 +1935,106 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
     </div>
 </footer>
 
+    <div class="elysium-fm glass-effect">
+        <div class="fm-info">
+            <i class="fa-solid fa-radio fm-icon"></i>
+            <div>
+                <p class="fm-title">ELYSIUM FM</p>
+                <p id="current-track" class="fm-track">Sintonizando...</p>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <button class="fm-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
+            <button id="play-btn" class="fm-btn" onclick="toggleRadio()"><i class="fa-solid fa-play"></i></button>
+            
+            <div class="fm-volume-control">
+                <i class="fa-solid fa-volume-low" id="vol-icon"></i>
+                <input type="range" id="fm-volume" min="0" max="1" step="0.01" value="0.3">
+            </div>
+        </div>
+        <audio id="elysium-radio"></audio>
+    </div>
+
+    <div id="hacker-trigger" onclick="abrirTerminal()" title="No hay nada que ver aquí...">.</div>
+
+    <div id="dark-terminal" class="oculto">
+        <div class="terminal-header">
+            <span>ELYSIUM_OS v1.0.4 - ACCESO NO AUTORIZADO</span>
+            <button onclick="cerrarTerminal()" class="btn-cerrar-terminal">[X] DESCONECTAR</button>
+        </div>
+        <div id="terminal-output">
+            <p>Conexión segura establecida...</p>
+            <p>Bienvenido a la red paralela de Los Santos.</p>
+            <p>Escribe <span class="comando-resaltado">ayuda</span> para ver los comandos disponibles.</p>
+        </div>
+        <div class="terminal-input-line">
+            <span class="prompt">root@elysium:~#</span>
+            <input type="text" id="terminal-input" autocomplete="off" spellcheck="false">
+        </div>
+    </div>
+
+    <script>
+        const radio = document.getElementById("elysium-radio");
+        const trackText = document.getElementById("current-track");
+        const playBtnIcon = document.querySelector("#play-btn i");
+
+        const playlist = [
+            { title: "Si Estás Con Alguien - Omar Courtz", url: "omar-courtz.mp3" },
+            { title: "Viene BASQUIAT... - JHAYCO", url: "jhay-co.mp3" },
+            { title: "Soy Favela - La T y La M", url: "soy-favela.mp3" },
+            { title: "You Know How We Do It - Ice Cube", url: "ice-cube.mp3" },
+            { title: "Otra Noche En Miami - Bad Bunny", url: "bad-bunny.mp3" }
+        ];
+
+        let currentTrackIndex = 0;
+        if(radio) radio.volume = 0.3;
+        const volumeSlider = document.getElementById("fm-volume");
+        const volIcon = document.getElementById("vol-icon");
+
+        if(volumeSlider && volIcon) {
+            volumeSlider.addEventListener("input", (e) => {
+                radio.volume = e.target.value;
+                if (radio.volume == 0) {
+                    volIcon.className = "fa-solid fa-volume-xmark";
+                } else if (radio.volume < 0.5) {
+                    volIcon.className = "fa-solid fa-volume-low";
+                } else {
+                    volIcon.className = "fa-solid fa-volume-high";
+                }
+            });
+        }
+
+        function loadTrack(index) {
+            if(!radio) return;
+            const track = playlist[index];
+            radio.src = track.url;
+            if(trackText) trackText.innerText = track.title;
+        }
+
+        window.toggleRadio = function() {
+            if(!radio) return;
+            if (radio.paused) {
+                if (!radio.src || radio.src.includes(window.location.host + "/null")) loadTrack(currentTrackIndex);
+                radio.play();
+                if(playBtnIcon) playBtnIcon.classList.replace("fa-play", "fa-pause");
+            } else {
+                radio.pause();
+                if(playBtnIcon) playBtnIcon.classList.replace("fa-pause", "fa-play");
+            }
+        }
+
+        window.nextTrack = function() {
+            if(!radio) return;
+            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+            loadTrack(currentTrackIndex);
+            radio.play();
+            if(playBtnIcon) playBtnIcon.classList.replace("fa-play", "fa-pause");
+        }
+
+        if(radio) radio.onended = () => { nextTrack(); };
+        loadTrack(currentTrackIndex);
+    </script>
+
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
