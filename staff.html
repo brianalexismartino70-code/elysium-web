@@ -21,6 +21,15 @@
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
+        /* =========================================
+   PARCHE ANTI-LAG PARA EFECTOS DE CRISTAL
+   ========================================= */
+.glass-effect, .about-card, .apply-container, nav {
+    backdrop-filter: blur(6px) !important; 
+    -webkit-backdrop-filter: blur(6px) !important;
+    background: rgba(10, 14, 18, 0.85) !important; 
+}
+
 /* =========================================
    OPTIMIZACIÓN DE RENDIMIENTO (ANTI-LAG)
    ========================================= */
