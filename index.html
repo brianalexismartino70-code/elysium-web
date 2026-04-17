@@ -1943,25 +1943,24 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>    
     
     <script>
-        // 1. PARTICULAS DE FONDO (MAGIA BLANCA/NEÓN)
         particlesJS("particles-js", {
-            // ... (aquí sigue todo el código que pegaste antes)
-        "particles": {
-            "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#00d4ff" },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.5, "random": false },
-            "size": { "value": 2, "random": true },
-            "line_linked": { "enable": false, "distance": 150, "color": "#00d4ff", "opacity": 0.2, "width": 1 },
-            "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "out_mode": "out", "bounce": false }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
-            "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.5 } }, "push": { "particles_nb": 4 } }
-        },
-        "retina_detect": true
-    });
+            "particles": { 
+                "number": { "value": 30, "density": { "enable": true, "value_area": 800 } }, 
+                "color": { "value": "#00d4ff" }, 
+                "shape": { "type": "circle" }, 
+                "opacity": { "value": 0.5, "random": false }, 
+                "size": { "value": 2, "random": true }, 
+                "line_linked": { "enable": false, "distance": 150, "color": "#00d4ff", "opacity": 0.2, "width": 1 }, 
+                "move": { "enable": true, "speed": 1.0, "direction": "none", "random": true, "out_mode": "out", "bounce": false } 
+            },
+            "interactivity": { 
+                "detect_on": "canvas", 
+                "events": { "onhover": { "enable": false, "mode": "grab" }, "onclick": { "enable": false, "mode": "push" } }, 
+                "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.5 } }, "push": { "particles_nb": 4 } } 
+            }, 
+            "retina_detect": true
+        });
+    </script>
 
     // 2. SISTEMA DE PESTAÑAS PARA LAS REGLAS
     function openTab(evt, tabName) {
