@@ -1419,6 +1419,34 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
     border: 1px solid #00ff41;
     color: #00ff41;
 }
+
+        /* =========================================
+           MODO RENDIMIENTO MÁXIMO (ANTI-LAG DEFINITIVO)
+           ========================================= */
+        
+        /* 1. Alivianar los Cristales: Menos desenfoque, más opacidad (El navegador calcula un 70% menos) */
+        .glass-effect, .about-card, .apply-container, nav, .dashboard, .countdown-container {
+            backdrop-filter: blur(4px) !important; 
+            -webkit-backdrop-filter: blur(4px) !important;
+            background: rgba(8, 12, 16, 0.92) !important; 
+        }
+
+        /* 2. Forzar que las cintas de noticias y economía usen SOLO la Tarjeta Gráfica */
+        .weazel-marquee, .ticker-track {
+            will-change: transform;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        /* 3. Apagar obligatoriamente las sombras dinámicas de los billetes (Destructoras de FPS) */
+        .dolar {
+            filter: none !important; 
+        }
+
+        /* 4. Optimizar animaciones de neón constantes (Pausar lo que no se ve) */
+        .status-indicator, .preloader-logo {
+            will-change: transform, box-shadow;
+        }
         
     </style>   
 </head>
