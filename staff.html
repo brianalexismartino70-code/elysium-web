@@ -21,29 +21,25 @@
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-        /* =========================================
+/* =========================================
    OPTIMIZACIÓN DE RENDIMIENTO (ANTI-LAG)
    ========================================= */
-/* 1. Suavizado general de textos */
 * {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
 }
 
-/* 2. Forzar Aceleración por Hardware (GPU) en los cristales */
-nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar {
+/* Forzar Aceleración por Hardware SIN saturar la VRAM */
+nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     backface-visibility: hidden;
-    will-change: transform, backdrop-filter;
 }
 
-/* 3. Evitar que el canvas de las partículas redibuje toda la pantalla al scrollear */
 #particles-js {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    will-change: transform;
-    pointer-events: none; /* Asegura que no bloquee clics */
+    pointer-events: none; 
 }
 
         #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; background: radial-gradient(circle at center, #0a1118 0%, #020305 100%); }
