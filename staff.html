@@ -72,6 +72,34 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
         .btn-neon { display: inline-block; padding: 15px 30px; background: transparent; color: var(--primary); font-family: 'Orbitron'; font-weight: bold; border: 2px solid var(--primary); border-radius: 8px; cursor: pointer; transition: 0.3s; box-shadow: 0 0 10px var(--primary-glow); text-align: center; }
         .btn-neon:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary); }
         .form-alert { display: none; padding: 15px; border-radius: 8px; text-align: center; font-family: 'Orbitron'; font-weight: bold; margin-top: 15px; background: rgba(0, 255, 65, 0.1); border: 1px solid #00ff41; color: #00ff41; }
+
+        /* =========================================
+           MODO RENDIMIENTO MÁXIMO (ANTI-LAG DEFINITIVO)
+           ========================================= */
+        
+        /* 1. Alivianar los Cristales: Menos desenfoque, más opacidad (El navegador calcula un 70% menos) */
+        .glass-effect, .about-card, .apply-container, nav, .dashboard, .countdown-container {
+            backdrop-filter: blur(4px) !important; 
+            -webkit-backdrop-filter: blur(4px) !important;
+            background: rgba(8, 12, 16, 0.92) !important; 
+        }
+
+        /* 2. Forzar que las cintas de noticias y economía usen SOLO la Tarjeta Gráfica */
+        .weazel-marquee, .ticker-track {
+            will-change: transform;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        /* 3. Apagar obligatoriamente las sombras dinámicas de los billetes (Destructoras de FPS) */
+        .dolar {
+            filter: none !important; 
+        }
+
+        /* 4. Optimizar animaciones de neón constantes (Pausar lo que no se ve) */
+        .status-indicator, .preloader-logo {
+            will-change: transform, box-shadow;
+        }
     </style>
 </head>
 <body>
