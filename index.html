@@ -1936,463 +1936,248 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
 </footer>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
     <script>
-        if(window.particlesJS) {
-// 1. PARTICULAS DE FONDO (MAGIA BLANCA/NEÓN)
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>    
-    
-    <script>
-        particlesJS("particles-js", {
-            "particles": { 
-                "number": { "value": 30, "density": { "enable": true, "value_area": 800 } }, 
-                "color": { "value": "#00d4ff" }, 
-                "shape": { "type": "circle" }, 
-                "opacity": { "value": 0.5, "random": false }, 
-                "size": { "value": 2, "random": true }, 
-                "line_linked": { "enable": false, "distance": 150, "color": "#00d4ff", "opacity": 0.2, "width": 1 }, 
-                "move": { "enable": true, "speed": 1.0, "direction": "none", "random": true, "out_mode": "out", "bounce": false } 
-            },
-            "interactivity": { 
-                "detect_on": "canvas", 
-                "events": { "onhover": { "enable": false, "mode": "grab" }, "onclick": { "enable": false, "mode": "push" } }, 
-                "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.5 } }, "push": { "particles_nb": 4 } } 
-            }, 
-            "retina_detect": true
-        });
-    </script>
-
-    // 2. SISTEMA DE PESTAÑAS PARA LAS REGLAS
-    function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
-        var targetTab = document.getElementById(tabName);
-        if (!targetTab) return;
-        
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-            tabcontent[i].classList.remove("active");
-        }
-        
-        tablinks = document.getElementsByClassName("tab-btn");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("active");
-        }
-        
-        targetTab.style.display = "block";
-        setTimeout(() => { targetTab.classList.add("active"); }, 10);
-        evt.currentTarget.classList.add("active");
-    }
-
-    // 3. ESTADO DEL SERVIDOR EN VIVO (API)
-    // ATENCIÓN: Recuerda reemplazar las 'XXXXXX' con el código Cfx de Elysium
-    const cfxCode = 'kr546a'; 
-    const playerCountElement = document.getElementById('player-count');
-    const statusIndicator = document.getElementById('status-dot');
-
-    async function fetchServerStatus() {
-        if (!playerCountElement || !statusIndicator) return;
-        try {
-            const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${cfxCode}`);
-            if (!response.ok) throw new Error('Servidor inalcanzable');
-            const data = await response.json();
-            const players = data.Data.clients;
-            const maxPlayers = data.Data.sv_maxclients;
-            
-            playerCountElement.textContent = `Jugadores: ${players} / ${maxPlayers}`;
-            statusIndicator.style.backgroundColor = 'var(--primary)'; 
-            statusIndicator.style.boxShadow = '0 0 12px var(--primary)';
-            statusIndicator.style.animation = 'pulseNeon 1.5s infinite';
-        } catch (error) {
-            console.error('Error al contactar el servidor:', error);
-            playerCountElement.textContent = 'Servidor en Mantenimiento';
-            statusIndicator.style.backgroundColor = '#ff3333'; 
-            statusIndicator.style.boxShadow = '0 0 12px #ff3333';
-            statusIndicator.style.animation = 'none'; 
-        }
-    }
-
-    // 4. ANIMACIÓN DE "QUIÉNES SOMOS" AL HACER SCROLL
-    document.addEventListener("DOMContentLoaded", () => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    // Calculamos un retraso para que aparezcan en cascada
-                    const allCards = Array.from(document.querySelectorAll('.about-card'));
-                    const delay = allCards.indexOf(entry.target) * 150;
-                    
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, delay);
-                    
-                    observer.unobserve(entry.target);
-                }
+        // 1. PARTICULAS DE FONDO (OPTIMIZADAS ANTI-LAG)
+        if(typeof particlesJS !== 'undefined') {
+            particlesJS("particles-js", {
+                "particles": { 
+                    "number": { "value": 30, "density": { "enable": true, "value_area": 800 } }, 
+                    "color": { "value": "#00d4ff" }, 
+                    "shape": { "type": "circle" }, 
+                    "opacity": { "value": 0.5, "random": false }, 
+                    "size": { "value": 2, "random": true }, 
+                    "line_linked": { "enable": false, "distance": 150, "color": "#00d4ff", "opacity": 0.2, "width": 1 }, 
+                    "move": { "enable": true, "speed": 1.0, "direction": "none", "random": true, "out_mode": "out", "bounce": false } 
+                },
+                "interactivity": { 
+                    "detect_on": "canvas", 
+                    "events": { "onhover": { "enable": false, "mode": "grab" }, "onclick": { "enable": false, "mode": "push" } }, 
+                    "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.5 } }, "push": { "particles_nb": 4 } } 
+                }, 
+                "retina_detect": true
             });
-        }, { threshold: 0.1 });
+        }
 
-        document.querySelectorAll('.about-card').forEach((card) => {
-            observer.observe(card);
-        });
-
-        // Inicia el contador de jugadores apenas carga la página
-        fetchServerStatus();
-        setInterval(fetchServerStatus, 60000);
-    });    
-  // =========================================
-    // EASTER EGG LÓGICA (5 Clics al Logo)
-    // =========================================
-    let clickCount = 0;
-    let clickTimer;
-    
-    // Seleccionamos el logo principal (asegúrate de que tenga la clase 'main-logo')
-    const mainLogo = document.querySelector('.main-logo');
-    
-    if (mainLogo) {
-        // Le agregamos un cursor interactivo para dar una pista visual
-        mainLogo.style.cursor = 'pointer';
-        
-        mainLogo.addEventListener('click', () => {
-            clickCount++;
+        // 2. SISTEMA DE PESTAÑAS PARA LAS REGLAS
+        window.openTab = function(evt, tabName) {
+            var i, tabcontent, tablinks;
+            var targetTab = document.getElementById(tabName);
+            if (!targetTab) return;
             
-            // Si el jugador no hace los clics rápido, el contador se reinicia
-            clearTimeout(clickTimer);
-            clickTimer = setTimeout(() => { clickCount = 0; }, 2000); 
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            targetTab.style.display = "block";
+            setTimeout(() => { targetTab.classList.add("active"); }, 10);
+            evt.currentTarget.classList.add("active");
+        }
 
-            // Si llega a 5 clics... ¡Magia!
-            if (clickCount === 5) {
-                // Encendemos las luces
-                document.body.classList.add('police-flash');
+        // 3. ESTADO DEL SERVIDOR EN VIVO (API)
+        const cfxCode = 'kr546a'; 
+        const playerCountElement = document.getElementById('player-count');
+        const statusIndicator = document.getElementById('status-dot');
+
+        async function fetchServerStatus() {
+            if (!playerCountElement || !statusIndicator) return;
+            try {
+                const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${cfxCode}`);
+                if (!response.ok) throw new Error('Servidor inalcanzable');
+                const data = await response.json();
+                const players = data.Data.clients;
+                const maxPlayers = data.Data.sv_maxclients;
                 
-                // Le damos medio segundo de suspenso y mostramos la alerta
-                setTimeout(() => {
-                    alert("🚓 ¡LSPD AL HABLA! Has descubierto un código clasificado.\n\nUsa el cupón 'ELYSIUMOCULTO' en nuestra tienda web para obtener beneficios exclusivos de fundador.");
-                    
-                    // Apagamos las luces después de aceptar la alerta
-                    document.body.classList.remove('police-flash');
-                    clickCount = 0; // Reiniciamos el juego
-                }, 500);
+                playerCountElement.textContent = `Jugadores: ${players} / ${maxPlayers}`;
+                statusIndicator.style.backgroundColor = 'var(--primary)'; 
+                statusIndicator.style.boxShadow = '0 0 12px var(--primary)';
+                statusIndicator.style.animation = 'pulseNeon 1.5s infinite';
+            } catch (error) {
+                console.error('Error al contactar el servidor:', error);
+                playerCountElement.textContent = 'Servidor en Mantenimiento';
+                statusIndicator.style.backgroundColor = '#ff3333'; 
+                statusIndicator.style.boxShadow = '0 0 12px #ff3333';
+                statusIndicator.style.animation = 'none'; 
             }
-        });
-    }      
-     // =========================================
-    // MOTOR DE GALERÍA 3D (SWIPER)
-    // =========================================
-    // Le damos un pequeño tiempo de espera para asegurar que la librería cargó
-    document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(() => {
-            const swiper = new Swiper(".mySwiper", {
-                effect: "coverflow",
-                grabCursor: true,
-                centeredSlides: true,
-                slidesPerView: "auto",
-                loop: true, // Para que sea infinito
-                coverflowEffect: {
-                    rotate: 30, // Ángulo de las tarjetas laterales
-                    stretch: 0,
-                    depth: 250, // Qué tan atrás se van
-                    modifier: 1,
-                    slideShadows: true,
-                },
-                autoplay: {
-                    delay: 2500, // Pasa de foto cada 2.5 segundos
-                    disableOnInteraction: false, // Sigue automático aunque el usuario lo toque
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-            });
-        }, 500);
-    });   
-        // =========================================
-    // MOTOR DEL MAPA INTERACTIVO (LEAFLET)
-    // =========================================
-    document.addEventListener("DOMContentLoaded", () => {
-        // 1. Configuramos el mapa para que use una imagen plana (CRS.Simple)
-        const map = L.map('gta-map', {
-            crs: L.CRS.Simple,
-            minZoom: -1.5,
-            maxZoom: 2,
-            zoomControl: true
-        });
-
-        // 2. Definimos las dimensiones del mapa (4096x4096px es el estándar de GTA V)
-        const bounds = [[0, 0], [4096, 4096]];
-        
-        // 3. Cargamos la imagen satelital de GTA V (URL directa de alta calidad)
-        // NOTA: Más adelante puedes descargar esta imagen y subirla a tu propio GitHub
-        // Reemplazamos el link de Imgur por tu imagen local
-        const image = L.imageOverlay('mapa-gta.jpg', bounds).addTo(map);
-        
-        // 4. Centramos la cámara al cargar
-        map.fitBounds(bounds);
-        map.setView([2048, 2048], -1); // Centro de la ciudad
-
-        // 5. CREACIÓN DE PINES (Marcadores)
-        // Convertimos simples emojis en pines interactivos iluminados
-        const iconLSPD = L.divIcon({ className: 'custom-pin', html: '🚓', iconSize: [30, 30] });
-        const iconEMS = L.divIcon({ className: 'custom-pin', html: '🚑', iconSize: [30, 30] });
-        const iconMech = L.divIcon({ className: 'custom-pin', html: '🔧', iconSize: [30, 30] });
-
-        // Marcador 1: Comisaría Mission Row
-        L.marker([998, 2018], {icon: iconLSPD}).addTo(map)
-            .bindPopup('<b>LSPD Mission Row</b><br>Sede central de la policía de Los Santos.');
-
-        // Marcador 2: Hospital Pillbox
-        L.marker([1134, 1972], {icon: iconEMS}).addTo(map)
-            .bindPopup('<b>Pillbox Medical</b><br>Centro de atención médica principal.');
-
-        // Marcador 3: Benny's Motorworks
-        L.marker([1250, 2350], {icon: iconMech}).addTo(map)
-            .bindPopup('<b>Taller Mecánico</b><br>Reparaciones y tuning de vehículos.');
-/* =========================================
-           HERRAMIENTA DE ADMIN: OBTENER COORDENADAS (DESACTIVADA)
-           ========================================= 
-        const popupCoordenadas = L.popup();
-
-        function mostrarCoordenadas(e) {
-            const lat = Math.round(e.latlng.lat);
-            const lng = Math.round(e.latlng.lng);
-            
-            popupCoordenadas
-                .setLatLng(e.latlng)
-                .setContent(`📍 Coordenadas exactas:<br><b style="color: #00d4ff; font-size: 16px;">[${lat}, ${lng}]</b><br><br><small>Copia estos números para crear tu marcador.</small>`)
-                .openOn(map);
-            
-            console.log(`L.marker([${lat}, ${lng}], {icon: iconTuIcono}).addTo(map).bindPopup('<b>Nuevo Lugar</b>');`);
         }
 
-        map.on('click', mostrarCoordenadas);
-        ========================================= */
-    });
-        // =========================================
-    // FLUCTUACIÓN ALEATORIA (Bolsa de Valores)
-    // =========================================
-    document.addEventListener("DOMContentLoaded", () => {
-        // Seleccionamos todos los porcentajes verdes (up) y rojos (down)
-        const economySpans = document.querySelectorAll('.ticker-track .up, .ticker-track .down');
+        // 4. ANIMACIÓN DE "QUIÉNES SOMOS" AL HACER SCROLL
+        document.addEventListener("DOMContentLoaded", () => {
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const allCards = Array.from(document.querySelectorAll('.about-card'));
+                            const delay = allCards.indexOf(entry.target) * 150;
+                            setTimeout(() => { entry.target.classList.add('visible'); }, delay);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                document.querySelectorAll('.about-card').forEach((card) => {
+                    observer.observe(card);
+                });
+            }
+
+            fetchServerStatus();
+            setInterval(fetchServerStatus, 600000);
+        });    
+
+        // 5. EASTER EGG LÓGICA (5 Clics al Logo)
+        let clickCount = 0;
+        let clickTimer;
+        const mainLogo = document.querySelector('.main-logo');
         
-        economySpans.forEach(span => {
-            // Generamos un número aleatorio entre 1 y 9
-            const randomPercent = Math.floor(Math.random() * 9) + 1;
-            
-            // Respetamos si es una subida (+) o bajada (-) según su clase original
-            const sign = span.classList.contains('up') ? '+' : '-';
-            
-            // Inyectamos el nuevo porcentaje en el HTML
-            span.textContent = `(${sign}${randomPercent}%)`;
-        });
-    });
-        // =========================================
-    // CONTROL DEL PRELOADER CINEMÁTICO
-    // =========================================
-    window.addEventListener('load', () => {
-        // Le damos unos 1.5 segundos extra para que se aprecie la animación de la barra
-        setTimeout(() => {
-            document.getElementById('cinematic-preloader').classList.add('fade-out');
-        }, 1500);
-    });
-        // =========================================
-    // LÓGICA DEL GENERADOR DE VISADOS
-    // =========================================
-    function generateVisa() {
-        const inputName = document.getElementById('char-name').value.trim();
-        const visaCard = document.getElementById('visa-card');
-        const displayName = document.getElementById('display-name');
+        if (mainLogo) {
+            mainLogo.style.cursor = 'pointer';
+            mainLogo.addEventListener('click', () => {
+                clickCount++;
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => { clickCount = 0; }, 2000); 
 
-        if (inputName === "") {
-            alert("⚠️ Por favor, ingresa el nombre de tu personaje para emitir el visado.");
-            return;
-        }
-
-        // Inyectamos el nombre en la tarjeta
-        displayName.textContent = inputName;
-        
-        // Removemos la clase que oculta la tarjeta para que aparezca con la animación
-        visaCard.classList.remove('hidden-visa');
-        
-        // Limpiamos el input
-        document.getElementById('char-name').value = "";
-    }
-// =========================================
-    // LÓGICA DE LA TERMINAL DARK WEB (VERSIÓN BLINDADA)
-    // =========================================
-    
-    // 1. Funciones globales (Para que el HTML las encuentre siempre)
-    window.abrirTerminal = function() {
-        const terminal = document.getElementById('dark-terminal');
-        const inputTerminal = document.getElementById('terminal-input');
-        if (terminal) {
-            terminal.classList.remove('oculto');
-            // Espera un milisegundo y pone el cursor listo para escribir
-            setTimeout(() => { if(inputTerminal) inputTerminal.focus(); }, 100);
-        }
-    };
-
-    window.cerrarTerminal = function() {
-        const terminal = document.getElementById('dark-terminal');
-        const inputTerminal = document.getElementById('terminal-input');
-        if (terminal) terminal.classList.add('oculto');
-        if (inputTerminal) inputTerminal.value = '';
-    };
-
-    // 2. Lógica interna de los comandos
-    document.addEventListener("DOMContentLoaded", () => {
-        const inputTerminal = document.getElementById('terminal-input');
-        const outputTerminal = document.getElementById('terminal-output');
-
-        if (inputTerminal) {
-            inputTerminal.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    const comando = inputTerminal.value.trim().toLowerCase();
-                    if (comando !== "") {
-                        procesarComando(comando, outputTerminal);
-                    }
-                    inputTerminal.value = ''; // Limpia lo que escribiste
-                    outputTerminal.scrollTop = outputTerminal.scrollHeight; // Auto-scroll
+                if (clickCount === 5) {
+                    document.body.classList.add('police-flash');
+                    setTimeout(() => {
+                        alert("🚓 ¡LSPD AL HABLA! Has descubierto un código clasificado.\n\nUsa el cupón 'ELYSIUMOCULTO' en nuestra tienda web para obtener beneficios exclusivos de fundador.");
+                        document.body.classList.remove('police-flash');
+                        clickCount = 0; 
+                    }, 500);
                 }
             });
-        }
+        }      
 
-        function procesarComando(cmd, output) {
-            output.innerHTML += `<p><span class="prompt">root@elysium:~#</span> ${cmd}</p>`;
-            
-            switch (cmd) {
-                case 'ayuda':
-                    output.innerHTML += `<p>Comandos disponibles: <span class="comando-resaltado">info, limpiar, reglas_mafia, salir</span></p>`;
-                    break;
-                case 'info':
-                    output.innerHTML += `<p>ELYSIUM NETWORK. Encriptación nivel 4. Ningún rastro es guardado.</p>`;
-                    break;
-                case 'limpiar':
-                    output.innerHTML = '';
-                    break;
-                case 'salir':
-                    window.cerrarTerminal();
-                    break;
-                case 'reglas_mafia':
-                    output.innerHTML += `<p class="respuesta-secreta">>> ACCESO CLASIFICADO << <br>La lealtad no se compra, se demuestra. <br>Si buscas armas pesadas, habla con 'El Ruso' en el muelle a las 02:00 AM IC.</p>`;
-                    break;
-                case 'latam':
-                    output.innerHTML += `<p class="respuesta-secreta">Iniciando protocolo LATAM RP... Redireccionando a proyecto base... Error 404: Fronteras no encontradas.</p>`;
-                    break;
-                default:
-                    output.innerHTML += `<p class="respuesta-error">Comando no reconocido: ${cmd}. Escribe 'ayuda'.</p>`;
-            }
-        }
-    });
-</script>
-<div class="elysium-fm glass-effect">
-        <div class="fm-info">
-            <i class="fa-solid fa-radio fm-icon"></i>
-            <div>
-                <p class="fm-title">ELYSIUM FM</p>
-                <p id="current-track" class="fm-track">Sintonizando...</p>
-            </div>
-        </div>
-        <div style="display: flex; gap: 10px; align-items: center;">
-            <button class="fm-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
-            <button id="play-btn" class="fm-btn" onclick="toggleRadio()"><i class="fa-solid fa-play"></i></button>
-            
-            <div class="fm-volume-control">
-                <i class="fa-solid fa-volume-low" id="vol-icon"></i>
-                <input type="range" id="fm-volume" min="0" max="1" step="0.01" value="0.3">
-            </div>
-        </div>
-        <audio id="elysium-radio"></audio>
-    </div>
+        // 6. MOTOR DE GALERÍA 3D (SWIPER)
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                if(typeof Swiper !== 'undefined') {
+                    const swiper = new Swiper(".mySwiper", {
+                        effect: "coverflow",
+                        grabCursor: true,
+                        centeredSlides: true,
+                        slidesPerView: "auto",
+                        loop: true, 
+                        coverflowEffect: { rotate: 30, stretch: 0, depth: 250, modifier: 1, slideShadows: true },
+                        autoplay: { delay: 2500, disableOnInteraction: false },
+                        pagination: { el: ".swiper-pagination", clickable: true }
+                    });
+                }
+            }, 500);
+        });   
 
-    <script>
-        const radio = document.getElementById("elysium-radio");
-        const trackText = document.getElementById("current-track");
-        const playBtnIcon = document.querySelector("#play-btn i");
+        // 7. MOTOR DEL MAPA INTERACTIVO (LEAFLET)
+        document.addEventListener("DOMContentLoaded", () => {
+            if(document.getElementById('gta-map') && typeof L !== 'undefined') {
+                const map = L.map('gta-map', { crs: L.CRS.Simple, minZoom: -1.5, maxZoom: 2, zoomControl: true });
+                const bounds = [[0, 0], [4096, 4096]];
+                L.imageOverlay('mapa-gta.jpg', bounds).addTo(map);
+                map.fitBounds(bounds);
+                map.setView([2048, 2048], -1); 
 
-        // LISTA DE TEMAS (Aquí pones los nombres y los links .mp3)
-        const playlist = [
-            { title: "Si Estás Con Alguien - Omar Courtz", url: "omar-courtz.mp3" },
-            { title: "Viene BASQUIAT... - JHAYCO", url: "jhay-co.mp3" },
-            { title: "Soy Favela - La T y La M", url: "soy-favela.mp3" },
-            { title: "You Know How We Do It - Ice Cube", url: "ice-cube.mp3" },
-            { title: "Otra Noche En Miami - Bad Bunny", url: "bad-bunny.mp3" }
-        ];
+                const iconLSPD = L.divIcon({ className: 'custom-pin', html: '🚓', iconSize: [30, 30] });
+                const iconEMS = L.divIcon({ className: 'custom-pin', html: '🚑', iconSize: [30, 30] });
+                const iconMech = L.divIcon({ className: 'custom-pin', html: '🔧', iconSize: [30, 30] });
 
-        let currentTrackIndex = 0;
-        radio.volume = 0.3;
-        const volumeSlider = document.getElementById("fm-volume");
-        const volIcon = document.getElementById("vol-icon");
-
-        // Escucha cuando mueves la barra y ajusta el volumen en tiempo real
-        volumeSlider.addEventListener("input", (e) => {
-            radio.volume = e.target.value;
-            
-            // Cambia el ícono dinámicamente según el nivel de volumen
-            if (radio.volume === 0) {
-                volIcon.className = "fa-solid fa-volume-xmark";
-            } else if (radio.volume < 0.5) {
-                volIcon.className = "fa-solid fa-volume-low";
-            } else {
-                volIcon.className = "fa-solid fa-volume-high";
+                L.marker([998, 2018], {icon: iconLSPD}).addTo(map).bindPopup('<b>LSPD Mission Row</b><br>Sede central de la policía de Los Santos.');
+                L.marker([1134, 1972], {icon: iconEMS}).addTo(map).bindPopup('<b>Pillbox Medical</b><br>Centro de atención médica principal.');
+                L.marker([1250, 2350], {icon: iconMech}).addTo(map).bindPopup('<b>Taller Mecánico</b><br>Reparaciones y tuning de vehículos.');
             }
         });
 
-        function loadTrack(index) {
-            const track = playlist[index];
-            radio.src = track.url;
-            trackText.innerText = track.title;
-        }
+        // 8. FLUCTUACIÓN ALEATORIA (Bolsa de Valores)
+        document.addEventListener("DOMContentLoaded", () => {
+            const economySpans = document.querySelectorAll('.ticker-track .up, .ticker-track .down');
+            economySpans.forEach(span => {
+                const randomPercent = Math.floor(Math.random() * 9) + 1;
+                const sign = span.classList.contains('up') ? '+' : '-';
+                span.textContent = `(${sign}${randomPercent}%)`;
+            });
+        });
 
-        function toggleRadio() {
-            if (radio.paused) {
-                if (!radio.src) loadTrack(currentTrackIndex);
-                radio.play();
-                playBtnIcon.classList.replace("fa-play", "fa-pause");
-            } else {
-                radio.pause();
-                playBtnIcon.classList.replace("fa-pause", "fa-play");
+        // 9. LÓGICA DEL GENERADOR DE VISADOS
+        window.generateVisa = function() {
+            const inputName = document.getElementById('char-name').value.trim();
+            const visaCard = document.getElementById('visa-card');
+            const displayName = document.getElementById('display-name');
+
+            if (inputName === "") {
+                alert("⚠️ Por favor, ingresa el nombre de tu personaje para emitir el visado.");
+                return;
             }
+
+            displayName.textContent = inputName;
+            visaCard.classList.remove('hidden-visa');
+            document.getElementById('char-name').value = "";
         }
 
-        function nextTrack() {
-            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-            loadTrack(currentTrackIndex);
-            radio.play();
-            playBtnIcon.classList.replace("fa-play", "fa-pause");
-        }
+        // 10. LÓGICA DE LA TERMINAL DARK WEB
+        window.abrirTerminal = function() {
+            const terminal = document.getElementById('dark-terminal');
+            const inputTerminal = document.getElementById('terminal-input');
+            if (terminal) {
+                terminal.classList.remove('oculto');
+                setTimeout(() => { if(inputTerminal) inputTerminal.focus(); }, 100);
+            }
+        };
 
-        // Cuando termina una canción, pasa a la siguiente automáticamente
-        radio.onended = () => { nextTrack(); };
+        window.cerrarTerminal = function() {
+            const terminal = document.getElementById('dark-terminal');
+            const inputTerminal = document.getElementById('terminal-input');
+            if (terminal) terminal.classList.add('oculto');
+            if (inputTerminal) inputTerminal.value = '';
+        };
 
-        // Cargar el primer tema al iniciar
-        loadTrack(currentTrackIndex);
-    </script>
-    <div id="hacker-trigger" onclick="abrirTerminal()" title="No hay nada que ver aquí...">.</div>
+        document.addEventListener("DOMContentLoaded", () => {
+            const inputTerminal = document.getElementById('terminal-input');
+            const outputTerminal = document.getElementById('terminal-output');
 
-<div id="dark-terminal" class="oculto">
-    <div class="terminal-header">
-        <span>ELYSIUM_OS v1.0.4 - ACCESO NO AUTORIZADO</span>
-        <button onclick="cerrarTerminal()" class="btn-cerrar-terminal">[X] DESCONECTAR</button>
-    </div>
-    <div id="terminal-output">
-        <p>Conexión segura establecida...</p>
-        <p>Bienvenido a la red paralela de Los Santos.</p>
-        <p>Escribe <span class="comando-resaltado">ayuda</span> para ver los comandos disponibles.</p>
-    </div>
-    <div class="terminal-input-line">
-        <span class="prompt">root@elysium:~#</span>
-        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
-    </div>
-</div>
-    <script>
-        // Fecha de apertura: 8 de Mayo de 2026, 20:00:00
+            if (inputTerminal) {
+                inputTerminal.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        const comando = inputTerminal.value.trim().toLowerCase();
+                        if (comando !== "") {
+                            procesarComando(comando, outputTerminal);
+                        }
+                        inputTerminal.value = ''; 
+                        outputTerminal.scrollTop = outputTerminal.scrollHeight; 
+                    }
+                });
+            }
+
+            function procesarComando(cmd, output) {
+                output.innerHTML += `<p><span class="prompt">root@elysium:~#</span> ${cmd}</p>`;
+                switch (cmd) {
+                    case 'ayuda': output.innerHTML += `<p>Comandos disponibles: <span class="comando-resaltado">info, limpiar, reglas_mafia, salir</span></p>`; break;
+                    case 'info': output.innerHTML += `<p>ELYSIUM NETWORK. Encriptación nivel 4. Ningún rastro es guardado.</p>`; break;
+                    case 'limpiar': output.innerHTML = ''; break;
+                    case 'salir': window.cerrarTerminal(); break;
+                    case 'reglas_mafia': output.innerHTML += `<p class="respuesta-secreta">>> ACCESO CLASIFICADO << <br>La lealtad no se compra, se demuestra. <br>Si buscas armas pesadas, habla con 'El Ruso' en el muelle a las 02:00 AM IC.</p>`; break;
+                    case 'latam': output.innerHTML += `<p class="respuesta-secreta">Iniciando protocolo LATAM RP... Redireccionando a proyecto base... Error 404: Fronteras no encontradas.</p>`; break;
+                    default: output.innerHTML += `<p class="respuesta-error">Comando no reconocido: ${cmd}. Escribe 'ayuda'.</p>`;
+                }
+            }
+        });
+
+        // 11. CUENTA REGRESIVA
         const launchDate = new Date("May 8, 2026 20:00:00").getTime();
-
         const timer = setInterval(function() {
             const now = new Date().getTime();
             const distance = launchDate - now;
 
+            const countdownEl = document.getElementById("countdown");
+            if(!countdownEl) return;
+
             if (distance < 0) {
                 clearInterval(timer);
-                document.getElementById("countdown").innerHTML = "<h2 style='color:#00ff41; font-family:Orbitron; text-shadow: 0 0 15px #00ff41;'>¡LAS PUERTAS DE ELYSIUM ESTÁN ABIERTAS!</h2>";
+                countdownEl.innerHTML = "<h2 style='color:#00ff41; font-family:Orbitron; text-shadow: 0 0 15px #00ff41;'>¡LAS PUERTAS DE ELYSIUM ESTÁN ABIERTAS!</h2>";
                 return;
             }
 
@@ -2406,20 +2191,18 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
             document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
             document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
         }, 1000);
-    </script>
-    <script>
+
+        // 12. PARALLAX DE BILLETES (OPTIMIZADO)
         const heroSection = document.querySelector('.hero');
         const parallaxBg = document.querySelector('.parallax-bg');
         const particlesContainer = document.getElementById('dolares-container');
-
-        const numDolares = 15; // Bajamos a 15 para aliviar la carga
+        const numDolares = 15; 
         const dolares = [];
 
         for (let i = 0; i < numDolares; i++) {
             const billete = document.createElement('img');
             billete.src = 'cash-clean.png'; 
             billete.className = 'dolar';
-            
             const x = Math.random() * 100;
             const y = Math.random() * 100;
             const rotation = Math.random() * 360;
@@ -2436,16 +2219,13 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
             }
         }
 
-        let isTicking = false; // Sistema anti-lag
-
+        let isTicking = false; 
         if(heroSection) {
             heroSection.addEventListener('mousemove', (e) => {
                 if (!isTicking) {
                     window.requestAnimationFrame(() => {
                         const moveX = (e.clientX - window.innerWidth / 2) / 80;
                         const moveY = (e.clientY - window.innerHeight / 2) / 80;
-
-                        // translate3d obliga a la Tarjeta Gráfica a procesar el fondo
                         if(parallaxBg) parallaxBg.style.transform = `translate3d(${-moveX}px, ${-moveY}px, 0)`;
 
                         dolares.forEach(d => {
