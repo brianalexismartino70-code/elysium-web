@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elysium RP | Portal de Administración</title>
+    <link rel="icon" type="image/png" href="E.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root { 
+            --primary: #00d4ff; 
+            --primary-glow: rgba(0, 212, 255, 0.6);
+            --bg: #030508; 
+            --card-glass: rgba(15, 20, 25, 0.6);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; background: radial-gradient(circle at center, #0a1118 0%, #020305 100%); }
+
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(0,0,0,0.7); border-bottom: 1px solid rgba(0, 212, 255, 0.3); position: sticky; top: 0; backdrop-filter: blur(15px); z-index: 999; }
+        .nav-logo { height: 45px; transition: transform 0.3s; }
+        .nav-links a { color: var(--primary); text-decoration: none; font-family: 'Orbitron'; margin-left: 25px; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px; transition: 0.3s; position: relative; }
+        .nav-links a:hover { text-shadow: 0 0 15px var(--primary); color: #fff; }
+
+        .container { position: relative; z-index: 10; padding: 60px 8%; }
+        .section-title { text-align: center; font-family: 'Orbitron'; font-size: 2.5rem; margin-bottom: 10px; text-transform: uppercase; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.2); }
+
+        .apply-container { max-width: 800px; margin: 0 auto; padding: 40px; border-radius: 20px; background: var(--card-glass); backdrop-filter: blur(15px); border: 1px solid rgba(0, 212, 255, 0.3); box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { color: var(--primary); font-family: 'Orbitron', sans-serif; font-size: 0.9rem; letter-spacing: 1px; }
+        .form-group input, .form-group select, .form-group textarea { background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 15px; border-radius: 8px; font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; outline: none; transition: 0.3s; }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 212, 255, 0.2); }
+        .form-group select option { background: #05080c; color: #fff; }
+        
+        .btn-neon { display: inline-block; padding: 15px 30px; background: transparent; color: var(--primary); font-family: 'Orbitron'; font-weight: bold; border: 2px solid var(--primary); border-radius: 8px; cursor: pointer; transition: 0.3s; box-shadow: 0 0 10px var(--primary-glow); text-align: center; }
+        .btn-neon:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary); }
+        .form-alert { display: none; padding: 15px; border-radius: 8px; text-align: center; font-family: 'Orbitron'; font-weight: bold; margin-top: 15px; background: rgba(0, 255, 65, 0.1); border: 1px solid #00ff41; color: #00ff41; }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <nav>
+        <a href="index.html"><img src="E2.png" alt="Logo" class="nav-logo"></a>
+        <div class="nav-links">
+            <a href="index.html">VOLVER AL INICIO</a>
+            <a href="https://discord.gg/4mTVJhu3gx" target="_blank">DISCORD</a>
+        </div>
+    </nav>
+
+    <section class="container" id="postulaciones">
+        <h2 class="section-title">Terminal de Acceso Administrativo</h2>
+        <p style="text-align: center; color: #a8b2d1; margin-bottom: 40px; font-family: 'Rajdhani', sans-serif;">
+            Buscamos la excelencia. Este examen consta de <b>20 preguntas de alta complejidad</b> (10 Generales y 10 de Especialidad). <br>Evaluaremos tu capacidad analítica, resolución de conflictos y conocimientos técnicos.
+        </p>
+
+        <div class="apply-container">
+            <form id="staffForm" onsubmit="enviarPostulacion(event)" style="display: flex; flex-direction: column; gap: 20px;">
+                
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 10px; align-items: flex-end;">
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label>👤 DISCORD ID (Ej: usuario#1234)</label>
+                        <input type="text" id="staff-discord" required placeholder="Tu usuario exacto">
+                    </div>
+                    <div class="form-group" style="flex: 1; min-width: 100px;">
+                        <label>🔞 EDAD REAL</label>
+                        <input type="number" id="staff-edad" required min="18" max="99" placeholder="Tu edad">
+                    </div>
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label>⏱️ DISPONIBILIDAD</label>
+                        <input type="text" id="staff-horario" required placeholder="Ej: L a V de 18 a 23 hs">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 30px; border-bottom: 1px solid rgba(0, 212, 255, 0.2); padding-bottom: 20px;">
+                    <label>🎖️ SELECCIONA TU ESPECIALIDAD</label>
+                    <select id="staff-puesto" required onchange="cambiarPreguntas()">
+                        <option value="" disabled selected>Selecciona el área para cargar tu examen...</option>
+                        <option value="Soporte y Moderación">Soporte y Moderación (Normativas)</option>
+                        <option value="Playmaker">Playmaker (Creador de Eventos)</option>
+                        <option value="Desarrollo">Programador / Dev (Qbox, Lua)</option>
+                        <option value="Diseño y Mapeo">Mapeador / Modelador 3D</option>
+                    </select>
+                </div>
+
+                <div id="bloque-general" style="display: none; flex-direction: column; gap: 20px; margin-bottom: 30px;">
+                    <h3 style="color: var(--primary); font-family: 'Orbitron'; border-bottom: 1px solid #333; padding-bottom: 10px;">FASE 1: ÉTICA Y NORMATIVA GENERAL</h3>
+                    
+                    <div class="form-group"><label>1. Integridad:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un Donador VIP de alto rango comete una falta grave y te pide por Discord que "se la dejes pasar". ¿Cómo procedes?</p><textarea id="gen-1" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>2. Metagaming vs Sospecha:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Escuchas a un usuario en voz de Discord dar la ubicación de un robo, pero dentro del juego no ves que nadie use esa información. ¿Sancionas?</p><textarea id="gen-2" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>3. Abuso de Poder (Staff):</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">¿Puede un Staff usar noclip en un rol civil si lo matan por culpa de un bug evidente?</p><textarea id="gen-3" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>4. Bug Abuse vs Desconocimiento:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un nivel 1 duplica un ítem sin querer y avisa. Un veterano lo hace 50 veces y lo guarda. ¿Cómo procedes con cada uno?</p><textarea id="gen-4" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>5. Falta de Respeto al Staff:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Un usuario te insulta gravemente por MD de Discord tras ser sancionado. ¿Qué protocolo sigues?</p><textarea id="gen-5" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>6. Rol de Entorno Automático:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Tiroteo de bandas a las 12:00 PM IC en la plaza. Dicen "mandé entorno por sistema". ¿Es válido o requiere /do?</p><textarea id="gen-6" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>7. Prioridad (Triage):</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">A) Modder en comisaría. B) Secuestro esperando Admin. C) Usuario bajo el mapa. ¿Orden de acción y por qué?</p><textarea id="gen-7" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>8. Uso correcto del /do:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Escribe un ejemplo de un /do correcto en cacheo, y un ejemplo de un /do forzando rol (PG).</p><textarea id="gen-8" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>9. Corrupción Interna:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">Ves a un compañero Staff de mayor rango dándole armas a su banda. ¿Qué haces?</p><textarea id="gen-9" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>10. Límites de Sanción:</label><p style="color:#6a7491; font-size: 0.85rem; margin-bottom: 5px;">¿Qué justifica expulsar a un jugador permanentemente sin apelación (Blacklist)?</p><textarea id="gen-10" maxlength="1000"></textarea></div>
+                </div>
+
+                <div id="bloque-mod" style="display: none; flex-direction: column; gap: 20px;">
+                    <h3 style="color: var(--primary); font-family: 'Orbitron'; border-bottom: 1px solid #333; padding-bottom: 10px;">FASE 2: MODERACIÓN</h3>
+                    <div class="form-group"><label>11. MG Avanzado:</label><p style="color:#6a7491; font-size: 0.85rem;">Policía abre maletero sin rol diciendo por /do "El perro lo marcó" sin tener perro. ¿Veredicto?</p><textarea id="mod-11" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>12. Economía Rota:</label><p style="color:#6a7491; font-size: 0.85rem;">Veterano regala $500k a nivel 1. ¿Qué regla rompe y qué haces?</p><textarea id="mod-12" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>13. Forzar CK:</label><p style="color:#6a7491; font-size: 0.85rem;">Sargento abate a criminal y exige que se le haga CK. ¿Procede?</p><textarea id="mod-13" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>14. Secuestro a EMS:</label><p style="color:#6a7491; font-size: 0.85rem;">Banda secuestra médico para reanimar a su jefe en el barrio. ¿Válido?</p><textarea id="mod-14" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>15. Baiting:</label><p style="color:#6a7491; font-size: 0.85rem;">Jugador pasa a 200km/h tocando bocina frente a comisaría. ¿Sanción o rol policial?</p><textarea id="mod-15" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>16. VDM Involuntario:</label><p style="color:#6a7491; font-size: 0.85rem;">Civil huyendo en pánico de tiroteo atropella a un asaltante. ¿Sancionas?</p><textarea id="mod-16" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>17. Combat Log:</label><p style="color:#6a7491; font-size: 0.85rem;">Desconexión en arresto. Vuelve en 5 mins diciendo "se cortó la luz" en su casa del juego. ¿Qué haces?</p><textarea id="mod-17" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>18. Evasión Agua:</label><p style="color:#6a7491; font-size: 0.85rem;">Ladrón acorralado nada al límite del mapa. ¿Qué regla rompe?</p><textarea id="mod-18" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>19. RK (Revenge Kill):</label><p style="color:#6a7491; font-size: 0.85rem;">Abatido reanimado por EMS va a buscar a su asesino porque "recuerda su cara". ¿Fallo?</p><textarea id="mod-19" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>20. Valorar Vida:</label><p style="color:#6a7491; font-size: 0.85rem;">Jugador apuntado por 3 asaltantes saca arma matando a 2. Justifica "soy ex-militar". ¿Sanción?</p><textarea id="mod-20" maxlength="1000"></textarea></div>
+                </div>
+
+                <div id="bloque-playmaker" style="display: none; flex-direction: column; gap: 20px;">
+                    <h3 style="color: var(--primary); font-family: 'Orbitron'; border-bottom: 1px solid #333; padding-bottom: 10px;">FASE 2: PLAYMAKER</h3>
+                    <div class="form-group"><label>11. Evento Colapsado:</label><p style="color:#6a7491; font-size: 0.85rem;">Lag crítico en carrera ilegal. ¿Cómo dispersas gente IC sin comandos visibles?</p><textarea id="pm-11" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>12. Trama LSPD:</label><p style="color:#6a7491; font-size: 0.85rem;">Diseña mini-evento de 10 mins para 2 patrulleros aburridos.</p><textarea id="pm-12" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>13. Evento Civil Legal:</label><p style="color:#6a7491; font-size: 0.85rem;">Idea un evento sin armas, autos rápidos ni peleas.</p><textarea id="pm-13" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>14. Uso de NPCs:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Cómo usas NPCs para dar pistas sin usar /anuncio?</p><textarea id="pm-14" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>15. Límite de Poder:</label><p style="color:#6a7491; font-size: 0.85rem;">Te roban un auto de exhibición siendo tú un NPC de evento. ¿Usas poderes de admin?</p><textarea id="pm-15" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>16. Economía Rota:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Por qué es un error dar $1M de premio el primer día de wipe?</p><textarea id="pm-16" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>17. Trama Ilegal:</label><p style="color:#6a7491; font-size: 0.85rem;">Crea esquema de mafia que requiera interrogatorio antes de llegar al botín.</p><textarea id="pm-17" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>18. Fallo de Script:</label><p style="color:#6a7491; font-size: 0.85rem;">Tu C4 plantado no explota y 20 personas miran. ¿Cómo improvisas?</p><textarea id="pm-18" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>19. Difusión Oculta:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Cómo anuncias una pelea ilegal IC sin que LSPD se entere fácil?</p><textarea id="pm-19" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>20. Comunicación Interna:</label><p style="color:#6a7491; font-size: 0.85rem;">Antes de hacer explotar un evento, ¿qué avisas a la directiva por privado?</p><textarea id="pm-20" maxlength="1000"></textarea></div>
+                </div>
+
+                <div id="bloque-dev" style="display: none; flex-direction: column; gap: 20px;">
+                    <h3 style="color: var(--primary); font-family: 'Orbitron'; border-bottom: 1px solid #333; padding-bottom: 10px;">FASE 2: DESARROLLO (DEV)</h3>
+                    <div class="form-group"><label>11. Exploit Dupes:</label><p style="color:#6a7491; font-size: 0.85rem;">Spam de 'E' al vender drogas duplica dinero. ¿Cómo lo evitas en Server-Side?</p><textarea id="dev-11" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>12. SQL Error:</label><p style="color:#6a7491; font-size: 0.85rem;">Auto comprado no aparece. ¿Qué tablas miras en base de datos?</p><textarea id="dev-12" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>13. Bucles:</label><p style="color:#6a7491; font-size: 0.85rem;">Diferencia entre 0.01ms y 0.50ms en un Citizen.CreateThread. ¿Solución?</p><textarea id="dev-13" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>14. Callbacks:</label><p style="color:#6a7491; font-size: 0.85rem;">Explica lógica de lib.callback para verificar si un jugador tiene un ítem.</p><textarea id="dev-14" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>15. Sync de Red:</label><p style="color:#6a7491; font-size: 0.85rem;">NPC visible para unos pero no otros. ¿Cómo fuerzas sync en red?</p><textarea id="dev-15" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>16. Seguridad:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Por qué no enviar el 'precio' del cliente al server event al comprar?</p><textarea id="dev-16" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>17. NUI Events:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Cómo envías datos de script Lua a interfaz HTML/JS?</p><textarea id="dev-17" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>18. Conflictos Git:</label><p style="color:#6a7491; font-size: 0.85rem;">Error de "Merge Conflict" en GitHub al hacer pull de server.lua. ¿Solución?</p><textarea id="dev-18" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>19. Fugas Memoria:</label><p style="color:#6a7491; font-size: 0.85rem;">"Hitch warnings" constantes. ¿Qué herramientas de consola usas?</p><textarea id="dev-19" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>20. Qbox vs ESX:</label><p style="color:#6a7491; font-size: 0.85rem;">Equivalente de xPlayer.getMoney o ESX.GetPlayerFromId en Qbox.</p><textarea id="dev-20" maxlength="1000"></textarea></div>
+                </div>
+
+                <div id="bloque-mapper" style="display: none; flex-direction: column; gap: 20px;">
+                    <h3 style="color: var(--primary); font-family: 'Orbitron'; border-bottom: 1px solid #333; padding-bottom: 10px;">FASE 2: MAPEO 3D</h3>
+                    <div class="form-group"><label>11. MLO Vacío:</label><p style="color:#6a7491; font-size: 0.85rem;">Jugadores caen bajo el mapa al entrar a tu interior. ¿Fallo?</p><textarea id="map-11" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>12. Oclusión:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Qué son los Occlusion Portals y para qué sirven?</p><textarea id="map-12" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>13. Texturas 4K:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Por qué .ytd en 4096px crashean servidores FiveM?</p><textarea id="map-13" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>14. LODs:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Qué son los modelos High/Med/Low y por qué son vitales?</p><textarea id="map-14" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>15. Luz Interior:</label><p style="color:#6a7491; font-size: 0.85rem;">Luz solar entra al MLO subterráneo. ¿Solución?</p><textarea id="map-15" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>16. YTYP:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Qué función cumple el archivo .ytyp?</p><textarea id="map-16" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>17. Límite Polígonos:</label><p style="color:#6a7491; font-size: 0.85rem;">Límite seguro de polígonos por prop para no causar texture loss.</p><textarea id="map-17" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>18. Eco en Audio:</label><p style="color:#6a7491; font-size: 0.85rem;">¿Cómo hacer que disparos tengan eco en un MLO túnel?</p><textarea id="map-18" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>19. Z-Fighting:</label><p style="color:#6a7491; font-size: 0.85rem;">Paredes parpadean por superposición de dos mapas. ¿Solución?</p><textarea id="map-19" maxlength="1000"></textarea></div>
+                    <div class="form-group"><label>20. Portfolio (LINKS):</label><p style="color:#6a7491; font-size: 0.85rem;">Pega URLs de tus trabajos previos.</p><textarea id="map-20" maxlength="1000"></textarea></div>
+                </div>
+
+                <button type="submit" class="btn-neon" style="width: 100%; font-size: 1.2rem; padding: 20px;" id="btn-enviar-staff">
+                    ENVIAR EXAMEN FINAL A DIRECTIVA
+                </button>
+
+                <div id="form-alert" class="form-alert">
+                    ✅ EXAMEN RECIBIDO. Tu expediente de 20 preguntas está en manos de la Administración.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        function cambiarPreguntas() {
+            const puesto = document.getElementById('staff-puesto').value;
+            
+            document.getElementById('bloque-general').style.display = 'flex';
+            document.getElementById('bloque-mod').style.display = 'none';
+            document.getElementById('bloque-playmaker').style.display = 'none';
+            document.getElementById('bloque-dev').style.display = 'none';
+            document.getElementById('bloque-mapper').style.display = 'none';
+            
+            document.querySelectorAll('#staffForm textarea').forEach(ta => { ta.required = false; ta.value = ''; });
+            for(let i=1; i<=10; i++){ document.getElementById('gen-'+i).required = true; }
+
+            if (puesto === 'Soporte y Moderación') {
+                document.getElementById('bloque-mod').style.display = 'flex';
+                for(let i=11; i<=20; i++){ document.getElementById('mod-'+i).required = true; }
+            } 
+            else if (puesto === 'Playmaker') {
+                document.getElementById('bloque-playmaker').style.display = 'flex';
+                for(let i=11; i<=20; i++){ document.getElementById('pm-'+i).required = true; }
+            } 
+            else if (puesto === 'Desarrollo') {
+                document.getElementById('bloque-dev').style.display = 'flex';
+                for(let i=11; i<=20; i++){ document.getElementById('dev-'+i).required = true; }
+            }
+            else if (puesto === 'Diseño y Mapeo') {
+                document.getElementById('bloque-mapper').style.display = 'flex';
+                for(let i=11; i<=20; i++){ document.getElementById('map-'+i).required = true; }
+            }
+        }
+
+        function enviarPostulacion(e) {
+            e.preventDefault(); 
+
+            // 🔴 REEMPLAZA ESTO CON LA URL DE TU WEBHOOK DE DISCORD 🔴
+            const webhookUrl = 'https://discord.com/api/webhooks/1494480290687750175/raaeigmfcdLV2HQa6z3cak8D8nAI-lQKRKCmHi_NABUFtVnkPbJ1zqBt5rHg_PcxNTzv';
+            
+            const btn = document.getElementById('btn-enviar-staff');
+            btn.innerText = "ENCRIPTANDO Y ENVIANDO EXAMEN...";
+            btn.disabled = true;
+
+            const discordUser = document.getElementById('staff-discord').value;
+            const edad = document.getElementById('staff-edad').value;
+            const horario = document.getElementById('staff-horario').value;
+            const puesto = document.getElementById('staff-puesto').value;
+
+            let fieldsEmbed1 = [{ name: "Perfil", value: `👤 **Discord:** ${discordUser}\n🔞 **Edad:** ${edad}\n⏱️ **Horario:** ${horario}\n🎖️ **Postula a:** ${puesto}`, inline: false }];
+            for(let i=1; i<=10; i++){
+                let respuesta = document.getElementById('gen-'+i).value || "Sin respuesta";
+                if(respuesta.length > 1000) respuesta = respuesta.substring(0, 1000) + "...";
+                fieldsEmbed1.push({ name: `Pregunta General ${i}`, value: `> ${respuesta}`, inline: false });
+            }
+
+            let prefix = puesto === 'Soporte y Moderación' ? 'mod-' : puesto === 'Playmaker' ? 'pm-' : puesto === 'Desarrollo' ? 'dev-' : 'map-';
+            let fieldsEmbed2 = [];
+            for(let i=11; i<=20; i++){
+                let respuesta = document.getElementById(prefix+i).value || "Sin respuesta";
+                if(respuesta.length > 1000) respuesta = respuesta.substring(0, 1000) + "...";
+                fieldsEmbed2.push({ name: `Pregunta Especialidad ${i}`, value: `> ${respuesta}`, inline: false });
+            }
+
+            const payload = {
+                content: "<@&1484961848167104522> 🚨 **NUEVO EXAMEN RECIBIDO**", 
+                embeds: [
+                    { title: `PARTE 1: PERFIL Y ÉTICA (${discordUser})`, color: 16766720, fields: fieldsEmbed1 },
+                    { title: `PARTE 2: ESPECIALIDAD EN ${puesto.toUpperCase()}`, color: 52224, fields: fieldsEmbed2, footer: { text: "Elysium RP | Evaluaciones Administrativas" }, timestamp: new Date().toISOString() }
+                ]
+            };
+
+            fetch(webhookUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+            .then(response => {
+                if(response.ok) {
+                    document.getElementById('staffForm').reset();
+                    document.getElementById('bloque-general').style.display = 'none';
+                    document.getElementById('bloque-mod').style.display = 'none';
+                    document.getElementById('bloque-playmaker').style.display = 'none';
+                    document.getElementById('bloque-dev').style.display = 'none';
+                    document.getElementById('bloque-mapper').style.display = 'none';
+                    btn.style.display = 'none';
+                    document.getElementById('form-alert').style.display = 'block';
+                } else {
+                    alert("Error en el servidor de Discord (respuestas muy largas).");
+                    btn.innerText = "REINTENTAR ENVÍO";
+                    btn.disabled = false;
+                }
+            }).catch(error => {
+                alert("Error de conexión.");
+                btn.innerText = "ENVIAR EXAMEN FINAL A DIRECTIVA";
+                btn.disabled = false;
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#00d4ff" }, "shape": { "type": "circle" }, "opacity": { "value": 0.5, "random": false }, "size": { "value": 2, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#00d4ff", "opacity": 0.2, "width": 1 }, "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "out_mode": "out", "bounce": false } },
+            "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } }, "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.5 } }, "push": { "particles_nb": 4 } } }, "retina_detect": true
+        });
+    </script>
+</body>
+</html>
