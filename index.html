@@ -220,6 +220,31 @@
             scroll-behavior: smooth; 
         }
 
+        /* =========================================
+   OPTIMIZACIÓN DE RENDIMIENTO (ANTI-LAG)
+   ========================================= */
+/* 1. Suavizado general de textos */
+* {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 2. Forzar Aceleración por Hardware (GPU) en los cristales */
+nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform, backdrop-filter;
+}
+
+/* 3. Evitar que el canvas de las partículas redibuje toda la pantalla al scrollear */
+#particles-js {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+    pointer-events: none; /* Asegura que no bloquee clics */
+}
+
         /* SCROLLBAR DE NEÓN */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #050505; }
