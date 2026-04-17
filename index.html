@@ -220,29 +220,25 @@
             scroll-behavior: smooth; 
         }
 
-        /* =========================================
+/* =========================================
    OPTIMIZACIÓN DE RENDIMIENTO (ANTI-LAG)
    ========================================= */
-/* 1. Suavizado general de textos */
 * {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
 }
 
-/* 2. Forzar Aceleración por Hardware (GPU) en los cristales */
-nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar {
+/* Forzar Aceleración por Hardware SIN saturar la VRAM */
+nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     backface-visibility: hidden;
-    will-change: transform, backdrop-filter;
 }
 
-/* 3. Evitar que el canvas de las partículas redibuje toda la pantalla al scrollear */
 #particles-js {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    will-change: transform;
-    pointer-events: none; /* Asegura que no bloquee clics */
+    pointer-events: none; 
 }
 
         /* SCROLLBAR DE NEÓN */
@@ -1322,7 +1318,6 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar {
     background-position: center;
     z-index: 1;
     transition: transform 0.1s ease-out;
-    filter: brightness(0.4); /* Oscuro para que resalte el neón */
 }
 
 .hero-content {
@@ -1491,6 +1486,7 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar {
 
  <section class="hero" id="inicio">
     <div class="parallax-bg" style="background-image: url('ELYSIUM3.png');"></div>
+    <div class="parallax-bg" style="background-image: linear-gradient(rgba(5, 8, 12, 0.7), rgba(5, 8, 12, 0.7)), url('ELYSIUM3.png');"></div>
     
     <div id="dolares-container"></div>
 
