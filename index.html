@@ -1451,6 +1451,153 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
     </style>   
 </head>
 <body>
+    <div id="elysium-epic-banner">
+    <h1 class="glitch-text" data-text="ELYSIUM | ES">ELYSIUM | ES</h1>
+    <p class="urban-subtitle">PREPÁRATE PARA TOMAR LAS CALLES</p>
+    
+    <div class="countdown-wrapper">
+        <div class="time-block"><span id="c-days">00</span><div class="time-label">DÍAS</div></div>
+        <div class="time-separator">:</div>
+        <div class="time-block"><span id="c-hours">00</span><div class="time-label">HORAS</div></div>
+        <div class="time-separator">:</div>
+        <div class="time-block"><span id="c-mins">00</span><div class="time-label">MIN</div></div>
+        <div class="time-separator">:</div>
+        <div class="time-block"><span id="c-secs">00</span><div class="time-label">SEG</div></div>
+    </div>
+</div>
+
+<style>
+    /* ESTILOS NEÓN Y URBANO */
+    #elysium-epic-banner {
+        text-align: center;
+        font-family: 'Arial', sans-serif; /* Cambia a tu fuente de diseño si usas otra */
+        padding: 40px 20px;
+        background: radial-gradient(circle, rgba(20,20,20,0.8) 0%, rgba(0,0,0,0) 80%);
+    }
+
+    .urban-subtitle {
+        color: #b3b3b3;
+        letter-spacing: 4px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    /* EFECTO GLITCH PARA EL TÍTULO */
+    .glitch-text {
+        font-size: 4rem;
+        font-weight: 900;
+        color: #ffffff;
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    .glitch-text::before, .glitch-text::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+    }
+    .glitch-text::before {
+        left: 3px;
+        text-shadow: -2px 0 #ff003c;
+        animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    }
+    .glitch-text::after {
+        left: -3px;
+        text-shadow: -2px 0 #00e6f6;
+        animation: glitch-anim-2 3s infinite linear alternate-reverse;
+    }
+
+    /* CONTADOR ESTILO PANTALLA TÁCTICA */
+    .countdown-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+    .time-block {
+        background: rgba(15, 15, 15, 0.9);
+        border: 1px solid #333;
+        box-shadow: 0 0 15px rgba(0, 230, 246, 0.2);
+        border-radius: 8px;
+        padding: 15px 25px;
+        min-width: 80px;
+        transition: transform 0.3s ease;
+    }
+    .time-block:hover {
+        transform: scale(1.05);
+        border-color: #00e6f6;
+        box-shadow: 0 0 25px rgba(0, 230, 246, 0.5);
+    }
+    .time-block span {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #00e6f6;
+        display: block;
+    }
+    .time-label {
+        font-size: 0.8rem;
+        color: #777;
+        margin-top: 5px;
+        letter-spacing: 2px;
+    }
+    .time-separator {
+        font-size: 2.5rem;
+        color: #555;
+        font-weight: bold;
+        animation: pulse 1s infinite;
+    }
+
+    /* ANIMACIONES */
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @keyframes glitch-anim-1 {
+        0% { clip-path: inset(20% 0 80% 0); }
+        20% { clip-path: inset(60% 0 10% 0); }
+        40% { clip-path: inset(40% 0 50% 0); }
+        60% { clip-path: inset(80% 0 5% 0); }
+        80% { clip-path: inset(10% 0 70% 0); }
+        100% { clip-path: inset(30% 0 20% 0); }
+    }
+    @keyframes glitch-anim-2 {
+        0% { clip-path: inset(15% 0 65% 0); }
+        20% { clip-path: inset(55% 0 15% 0); }
+        40% { clip-path: inset(35% 0 45% 0); }
+        60% { clip-path: inset(85% 0 10% 0); }
+        80% { clip-path: inset(5% 0 85% 0); }
+        100% { clip-path: inset(25% 0 25% 0); }
+    }
+</style>
+
+<script>
+    // MOTOR DEL CONTADOR
+    const countDownDate = new Date("May 8, 2026 20:00:00").getTime();
+
+    const x = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("c-days").innerHTML = days < 10 ? "0" + days : days;
+        document.getElementById("c-hours").innerHTML = hours < 10 ? "0" + hours : hours;
+        document.getElementById("c-mins").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+        document.getElementById("c-secs").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.querySelector(".countdown-wrapper").innerHTML = "<h2 style='color:#00e6f6; font-size:3rem; text-shadow: 0 0 20px #00e6f6;'>¡LOS SERVIDORES ESTÁN ABIERTOS!</h2>";
+        }
+    }, 1000);
+</script>
     <div id="cinematic-preloader">
         <div class="preloader-content">
             <h1 class="preloader-logo">E</h1>
