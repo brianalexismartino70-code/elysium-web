@@ -2091,13 +2091,13 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
         async function fetchServerStatus() {
             if (!playerCountElement || !statusIndicator) return;
             try {
-                // Usamos un proxy seguro (AllOrigins) para leer tu IP HTTP sin que el navegador la bloquee
-                const response = await fetch(`https://api.allorigins.win/raw?url=http://190.55.54.67:30120/dynamic.json`);
+                // ⚠️ REEMPLAZÁ LAS XXXXXX POR TU CÓDIGO NUEVO DE TXADMIN ⚠️
+                const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/kr546a`);
                 if (!response.ok) throw new Error('Servidor inalcanzable');
                 const data = await response.json();
                 
-                const players = data.clients;
-                const maxPlayers = data.sv_maxclients;
+                const players = data.Data.clients;
+                const maxPlayers = data.Data.sv_maxclients;
                 
                 playerCountElement.textContent = `Jugadores: ${players} / ${maxPlayers}`;
                 statusIndicator.style.backgroundColor = 'var(--primary)'; 
