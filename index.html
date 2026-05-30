@@ -2091,12 +2091,11 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
         async function fetchServerStatus() {
             if (!playerCountElement || !statusIndicator) return;
             try {
-                // ACÁ ESTÁ LA MAGIA: Usamos el túnel directo HTTPS de FiveM
-                const response = await fetch(`https://${cfxCode}.users.cfx.re/dynamic.json`);
+                // Consultamos directamente a tu puerto abierto de forma limpia
+                const response = await fetch(`http://190.55.54.67:30120/dynamic.json`);
                 if (!response.ok) throw new Error('Servidor inalcanzable');
                 const data = await response.json();
                 
-                // Le quitamos el "Data." previo porque este JSON es directo
                 const players = data.clients;
                 const maxPlayers = data.sv_maxclients;
                 
