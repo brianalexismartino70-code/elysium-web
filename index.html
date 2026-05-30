@@ -2091,13 +2091,13 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
         async function fetchServerStatus() {
             if (!playerCountElement || !statusIndicator) return;
             try {
-                // Consultamos directamente a tu puerto abierto de forma limpia
-                const response = await fetch(`https://kr546a.users.cfx.re/dynamic.json`);
+                // Volvemos a la API oficial que ya debería haber limpiado su caché
+                const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/kr546a`);
                 if (!response.ok) throw new Error('Servidor inalcanzable');
                 const data = await response.json();
                 
-                const players = data.clients;
-                const maxPlayers = data.sv_maxclients;
+                const players = data.Data.clients;
+                const maxPlayers = data.Data.sv_maxclients;
                 
                 playerCountElement.textContent = `Jugadores: ${players} / ${maxPlayers}`;
                 statusIndicator.style.backgroundColor = 'var(--primary)'; 
