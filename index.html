@@ -2092,7 +2092,7 @@ nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard 
             if (!playerCountElement || !statusIndicator) return;
             try {
                 // Consultamos directamente a tu puerto abierto de forma limpia
-                const response = await fetch(`http://190.55.54.67:30120/dynamic.json`);
+                const response = await fetch(`https://kr546a.users.cfx.re/dynamic.json`);
                 if (!response.ok) throw new Error('Servidor inalcanzable');
                 const data = await response.json();
                 
