@@ -399,213 +399,112 @@
             .fm-volume-control { display: none; }
         }
 
-/* =========================================
-   GRILLA Y TARJETAS GLASSMORPHISM
-========================================= */
+        /* Contenedor principal: Diseño en 3 columnas responsivo */
 .steps-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    max-width: 1300px;
-    margin: 3rem auto;
+    max-width: 1200px;
+    margin: 2rem auto;
     padding: 0 1rem;
 }
 
+/* Tarjetas y Efecto Glass */
 .step-card {
     display: flex;
     flex-direction: column;
-    padding: 2.5rem 2rem;
-    border-radius: 24px;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    padding: 2rem;
+    border-radius: 16px;
+    background: rgba(15, 15, 25, 0.4); /* Fondo oscuro semitransparente */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 255, 255, 0.15); /* Borde cyan sutil */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .step-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
+    border-color: rgba(0, 255, 255, 0.5);
 }
 
-/* Colores y Glows Específicos por Tarjeta */
-.card-magenta {
-    background: linear-gradient(145deg, rgba(255, 0, 128, 0.1) 0%, rgba(15, 15, 25, 0.7) 100%);
-    border: 1px solid rgba(255, 0, 128, 0.3);
-    box-shadow: inset 0 0 20px rgba(255, 0, 128, 0.05), 0 10px 40px rgba(0,0,0,0.5);
-}
-
-.card-cyan {
-    background: linear-gradient(145deg, rgba(0, 255, 255, 0.1) 0%, rgba(15, 15, 25, 0.7) 100%);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.05), 0 10px 40px rgba(0,0,0,0.5);
-}
-
-.card-mixed {
-    background: linear-gradient(145deg, rgba(255, 0, 128, 0.08) 0%, rgba(0, 255, 255, 0.08) 100%, rgba(15, 15, 25, 0.7) 100%);
-    border: 1px solid rgba(180, 100, 255, 0.3);
-}
-
-/* =========================================
-   CABECERA DE TARJETA Y TIPOGRAFÍA
-========================================= */
-.card-header {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
+/* Números decorativos */
 .step-number {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 900;
-    font-family: 'Arial Black', Impact, sans-serif;
     color: transparent;
+    -webkit-text-stroke: 1px rgba(0, 255, 255, 0.8);
+    margin-bottom: 0.5rem;
     line-height: 1;
-    font-style: italic;
 }
 
-.neon-magenta { -webkit-text-stroke: 2px #ff007f; }
-.neon-cyan { -webkit-text-stroke: 2px #00ffff; }
-
-.title-with-icon {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
+/* Tipografía de la tarjeta */
 .step-card h3 {
     color: #ffffff;
-    font-size: 1.6rem;
-    margin: 0;
-    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
     letter-spacing: 1px;
-}
-
-.fivem-icon {
-    color: #fff;
-    font-size: 1.8rem;
-    opacity: 0.8;
 }
 
 .step-card p {
-    color: #b3b3c3;
+    color: #a0a0b0;
     font-size: 0.95rem;
-    line-height: 1.7;
-    margin-bottom: 2rem;
+    line-height: 1.6;
+    flex-grow: 1; /* Empuja los botones siempre al fondo */
+    margin-bottom: 1.5rem;
 }
 
-/* =========================================
-   BOTONES TIPO PÍLDORA (PILL BUTTONS)
-========================================= */
+/* Contenedor de botones */
 .step-links {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.8rem;
 }
 
-/* Empuja los botones siempre hacia abajo si sobra espacio */
-.push-bottom {
-    margin-top: auto; 
-}
-
-.btn-pill {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
+/* Botones base */
+.btn-step {
+    display: block;
+    text-align: center;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #0ff;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.3);
     transition: all 0.3s ease;
 }
 
-.btn-pill i, .custom-icon {
-    font-size: 1.2rem;
+.btn-step:hover {
+    background: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
 }
 
-.custom-icon {
-    width: 20px;
-    height: 20px;
-    filter: invert(1); /* Pone el logo SVG en blanco */
-}
-
-/* Hover Effects Específicos */
-.btn-rockstar:hover { border-color: #ffaa00; box-shadow: 0 0 15px rgba(255, 170, 0, 0.3); color: #ffaa00;}
-.btn-rockstar:hover i { color: #ffaa00; }
-
-.btn-steam:hover { border-color: #00aaff; box-shadow: 0 0 15px rgba(0, 170, 255, 0.3); color: #00aaff;}
-.btn-steam:hover i { color: #00aaff; }
-
-.btn-epic:hover { border-color: #aa00ff; box-shadow: 0 0 15px rgba(170, 0, 255, 0.3); color: #da80ff;}
-
-.btn-download {
-    justify-content: center;
-    gap: 10px;
-    font-size: 1.1rem;
-    padding: 1rem;
-    border: 1px solid rgba(0, 255, 255, 0.4);
-    background: rgba(0, 255, 255, 0.05);
-}
-.btn-download:hover {
-    background: rgba(0, 255, 255, 0.15);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-    color: #00ffff;
-}
-
-.btn-discord-pro {
-    justify-content: center;
-    gap: 10px;
-    font-size: 1.1rem;
-    padding: 1rem;
-    border: 1px solid rgba(88, 101, 242, 0.6);
-    background: linear-gradient(90deg, rgba(88,101,242,0.1) 0%, rgba(255,0,128,0.1) 100%);
-}
-.btn-discord-pro:hover {
-    box-shadow: 0 0 20px rgba(88, 101, 242, 0.5);
-    background: linear-gradient(90deg, rgba(88,101,242,0.3) 0%, rgba(255,0,128,0.2) 100%);
-}
-
-/* =========================================
-   CAJA DE COMANDO (TERMINAL)
-========================================= */
-.code-box-modern {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(5, 5, 10, 0.8);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    border-radius: 8px;
-    padding: 0.8rem 1.2rem;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-}
-
-.code-box-modern code {
-    color: #00ffff;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.05rem;
-    letter-spacing: 1px;
-}
-
-.copy-btn {
-    background: none;
-    border: none;
-    color: #888;
-    font-size: 0.9rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: color 0.3s;
-}
-
-.copy-btn:hover {
+/* Botón específico de Discord */
+.btn-discord {
     color: #fff;
+    background: rgba(88, 101, 242, 0.2);
+    border-color: #5865F2;
+}
+
+.btn-discord:hover {
+    background: rgba(88, 101, 242, 0.4);
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
+}
+
+/* Caja de código para consola */
+.code-box {
+    background: rgba(0, 0, 0, 0.6);
+    color: #0ff;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-family: monospace;
+    text-align: center;
+    border: 1px dashed rgba(0, 255, 255, 0.5);
+    letter-spacing: 1px;
+    user-select: all; /* Permite copiar el comando con un solo clic */
 }
     </style>
 </head>
@@ -702,46 +601,25 @@
             </div>
         </div>
 
-        <!-- TARJETA 02: FIVEM -->
-    <div class="step-card card-cyan">
-        <div class="card-header">
-            <div class="step-number neon-cyan">02</div>
-            <div class="title-with-icon">
-                <h3>Instala FiveM</h3>
-                <!-- Aquí puedes poner el logo de FiveM, usaremos un icono genérico por ahora -->
-                <i class="fa-solid fa-layer-group fivem-icon"></i> 
+        <div class="step-card glass-effect">
+            <div class="step-number">02</div>
+            <h3>Instala FiveM</h3>
+            <p>FiveM es el cliente multijugador que te permite acceder a servidores personalizados. Descárgalo, instálalo y vincúlalo con tu cuenta de Rockstar.</p>
+            <div class="step-links">
+                <a href="https://fivem.net/" target="_blank" class="btn-step btn-fivem">Descargar Cliente Oficial</a>
             </div>
         </div>
-        <p>FiveM es el cliente multijugador que te permite acceder a servidores personalizados. Descárgalo, instálalo y vincúlalo con tu cuenta de Rockstar.</p>
-        <div class="step-links push-bottom">
-            <a href="https://fivem.net/" target="_blank" class="btn-pill btn-download">
-                <i class="fa-solid fa-download"></i>
-                <span>Descarga</span>
-            </a>
-        </div>
-    </div>
 
-        <!-- TARJETA 03: ELYSIUM -->
-    <div class="step-card card-mixed">
-        <div class="card-header">
-            <div class="step-number neon-magenta">03</div>
+        <div class="step-card glass-effect">
+            <div class="step-number">03</div>
             <h3>Únete a Elysium</h3>
-        </div>
-        <p>Abre FiveM, presiona la tecla <b>F8</b> en tu teclado para abrir la consola y pega el siguiente comando, o entra a nuestro Discord para pasar tu WhiteList.</p>
-        <div class="step-links push-bottom">
-            <div class="code-box-modern">
-                <code id="connect-code">connect kr546a</code>
-                <button class="copy-btn" onclick="copyCode()" id="copy-btn">
-                    <i class="fa-regular fa-copy"></i> <span>Copy</span>
-                </button>
+            <p>Abre FiveM, presiona la tecla <b>F8</b> en tu teclado para abrir la consola y pega el siguiente comando, o entra a nuestro Discord para pasar la Whitelist.</p>
+            <div class="step-links">
+                <div class="code-box">connect kr546a</div>
+                <a href="https://discord.gg/4mTVJhu3gx" target="_blank" class="btn-step btn-discord">Ir al Discord</a>
             </div>
-            <a href="https://discord.gg/4mTVJhu3gx" target="_blank" class="btn-pill btn-discord-pro">
-                <i class="fa-brands fa-discord"></i>
-                <span>Ir al Discord</span>
-            </a>
         </div>
     </div>
-</div>
 </section>
 
     <section class="container" id="quienes-somos">
@@ -1222,25 +1100,6 @@
                 this.value = '';
             }
         });
-
-        <script>
-function copyCode() {
-    // Selecciona el texto del código
-    var codeText = document.getElementById("connect-code").innerText;
-    
-    // Copia al portapapeles
-    navigator.clipboard.writeText(codeText).then(function() {
-        // Cambia el texto del botón temporalmente
-        var btn = document.getElementById("copy-btn");
-        var originalHTML = btn.innerHTML;
-        btn.innerHTML = '<i class="fa-solid fa-check" style="color:#00ff00;"></i> <span style="color:#00ff00;">Copied!</span>';
-        
-        // Vuelve a la normalidad después de 2 segundos
-        setTimeout(function() {
-            btn.innerHTML = originalHTML;
-        }, 2000);
-    });
-}
 
     </script>
 </body>
