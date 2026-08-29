@@ -3,818 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XMC8M5F5X"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-1XMC8M5F5X');
-    </script>
-    <title>Elysium | ES - Sin Fronteras</title>
-    
-    <link rel="icon" type="image/png" href="E.png">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
+    <title>Normativas Oficiales - Elysium | ES</title>
     <style>
-        /* =========================================
-           VARIABLES GLOBALES - TROPICAL & NEÓN
-           ========================================= */
-        :root { 
-            --primary: #00d4ff; 
-            --secondary: #ff007f; /* Magenta Tropical */
-            --tertiary: #7000ff; /* Púrpura Profundo */
-            --primary-glow: rgba(0, 212, 255, 0.6);
-            --secondary-glow: rgba(255, 0, 127, 0.6);
-            --bg: #030508; 
-            --card-glass: rgba(10, 14, 18, 0.65);
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            background-color: var(--bg); 
-            color: white; 
-            font-family: 'Rajdhani', sans-serif; 
-            overflow-x: hidden; 
-            scroll-behavior: smooth; 
+        :root {
+            --bg-color: #0d0d12;
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00ea;
+            --tropical-green: #00ff87;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --panel-bg: rgba(20, 20, 30, 0.85);
         }
 
-        /* =========================================
-           OPTIMIZACIÓN DE RENDIMIENTO (ANTI-LAG)
-           ========================================= */
-        * { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
-        nav, .apply-container, .about-card, .glass-effect, .weazel-news-bar, .dashboard {
-            -webkit-transform: translateZ(0); transform: translateZ(0); backface-visibility: hidden;
-        }
-        #particles-js { -webkit-transform: translateZ(0); transform: translateZ(0); pointer-events: none; }
-
-        /* SCROLLBAR NEÓN GRADIENTE */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { 
-            background: linear-gradient(to bottom, var(--primary), var(--secondary)); 
-            border-radius: 10px; 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        /* FONDO DE PARTÍCULAS - ESTILO RED NEURAL */
-        #particles-js {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; 
-            background: radial-gradient(circle at center, #0a1118 0%, #020305 100%);
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at top right, rgba(0, 243, 255, 0.1), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(255, 0, 234, 0.1), transparent 40%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
         }
 
-        /* CAPAS SUPERIORES */
-        nav, .hero, .container { position: relative; z-index: 10; }
-
-        /* =========================================
-           NAVEGACIÓN PREMIUM
-           ========================================= */
-        nav { 
-            display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; 
-            background: rgba(3, 5, 8, 0.85); border-bottom: 1px solid rgba(0, 212, 255, 0.3); 
-            position: sticky; top: 0; backdrop-filter: blur(15px); box-shadow: 0 4px 30px rgba(0,0,0,0.8); z-index: 999; 
-        }
-        .nav-logo { height: 45px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 0 8px var(--primary-glow)); }
-        .nav-logo:hover { transform: scale(1.15) rotate(-2deg); }
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-family: 'Orbitron'; font-size: 0.85rem; font-weight: bold; 
-            letter-spacing: 1px; transition: 0.3s; position: relative; text-transform: uppercase;
-        }
-        .nav-links a::before {
-            content: ''; position: absolute; width: 100%; height: 2px; bottom: -5px; left: 0;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transform: scaleX(0); transform-origin: right; transition: transform 0.4s ease;
-        }
-        .nav-links a:hover::before { transform: scaleX(1); transform-origin: left; }
-        .nav-links a:hover { color: var(--primary); text-shadow: 0 0 15px var(--primary-glow); }
-        
-        .nav-apply-btn {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            padding: 8px 18px; border-radius: 6px; color: #fff !important; 
-            box-shadow: 0 0 15px var(--secondary-glow); transition: all 0.3s ease;
-        }
-        .nav-apply-btn:hover {
-            box-shadow: 0 0 25px var(--secondary-glow), 0 0 10px var(--primary-glow);
-            transform: translateY(-2px);
-            color: #fff !important;
+        .rules-container {
+            max-width: 1000px;
+            width: 100%;
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 243, 255, 0.05);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
-        /* =========================================
-           HERO SECTION - ÉPICO Y FLUIDO
-           ========================================= */
-        .hero { 
-            min-height: 85vh; padding: 120px 20px 50px 20px; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden;
-        }
-        
-        .parallax-bg {
-            position: absolute; top: -5%; left: -5%; width: 110%; height: 110%; 
-            background-size: cover; background-position: center; z-index: 1; transition: transform 0.2s ease-out;
-        }
-        
-        .hero-content { position: relative; z-index: 10; width: 100%; }
-
-        @keyframes floatLogo {
-            0% { transform: translateY(0px); filter: drop-shadow(0 0 15px var(--primary-glow)); }
-            50% { transform: translateY(-15px); filter: drop-shadow(0 0 35px var(--secondary-glow)); }
-            100% { transform: translateY(0px); filter: drop-shadow(0 0 15px var(--primary-glow)); }
-        }
-        .main-logo { width: 180px; margin-bottom: 20px; animation: floatLogo 5s ease-in-out infinite; }
-        
-        h1 { 
-            font-family: 'Orbitron'; font-size: clamp(3.5rem, 8vw, 6rem); font-weight: 900;
-            letter-spacing: 4px; margin-bottom: 5px; line-height: 1.1;
-            background: linear-gradient(90deg, #fff, var(--primary), var(--secondary), #fff);
-            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: gradientText 5s linear infinite; text-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
-        }
-        
-        @keyframes gradientText { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
-
-        .subtitle {
-            color: #fff; letter-spacing: 12px; font-weight: 700; font-size: 1.2rem;
-            text-transform: uppercase; margin-bottom: 40px;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        .header {
+            text-align: center;
+            padding: 30px;
+            border-bottom: 2px solid var(--neon-pink);
+            background: linear-gradient(180deg, rgba(255, 0, 234, 0.1) 0%, transparent 100%);
         }
 
-        /* EFECTOS DE CRISTAL (PARCHE ANTI-LAG MEJORADO) */
-        .glass-effect {
-            background: var(--card-glass); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7); position: relative; z-index: 20;
+        .header h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+            margin-bottom: 10px;
         }
 
-        /* =========================================
-           BOTONES NEÓN TROPICALES
-           ========================================= */
-        .btn-neon {
-            display: inline-block; padding: 14px 35px; color: #fff; text-decoration: none;
-            font-family: 'Orbitron', sans-serif; font-weight: bold; border-radius: 8px;
-            text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(0, 212, 255, 0.05); border: 2px solid var(--primary);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2), inset 0 0 10px rgba(0, 212, 255, 0.1);
-            position: relative; overflow: hidden; z-index: 1;
-        }
-        
-        .btn-neon::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.4s ease; z-index: -1;
+        .header p {
+            color: var(--neon-cyan);
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
-        .btn-neon:hover {
-            border-color: transparent; box-shadow: 0 0 30px var(--secondary-glow), 0 0 15px var(--primary-glow);
-            transform: translateY(-3px);
-        }
-        .btn-neon:hover::before { width: 100%; }
-
-        .btn-discord {
-            border-color: #5865F2; background: rgba(88, 101, 242, 0.05);
-            box-shadow: 0 0 15px rgba(88, 101, 242, 0.2), inset 0 0 10px rgba(88, 101, 242, 0.1);
-        }
-        .btn-discord::before { background: #5865F2; }
-
-        /* =========================================
-           SECCIONES Y TARJETAS
-           ========================================= */
-        .container { padding: 80px 8%; }
-        .section-title { 
-            text-align: center; font-family: 'Orbitron'; font-size: 2.8rem; margin-bottom: 20px; 
-            text-transform: uppercase; color: #fff;
-            background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(0,212,255,0.3));
-        }
-        
-        .section-subtitle {
-            text-align: center; color: #a8b2d1; margin-bottom: 50px; font-size: 1.1rem;
-            max-width: 700px; margin-left: auto; margin-right: auto;
+        /* Tabs Épicos */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* QUIÉNES SOMOS - HOVER ÉPICO */
-        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .about-card {
-            padding: 40px 30px; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-top: 1px solid rgba(255,255,255,0.1); border-left: 1px solid rgba(255,255,255,0.1);
-            opacity: 0; transform: translateY(40px);
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
         }
-        .about-card.visible { opacity: 1; transform: translateY(0); }
-        .about-card:hover { 
-            transform: translateY(-15px) scale(1.02); z-index: 2;
-            border-color: var(--secondary); box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,0,127,0.1);
-        }
-        .about-card h3 { 
-            font-family: 'Orbitron'; font-size: 1.5rem; margin-bottom: 15px; 
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;
-        }
-        .about-card p { color: #d1d5db; font-size: 1.1rem; line-height: 1.7; }
 
-        /* =========================================
-           DASHBOARD DE REGLAS MEJORADO
-           ========================================= */
-        .dashboard { 
-            display: flex; background: rgba(5, 8, 12, 0.9); border: 1px solid rgba(0, 212, 255, 0.2); 
-            border-radius: 20px; height: 750px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
+        .tab-btn:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px var(--neon-cyan);
         }
-        .sidebar { 
-            width: 320px; background: rgba(3, 5, 8, 0.95); border-right: 1px solid rgba(255,255,255,0.05); 
-            overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--secondary) transparent; 
-        }
-        .tab-btn { 
-            width: 100%; padding: 20px 25px; border: none; background: none; color: #8892b0; text-align: left; 
-            cursor: pointer; font-family: 'Orbitron'; font-size: 0.8rem; border-left: 4px solid transparent; 
-            border-bottom: 1px solid rgba(255,255,255,0.02); transition: all 0.3s ease; letter-spacing: 1px; 
-        }
-        .tab-btn:hover { color: #fff; background: rgba(255, 0, 127, 0.05); padding-left: 35px; }
-        .tab-btn.active { 
-            color: #fff; background: linear-gradient(90deg, rgba(255,0,127,0.15) 0%, transparent 100%); 
-            border-left-color: var(--secondary); font-weight: bold; text-shadow: 0 0 10px var(--secondary-glow); 
-        }
-        
-        .content-area { flex: 1; padding: 45px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--primary) transparent; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeUpTab 0.5s ease forwards; }
-        
-        @keyframes fadeUpTab { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .rule-card { 
-            background: rgba(10, 14, 18, 0.6); padding: 25px 30px; border-radius: 12px; margin-bottom: 25px; 
-            border: 1px solid rgba(255,255,255,0.03); transition: 0.3s ease; position: relative; 
-            opacity: 0; transform: translateY(20px);
+        .tab-btn.active {
+            color: var(--tropical-green);
+            text-shadow: 0 0 10px var(--tropical-green);
         }
-        .tab-content.active .rule-card { animation: slideUpFadeCard 0.4s ease forwards; }
-        .tab-content.active .rule-card:nth-child(1) { animation-delay: 0.1s; }
-        .tab-content.active .rule-card:nth-child(2) { animation-delay: 0.2s; }
-        .tab-content.active .rule-card:nth-child(3) { animation-delay: 0.3s; }
-        
-        .rule-card::before { 
-            content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; 
-            background: linear-gradient(to bottom, var(--primary), var(--secondary)); 
-            border-radius: 12px 0 0 12px; opacity: 0.5; transition: 0.3s ease; 
-        }
-        .rule-card:hover { background: rgba(0, 212, 255, 0.03); transform: translateX(8px) !important; border-color: rgba(0, 212, 255, 0.2); }
-        .rule-card:hover::before { opacity: 1; box-shadow: 0 0 15px var(--secondary); width: 6px; }
-        .rule-card strong { color: var(--primary); margin-bottom: 15px; font-family: 'Orbitron'; display: block; font-size: 1.1rem; letter-spacing: 1px; }
-        .rule-card p { color: #ccd6f6; font-size: 1rem; line-height: 1.7; }
-        
-        @keyframes slideUpFadeCard { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* =========================================
-           WIDGETS Y COMPONENTES
-           ========================================= */
-        /* Estado Servidor */
-        .server-status-card { padding: 30px; text-align: center; max-width: 380px; margin: 40px auto 0 auto; animation: fadeUpTab 1s ease forwards; }
-        .status-text { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: #fff; display: inline-block; margin-bottom: 25px; }
-        .status-indicator { 
-            width: 12px; height: 12px; background-color: var(--primary); border-radius: 50%; 
-            display: inline-block; margin-right: 10px; box-shadow: 0 0 15px var(--primary); 
-            animation: pulseNeon 1.5s infinite; 
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--tropical-green);
+            box-shadow: 0 -2px 10px var(--tropical-green);
         }
-        @keyframes pulseNeon { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 var(--primary-glow); } 70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(0,212,255,0); } 100% { transform: scale(0.95); } }
 
-        /* Radio / Reproductor Musical */
-        .elysium-fm {
-            position: fixed; bottom: 30px; right: 30px; display: flex; align-items: center; gap: 20px;
-            padding: 15px 25px; border-radius: 50px; border: 1px solid rgba(255, 0, 127, 0.3);
-            background: rgba(5, 8, 12, 0.85); backdrop-filter: blur(12px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 20px rgba(255, 0, 127, 0.1);
-            z-index: 1000; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* Contenido de Normativas */
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.4s ease-in-out;
         }
-        .elysium-fm:hover { border-color: var(--secondary); box-shadow: 0 10px 40px rgba(0,0,0,0.9), 0 0 25px var(--secondary-glow); transform: translateY(-5px); }
-        .fm-info { display: flex; align-items: center; gap: 15px; }
-        .fm-icon { 
-            color: var(--secondary); font-size: 1.5rem; 
-            animation: pulseRadio 2s infinite alternate; filter: drop-shadow(0 0 8px var(--secondary-glow));
-        }
-        @keyframes pulseRadio { from{ transform: scale(1); } to{ transform: scale(1.1); } }
-        .fm-title { font-family: 'Orbitron', sans-serif; color: #fff; margin: 0; font-size: 0.9rem; font-weight: 700; letter-spacing: 1px; }
-        .fm-track { margin: 0; font-size: 0.8rem; color: #a8b2d1; font-weight: 600; white-space: nowrap; max-width: 150px; overflow: hidden; text-overflow: ellipsis; }
-        .fm-btn { background: transparent; border: none; color: var(--primary); font-size: 1.5rem; cursor: pointer; transition: 0.3s; }
-        .fm-btn:hover { color: #fff; filter: drop-shadow(0 0 10px var(--primary)); transform: scale(1.2); }
-        .fm-volume-control { display: flex; align-items: center; gap: 8px; margin-left: 10px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 15px; }
-        .fm-volume-control i { color: #a8b2d1; font-size: 0.9rem; width: 15px; }
-        #fm-volume { -webkit-appearance: none; appearance: none; width: 70px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; outline: none; cursor: pointer; }
-        #fm-volume::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--secondary); box-shadow: 0 0 10px var(--secondary); transition: 0.2s; }
-        #fm-volume::-webkit-slider-thumb:hover { transform: scale(1.3); }
 
-        /* Ticker y News */
-        .weazel-news-bar {
-            display: flex; background: #050505; color: #fff; border-top: 2px solid #ff003c; border-bottom: 2px solid #ff003c;
-            font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; position: relative; overflow: hidden; z-index: 15;
-            box-shadow: 0 5px 15px rgba(255,0,60,0.2);
+        .tab-content.active {
+            display: block;
         }
-        .weazel-label {
-            background: #ff003c; color: white; padding: 10px 25px; font-family: 'Orbitron', sans-serif; 
-            font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; z-index: 2; box-shadow: 5px 0 20px rgba(0,0,0,0.9); letter-spacing: 1px;
-        }
-        .weazel-marquee { display: flex; align-items: center; white-space: nowrap; animation: scrollNews 30s linear infinite; padding-left: 100%; }
-        .weazel-separator { color: #ff003c; margin: 0 30px; font-weight: bold; }
-        @keyframes scrollNews { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* Galería Swiper */
-        #galeria { overflow: hidden; padding-bottom: 50px; }
-        .swiper { width: 100%; padding-top: 30px; padding-bottom: 50px; }
-        .swiper-slide {
-            width: 320px; height: 450px; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 2px solid rgba(0, 212, 255, 0.15); position: relative;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .swiper-slide img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .swiper-slide:hover img { transform: scale(1.15); }
-        .slide-overlay {
-            position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, transparent);
-            padding: 40px 20px 20px 20px; text-align: center; border-bottom: 3px solid var(--primary);
-        }
-        .slide-overlay h3 { color: #fff; font-family: 'Orbitron', sans-serif; text-transform: uppercase; margin: 0; font-size: 1.3rem; text-shadow: 0 0 10px var(--primary-glow); }
-        .swiper-pagination-bullet { background: rgba(255,255,255,0.4); width: 10px; height: 10px; }
-        .swiper-pagination-bullet-active { background: var(--secondary) !important; box-shadow: 0 0 12px var(--secondary); width: 25px; border-radius: 5px; } 
 
-        /* =========================================
-           TERMINAL DARK WEB (Efecto Glitch/CRT)
-           ========================================= */
-        #hacker-trigger { position: fixed; bottom: 5px; right: 5px; color: transparent; cursor: crosshair; z-index: 9999; font-size: 10px; width: 20px; height: 20px; }
-        #dark-terminal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(5,0,10,0.95); backdrop-filter: blur(5px);
-            color: #00ff41; font-family: 'Courier New', Courier, monospace; z-index: 999999; padding: 30px; box-sizing: border-box;
-            display: flex; flex-direction: column; text-shadow: 0 0 5px rgba(0,255,65,0.5);
-            box-shadow: inset 0 0 100px rgba(0,255,65,0.1);
+        .rule-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--neon-cyan);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
         }
-        #dark-terminal::before {
-            content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2; background-size: 100% 2px, 3px 100%; pointer-events: none;
-        }
-        #dark-terminal.oculto { display: none !important; }
-        .terminal-header { border-bottom: 1px solid #00ff41; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem; }
-        .btn-cerrar-terminal { background: none; border: 1px solid #ff3333; color: #ff3333; padding: 5px 15px; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-weight: bold; transition: 0.2s; }
-        .btn-cerrar-terminal:hover { background: #ff3333; color: #000; box-shadow: 0 0 15px #ff3333; }
-        #terminal-output { flex-grow: 1; overflow-y: auto; margin-bottom: 15px; z-index: 3; }
-        #terminal-output p { margin: 8px 0; }
-        .comando-resaltado { color: #fff; font-weight: bold; background: rgba(0,255,65,0.2); padding: 0 5px; }
-        .respuesta-secreta { color: var(--secondary); text-shadow: 0 0 10px var(--secondary); font-weight: bold; }
-        .terminal-input-line { display: flex; align-items: center; z-index: 3; border-top: 1px dashed rgba(0,255,65,0.3); padding-top: 15px; }
-        .prompt { margin-right: 15px; color: #00ff41; font-weight: bold; font-size: 1.1rem; }
-        #terminal-input { background: transparent; border: none; color: #fff; font-family: 'Courier New', Courier, monospace; font-size: 1.1rem; flex-grow: 1; outline: none; }
 
-        /* =========================================
-           FOOTER
-           ========================================= */
-        .site-footer {
-            background: #030508; border-top: 2px solid rgba(255, 0, 127, 0.3); padding: 70px 5% 30px 5%;
-            color: #a8b2d1; position: relative; z-index: 10; box-shadow: 0 -15px 40px rgba(0,0,0,0.8);
+        .rule-card:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: var(--neon-pink);
+            box-shadow: -5px 0 15px rgba(255, 0, 234, 0.2);
         }
-        .footer-container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 50px; }
-        .footer-col { flex: 1; min-width: 250px; }
-        .footer-logo { font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 20px; letter-spacing: 2px; background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .footer-logo span { color: var(--secondary); text-shadow: 0 0 15px var(--secondary-glow); -webkit-text-fill-color: var(--secondary); }
-        .footer-col h3 { color: #fff; font-family: 'Orbitron', sans-serif; margin-bottom: 25px; font-size: 1.2rem; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { color: #a8b2d1; text-decoration: none; transition: 0.3s ease; }
-        .footer-col ul li a:hover { color: var(--primary); padding-left: 8px; }
-        
-        .social-icons-vertical { display: flex; gap: 20px; margin-top: 15px; }
-        .social-icon { color: #a8b2d1; font-size: 2rem; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .social-icon:hover { transform: scale(1.2) translateY(-5px); }
-        .social-icon.discord:hover { color: #5865F2; filter: drop-shadow(0 0 10px #5865F2); }
-        .social-icon.tiktok:hover { color: #fff; filter: drop-shadow(0 0 10px #fff); }
-        .social-icon.instagram:hover { color: #E1306C; filter: drop-shadow(0 0 10px #E1306C); }
-        .social-icon.youtube:hover { color: #FF0000; filter: drop-shadow(0 0 10px #FF0000); }
-        
-        .footer-bottom { text-align: center; padding-top: 25px; font-size: 0.95rem; color: #6a7491; }
 
-        @media (max-width: 900px) {
-            .dashboard { flex-direction: column; height: auto; min-height: 600px; }
-            .sidebar { width: 100%; display: flex; overflow-x: auto; height: auto; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
-            .tab-btn { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; padding: 15px; }
-            .tab-btn:hover { padding-left: 15px; }
-            .tab-btn.active { border-left: none; border-bottom-color: var(--secondary); background: transparent; }
-            h1 { font-size: 2.8rem; }
-            .nav-links { display: none; /* Idealmente un menú hamburguesa aquí */ }
-            .elysium-fm { bottom: 15px; right: 15px; padding: 10px 15px; }
-            .fm-volume-control { display: none; }
+        .rule-title {
+            font-size: 1.3rem;
+            color: var(--neon-cyan);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rule-card:hover .rule-title {
+            color: var(--neon-pink);
+        }
+
+        .rule-desc {
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .highlight {
+            color: var(--tropical-green);
+            font-weight: bold;
+        }
+
+        /* Mensaje Final Glow */
+        .epic-footer {
+            text-align: center;
+            padding: 30px;
+            margin: 20px 40px 40px 40px;
+            border: 1px dashed var(--tropical-green);
+            border-radius: 8px;
+            animation: pulseGlow 3s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(0, 255, 135, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 135, 0.5); }
+            100% { box-shadow: 0 0 5px rgba(0, 255, 135, 0.2); }
+        }
+
+        .epic-footer h3 {
+            color: var(--tropical-green);
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    
-    <div id="cinematic-preloader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #030508; z-index: 99999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s ease;">
-        <div style="text-align: center;">
-            <h1 style="font-family: 'Orbitron'; font-size: 6rem; background: linear-gradient(90deg, #00d4ff, #ff007f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; animation: pulseRadio 1s infinite alternate;">E | ES</h1>
-            <div style="width: 250px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 0 auto; overflow: hidden;">
-                <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #00d4ff, #ff007f); animation: fillBar 2s ease forwards;"></div>
-            </div>
-            <p style="font-family: 'Rajdhani'; color: #00d4ff; letter-spacing: 4px; margin-top: 15px; font-size: 1rem; animation: pulseRadio 1.5s infinite;">ESTABLECIENDO CONEXIÓN...</p>
+
+    <div class="rules-container">
+        <div class="header">
+            <h1>Elysium | ES</h1>
+            <p>NORMATIVAS OFICIALES DEL SERVIDOR</p>
         </div>
-    </div>
-    <style>@keyframes fillBar { 0% { width: 0%; } 100% { width: 100%; } }</style>
-    <script>
-        setTimeout(() => {
-            const p = document.getElementById('cinematic-preloader');
-            if (p) { p.style.opacity = '0'; setTimeout(() => p.style.display = 'none', 800); }
-        }, 2000);
-    </script>
 
-    <div id="particles-js"></div>
-
-    <nav>
-        <img src="E2.png" alt="Elysium | ES" class="nav-logo" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<h2 style=\'font-family:Orbitron; margin:0; font-size:1.5rem; color:#fff;\'>ELYSIUM <span style=\'color:#00d4ff\'>| ES</span></h2>');">
-        <div class="nav-links">
-            <a href="#inicio">INICIO</a>
-            <a href="#quienes-somos">NOSOTROS</a>
-            <a href="#reglas">REGLAMENTO</a>
-            <a href="https://elysium-488.tebex.io" target="_blank">TIENDA</a>
-            <a href="staff.html" target="_blank" class="nav-apply-btn">APLICAR A STAFF</a>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'conceptos')">Conceptos RP</button>
+            <button class="tab-btn" onclick="openTab(event, 'generales')">Reglas Generales</button>
+            <button class="tab-btn" onclick="openTab(event, 'ilegales')">Entorno e Ilegales</button>
         </div>
-    </nav>
 
-    <div class="weazel-news-bar">
-        <div class="weazel-label">
-            <i class="fa-solid fa-tower-broadcast" style="margin-right: 8px;"></i> WEAZEL NEWS
-        </div>
-        <div class="weazel-marquee">
-            <span>🚨 <b>ESTADO DE LA CIUDAD:</b> Fronteras abiertas de forma oficial. Bienvenidos a Elysium | ES.</span>
-            <span class="weazel-separator">|</span>
-            <span>🏢 <b>ECONOMÍA:</b> Mercados estables tras la gran migración corporativa.</span>
-            <span class="weazel-separator">|</span>
-            <span>🚓 <b>LSPD INFORMA:</b> Se abren las postulaciones para la academia de cadetes en nuestra sede central.</span>
-        </div>
-    </div>
-
-    <section class="hero" id="inicio">
-        <div class="parallax-bg" style="background-image: linear-gradient(to bottom, rgba(3, 5, 8, 0.4), rgba(3, 5, 8, 0.95)), url('ELYSIUM3.png');"></div>
-        <div id="dolares-container"></div>
-
-        <div class="hero-content">
-            <img src="E2.png" alt="Elysium Logo" class="main-logo" onerror="this.style.display='none';">
-            <h1>ELYSIUM <span style="-webkit-text-fill-color: #fff;">| ES</span></h1>
-            <p class="subtitle">Sin Fronteras</p>
-        
-            <div class="server-status-card glass-effect">
-                <div class="status-indicator" id="status-dot"></div>
-                <span id="player-count" class="status-text">Conectando a Elysium...</span>
-                <br>
-                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <a href="fivem://connect/cfx.re/join/kr546a" class="btn-neon">
-                        <i class="fa-solid fa-plane-departure" style="margin-right: 8px;"></i> Entrar a la Ciudad
-                    </a>
-                    <a href="https://discord.gg/4mTVJhu3gx" target="_blank" class="btn-neon btn-discord">
-                        <i class="fa-brands fa-discord" style="margin-right: 8px;"></i> Comunidad
-                    </a>
-                </div>
-            </div>
+        <!-- PESTAÑA: CONCEPTOS BÁSICOS -->
+        <div id="conceptos" class="tab-content active">
             
-            <div class="glass-effect" style="max-width: 600px; margin: 40px auto 0 auto; padding: 25px; border-color: var(--secondary); box-shadow: 0 0 30px rgba(255,0,127,0.1);">
-                <h3 style="color: var(--secondary); font-family: 'Orbitron'; font-size: 1.5rem; letter-spacing: 2px; text-shadow: 0 0 15px var(--secondary-glow);">¡LAS PUERTAS DE ELYSIUM ESTÁN ABIERTAS!</h3>
-                <p style="color: #a8b2d1; margin-top: 10px; font-size: 1.1rem;">La ciudad te espera. Configura tu viaje y forja tu legado.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="container" id="quienes-somos">
-        <h2 class="section-title">¿Quiénes Somos?</h2>
-        <p class="section-subtitle">Conoce los pilares que hacen de Elysium | ES la experiencia definitiva de Roleplay.</p>
-        
-        <div class="about-grid">
-            <div class="about-card glass-effect">
-                <h3>✦ Mil Caminos, Un Destino</h3>
-                <p>Elysium RP nace de la inquebrantable unión de todos los países de habla hispana. Hemos construido un puente digital en FiveM donde la pasión hispanohablante converge para crear historias legendarias.</p>
-            </div>
-            <div class="about-card glass-effect">
-                <h3>✦ Inmersión Hardcore</h3>
-                <p>Creemos en el peso de las decisiones. Nuestro entorno está diseñado para aquellos que buscan un Roleplay profundo y serio. Aquí no eres un avatar más; tu vida y tus acciones dejan una huella imborrable en el servidor.</p>
-            </div>
-            <div class="about-card glass-effect" style="border-color: rgba(0, 212, 255, 0.4); box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.05);">
-                <h3>✦ Arquitectura ESX Top</h3>
-                <p>Desarrollado sobre una robusta base <b>ESX</b> y bases de datos altamente optimizadas. Economía balanceada al milímetro y sistemas estables garantizando el máximo rendimiento de FPS y cero lag.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="container" id="galeria">
-        <h2 class="section-title">Archivos de la Ciudad</h2>
-        <p class="section-subtitle">Un vistazo exclusivo a las calles, bandas y fuerzas de la ley de Los Santos.</p>
-        
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="police-map-fivem-1536x848.webp" alt="Mapeados" onerror="this.src='https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?q=80&w=1000&auto=format&fit=crop';">
-                    <div class="slide-overlay"><h3>Arquitectura Única</h3></div>
+            <div class="rule-card">
+                <div class="rule-title">🎮 MetaGaming (MG)</div>
+                <div class="rule-desc">
+                    Está estrictamente prohibido usar información obtenida fuera de personaje (OOC) para beneficiarte dentro del juego (IC). <span class="highlight">Ejemplo:</span> Ver un stream y usar esa ubicación en el rol.
                 </div>
-                <div class="swiper-slide">
-                    <img src="4903967.webp" alt="Outfits" onerror="this.src='https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=1000&auto=format&fit=crop';">
-                    <div class="slide-overlay"><h3>Estética y Outfits</h3></div>
-                </div>
-                <div class="swiper-slide">
-                    <img src="wp8853423.webp" alt="Inframundo" onerror="this.src='https://images.unsplash.com/photo-1574169208507-84376144848b?q=80&w=1000&auto=format&fit=crop';">
-                    <div class="slide-overlay"><h3>El Inframundo</h3></div>
-                </div>
-                <div class="swiper-slide">
-                    <img src="982-1-1024x576.webp" alt="LSPD" onerror="this.src='https://images.unsplash.com/photo-1588693822188-4a946b625514?q=80&w=1000&auto=format&fit=crop';">
-                    <div class="slide-overlay"><h3>Fuerzas LSPD</h3></div>
-                </div>
-            </div>
-            <div class="swiper-pagination"></div>
-        </div>
-    </section>
-
-    <section class="container" id="reglas">
-        <h2 class="section-title">Normativa Oficial</h2>
-        <p class="section-subtitle">El desconocimiento de la normativa no te exime de su cumplimiento. Estudia tus derechos y deberes ciudadanos.</p>
-        
-        <div class="dashboard">
-            <div class="sidebar">
-                <button class="tab-btn active" onclick="openTab(event, 't1')">I. FUNDAMENTOS NARRATIVOS</button>
-                <button class="tab-btn" onclick="openTab(event, 't2')">II. TRANSGRESIONES</button>
-                <button class="tab-btn" onclick="openTab(event, 't3')">III. VIOLENCIA Y CONFLICTO</button>
-                <button class="tab-btn" onclick="openTab(event, 't4')">IV. ESTADOS Y MEMORIA</button>
-                <button class="tab-btn" onclick="openTab(event, 't5')">V. INTERACCIÓN TÉCNICA</button>
-                <button class="tab-btn" onclick="openTab(event, 't6')">VI. ZONAS SEGURAS</button>
-                <button class="tab-btn" onclick="openTab(event, 't7')">VII. IDENTIDAD Y ESTÉTICA</button>
             </div>
 
-            <div class="content-area">
-                <div id="t1" class="tab-content active">
-                    <div class="rule-card">
-                        <strong>Art. 1.1 – In-Character (IC)</strong>
-                        <p>Es todo lo que concierne a la vida, acciones y palabras de tu personaje dentro del entorno virtual. La interpretación debe ser constante y coherente con su historia.</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>Art. 1.2 – Out-Of-Character (OOC)</strong>
-                        <p>Es la comunicación o acción de la persona real detrás de la pantalla. El uso de canales OOC (chat local /b o Discord) debe ser excepcional y técnico.</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>Art. 1.3 - Actitud Anti-Rol (AA)</strong>
-                        <p>Se define como Actitud Anti-Rol a toda acción que ignore deliberadamente las bases de la interpretación o busque arruinar la experiencia narrativa.</p>
-                    </div>
+            <div class="rule-card">
+                <div class="rule-title">⚡ PowerGaming (PG)</div>
+                <div class="rule-desc">
+                    Realizar acciones que serían humanamente imposibles en la vida real o forzar el rol de otro jugador sin darle opción a reaccionar. <span class="highlight">Ejemplo:</span> Levantar un coche con las manos o rolear un /me sin dejar que el otro conteste con /do.
                 </div>
-                
-                <div id="t2" class="tab-content">
-                    <div class="rule-card">
-                        <strong>Art. 2.1 – MetaGaming (MG)</strong>
-                        <p>Adquisición de información fuera del juego (Discord, directos) para ser utilizada en beneficio del personaje dentro de la ciudad.</p>
-                    </div>
-                    <div class="rule-card">
-                        <strong>Art. 2.2 – PowerGaming (PG)</strong>
-                        <p>Realizar acciones que superan las capacidades físicas humanas o forzar rol sobre otro jugador sin darle opción de defensa vía /do.</p>
-                    </div>
-                </div>
-                
-                <div id="t3" class="tab-content">
-                    <div class="rule-card"><strong>Art. 3.1 – DeathMatch (DM)</strong><p>Agredir sin rol previo.</p></div>
-                    <div class="rule-card"><strong>Art. 3.4 – Valoración de Existencia</strong><p>Priorizar la integridad de tu personaje sobre el ego o lo material.</p></div>
-                </div>
-                <div id="t4" class="tab-content"><div class="rule-card"><strong>Art. 4.1 – Player Kill (PK)</strong><p>Pérdida de memoria del evento tras acabar en el hospital.</p></div></div>
-                <div id="t5" class="tab-content"><div class="rule-card"><strong>Uso Comandos</strong><p>/me para acciones, /do para entorno y estado.</p></div></div>
-                <div id="t6" class="tab-content"><div class="rule-card"><strong>Zonas Seguras</strong><p>Hospitales, comisarías, puntos de spawn.</p></div></div>
-                <div id="t7" class="tab-content"><div class="rule-card"><strong>Identidad</strong><p>Nombres coherentes, fisionomía realista.</p></div></div>
             </div>
-        </div>
-    </section>
 
-    <div class="elysium-fm">
-        <div class="fm-info">
-            <i class="fa-solid fa-compact-disc fm-icon" style="animation: girarLogo 3s linear infinite;"></i>
-            <div>
-                <p class="fm-title">ELYSIUM | FM <span style="color: var(--secondary); font-size: 0.7rem; vertical-align: top;">URBANO</span></p>
-                <p id="current-track" class="fm-track">Cargando ondas...</p>
+            <div class="rule-card">
+                <div class="rule-title">💀 DeathMatch (DM / RDM / VDM)</div>
+                <div class="rule-desc">
+                    <strong>RDM:</strong> Atacar o matar a otro jugador sin un rol previo o justificación de peso. <br>
+                    <strong>VDM:</strong> Usar un vehículo como arma para atropellar intencionalmente sin un motivo de rol estructurado.
+                </div>
+            </div>
+
+            <div class="rule-card">
+                <div class="rule-title">🔄 New Life Rule (NLR)</div>
+                <div class="rule-desc">
+                    Si tu personaje muere y reaparece en el hospital, olvidas absolutamente todo el rol que te llevó a la muerte y no puedes volver a la zona del conflicto hasta pasado el tiempo estipulado.
+                </div>
+            </div>
+
+            <div class="rule-card">
+                <div class="rule-title">🩸 PK / CK / RK</div>
+                <div class="rule-desc">
+                    <strong>PK (Player Kill):</strong> Pérdida parcial de memoria tras quedar inconsciente.<br>
+                    <strong>CK (Character Kill):</strong> Muerte total y definitiva del personaje. Requiere ticket de aprobación.<br>
+                    <strong>RK (Revenge Kill):</strong> Matar a alguien en venganza justo después de que esa persona te haya hecho PK/NLR. Totalmente prohibido.
+                </div>
             </div>
         </div>
-        <div style="display: flex; gap: 15px; align-items: center;">
-            <button class="fm-btn" onclick="nextTrack()" title="Siguiente Pista"><i class="fa-solid fa-forward-step"></i></button>
-            <button id="play-btn" class="fm-btn" onclick="toggleRadio()"><i class="fa-solid fa-play"></i></button>
+
+        <!-- PESTAÑA: REGLAS GENERALES -->
+        <div id="generales" class="tab-content">
             
-            <div class="fm-volume-control">
-                <i class="fa-solid fa-volume-low" id="vol-icon"></i>
-                <input type="range" id="fm-volume" min="0" max="1" step="0.01" value="0.3">
-            </div>
-        </div>
-        <audio id="elysium-radio"></audio>
-    </div>
-    <style>@keyframes girarLogo { 100% { transform: rotate(360deg); } }</style>
-
-    <div id="hacker-trigger" onclick="abrirTerminal()">.</div>
-    <div id="dark-terminal" class="oculto">
-        <div class="terminal-header">
-            <span>ESX_SECURE_OS v2.4 - CONNECTION INTERCEPTED</span>
-            <button onclick="cerrarTerminal()" class="btn-cerrar-terminal">[X] TERMINAR SESIÓN</button>
-        </div>
-        <div id="terminal-output">
-            <p>Bypass completado. Base de datos HeidiSQL inyectada.</p>
-            <p>Bienvenido al subsuelo de Los Santos.</p>
-            <p>Ingresa <span class="comando-resaltado">ayuda</span> para listar comandos.</p>
-        </div>
-        <div class="terminal-input-line">
-            <span class="prompt">guest@elysium-es:~#</span>
-            <input type="text" id="terminal-input" autocomplete="off" spellcheck="false">
-        </div>
-    </div>
-
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-col">
-                <h2 class="footer-logo">ELYSIUM <span>| ES</span></h2>
-                <p style="line-height: 1.8;">Una experiencia de rol inmersiva y sin fronteras. Infraestructura técnica impecable, economía realista y una comunidad apasionada lista para forjar leyendas.</p>
+            <div class="rule-card">
+                <div class="rule-title">🛡️ Respeto y Comunidad</div>
+                <div class="rule-desc">
+                    Cero tolerancia a la toxicidad. Insultos OOC, discriminación, machismo, racismo o actitudes destructivas en canales de Discord o voz OOC serán sancionados con <span class="highlight">Baneo Permanente</span>.
+                </div>
             </div>
 
-            <div class="footer-col">
-                <h3>Accesos Rápidos</h3>
-                <ul>
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#quienes-somos">Arquitectura y Sistemas</a></li>
-                    <li><a href="#reglas">Normativa Ciudadana</a></li>
-                    <li><a href="https://elysium-488.tebex.io" target="_blank" style="color: var(--secondary);">Tienda Oficial / VIPs</a></li>
-                    <li><a href="terminos.html">Términos y Políticas</a></li>
-                </ul>
+            <div class="rule-card">
+                <div class="rule-title">❤️ Valorar la Vida</div>
+                <div class="rule-desc">
+                    Tu personaje debe temer por su vida. Si te apuntan 3 personas armadas y tú estás desarmado, debes rendirte. Hacerse el "héroe" en clara desventaja se considera falta grave.
+                </div>
             </div>
 
-            <div class="footer-col">
-                <h3>Redes Sociales</h3>
-                <div class="social-icons-vertical">
-                    <a href="https://discord.gg/4mTVJhu3gx" target="_blank" class="social-icon discord"><i class="fa-brands fa-discord"></i></a>
-                    <a href="https://www.tiktok.com/@elysiumes.rp" target="_blank" class="social-icon tiktok"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="https://www.instagram.com/elysiumes" target="_blank" class="social-icon instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@ElysiumES" target="_blank" class="social-icon youtube"><i class="fa-brands fa-youtube"></i></a>
+            <div class="rule-card">
+                <div class="rule-title">🎤 Uso del Micrófono y Chat</div>
+                <div class="rule-desc">
+                    Es obligatorio disponer de un micrófono funcional y de calidad decente. Prohibido usar el chat de texto para roles que se puedan hablar, salvo casos OOC justificados (/ooc).
+                </div>
+            </div>
+
+            <div class="rule-card">
+                <div class="rule-title">🚫 Evasión de Rol</div>
+                <div class="rule-desc">
+                    Desconectarse del servidor (Combat Logging), suicidarse intencionalmente o forzar un crasheo durante un rol activo, tiroteo o persecución policial resultará en sanción severa.
                 </div>
             </div>
         </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2026 Elysium | ES Roleplay. Todos los derechos reservados.</p>
-        </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+        <!-- PESTAÑA: ENTORNO E ILEGALES -->
+        <div id="ilegales" class="tab-content">
+            
+            <div class="rule-card">
+                <div class="rule-title">🏙️ Zonas Seguras</div>
+                <div class="rule-desc">
+                    Hospitales, Comisarías, Garajes centrales, Concesionarios y Zonas de inicio de trabajos legales son Zonas Seguras. <span class="highlight">No se permite iniciar robos, secuestros ni tiroteos</span> dentro de estas áreas.
+                </div>
+            </div>
+
+            <div class="rule-card">
+                <div class="rule-title">🎭 Entorno</div>
+                <div class="rule-desc">
+                    Se debe interpretar el entorno realista. Si robas en pleno centro de la ciudad a las 12 del mediodía, debes asumir que "hay NPCs y cámaras" viéndote. Un entorno mal roleado anula la acción.
+                </div>
+            </div>
+
+            <div class="rule-card">
+                <div class="rule-title">🔫 Actos Delictivos y Robos</div>
+                <div class="rule-desc">
+                    Para iniciar un secuestro o asalto, debe haber un mínimo de policías conectados (consultar tabla del servidor). Prohibido "farmear" robos de manera continua sin pausa para el desarrollo del rol.
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER ÉPICO -->
+        <div class="epic-footer">
+            <h3>BIENVENIDO AL SIGUIENTE NIVEL</h3>
+            <p>Al acceder al servidor, confirmas haber leído, comprendido y aceptado estas normativas. La ignorancia de las reglas no exime de su cumplimiento.</p>
+        </div>
+
+    </div>
 
     <script>
-        // 1. PARTICULAS
-        if(typeof particlesJS !== 'undefined') {
-            particlesJS("particles-js", {
-                "particles": { 
-                    "number": { "value": 40, "density": { "enable": true, "value_area": 800 } }, 
-                    "color": { "value": ["#00d4ff", "#ff007f"] }, 
-                    "shape": { "type": "circle" }, 
-                    "opacity": { "value": 0.5, "random": true }, 
-                    "size": { "value": 3, "random": true }, 
-                    "line_linked": { "enable": true, "distance": 150, "color": "#00d4ff", "opacity": 0.1, "width": 1 }, 
-                    "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "out_mode": "out", "bounce": false } 
-                },
-                "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false } } }, 
-                "retina_detect": true
-            });
-        }
-
-        // 2. SISTEMA DE REGLAS (TABS)
-        window.openTab = function(evt, tabName) {
-            let tabcontent = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabcontent.length; i++) {
+        function openTab(evt, tabName) {
+            // Ocultar todos los contenidos de las pestañas
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
                 tabcontent[i].classList.remove("active");
             }
-            let tablinks = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
+
+            // Quitar clase "active" de todos los botones
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-            let targetTab = document.getElementById(tabName);
-            if(targetTab) {
-                targetTab.style.display = "block";
-                setTimeout(() => targetTab.classList.add("active"), 10);
-                evt.currentTarget.classList.add("active");
-            }
+
+            // Mostrar el contenido actual y añadir "active" al botón
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.className += " active";
         }
-
-        // 3. API SERVIDOR
-        async function fetchServerStatus() {
-            const pCount = document.getElementById('player-count');
-            const pDot = document.getElementById('status-dot');
-            if (!pCount || !pDot) return;
-            try {
-                const response = await fetch(`https://api.codetabs.com/v1/proxy?quest=http://190.55.54.67:30120/dynamic.json`);
-                if (!response.ok) throw new Error('Cfx Inalcanzable');
-                const data = await response.json();
-                pCount.textContent = `Población: ${data.clients} / ${data.sv_maxclients} Ciudadanos`;
-                pDot.style.backgroundColor = 'var(--primary)';
-                pDot.style.boxShadow = '0 0 15px var(--primary)';
-            } catch (error) {
-                pCount.textContent = 'Servidor en Mantenimiento | Optimizando Base de Datos';
-                pDot.style.backgroundColor = '#ff003c';
-                pDot.style.boxShadow = '0 0 15px #ff003c';
-            }
-        }
-
-        // 4. OBSERVADOR SCROLL
-        document.addEventListener("DOMContentLoaded", () => {
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach((e) => {
-                        if (e.isIntersecting) {
-                            setTimeout(() => e.target.classList.add('visible'), 150);
-                            observer.unobserve(e.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                document.querySelectorAll('.about-card').forEach(c => observer.observe(c));
-            }
-            fetchServerStatus();
-            setInterval(fetchServerStatus, 120000);
-            
-            // SWIPER INIT
-            if(typeof Swiper !== 'undefined') {
-                new Swiper(".mySwiper", {
-                    effect: "coverflow", grabCursor: true, centeredSlides: true,
-                    slidesPerView: "auto", loop: true, 
-                    coverflowEffect: { rotate: 20, stretch: 0, depth: 300, modifier: 1, slideShadows: true },
-                    autoplay: { delay: 3000, disableOnInteraction: false },
-                    pagination: { el: ".swiper-pagination", clickable: true }
-                });
-            }
-        });
-
-        // 5. RADIO MUSICAL (Urbana)
-        const radio = document.getElementById("elysium-radio");
-        const trackText = document.getElementById("current-track");
-        const playBtnIcon = document.querySelector("#play-btn i");
-        const playlist = [
-            { title: "Si Estás Con Alguien - Omar Courtz", url: "omar-courtz.mp3" },
-            { title: "Viene BASQUIAT... - JHAYCO", url: "jhay-co.mp3" },
-            { title: "Otra Noche En Miami - Bad Bunny", url: "bad-bunny.mp3" }
-        ];
-        let currentTrackIndex = 0;
-        
-        if(radio) {
-            radio.volume = 0.3;
-            radio.onended = () => nextTrack();
-        }
-
-        document.getElementById("fm-volume")?.addEventListener("input", (e) => {
-            if(radio) radio.volume = e.target.value;
-            const icon = document.getElementById("vol-icon");
-            if(icon) {
-                if(e.target.value == 0) icon.className = "fa-solid fa-volume-xmark";
-                else if (e.target.value < 0.5) icon.className = "fa-solid fa-volume-low";
-                else icon.className = "fa-solid fa-volume-high";
-            }
-        });
-
-        function loadTrack(index) {
-            if(!radio || !playlist.length) return;
-            radio.src = playlist[index].url;
-            if(trackText) trackText.innerText = playlist[index].title;
-        }
-
-        window.toggleRadio = function() {
-            if(!radio) return;
-            if (radio.paused) {
-                if (!radio.src || radio.src.includes(window.location.host + "/null")) loadTrack(currentTrackIndex);
-                radio.play().catch(e => console.log("Reproducción bloqueada por el navegador."));
-                if(playBtnIcon) playBtnIcon.classList.replace("fa-play", "fa-pause");
-            } else {
-                radio.pause();
-                if(playBtnIcon) playBtnIcon.classList.replace("fa-pause", "fa-play");
-            }
-        }
-        
-        window.nextTrack = function() {
-            if(!radio || !playlist.length) return;
-            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-            loadTrack(currentTrackIndex);
-            radio.play();
-            if(playBtnIcon) playBtnIcon.classList.replace("fa-play", "fa-pause");
-        }
-        loadTrack(currentTrackIndex);
-
-        // 6. TERMINAL
-        window.abrirTerminal = function() {
-            const t = document.getElementById('dark-terminal');
-            if(t) { t.classList.remove('oculto'); setTimeout(() => document.getElementById('terminal-input')?.focus(), 100); }
-        };
-        window.cerrarTerminal = function() {
-            const t = document.getElementById('dark-terminal');
-            if(t) t.classList.add('oculto');
-        };
-        
-        document.getElementById('terminal-input')?.addEventListener('keypress', function(e) {
-            if(e.key === 'Enter') {
-                const cmd = this.value.trim().toLowerCase();
-                const out = document.getElementById('terminal-output');
-                if(cmd && out) {
-                    out.innerHTML += `<p><span class="prompt">guest@elysium-es:~#</span> ${cmd}</p>`;
-                    if(cmd === 'ayuda') out.innerHTML += `<p>Comandos: <span class="comando-resaltado">info, limpiar, status, salir</span></p>`;
-                    else if(cmd === 'info') out.innerHTML += `<p class="respuesta-secreta">Conexión ESX activa. Logs limpiados. Estás fuera del radar.</p>`;
-                    else if(cmd === 'limpiar') out.innerHTML = '';
-                    else if(cmd === 'salir') cerrarTerminal();
-                    else out.innerHTML += `<p style="color:#ff3333;">Comando inválido.</p>`;
-                    out.scrollTop = out.scrollHeight;
-                }
-                this.value = '';
-            }
-        });
-
     </script>
 </body>
 </html>
