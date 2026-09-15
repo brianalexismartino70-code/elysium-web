@@ -1,17 +1,17 @@
 # ════════════════════════════════════════════════════════════
 #  Estado de Elysium
-#  Va en el repo, en la carpeta:  .github/workflows/
-#  Consulta el servidor desde las máquinas de GitHub (que están
-#  fuera de tu red) y guarda el resultado en estado.json.
-#  La web lee ese archivo desde su propio dominio: sin CORS,
-#  sin proxies y sin depender de que Cloudflare deje pasar.
+#  Va en:  .github/workflows/estado-servidor.yml
+#  Consulta el servidor desde las máquinas de GitHub, que están
+#  fuera de tu red, y deja el resultado en estado.json.
+#  El paso de diagnóstico nunca corta: siempre llega al final
+#  y prueba todas las vías, aunque las primeras fallen.
 # ════════════════════════════════════════════════════════════
 name: Estado del servidor
 
 on:
   schedule:
-    - cron: '*/10 * * * *'   # cada 10 minutos
-  workflow_dispatch:          # y cuando lo dispares a mano
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -27,34 +27,58 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Consultar el servidor
-        id: consulta
+        shell: bash
         run: |
+          set +e                      # ningún fallo corta el diagnóstico
+
+          # ── Editá estas dos líneas si cambian ──
           JOIN="kr546a"
           IP="190.55.54.67:30120"
+          # ───────────────────────────────────────
+
           CLIENTS=""; MAX=""; VIA=""
 
-          echo "──────── 1. API de Cfx.re ────────"
-          if curl -sS -m 20 -A "Mozilla/5.0" -w "\nHTTP %{http_code}\n" \
-               "https://servers-frontend.fivem.net/api/servers/single/$JOIN" -o cfx.json; then
+          echo "═══════════ 1. API de Cfx.re ═══════════"
+          CODE=$(curl -sS -m 20 -A "Mozilla/5.0" -o cfx.json -w "%{http_code}" \
+                 "https://servers-frontend.fivem.net/api/servers/single/$JOIN" 2>&1)
+          echo "Código HTTP: ${CODE:-sin respuesta}"
+          echo "Respuesta (primeros 300 caracteres):"
+          head -c 300 cfx.json 2>/dev/null; echo; echo
+          if [ "$CODE" = "200" ]; then
             CLIENTS=$(jq -r '.Data.clients // empty' cfx.json 2>/dev/null)
             MAX=$(jq -r '.Data.sv_maxclients // .Data.svMaxclients // empty' cfx.json 2>/dev/null)
+            NOMBRE=$(jq -r '.Data.hostname // empty' cfx.json 2>/dev/null)
+            echo "Nombre del servidor: ${NOMBRE:-no vino}"
             [ -n "$CLIENTS" ] && VIA="cfx"
-            echo "clients=$CLIENTS max=$MAX"
-          else
-            echo "no respondió"
+          elif [ "$CODE" = "404" ]; then
+            echo ">> Cfx.re no tiene ningún servidor listado con el código $JOIN."
+            echo ">> O el servidor está apagado, o el código cambió, o está sin listar."
           fi
+          echo "Jugadores por esta vía: ${CLIENTS:-ninguno}"
+          echo
 
-          if [ -z "$CLIENTS" ]; then
-            echo "──────── 2. Tu IP directa ────────"
-            echo "Si esto responde, el puerto está abierto hacia afuera."
-            if curl -sS -m 20 -w "\nHTTP %{http_code}\n" "http://$IP/dynamic.json" -o dyn.json; then
-              CLIENTS=$(jq -r '.clients // empty' dyn.json 2>/dev/null)
-              MAX=$(jq -r '.sv_maxclients // empty' dyn.json 2>/dev/null)
-              [ -n "$CLIENTS" ] && VIA="ip"
-              echo "clients=$CLIENTS max=$MAX"
-            else
-              echo "no respondió: la IP cambió o el puerto 30120 está cerrado desde afuera"
-            fi
+          echo "═══════════ 2. Tu IP directa ═══════════"
+          echo "Si algo de acá responde, el puerto 30120 está abierto hacia afuera."
+          for ARCHIVO in info.json dynamic.json; do
+            C=$(curl -sS -m 20 -o "resp-$ARCHIVO" -w "%{http_code}" "http://$IP/$ARCHIVO" 2>&1)
+            echo "  $ARCHIVO → ${C:-sin respuesta}"
+            head -c 200 "resp-$ARCHIVO" 2>/dev/null; echo
+          done
+          if [ -z "$CLIENTS" ] && [ -s resp-dynamic.json ]; then
+            CLIENTS=$(jq -r '.clients // empty' resp-dynamic.json 2>/dev/null)
+            MAX=$(jq -r '.sv_maxclients // empty' resp-dynamic.json 2>/dev/null)
+            [ -n "$CLIENTS" ] && VIA="ip"
+          fi
+          echo
+
+          echo "═══════════ VEREDICTO ═══════════"
+          if [ -n "$CLIENTS" ]; then
+            echo "El servidor responde por '$VIA' con $CLIENTS jugadores."
+          else
+            echo "Ninguna vía respondió."
+            echo "Si arriba ves 404 en Cfx y nada en tu IP, el servidor no es"
+            echo "alcanzable desde internet: revisá que esté prendido, que el"
+            echo "puerto 30120 esté abierto en TCP y UDP, y que la IP sea la actual."
           fi
 
           AHORA=$(date -u +%Y-%m-%dT%H:%M:%SZ)
@@ -64,23 +88,25 @@ jobs:
             printf '{"en_linea":true,"jugadores":%s,"tope":%s,"via":"%s","actualizado":"%s"}\n' \
               "$CLIENTS" "${MAX:-64}" "$VIA" "$AHORA" > estado.json
           fi
-
-          echo "──────── resultado ────────"
-          cat estado.json
           echo "${CLIENTS:-vacio}" > .jugadores
+          rm -f cfx.json resp-info.json resp-dynamic.json
+          exit 0
 
       - name: Publicar solo si cambió el número
+        shell: bash
         run: |
-          NUEVO=$(cat .jugadores); rm -f .jugadores cfx.json dyn.json
-          VIEJO=$(git show HEAD:estado.json 2>/dev/null | jq -r '.jugadores // "vacio"' 2>/dev/null || echo "sin-archivo")
+          set +e
+          NUEVO=$(cat .jugadores); rm -f .jugadores
+          VIEJO=$(git show HEAD:estado.json 2>/dev/null | jq -r '.jugadores // "vacio"' 2>/dev/null)
+          [ -z "$VIEJO" ] && VIEJO="sin-archivo"
 
           if [ "$NUEVO" = "$VIEJO" ]; then
-            echo "Sigue en $NUEVO jugadores: no hace falta publicar."
+            echo "Sigue en $NUEVO: no hace falta publicar."
             exit 0
           fi
-
           git config user.name  "Elysium bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add estado.json
           git commit -m "Estado: $NUEVO jugadores"
           git push
+          exit 0
