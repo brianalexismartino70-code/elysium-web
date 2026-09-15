@@ -1,198 +1,641 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XMC8M5F5X"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-1XMC8M5F5X');
-    </script>
-    <title>Términos y Políticas | Elysium RP</title>
-    <link rel="icon" type="image/png" href="E.png">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentación legal | Elysium | ES</title>
+<meta name="description" content="Términos y condiciones, política de la tienda y política de privacidad de Elysium | ES.">
+<meta name="theme-color" content="#0B0F0D">
+<link rel="icon" type="image/png" href="E.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Marcellus+SC&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <style>
-        :root { 
-            --primary: #00d4ff; 
-            --primary-glow: rgba(0, 212, 255, 0.6);
-            --bg: #030508; 
-            --card-glass: rgba(15, 20, 25, 0.6);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1XMC8M5F5X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-1XMC8M5F5X');
+</script>
 
-        /* PARCHE ANTI-LAG PARA EFECTOS DE CRISTAL */
-        nav, .legal-container {
-            backdrop-filter: blur(6px) !important; 
-            -webkit-backdrop-filter: blur(6px) !important;
-            background: rgba(10, 14, 18, 0.85) !important; 
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-            backface-visibility: hidden;
-        }
+<style>
+/* ═══════════════════════════════════════════════════
+   ELYSIUM | ES — sistema compartido
+   Bronce patinado sobre verde tinta.
+   Display: Marcellus · Texto: Jost
+   ═══════════════════════════════════════════════════ */
 
-        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; background: radial-gradient(circle at center, #0a1118 0%, #020305 100%); }
+:root{
+  --ink:        #0B0F0D;
+  --ink-2:      #101613;
+  --ink-3:      #171F1A;
+  --marble:     #ECE7DC;
+  --muted:      #94A09A;
+  --bronze:     #B98F52;
+  --bronze-lo:  rgba(185,143,82,.26);
+  --laurel:     #2B3B32;
+  --alert:      #B4675A;
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; border-bottom: 1px solid rgba(0, 212, 255, 0.3); position: sticky; top: 0; z-index: 999; }
-        .nav-logo { height: 45px; transition: transform 0.3s; }
-        .nav-links a { color: var(--primary); text-decoration: none; font-family: 'Orbitron'; margin-left: 25px; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px; transition: 0.3s; position: relative; }
-        .nav-links a:hover { text-shadow: 0 0 15px var(--primary); color: #fff; }
+  --measure:    66ch;
+  --gutter:     clamp(1.25rem, 6vw, 7.5rem);
+  --rule:       1px solid var(--laurel);
 
-        .container { position: relative; z-index: 10; padding: 60px 8%; }
-        .section-title { text-align: center; font-family: 'Orbitron'; font-size: 2.5rem; margin-bottom: 10px; text-transform: uppercase; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.2); }
+  --t-xs:  .75rem;
+  --t-sm:  .8125rem;
+  --t-base: 1rem;
+  --t-md:  1.125rem;
+  --t-lg:  1.5rem;
+  --t-xl:  clamp(1.6rem, 3vw, 2.15rem);
+  --t-2xl: clamp(2.25rem, 5.5vw, 3.75rem);
+}
 
-        /* ESTILOS ESPECÍFICOS PARA EL TEXTO LEGAL */
-        .legal-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 50px;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-            color: #ccd6f6;
-        }
-        .legal-container h2 {
-            color: var(--primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
-            padding-bottom: 10px;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
-        }
-        .legal-container h2:first-of-type { margin-top: 0; }
-        .legal-container h3 {
-            color: #fff;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            margin-top: 25px;
-            margin-bottom: 10px;
-        }
-        .legal-container p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-        .legal-container ul { padding-left: 20px; margin-bottom: 20px; }
-        .legal-container li { margin-bottom: 10px; font-size: 1.1rem; line-height: 1.6; }
-        .legal-container strong { color: var(--primary); }
-        .legal-alert {
-            background: rgba(255, 51, 51, 0.1);
-            border-left: 4px solid #ff3333;
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-        }
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; scroll-padding-top:6rem; }
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--marble);
+  font-family:'Jost',system-ui,sans-serif;
+  font-weight:300;
+  font-size:var(--t-base);
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; }
+h1,h2,h3,h4{
+  font-family:'Marcellus',Georgia,serif;
+  font-weight:400; line-height:1.14; margin:0; letter-spacing:.01em;
+}
+p{ margin:0 0 1.15em; max-width:var(--measure); }
+p:last-child{ margin-bottom:0; }
+::selection{ background:var(--bronze); color:var(--ink); }
+:focus-visible{ outline:2px solid var(--bronze); outline-offset:3px; }
+::-webkit-scrollbar{ width:9px; }
+::-webkit-scrollbar-track{ background:var(--ink); }
+::-webkit-scrollbar-thumb{ background:var(--laurel); }
+::-webkit-scrollbar-thumb:hover{ background:var(--bronze); }
 
-        /* FOOTER */
-        .site-footer { background: rgba(5, 8, 12, 0.98); border-top: 1px solid rgba(0, 212, 255, 0.2); padding: 40px 5% 20px 5%; color: #a8b2d1; position: relative; z-index: 10; text-align: center; }
-        .footer-logo { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 1.5rem; margin-bottom: 10px; letter-spacing: 2px; }
-        .footer-logo span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
-        .footer-bottom { font-size: 0.9rem; color: #6a7491; margin-top: 20px; }
-    </style>
+.skip{
+  position:absolute; left:-9999px; top:0; z-index:200;
+  background:var(--bronze); color:var(--ink);
+  padding:.75rem 1.25rem; font-size:var(--t-sm);
+}
+.skip:focus{ left:1rem; top:1rem; }
+
+.wrap{ padding-inline:var(--gutter); }
+
+/* ── Marca ─────────────────────────────────────── */
+.mark{
+  font-family:'Marcellus SC',Georgia,serif;
+  letter-spacing:.22em; text-decoration:none;
+  font-size:.95rem; white-space:nowrap;
+}
+.mark em{ font-style:normal; color:var(--bronze); }
+
+/* ── Barra superior ────────────────────────────── */
+.nav{
+  position:sticky; top:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between; gap:2rem;
+  padding:1rem var(--gutter);
+  background:rgba(11,15,13,.93);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border-bottom:var(--rule);
+}
+.nav-links{
+  display:flex; align-items:center; gap:clamp(1rem,2.4vw,2rem);
+  font-size:var(--t-sm); letter-spacing:.06em;
+}
+.nav-links a{
+  text-decoration:none; color:var(--marble);
+  padding-block:.35rem; position:relative; opacity:.82;
+  transition:opacity .3s ease;
+}
+.nav-links a::after{
+  content:''; position:absolute; left:0; bottom:0; height:1px; width:0;
+  background:var(--bronze); transition:width .38s cubic-bezier(.2,.7,.3,1);
+}
+.nav-links a:hover{ opacity:1; }
+.nav-links a:hover::after{ width:100%; }
+.nav-toggle{
+  display:none; background:none; border:1px solid var(--laurel); color:var(--marble);
+  font-family:inherit; font-size:var(--t-sm); letter-spacing:.08em;
+  padding:.5rem .9rem; cursor:pointer;
+}
+
+/* ── Encabezado de página ──────────────────────── */
+.page-head{
+  padding:clamp(3.5rem,9vw,6.5rem) var(--gutter) clamp(2.5rem,5vw,4rem);
+  border-bottom:var(--rule);
+}
+.page-head .kicker{
+  font-family:'Marcellus SC',serif; letter-spacing:.2em;
+  font-size:var(--t-xs); color:var(--bronze); margin:0 0 1.1rem;
+}
+.page-head h1{ font-size:var(--t-2xl); margin-bottom:1.5rem; }
+.page-head .lede{ color:var(--muted); font-size:var(--t-md); max-width:56ch; }
+.page-meta{
+  display:flex; gap:2.5rem; flex-wrap:wrap;
+  margin-top:2.25rem; padding-top:1.5rem; border-top:1px solid var(--bronze-lo);
+  font-size:var(--t-sm); color:var(--muted);
+}
+.page-meta b{ display:block; color:var(--bronze); font-weight:400; font-size:var(--t-xs); letter-spacing:.14em; }
+
+/* ── Botones ───────────────────────────────────── */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.65rem;
+  font-family:'Jost',sans-serif; font-weight:400;
+  font-size:var(--t-sm); letter-spacing:.11em;
+  padding:1rem 1.9rem; text-decoration:none;
+  border:1px solid var(--bronze); color:var(--ink); background:var(--bronze);
+  cursor:pointer;
+  transition:background .32s ease, color .32s ease, transform .32s ease, opacity .3s ease;
+}
+.btn:hover:not(:disabled){ background:#CFA466; border-color:#CFA466; transform:translateY(-2px); }
+.btn:disabled{ opacity:.45; cursor:not-allowed; }
+.btn--ghost{ background:transparent; color:var(--marble); border-color:var(--laurel); }
+.btn--ghost:hover:not(:disabled){ background:transparent; color:var(--bronze); border-color:var(--bronze); transform:translateY(-2px); }
+.btn svg{ width:17px; height:17px; fill:currentColor; flex:none; }
+
+/* ── Documento con índice lateral ──────────────── */
+.doc{
+  display:grid;
+  grid-template-columns:minmax(0,17rem) minmax(0,1fr);
+  gap:clamp(2rem,5vw,5rem);
+  align-items:start;
+  padding-block:clamp(3rem,7vw,5.5rem);
+}
+.doc-index{ position:sticky; top:6rem; border-top:1px solid var(--bronze-lo); }
+.doc-index a{
+  display:flex; gap:1rem; align-items:baseline;
+  text-decoration:none; color:var(--muted);
+  font-size:var(--t-sm); letter-spacing:.04em; line-height:1.4;
+  padding:.8rem .25rem; border-bottom:var(--rule);
+  transition:color .3s ease, padding-left .3s ease;
+}
+.doc-index a i{
+  font-style:normal; font-family:'Marcellus',serif;
+  color:var(--laurel); flex:none; width:1.9rem; transition:color .3s ease;
+}
+.doc-index a:hover{ color:var(--marble); padding-left:.6rem; }
+.doc-index a.is-here{ color:var(--marble); }
+.doc-index a.is-here i{ color:var(--bronze); }
+
+/* ── Pie ───────────────────────────────────────── */
+.foot{ border-top:var(--rule); padding:clamp(3rem,6vw,4.5rem) var(--gutter) 2rem; }
+.foot-grid{
+  display:grid; grid-template-columns:minmax(0,1.6fr) repeat(2,minmax(0,1fr));
+  gap:clamp(2rem,5vw,4rem); padding-bottom:2.5rem;
+}
+.foot .mark{ font-size:1.05rem; display:inline-block; margin-bottom:1.1rem; }
+.foot p{ color:var(--muted); font-size:var(--t-sm); max-width:34ch; }
+.foot h3{
+  font-family:'Jost',sans-serif; font-weight:500;
+  font-size:var(--t-xs); letter-spacing:.16em; color:var(--bronze); margin-bottom:1.1rem;
+}
+.foot ul{ list-style:none; margin:0; padding:0; }
+.foot li{ margin-bottom:.6rem; }
+.foot li a{ text-decoration:none; color:var(--muted); font-size:var(--t-sm); transition:color .3s ease; }
+.foot li a:hover{ color:var(--bronze); }
+.social{ display:flex; gap:1.1rem; }
+.social a{
+  display:grid; place-items:center; width:38px; height:38px;
+  border:var(--rule); color:var(--muted);
+  transition:color .3s ease, border-color .3s ease, transform .3s ease;
+}
+.social a:hover{ color:var(--bronze); border-color:var(--bronze-lo); transform:translateY(-3px); }
+.social svg{ width:17px; height:17px; fill:currentColor; }
+.foot-base{
+  border-top:var(--rule); padding-top:1.75rem;
+  display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  font-size:var(--t-xs); color:#6D7773; letter-spacing:.05em;
+}
+
+/* ── Adaptación ────────────────────────────────── */
+@media (max-width:1000px){
+  .doc{ grid-template-columns:1fr; }
+  .doc-index{ position:static; }
+  .foot-grid{ grid-template-columns:1fr 1fr; }
+  .foot-brand{ grid-column:1 / -1; }
+}
+@media (max-width:760px){
+  .nav-toggle{ display:block; }
+  .nav-links{
+    position:absolute; inset:100% 0 auto 0;
+    flex-direction:column; align-items:stretch; gap:0;
+    background:rgba(11,15,13,.98); border-bottom:var(--rule);
+    padding:.5rem var(--gutter) 1.25rem; display:none;
+  }
+  .nav-links.is-open{ display:flex; }
+  .nav-links a{ padding:.85rem 0; border-bottom:var(--rule); }
+  .foot-grid{ grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  html{ scroll-behavior:auto; }
+}
+@media print{
+  .nav,.foot,.doc-index,.skip{ display:none !important; }
+  body{ background:#fff; color:#000; }
+  .doc{ display:block; padding:0; }
+  a{ text-decoration:none; color:#000; }
+}
+
+
+/* ── Específico de la documentación legal ──────── */
+.doc-index .group{
+  font-family:'Jost',sans-serif; font-weight:500;
+  font-size:var(--t-xs); letter-spacing:.16em;
+  color:var(--bronze); padding:1.6rem .25rem .55rem;
+}
+.doc-index .group:first-child{ padding-top:1rem; }
+
+.legal h2{
+  font-size:var(--t-xl);
+  padding-bottom:1.1rem;
+  border-bottom:1px solid var(--bronze-lo);
+  margin:0 0 2rem;
+}
+.legal section + section{ margin-top:clamp(3.5rem,7vw,5.5rem); }
+.clause{ margin-bottom:2.4rem; max-width:68ch; }
+.clause:last-child{ margin-bottom:0; }
+.clause h3{
+  font-family:'Jost',sans-serif; font-weight:500;
+  font-size:var(--t-base); letter-spacing:.05em;
+  color:var(--bronze); margin-bottom:.55rem;
+}
+.clause p, .clause li{ color:var(--muted); }
+.clause p{ max-width:none; }
+.clause b{ color:var(--marble); font-weight:400; }
+.clause ul{ margin:.4rem 0 0; padding-left:1.1rem; }
+.clause li{ margin-bottom:.45rem; }
+.clause--flag{ border-left:2px solid var(--alert); padding-left:1.5rem; }
+.clause--flag h3{ color:var(--alert); }
+.clause--note{ border-left:2px solid var(--bronze); padding-left:1.5rem; }
+
+.legal-table{ width:100%; border-collapse:collapse; margin-top:1.1rem; font-size:var(--t-sm); }
+.legal-table th{
+  text-align:left; font-weight:500; color:var(--bronze);
+  font-size:var(--t-xs); letter-spacing:.11em;
+  padding:.6rem .75rem .6rem 0; border-bottom:1px solid var(--bronze-lo);
+}
+.legal-table td{ padding:.7rem .75rem .7rem 0; border-bottom:var(--rule); color:var(--muted); vertical-align:top; }
+.legal-table tr td:first-child{ color:var(--marble); white-space:nowrap; }
+
+.contact{
+  border:1px solid var(--bronze-lo); background:var(--ink-2);
+  padding:clamp(1.5rem,3vw,2.25rem); margin-top:3rem;
+}
+.contact h3{ font-family:'Marcellus',serif; font-size:var(--t-lg); color:var(--marble); margin-bottom:.75rem; }
+.contact p{ color:var(--muted); }
+.contact .btn{ margin-top:1.25rem; }
+</style>
 </head>
+
 <body>
+<a class="skip" href="#documento">Saltar al documento</a>
 
-    <div id="particles-js"></div>
+<header class="nav">
+  <a href="index.html" class="mark">ELYSIUM <em>| ES</em></a>
+  <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menú</button>
+  <nav class="nav-links" id="navLinks">
+    <a href="index.html">Inicio</a>
+    <a href="index.html#normativa">Normativa</a>
+    <a href="staff.html">Postular a staff</a>
+    <a href="https://discord.gg/4mTVJhu3gx" target="_blank" rel="noopener">Soporte</a>
+  </nav>
+</header>
 
-    <nav>
-        <a href="index.html"><img src="E2.png" alt="Logo" class="nav-logo"></a>
-        <div class="nav-links">
-            <a href="index.html">VOLVER AL INICIO</a>
-            <a href="https://discord.gg/4mTVJhu3gx" target="_blank">SOPORTE DISCORD</a>
-        </div>
-    </nav>
+<section class="page-head">
+  <p class="kicker">Documentación</p>
+  <h1>Términos, tienda y privacidad</h1>
+  <p class="lede">Las tres reglas que rigen tu relación con Elysium fuera del rol: qué te ofrecemos, qué pasa con tu dinero si aportás a la tienda y qué hacemos con tus datos.</p>
+  <div class="page-meta">
+    <span><b>Última actualización</b>14 de septiembre de 2026</span>
+    <span><b>Alcance</b>elysiumesrp.com, el servidor de FiveM y el Discord oficial</span>
+    <span><b>Vigencia</b>Desde el momento en que te conectás</span>
+  </div>
+</section>
 
-    <section class="container">
-        <h1 class="section-title">Documentación Legal</h1>
-        <p style="text-align: center; color: #a8b2d1; margin-bottom: 40px;">Última actualización: 4 de Mayo de 2026</p>
+<main class="wrap doc" id="documento">
 
-        <div class="legal-container">
-            
-            <h2>Términos y Condiciones</h2>
-            <p>Bienvenido a <strong>elysiumesrp.com</strong>. Al acceder a nuestro sitio web y participar en nuestro servidor de GTA V Roleplay, aceptas cumplir con los siguientes Términos y Condiciones. Si no estás de acuerdo con alguna parte de estos términos, te solicitamos que no utilices nuestros servicios.</p>
-            
-            <h3>1. Descripción del Servicio</h3>
-            <p>Elysium | ES provee una plataforma de entretenimiento y una comunidad de Roleplay basada en el ecosistema de FiveM (GTA V). Actualmente, el servidor se encuentra en su fase inicial y el acceso es libre. Nos reservamos el derecho de modificar el modo de acceso, implementar sistemas de entrevistas (Whitelist) o alterar características del servidor en el futuro para mantener la calidad del rol.</p>
+  <nav class="doc-index" aria-label="Índice del documento">
+    <p class="group">Términos y condiciones</p>
+    <a href="#t1"><i>1</i> Qué es Elysium</a>
+    <a href="#t2"><i>2</i> Edad mínima</a>
+    <a href="#t3"><i>3</i> Tu cuenta</a>
+    <a href="#t4"><i>4</i> Conducta</a>
+    <a href="#t5"><i>5</i> Sanciones y apelaciones</a>
+    <a href="#t6"><i>6</i> Contenido que compartís</a>
+    <a href="#t7"><i>7</i> Propiedad intelectual</a>
+    <a href="#t8"><i>8</i> Responsabilidad</a>
+    <a href="#t9"><i>9</i> Cambios y cierre</a>
 
-            <h3>2. Conducta del Usuario</h3>
-            <p>El acceso a nuestro servidor es un privilegio, no un derecho. Al ingresar a Elysium | ES, te comprometes a:</p>
-            <ul>
-                <li>Respetar estrictamente la Normativa General de Roleplay detallada en nuestro servidor de Discord.</li>
-                <li>Mantener un ambiente de respeto hacia todos los usuarios y miembros del Staff.</li>
-                <li>No utilizar programas de terceros (cheats, mod menus, exploits) que alteren el funcionamiento normal del ecosistema o den ventajas injustas.</li>
-                <li>No realizar publicidad de otros servidores o comunidades (Spam) dentro de nuestras plataformas.</li>
-            </ul>
+    <p class="group">Tienda y aportes</p>
+    <a href="#s1"><i>1</i> Qué estás pagando</a>
+    <a href="#s2"><i>2</i> Sin reembolsos</a>
+    <a href="#s3"><i>3</i> Contracargos</a>
+    <a href="#s4"><i>4</i> Sanciones y beneficios</a>
+    <a href="#s5"><i>5</i> Nada de pay-to-win</a>
+    <a href="#s6"><i>6</i> Problemas con tu compra</a>
 
-            <h3>3. Propiedad Intelectual</h3>
-            <p>"Grand Theft Auto V" y sus marcas asociadas son propiedad exclusiva de Rockstar Games y Take-Two Interactive. Elysium | ES no está afiliado ni respaldado por dichas entidades. El diseño de nuestro sitio web, logotipos, interfaces y scripts personalizados son propiedad de la comunidad.</p>
+    <p class="group">Privacidad</p>
+    <a href="#p1"><i>1</i> Qué datos guardamos</a>
+    <a href="#p2"><i>2</i> Para qué los usamos</a>
+    <a href="#p3"><i>3</i> Cuánto los guardamos</a>
+    <a href="#p4"><i>4</i> Con quién los compartimos</a>
+    <a href="#p5"><i>5</i> Cookies y analítica</a>
+    <a href="#p6"><i>6</i> Tus derechos</a>
+    <a href="#p7"><i>7</i> Seguridad</a>
+  </nav>
 
-            <h3>4. Limitación de Responsabilidad</h3>
-            <p>Elysium | ES no se hace responsable por caídas del servidor, pérdida de datos de los personajes (bienes, dinero in-game, inventario) o interrupciones del servicio debido a mantenimientos técnicos o fallos en las plataformas de alojamiento. El servicio se brinda "tal cual es".</p>
+  <div class="legal">
 
-            <h2>Política de Reembolsos (Store / VIPs)</h2>
-            <p>Esta sección regula todas las transacciones económicas realizadas hacia el servidor a través de nuestra tienda oficial.</p>
+  <!-- ══════ TÉRMINOS ══════ -->
+  <section aria-labelledby="titulo-terminos">
+    <h2 id="titulo-terminos">Términos y condiciones</h2>
 
-            <h3>1. Naturaleza de los Pagos</h3>
-            <p>Cualquier aporte económico realizado a Elysium | ES (adquisición de VIPs, paquetes de vehículos, cosméticos) se considera una <strong>donación voluntaria</strong> para el mantenimiento de la infraestructura del servidor (hosting, bases de datos, licencias y desarrollo). No estás comprando un producto físico ni un servicio garantizado de por vida.</p>
+    <article class="clause" id="t1">
+      <h3>1. Qué es Elysium</h3>
+      <p>Elysium | ES es una comunidad de rol sobre Grand Theft Auto V a través de FiveM. Es un proyecto de entretenimiento sin fines de lucro: no vendemos un producto ni prestamos un servicio comercial garantizado, y el acceso puede modificarse en cualquier momento (por ejemplo, incorporando entrevistas o whitelist) para sostener la calidad del rol.</p>
+      <p>Al conectarte al servidor, entrar al Discord o usar este sitio, aceptás estos términos. Si no estás de acuerdo con alguna parte, no uses nuestros servicios.</p>
+    </article>
 
-            <div class="legal-alert">
-                <strong>2. Política de No Reembolso (No Refunds)</strong><br>
-                Debido a la naturaleza digital e intangible de los beneficios otorgados en el servidor, <strong>todas las transacciones son finales y no reembolsables</strong>. Al completar una donación, el usuario renuncia a su derecho de solicitar devoluciones de dinero.
-            </div>
+    <article class="clause" id="t2">
+      <h3>2. Edad mínima</h3>
+      <p>Grand Theft Auto V tiene clasificación PEGI 18 y ESRB Mature. Para entrar a Elysium tenés que tener <b>16 años cumplidos</b>. Si tenés entre 16 y 17, se entiende que contás con el permiso de tu madre, padre o tutor.</p>
+      <p>Para integrar el equipo de staff el mínimo es de <b>18 años cumplidos</b>, sin excepciones.</p>
+      <p>Si detectamos que alguien no alcanza la edad mínima, su acceso se cierra y sus datos se eliminan. Si sos madre, padre o tutor y querés que borremos la cuenta de un menor a tu cargo, escribinos por Discord.</p>
+    </article>
 
-            <h3>3. Chargebacks (Contracargos)</h3>
-            <p>Cualquier intento de fraude, contracargo a través de tarjetas de crédito, PayPal o entidades bancarias sin contactar previamente a nuestro equipo de Soporte, resultará en el <strong>baneo permanente e irrevocable</strong> de la cuenta del usuario en Elysium | ES y el bloqueo en nuestra pasarela de pagos (Tebex).</p>
+    <article class="clause" id="t3">
+      <h3>3. Tu cuenta</h3>
+      <ul>
+        <li>Una persona, una cuenta. Está prohibido tener cuentas alternativas para esquivar sanciones o duplicar beneficios.</li>
+        <li>No se venden, alquilan, prestan ni intercambian cuentas, personajes ni bienes del juego por dinero real fuera de la tienda oficial.</li>
+        <li>Sos responsable de todo lo que pase desde tu cuenta, aunque la haya usado otra persona.</li>
+        <li>Está prohibido hacerse pasar por otro jugador o por un miembro del staff, dentro y fuera del juego.</li>
+      </ul>
+    </article>
 
-            <h3>4. Pérdida de Beneficios por Sanción</h3>
-            <p>Las donaciones no otorgan inmunidad administrativa ante las reglas de la ciudad. Si un usuario donador es baneado o expulsado por el equipo de Staff debido a infracciones de las normativas de Roleplay o comportamiento tóxico, perderá automáticamente el acceso a sus beneficios in-game y no tendrá derecho a solicitar reembolsos.</p>
+    <article class="clause" id="t4">
+      <h3>4. Conducta</h3>
+      <p>El acceso a Elysium es un privilegio, no un derecho. Al entrar te comprometés a:</p>
+      <ul>
+        <li>Cumplir la <a href="index.html#normativa" style="color:var(--bronze)">normativa de rol</a>, publicada completa en este sitio.</li>
+        <li>Tratar con respeto a jugadores y staff, dentro y fuera del personaje.</li>
+        <li>No usar cheats, mod menus, exploits ni ningún programa que altere el funcionamiento del servidor o dé ventaja injusta.</li>
+        <li>No hacer publicidad de otros servidores o comunidades en nuestras plataformas.</li>
+        <li>No publicar contenido de odio, amenazas, acoso, material sexual con menores ni datos personales de terceros. Esto último se denuncia además ante las autoridades.</li>
+        <li>No intentar acceder sin autorización a nuestra infraestructura, base de datos o paneles administrativos.</li>
+      </ul>
+    </article>
 
-            <h2>Política de Privacidad</h2>
-            <p>Nos tomamos muy en serio la seguridad de los datos de nuestros jugadores. Esta política explica cómo manejamos la información conectada a nuestro servidor.</p>
-            
-            <h3>1. Recopilación de Datos</h3>
-            <p>Al conectarte a Elysium | ES a través de FiveM, nuestro servidor recopila automáticamente ciertos identificadores digitales necesarios para el funcionamiento del juego, tales como: Licencia de Rockstar (Rockstar License ID), Identificador de Discord (Discord ID), Identificador de Steam (Steam HEX) y Dirección IP.</p>
+    <article class="clause" id="t5">
+      <h3>5. Sanciones y apelaciones</h3>
+      <p>Las sanciones se aplican según la gravedad y los antecedentes: van desde una advertencia hasta la expulsión permanente. El staff decide con las pruebas disponibles (registros del servidor, grabaciones, capturas y testimonios).</p>
+      <ul>
+        <li><b>Derecho a apelar:</b> tenés <b>15 días</b> desde la sanción para abrir un ticket en el Discord y presentar tu descargo.</li>
+        <li><b>Respuesta:</b> intentamos responder toda apelación dentro de los 7 días.</li>
+        <li><b>Revisión final:</b> la decisión de la dirección es la última instancia.</li>
+        <li><b>Sin apelación:</b> el uso de cheats, el fraude económico, el contenido sexual con menores y las amenazas reales derivan en expulsión definitiva sin derecho a descargo.</li>
+      </ul>
+      <p>Apelar por vías que no sean el ticket (mensajes privados al staff, menciones públicas, mensajes en otros servidores) no acelera nada y puede extender la sanción.</p>
+    </article>
 
-            <h3>2. Uso de la Información</h3>
-            <p>Estos identificadores se utilizan <strong>exclusivamente</strong> para crear y mantener la base de datos de los personajes (progreso, propiedades, inventario), aplicar sanciones administrativas (baneos) y garantizar la estabilidad del servidor. <strong>Elysium | ES no vende, comparte ni distribuye tu información personal a terceros ni a empresas de publicidad.</strong></p>
+    <article class="clause" id="t6">
+      <h3>6. Contenido que compartís</h3>
+      <p>Todo lo que escribís, decís por voz o subís a nuestras plataformas sigue siendo tuyo, pero al publicarlo nos autorizás a conservarlo y usarlo para moderar la comunidad y difundir el servidor (clips, recortes, capturas en redes sociales y en el tráiler oficial).</p>
+      <p>Podés grabar y transmitir tu propio juego libremente. Tené en cuenta que otras personas aparecerán en esas grabaciones: si alguien te pide que quites un clip donde se lo identifica, respetalo.</p>
+    </article>
 
-        </div>
-    </section>
+    <article class="clause" id="t7">
+      <h3>7. Propiedad intelectual</h3>
+      <p>Grand Theft Auto V, sus marcas y sus contenidos pertenecen a Rockstar Games y Take-Two Interactive. Elysium | ES es un proyecto independiente, sin afiliación ni respaldo de esas empresas.</p>
+      <p>El diseño de este sitio, los logotipos, las interfaces, los mapeados y los scripts propios pertenecen a Elysium | ES. No pueden copiarse, revenderse ni redistribuirse sin autorización escrita.</p>
+      <p>Si creés que algo publicado en nuestras plataformas infringe tus derechos, escribinos por Discord con el detalle y lo revisamos.</p>
+    </article>
 
-    <footer class="site-footer">
-        <h2 class="footer-logo">ELYSIUM <span>RP</span></h2>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Elysium RP. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <article class="clause" id="t8">
+      <h3>8. Responsabilidad</h3>
+      <p>El servicio se brinda tal como está. No garantizamos disponibilidad ininterrumpida ni la conservación del progreso de tu personaje.</p>
+      <p>No nos hacemos responsables por caídas del servidor, mantenimientos, fallas del proveedor de alojamiento, ataques externos ni por la pérdida de bienes, dinero del juego o inventario derivada de errores técnicos. Hacemos copias de seguridad y restauramos cuando es posible, pero no es una garantía.</p>
+      <p>Tampoco respondemos por acuerdos entre jugadores hechos fuera del juego ni por transacciones con dinero real realizadas fuera de la tienda oficial.</p>
+    </article>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        particlesJS("particles-js", {
-            "particles": { 
-                "number": { "value": 30, "density": { "enable": true, "value_area": 800 } }, 
-                "color": { "value": "#00d4ff" }, 
-                "shape": { "type": "circle" }, 
-                "opacity": { "value": 0.5, "random": false }, 
-                "size": { "value": 2, "random": true }, 
-                "line_linked": { "enable": false, "distance": 150, "color": "#00d4ff", "opacity": 0.2, "width": 1 }, 
-                "move": { "enable": true, "speed": 1.0, "direction": "none", "random": true, "out_mode": "out", "bounce": false } 
-            },
-            "interactivity": { 
-                "detect_on": "canvas", 
-                "events": { "onhover": { "enable": false, "mode": "grab" }, "onclick": { "enable": false, "mode": "push" } }
-            }, 
-            "retina_detect": true
-        });
-    </script>
+    <article class="clause" id="t9">
+      <h3>9. Cambios y cierre</h3>
+      <p>Podemos modificar estos términos cuando lo necesitemos. Los cambios importantes se anuncian en el Discord oficial con al menos 7 días de anticipación y la fecha de esta página se actualiza. Seguir conectándote después de ese plazo implica que aceptás la nueva versión.</p>
+      <p>Si el proyecto llegara a cerrar, lo avisaríamos con la mayor anticipación posible. El cierre no genera derecho a reembolso de aportes ya realizados, según la sección siguiente.</p>
+    </article>
+  </section>
+
+  <!-- ══════ TIENDA ══════ -->
+  <section aria-labelledby="titulo-tienda">
+    <h2 id="titulo-tienda">Tienda y aportes</h2>
+    <p class="clause" style="margin-bottom:2.4rem">Esta sección regula todas las transacciones hacia Elysium realizadas a través de nuestra tienda oficial en Tebex. No aceptamos pagos por ningún otro medio: si alguien te pide dinero por fuera, es una estafa.</p>
+
+    <article class="clause" id="s1">
+      <h3>1. Qué estás pagando</h3>
+      <p>Cualquier aporte económico a Elysium | ES (VIP, paquetes de vehículos, cosméticos) es una <b>donación voluntaria</b> destinada a sostener la infraestructura: alojamiento, base de datos, licencias y desarrollo.</p>
+      <p>No estás comprando un producto físico ni un servicio garantizado de por vida. Los beneficios son digitales, están atados a la existencia del servidor y pueden ajustarse por balance.</p>
+    </article>
+
+    <article class="clause clause--flag" id="s2">
+      <h3>2. Sin reembolsos</h3>
+      <p>Por la naturaleza digital e intangible de los beneficios, <b>todas las transacciones son finales y no reembolsables</b>. Al completar una donación renunciás a solicitar la devolución del dinero.</p>
+      <p>La única excepción es un cobro duplicado por error técnico de la pasarela de pago, que devolvemos íntegro al verificarlo.</p>
+    </article>
+
+    <article class="clause" id="s3">
+      <h3>3. Contracargos</h3>
+      <p>Cualquier intento de fraude o contracargo ante tu tarjeta, PayPal o banco sin haber contactado antes a nuestro soporte deriva en la <b>expulsión permanente e irrevocable</b> de la cuenta y en el bloqueo dentro de nuestra pasarela de pagos.</p>
+      <p>Si hubo un problema real con tu compra, abrí un ticket primero: casi siempre se resuelve en el día.</p>
+    </article>
+
+    <article class="clause" id="s4">
+      <h3>4. Sanciones y beneficios</h3>
+      <p>Las donaciones no otorgan inmunidad administrativa. Si un donante es sancionado por incumplir la normativa o por comportamiento tóxico, pierde el acceso a sus beneficios dentro del juego y no tiene derecho a reclamar devolución.</p>
+    </article>
+
+    <article class="clause" id="s5">
+      <h3>5. Nada de pay-to-win</h3>
+      <p>Es un compromiso, no una formalidad: en la tienda no se venden ventajas de combate, dinero del juego ni progreso. Lo que se ofrece es cosmético, de comodidad o de acceso anticipado a contenido que después llega a todos.</p>
+      <p>Si algún artículo de la tienda termina desbalanceando el juego, lo ajustamos o lo retiramos, avisando por Discord.</p>
+    </article>
+
+    <article class="clause" id="s6">
+      <h3>6. Problemas con tu compra</h3>
+      <p>Si pagaste y no recibiste el beneficio, esperá quince minutos y volvé a conectarte. Si sigue sin aparecer, abrí un ticket en el Discord con el número de transacción que te envió Tebex por correo. Tenemos hasta 72 horas para resolverlo, aunque en general se hace mucho antes.</p>
+    </article>
+  </section>
+
+  <!-- ══════ PRIVACIDAD ══════ -->
+  <section aria-labelledby="titulo-privacidad">
+    <h2 id="titulo-privacidad">Política de privacidad</h2>
+
+    <article class="clause" id="p1">
+      <h3>1. Qué datos guardamos</h3>
+      <table class="legal-table">
+        <thead><tr><th>Dato</th><th>Cuándo se toma</th><th>Por qué</th></tr></thead>
+        <tbody>
+          <tr><td>Licencia de Rockstar</td><td>Al conectarte</td><td>Identificar tu cuenta y aplicar sanciones</td></tr>
+          <tr><td>Steam ID (hex)</td><td>Al conectarte</td><td>Identificación secundaria</td></tr>
+          <tr><td>Discord ID</td><td>Al conectarte o al vincularte</td><td>Vincular tickets, roles y avisos</td></tr>
+          <tr><td>Dirección IP</td><td>Al conectarte</td><td>Detectar cuentas alternativas y ataques</td></tr>
+          <tr><td>Datos del personaje</td><td>Mientras jugás</td><td>Guardar progreso, bienes e inventario</td></tr>
+          <tr><td>Registros de juego</td><td>Mientras jugás</td><td>Investigar reportes y resolver apelaciones</td></tr>
+          <tr><td>Formulario de staff</td><td>Al postularte</td><td>Evaluar tu candidatura</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:1.1rem">No pedimos ni almacenamos tu nombre real, tu documento, tu domicilio ni datos de tu tarjeta. Los pagos los procesa Tebex por completo: nosotros solo vemos el comprobante de la transacción.</p>
+    </article>
+
+    <article class="clause" id="p2">
+      <h3>2. Para qué los usamos</h3>
+      <p>Exclusivamente para hacer funcionar la comunidad: mantener la base de datos de personajes, aplicar sanciones, investigar reportes, prevenir fraudes y sostener la estabilidad del servidor.</p>
+      <p><b>No vendemos, compartimos ni cedemos tu información a terceros ni a empresas de publicidad.</b></p>
+    </article>
+
+    <article class="clause" id="p3">
+      <h3>3. Cuánto los guardamos</h3>
+      <ul>
+        <li><b>Datos del personaje:</b> mientras la cuenta esté activa, y hasta 12 meses después de tu última conexión.</li>
+        <li><b>Registros de juego:</b> hasta 6 meses, salvo que estén ligados a una investigación abierta.</li>
+        <li><b>Sanciones:</b> de forma permanente, porque son lo que evita que una expulsión se esquive con una cuenta nueva.</li>
+        <li><b>Postulaciones a staff:</b> hasta 12 meses desde el envío.</li>
+      </ul>
+    </article>
+
+    <article class="clause" id="p4">
+      <h3>4. Con quién los compartimos</h3>
+      <p>Solo con los servicios que necesitamos para funcionar, y solo con lo mínimo indispensable:</p>
+      <ul>
+        <li><b>Discord:</b> tickets, roles, avisos y el formulario de postulación a staff.</li>
+        <li><b>Tebex:</b> procesamiento de pagos de la tienda.</li>
+        <li><b>Google Analytics:</b> estadísticas anónimas de visitas a este sitio.</li>
+        <li><b>El proveedor de alojamiento del servidor:</b> almacenamiento de la base de datos.</li>
+      </ul>
+      <p>También podemos entregar información si nos la requiere una autoridad competente.</p>
+    </article>
+
+    <article class="clause" id="p5">
+      <h3>5. Cookies y analítica</h3>
+      <p>Este sitio usa Google Analytics para saber cuántas personas lo visitan y qué secciones leen. Esas cookies registran datos agregados de navegación y no te identifican personalmente para nosotros.</p>
+      <p>Podés bloquearlas desde la configuración de tu navegador o con el complemento oficial de inhabilitación de Google Analytics, sin perder ninguna función de la página.</p>
+      <p>El formulario de postulación a staff guarda un borrador de tus respuestas y la fecha de tu último envío en el almacenamiento local de tu navegador. Esa información no sale de tu equipo y podés borrarla limpiando los datos del sitio.</p>
+    </article>
+
+    <article class="clause" id="p6">
+      <h3>6. Tus derechos</h3>
+      <p>Podés pedirnos en cualquier momento que te digamos qué datos tuyos tenemos, que corrijamos los que estén mal o que eliminemos tu cuenta y su contenido. Se solicita por ticket en el Discord y respondemos dentro de los 30 días.</p>
+      <p>Una aclaración honesta: eliminar tu cuenta borra tu personaje, tus bienes y tu progreso, y no tiene vuelta atrás. El registro de sanciones se conserva incluso después del borrado, porque sin él la expulsión no significaría nada.</p>
+    </article>
+
+    <article class="clause" id="p7">
+      <h3>7. Seguridad</h3>
+      <p>La base de datos está protegida con credenciales de acceso restringido y solo la dirección técnica puede consultarla. Aun así, ningún sistema es infalible: si llegara a producirse una filtración que afecte tus datos, lo comunicaríamos en el Discord oficial apenas la confirmemos.</p>
+    </article>
+
+    <div class="contact">
+      <h3>¿Dudas sobre algo de esto?</h3>
+      <p>Todo lo que tenga que ver con estos documentos (apelaciones, compras, pedidos de borrado de datos) se gestiona por ticket en el Discord oficial. Es la vía más rápida y la única que deja registro.</p>
+      <a href="https://discord.gg/4mTVJhu3gx" target="_blank" rel="noopener" class="btn">Abrir un ticket en Discord</a>
+    </div>
+  </section>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="index.html" class="mark">ELYSIUM <em>| ES</em></a>
+      <p>Ciudad de rol hispanohablante en FiveM. Infraestructura propia, economía cuidada y una comunidad que juega en serio.</p>
+    </div>
+    <div>
+      <h3>Navegación</h3>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="index.html#mundos">Los mundos</a></li>
+        <li><a href="index.html#entrar">Cómo entrar</a></li>
+        <li><a href="index.html#normativa">Normativa</a></li>
+        <li><a href="staff.html">Postular a staff</a></li>
+        <li><a href="https://elysium-488.tebex.io" target="_blank" rel="noopener">Tienda oficial</a></li>
+        <li><a href="terminos.html">Términos y políticas</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Comunidad</h3>
+      <div class="social">
+        <a href="https://discord.gg/4mTVJhu3gx" target="_blank" rel="noopener" aria-label="Discord">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.2.5c1.6.4 2.9 1 4.1 1.8a13.7 13.7 0 0 0-10.6 0A12 12 0 0 1 12.8 3.5L12.6 3A19.8 19.8 0 0 0 7.7 4.4C4.6 9 3.8 13.4 4.2 17.8A19.9 19.9 0 0 0 10.3 21l.8-1.4c-.9-.3-1.7-.8-2.4-1.3l.5-.4a14.2 14.2 0 0 0 12 0l.5.4c-.7.5-1.5 1-2.4 1.3l.8 1.4a19.9 19.9 0 0 0 6.1-3.2c.5-5.1-.8-9.4-3.9-13.4zM9.7 15.3c-1.2 0-2.1-1.1-2.1-2.4S8.5 10.5 9.7 10.5s2.2 1.1 2.1 2.4c0 1.3-.9 2.4-2.1 2.4zm6.6 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.1 2.4c0 1.3-.9 2.4-2.1 2.4z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@elysiumes.rp" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.8a4.8 4.8 0 0 1-1.1-2.8h-3v12.1a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .7.1V9.5a5.7 5.7 0 1 0 4.9 5.6V9.3a7.8 7.8 0 0 0 4.5 1.4V7.7a4.7 4.7 0 0 1-3.4-1.9z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/elysiumes" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.8a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 9.9a3.9 3.9 0 1 1 0-7.8 3.9 3.9 0 0 1 0 7.8zm7.6-10.1a1.4 1.4 0 1 1-2.8 0 1.4 1.4 0 0 1 2.8 0z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@ElysiumES" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.5 7.2a2.7 2.7 0 0 0-1.9-1.9C18.9 4.8 12 4.8 12 4.8s-6.9 0-8.6.5A2.7 2.7 0 0 0 1.5 7.2C1 8.9 1 12 1 12s0 3.1.5 4.8a2.7 2.7 0 0 0 1.9 1.9c1.7.5 8.6.5 8.6.5s6.9 0 8.6-.5a2.7 2.7 0 0 0 1.9-1.9c.5-1.7.5-4.8.5-4.8s0-3.1-.5-4.8zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-base">
+    <span>© 2026 Elysium | ES Roleplay</span>
+    <span>Proyecto independiente sin relación con Rockstar Games ni Take-Two Interactive.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* Menú en pantallas chicas */
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function () {
+    var open = links.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Cerrar' : 'Menú';
+  });
+  links.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A' && links.classList.contains('is-open')) {
+      links.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = 'Menú';
+    }
+  });
+
+  /* El índice marca la cláusula que estás leyendo */
+  var entries = Array.prototype.slice.call(document.querySelectorAll('.doc-index a'));
+  var targets = entries
+    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+    .filter(Boolean);
+
+  if (!('IntersectionObserver' in window) || !targets.length) return;
+
+  var seen = {};
+  var observer = new IntersectionObserver(function (rows) {
+    rows.forEach(function (row) { seen[row.target.id] = row.isIntersecting; });
+    var current = null;
+    targets.forEach(function (t) { if (seen[t.id] && !current) current = t.id; });
+    if (!current) return;
+    entries.forEach(function (a) {
+      a.classList.toggle('is-here', a.getAttribute('href') === '#' + current);
+    });
+  }, { rootMargin: '-15% 0px -70% 0px' });
+
+  targets.forEach(function (t) { observer.observe(t); });
+})();
+</script>
+
 </body>
 </html>
