@@ -197,10 +197,12 @@ p:last-child{ margin-bottom:0; }
   overflow:hidden;
 }
 .hero-bg{
-  position:absolute; inset:-2%;
+  position:absolute; inset:-6%;
+  transform:scale(1.06);
   background:url('ELYSIUM3.png') center/cover no-repeat;
-  animation:drift 32s ease-in-out infinite alternate;
   z-index:0;
+  will-change:transform;
+  transition:transform .1s linear, margin .5s ease-out;
 }
 .hero-bg::after{
   content:''; position:absolute; inset:0;
@@ -208,7 +210,6 @@ p:last-child{ margin-bottom:0; }
     linear-gradient(to top, var(--ink) 4%, rgba(11,15,13,.82) 42%, rgba(11,15,13,.5) 100%),
     linear-gradient(to right, rgba(11,15,13,.9), rgba(11,15,13,.25) 70%);
 }
-@keyframes drift{ from{ transform:scale(1.04) } to{ transform:scale(1.13) translateY(-1.5%) } }
 
 .hero-inner{ position:relative; z-index:1; width:100%; }
 
@@ -664,11 +665,248 @@ p:last-child{ margin-bottom:0; }
   }
   html{ scroll-behavior:auto; }
 }
+
+/* ═══════════════════════════════════════════════════
+   MOVIMIENTO E INTERACCIÓN
+   ═══════════════════════════════════════════════════ */
+
+/* ── Progreso de lectura ───────────────────────── */
+.readbar{
+  position:fixed; inset:0 auto auto 0; z-index:120;
+  height:2px; width:0; background:var(--bronze);
+  transition:width .12s linear;
+}
+
+/* ── Enlace activo en la barra ─────────────────── */
+.nav-links a.is-here{ opacity:1; color:var(--bronze); }
+.nav-links a.is-here::after{ width:100%; }
+
+/* ── Entrada de la portada ─────────────────────── */
+.hero h1 .l{
+  display:inline-block;
+  opacity:0; transform:translateY(.42em) rotate(2deg);
+  animation:letra .9s cubic-bezier(.2,.75,.25,1) forwards;
+}
+@keyframes letra{ to{ opacity:1; transform:none; } }
+.hero .tagline,.hero .pitch,.hero-actions{
+  opacity:0; animation:sube .9s cubic-bezier(.2,.75,.25,1) forwards;
+}
+.hero .tagline{ animation-delay:.75s; }
+.hero .pitch{ animation-delay:.95s; }
+.hero-actions{ animation-delay:1.1s; }
+@keyframes sube{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+
+.hero-cue{
+  position:absolute; left:var(--gutter); bottom:1.4rem; z-index:2;
+  display:flex; align-items:center; gap:.7rem;
+  font-size:var(--t-xs); letter-spacing:.18em; color:var(--muted);
+  opacity:0; animation:sube .8s 1.6s forwards;
+  transition:opacity .4s ease;
+}
+.hero-cue.is-gone{ opacity:0 !important; pointer-events:none; }
+.hero-cue i{
+  display:block; width:1px; height:2.1rem; background:var(--laurel); position:relative; overflow:hidden;
+}
+.hero-cue i::after{
+  content:''; position:absolute; inset:0; background:var(--bronze);
+  animation:caer 2.1s ease-in-out infinite;
+}
+@keyframes caer{ 0%{ transform:translateY(-100%) } 60%,100%{ transform:translateY(100%) } }
+
+/* ── Estado en vivo ────────────────────────────── */
+.status .num{ font-variant-numeric:tabular-nums; }
+.status .ago{ color:var(--laurel); font-size:var(--t-xs); letter-spacing:.09em; }
+
+/* ── Selector de mundos ────────────────────────── */
+.worlds-pick{
+  display:grid; grid-template-columns:minmax(0,18rem) minmax(0,1fr);
+  gap:clamp(1.5rem,4vw,3.5rem); align-items:start;
+  border-top:var(--rule);
+}
+.world-rail{ border-bottom:var(--rule); }
+.world-rail button{
+  display:grid; grid-template-columns:2.6rem minmax(0,1fr); align-items:baseline;
+  gap:.9rem; width:100%; text-align:left;
+  background:none; border:none; border-bottom:var(--rule);
+  color:var(--muted); font-family:'Jost',sans-serif; font-weight:300;
+  padding:1.15rem .3rem; cursor:pointer;
+  transition:color .3s ease, padding-left .3s ease, background .35s ease;
+}
+.world-rail button:last-child{ border-bottom:none; }
+.world-rail button i{
+  font-style:normal; font-family:'Marcellus',serif; font-size:var(--t-md);
+  color:var(--laurel); transition:color .3s ease;
+}
+.world-rail button span{ font-family:'Marcellus',serif; font-size:var(--t-md); }
+.world-rail button small{
+  display:block; font-family:'Jost',sans-serif; font-size:var(--t-xs);
+  letter-spacing:.11em; margin-top:.15rem;
+}
+.world-rail button:hover{ color:var(--marble); padding-left:.7rem; }
+.world-rail button[aria-selected="true"]{
+  color:var(--marble);
+  background:linear-gradient(90deg,rgba(185,143,82,.09),transparent 70%);
+}
+.world-rail button[aria-selected="true"] i{ color:var(--bronze); }
+
+.world-stage{ position:relative; }
+.world-shot{
+  position:relative; aspect-ratio:16/9; overflow:hidden;
+  background:var(--ink-2); border:1px solid var(--laurel);
+}
+.world-shot img{
+  width:100%; height:100%; object-fit:cover;
+  filter:grayscale(.75) brightness(.6) contrast(1.05);
+  transform:scale(1.06);
+  transition:opacity .6s ease, transform 1.4s cubic-bezier(.2,.7,.3,1), filter .8s ease;
+  position:absolute; inset:0; opacity:0;
+}
+.world-shot img.is-on{ opacity:1; transform:scale(1); filter:grayscale(.35) brightness(.72); }
+.world-shot::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top,rgba(11,15,13,.92),transparent 65%);
+  pointer-events:none;
+}
+.world-shot .tag{
+  position:absolute; left:1.15rem; bottom:1.05rem; z-index:2;
+  font-family:'Marcellus SC',serif; letter-spacing:.2em;
+  font-size:var(--t-xs); color:var(--bronze);
+}
+.world-detail{ padding-top:1.75rem; }
+.world-detail h3{ font-size:var(--t-xl); margin-bottom:.9rem; }
+.world-detail p{ color:var(--muted); }
+.world-facts{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+  gap:1.25rem; margin-top:1.75rem; padding-top:1.5rem; border-top:1px solid var(--bronze-lo);
+}
+.world-facts div{ font-size:var(--t-sm); color:var(--marble); }
+.world-facts b{
+  display:block; font-weight:400; font-size:var(--t-xs);
+  letter-spacing:.14em; color:var(--bronze); margin-bottom:.2rem;
+}
+.world-fade{ animation:entra .55s cubic-bezier(.2,.75,.25,1); }
+@keyframes entra{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+
+.world-state{
+  font-size:var(--t-xs); letter-spacing:.14em; color:var(--muted);
+  display:inline-block; border:1px solid var(--laurel); padding:.25rem .7rem;
+}
+.world-state.is-live{ color:var(--bronze); border-color:var(--bronze-lo); }
+
+/* ── Aparición al desplazar ────────────────────── */
+[data-reveal]{
+  opacity:0; transform:translateY(20px);
+  transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1);
+  transition-delay:var(--d,0ms);
+}
+[data-reveal].is-in{ opacity:1; transform:none; }
+
+/* ── Buscador de la normativa ──────────────────── */
+.rule-find{
+  display:flex; align-items:center; gap:.9rem;
+  border:1px solid var(--laurel); background:var(--ink-2);
+  padding:.2rem .3rem .2rem 1.1rem;
+  margin-bottom:clamp(2rem,4vw,3rem); max-width:34rem;
+  transition:border-color .3s ease;
+}
+.rule-find:focus-within{ border-color:var(--bronze); }
+.rule-find svg{ width:15px; height:15px; fill:var(--muted); flex:none; }
+.rule-find input{
+  flex:1; background:none; border:none; outline:none; color:var(--marble);
+  font-family:'Jost',sans-serif; font-weight:300; font-size:var(--t-base);
+  padding:.8rem 0;
+}
+.rule-find input::placeholder{ color:#5E6A65; }
+.rule-find button{
+  background:none; border:none; color:var(--laurel); cursor:pointer;
+  font-family:'Jost',sans-serif; font-size:var(--t-xs); letter-spacing:.1em;
+  padding:.6rem .9rem; visibility:hidden; transition:color .3s ease;
+}
+.rule-find button.is-on{ visibility:visible; }
+.rule-find button:hover{ color:var(--bronze); }
+.find-count{
+  font-size:var(--t-sm); color:var(--muted); margin:-1.5rem 0 2rem; display:none;
+}
+.find-count.is-on{ display:block; }
+mark{ background:rgba(185,143,82,.22); color:var(--marble); padding:0 .15em; }
+.article[hidden], .chapter-title[hidden]{ display:none; }
+.code-index.is-off{ opacity:.35; pointer-events:none; }
+
+/* ── Visor de imágenes ─────────────────────────── */
+.plate{ cursor:zoom-in; }
+.lb{
+  position:fixed; inset:0; z-index:200;
+  background:rgba(6,9,8,.97);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  display:none; align-items:center; justify-content:center;
+  padding:clamp(2.5rem,6vw,4rem);
+}
+.lb.is-on{ display:flex; animation:fundir .35s ease; }
+@keyframes fundir{ from{ opacity:0 } to{ opacity:1 } }
+.lb img{
+  max-width:100%; max-height:78vh; object-fit:contain;
+  border:1px solid var(--laurel);
+  animation:entra .45s cubic-bezier(.2,.75,.25,1);
+}
+.lb-cap{
+  position:absolute; left:0; right:0; bottom:clamp(1.25rem,4vw,2.5rem);
+  text-align:center; font-family:'Marcellus',serif;
+  font-size:var(--t-md); color:var(--marble);
+}
+.lb-cap small{
+  display:block; font-family:'Jost',sans-serif; font-size:var(--t-xs);
+  letter-spacing:.16em; color:var(--bronze); margin-top:.4rem;
+}
+.lb-btn{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:48px; height:48px; display:grid; place-items:center;
+  background:none; border:1px solid var(--laurel); color:var(--muted);
+  cursor:pointer; transition:color .3s ease, border-color .3s ease;
+}
+.lb-btn:hover{ color:var(--bronze); border-color:var(--bronze-lo); }
+.lb-btn svg{ width:16px; height:16px; fill:currentColor; }
+.lb-prev{ left:clamp(.6rem,2vw,1.5rem); }
+.lb-next{ right:clamp(.6rem,2vw,1.5rem); }
+.lb-close{
+  position:absolute; top:clamp(1rem,3vw,1.75rem); right:clamp(1rem,3vw,1.75rem);
+  background:none; border:1px solid var(--laurel); color:var(--muted);
+  font-family:'Jost',sans-serif; font-size:var(--t-xs); letter-spacing:.11em;
+  padding:.6rem 1rem; cursor:pointer; transition:color .3s ease, border-color .3s ease;
+}
+.lb-close:hover{ color:var(--bronze); border-color:var(--bronze-lo); }
+
+/* ── Volver arriba ─────────────────────────────── */
+.to-top{
+  position:fixed; left:clamp(1rem,3vw,2.25rem); bottom:clamp(1rem,3vw,2.25rem);
+  z-index:90; width:46px; height:46px;
+  display:grid; place-items:center;
+  background:rgba(16,22,19,.94); border:1px solid var(--laurel); color:var(--muted);
+  cursor:pointer;
+  opacity:0; visibility:hidden; transform:translateY(10px);
+  transition:opacity .4s ease, visibility .4s ease, transform .4s ease, color .3s ease, border-color .3s ease;
+}
+.to-top.is-on{ opacity:1; visibility:visible; transform:none; }
+.to-top:hover{ color:var(--bronze); border-color:var(--bronze-lo); }
+.to-top svg{ width:16px; height:16px; fill:currentColor; }
+
+@media (max-width:900px){
+  .worlds-pick{ grid-template-columns:1fr; }
+  .world-rail{ display:flex; overflow-x:auto; border-bottom:var(--rule); scrollbar-width:none; }
+  .world-rail::-webkit-scrollbar{ display:none; }
+  .world-rail button{
+    display:block; border-bottom:none; border-right:var(--rule);
+    white-space:nowrap; padding:1rem 1.25rem;
+  }
+  .world-rail button:hover{ padding-left:1.25rem; }
+  .world-rail button i{ margin-right:.5rem; }
+}
+
 </style>
 </head>
 <body>
 
 <a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="readbar" id="readbar" aria-hidden="true"></div>
 
 <!-- ════════ NAVEGACIÓN ════════ -->
 <header class="nav" id="nav">
@@ -711,12 +949,15 @@ p:last-child{ margin-bottom:0; }
         Unirse al Discord
       </a>
 
-      <p class="status" id="status">
+      <p class="status" id="status" aria-live="polite">
         <span class="dot" aria-hidden="true"></span>
         <span id="statusText">Consultando el estado de la ciudad…</span>
+        <span class="ago" id="statusAgo"></span>
       </p>
     </div>
   </div>
+
+  <p class="hero-cue" id="cue"><i></i> Deslizá para entrar</p>
 </section>
 
 <!-- ════════ BOLETÍN ════════ -->
@@ -736,59 +977,58 @@ p:last-child{ margin-bottom:0; }
 
 <!-- ════════ LOS MUNDOS ════════ -->
 <section class="band band--plain wrap" id="mundos">
-  <div class="band-head">
+  <div class="band-head" data-reveal>
     <h2>Los mundos de Elysium</h2>
     <p class="lede">Elegís a dónde vas al entrar con tu personaje. Cada mundo tiene sus reglas, su economía y su gente: lo que pasa en uno no arrastra a los demás.</p>
   </div>
 
-  <div class="worlds">
-    <article class="world">
-      <div class="world-num">I</div>
-      <div><h3 class="world-name">Rol</h3><span class="world-state is-live">Abierto</span></div>
-      <div class="world-copy"><p>La ciudad de siempre. Vida civil, facciones legales e ilegales, trabajo, economía y consecuencias que quedan en el historial de tu personaje. Es el corazón del servidor y donde se aplica la normativa completa.</p></div>
-    </article>
+  <div class="worlds-pick" data-reveal>
+    <div class="world-rail" role="tablist" aria-label="Mundos del servidor">
+      <button role="tab" aria-selected="true"  aria-controls="mundo-panel" id="w0" data-world="0"><i>I</i><span>Rol<small>Abierto</small></span></button>
+      <button role="tab" aria-selected="false" aria-controls="mundo-panel" id="w1" data-world="1"><i>II</i><span>Cuarentena<small>Abierto</small></span></button>
+      <button role="tab" aria-selected="false" aria-controls="mundo-panel" id="w2" data-world="2"><i>III</i><span>PvP<small>En construcción</small></span></button>
+      <button role="tab" aria-selected="false" aria-controls="mundo-panel" id="w3" data-world="3"><i>IV</i><span>Arena<small>En diseño</small></span></button>
+    </div>
 
-    <article class="world">
-      <div class="world-num">II</div>
-      <div><h3 class="world-name">Cuarentena</h3><span class="world-state is-live">Abierto</span></div>
-      <div class="world-copy"><p>Supervivencia contra hordas. Se entra hablando con el oficial del campamento militar, solo o en grupo de hasta cinco. Diez hordas para salir con vida, pactos que te dan un beneficio a cambio de una maldición, y una segunda arena dentro de Humane Labs para los que ya ganaron.</p></div>
-    </article>
+    <div class="world-stage" id="mundo-panel" role="tabpanel" aria-labelledby="w0" tabindex="0">
+      <div class="world-shot">
+        <img src="fondo-lspd.webp" alt="" class="is-on" data-shot="0">
+        <img src="wp8853423.webp" alt="" data-shot="1" loading="lazy">
+        <img src="police-map-fivem-1536x848.webp" alt="" data-shot="2" loading="lazy">
+        <img src="4903967.webp" alt="" data-shot="3" loading="lazy">
+        <span class="tag" id="wTag">Mundo I</span>
+      </div>
 
-    <article class="world">
-      <div class="world-num">III</div>
-      <div><h3 class="world-name">PvP</h3><span class="world-state">En construcción</span></div>
-      <div class="world-copy"><p>Combate puro, con lobby, modos de juego y recompensas propias. Sin rol de por medio y sin nada que cruce hacia la ciudad.</p></div>
-    </article>
-
-    <article class="world">
-      <div class="world-num">IV</div>
-      <div><h3 class="world-name">Arena</h3><span class="world-state">En diseño</span></div>
-      <div class="world-copy"><p>Peleas organizadas entre personajes fuera de lo humano, con torneos anunciados por Discord y premios para los finalistas.</p></div>
-    </article>
+      <div class="world-detail" id="wDetail">
+        <h3 id="wName">Rol</h3>
+        <p id="wText">La ciudad de siempre. Vida civil, facciones legales e ilegales, trabajo, economía y consecuencias que quedan en el historial de tu personaje. Es el corazón del servidor y donde se aplica la normativa completa.</p>
+        <div class="world-facts" id="wFacts"></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ════════ LA CIUDAD ════════ -->
 <section class="band wrap" id="ciudad">
-  <div class="band-head">
+  <div class="band-head" data-reveal>
     <h2>Qué encontrás acá</h2>
     <p class="lede">Elysium no se sostiene por la cantidad de scripts que tiene, sino por cómo está construida y por quiénes la habitan.</p>
   </div>
 
   <div class="pillars">
-    <article class="pillar">
+    <article class="pillar" data-reveal>
       <h3>Una sola lengua, muchos acentos</h3>
       <p>Argentina, España, México, Chile, Colombia, Perú. Elysium nació para que no haya que elegir servidor por zona horaria ni por país, y hoy esa mezcla es lo que le da su tono.</p>
     </article>
-    <article class="pillar">
+    <article class="pillar" data-reveal>
       <h3>El rol pesa</h3>
       <p>Acá tu personaje no se reinicia. Lo que hace deja huella: deudas, enemistades, antecedentes y reputación. Buscamos interpretación seria, no un mapa con armas.</p>
     </article>
-    <article class="pillar">
+    <article class="pillar" data-reveal>
       <h3>Construida sobre QBox</h3>
       <p>Base QBox, inventario y objetivos de ox, y una base de datos revisada recurso por recurso. Menos carga, menos bugs heredados y más FPS para vos.</p>
     </article>
-    <article class="pillar">
+    <article class="pillar" data-reveal>
       <h3>Normativa a la vista</h3>
       <p>Las reglas están publicadas enteras en esta misma página, con artículos numerados. Nada de criterios que aparecen recién cuando te sancionan.</p>
     </article>
@@ -797,13 +1037,13 @@ p:last-child{ margin-bottom:0; }
 
 <!-- ════════ CÓMO ENTRAR ════════ -->
 <section class="band wrap" id="entrar">
-  <div class="band-head">
+  <div class="band-head" data-reveal>
     <h2>Cómo entrar</h2>
     <p class="lede">Tres pasos. Si ya jugás FiveM, andá directo al tercero.</p>
   </div>
 
   <div class="steps">
-    <article class="step">
+    <article class="step" data-reveal>
       <div class="step-num">I</div>
       <div>
         <h3>Conseguí GTA V</h3>
@@ -816,7 +1056,7 @@ p:last-child{ margin-bottom:0; }
       </div>
     </article>
 
-    <article class="step">
+    <article class="step" data-reveal>
       <div class="step-num">II</div>
       <div>
         <h3>Instalá FiveM</h3>
@@ -827,7 +1067,7 @@ p:last-child{ margin-bottom:0; }
       </div>
     </article>
 
-    <article class="step">
+    <article class="step" data-reveal>
       <div class="step-num">III</div>
       <div>
         <h3>Conectate a Elysium</h3>
@@ -846,25 +1086,25 @@ p:last-child{ margin-bottom:0; }
 
 <!-- ════════ ARCHIVOS ════════ -->
 <section class="band wrap" id="archivos">
-  <div class="band-head">
+  <div class="band-head" data-reveal>
     <h2>Archivos de la ciudad</h2>
     <p class="lede">Calles, uniformes e inframundo. Un vistazo a lo que te espera del otro lado de la consola.</p>
   </div>
 
   <div class="mosaic">
-    <figure class="plate">
+    <figure class="plate" data-reveal>
       <img src="police-map-fivem-1536x848.webp" alt="Mapeado personalizado de la ciudad" loading="lazy">
       <figcaption>Arquitectura propia</figcaption>
     </figure>
-    <figure class="plate">
+    <figure class="plate" data-reveal>
       <img src="4903967.webp" alt="Personajes y vestimenta" loading="lazy">
       <figcaption>Estética y outfits</figcaption>
     </figure>
-    <figure class="plate">
+    <figure class="plate" data-reveal>
       <img src="wp8853423.webp" alt="Bandas y economía ilegal" loading="lazy">
       <figcaption>El inframundo</figcaption>
     </figure>
-    <figure class="plate">
+    <figure class="plate" data-reveal>
       <img src="982-1-1024x576.webp" alt="Departamento de policía de Los Santos" loading="lazy">
       <figcaption>Fuerzas del LSPD</figcaption>
     </figure>
@@ -873,13 +1113,20 @@ p:last-child{ margin-bottom:0; }
 
 <!-- ════════ NORMATIVA ════════ -->
 <section class="band wrap" id="normativa">
-  <div class="band-head">
+  <div class="band-head" data-reveal>
     <h2>Normativa oficial</h2>
     <p class="lede">Desconocer la normativa no exime de cumplirla. Está completa acá, sin letra chica: leela antes de crear tu personaje.</p>
   </div>
 
-  <div class="code-layout">
-    <nav class="code-index" role="tablist" aria-label="Capítulos de la normativa">
+  <div class="rule-find" data-reveal>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+    <input type="search" id="findInput" placeholder="Buscar en la normativa: VDM, secuestro, máscara…" autocomplete="off" aria-label="Buscar en la normativa">
+    <button type="button" id="findClear">Limpiar</button>
+  </div>
+  <p class="find-count" id="findCount"></p>
+
+  <div class="code-layout" data-reveal>
+    <nav class="code-index" id="codeIndex" role="tablist" aria-label="Capítulos de la normativa">
       <button role="tab" aria-selected="true"  aria-controls="c1"  id="t1">  <i>I</i>    Fundamentos narrativos</button>
       <button role="tab" aria-selected="false" aria-controls="c2"  id="t2">  <i>II</i>   Transgresiones</button>
       <button role="tab" aria-selected="false" aria-controls="c3"  id="t3">  <i>III</i>  Violencia y conflicto</button>
@@ -1215,6 +1462,10 @@ p:last-child{ margin-bottom:0; }
   </div>
 </footer>
 
+<button class="to-top" id="toTop" aria-label="Volver arriba">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
 <!-- ════════ RADIO ════════ -->
 <div class="radio" id="radio">
   <button class="radio-toggle" id="radioToggle" aria-label="Abrir la radio de Elysium">
@@ -1241,21 +1492,43 @@ p:last-child{ margin-bottom:0; }
 (function () {
   'use strict';
 
-  /* ── Barra superior ───────────────────────── */
-  var nav = document.getElementById('nav');
-  var onScroll = function () {
-    nav.classList.toggle('is-stuck', window.scrollY > 40);
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
-  /* ── Menú en pantallas chicas ─────────────── */
-  var toggle = document.getElementById('navToggle');
-  var links = document.getElementById('navLinks');
+  /* ══════ BARRA SUPERIOR ══════ */
+  var nav = $('#nav');
+  var readbar = $('#readbar');
+  var cue = $('#cue');
+  var toTop = $('#toTop');
+  var heroBg = $('.hero-bg');
+
+  function alDesplazar() {
+    var y = window.scrollY;
+    var alto = document.documentElement.scrollHeight - window.innerHeight;
+
+    nav.classList.toggle('is-stuck', y > 40);
+    readbar.style.width = (alto > 0 ? (y / alto) * 100 : 0) + '%';
+    toTop.classList.toggle('is-on', y > window.innerHeight * 0.9);
+    if (cue) cue.classList.toggle('is-gone', y > 80);
+    if (heroBg && !quieto && y < window.innerHeight * 1.2) {
+      heroBg.style.transform = 'translateY(' + (y * 0.22).toFixed(1) + 'px) scale(1.06)';
+    }
+  }
+  window.addEventListener('scroll', alDesplazar, { passive: true });
+  alDesplazar();
+
+  toTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: quieto ? 'auto' : 'smooth' });
+  });
+
+  /* ══════ MENÚ EN PANTALLAS CHICAS ══════ */
+  var toggle = $('#navToggle');
+  var links = $('#navLinks');
   toggle.addEventListener('click', function () {
-    var open = links.classList.toggle('is-open');
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.textContent = open ? 'Cerrar' : 'Menú';
+    var abierto = links.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(abierto));
+    toggle.textContent = abierto ? 'Cerrar' : 'Menú';
   });
   links.addEventListener('click', function (e) {
     if (e.target.tagName === 'A' && links.classList.contains('is-open')) {
@@ -1265,25 +1538,148 @@ p:last-child{ margin-bottom:0; }
     }
   });
 
-  /* ── Estado del servidor ──────────────────── */
-  var box = document.getElementById('status');
-  var text = document.getElementById('statusText');
-  var API = 'https://api.codetabs.com/v1/proxy?quest=http://190.55.54.67:30120/dynamic.json';
+  /* ══════ SECCIÓN ACTIVA EN LA BARRA ══════ */
+  var anclas = $$('#navLinks a[href^="#"]');
+  var secciones = anclas.map(function (a) { return $(a.getAttribute('href')); }).filter(Boolean);
+  if ('IntersectionObserver' in window && secciones.length) {
+    var vistas = {};
+    var espia = new IntersectionObserver(function (filas) {
+      filas.forEach(function (f) { vistas[f.target.id] = f.isIntersecting; });
+      var actual = null;
+      secciones.forEach(function (s) { if (vistas[s.id] && !actual) actual = s.id; });
+      anclas.forEach(function (a) {
+        a.classList.toggle('is-here', !!actual && a.getAttribute('href') === '#' + actual);
+      });
+    }, { rootMargin: '-20% 0px -65% 0px' });
+    secciones.forEach(function (s) { espia.observe(s); });
+  }
 
-  fetch(API)
-    .then(function (r) { if (!r.ok) throw new Error('sin respuesta'); return r.json(); })
-    .then(function (d) {
-      box.classList.add('is-online');
-      text.innerHTML = '<strong>' + d.clients + '</strong> de ' + d.sv_maxclients + ' ciudadanos en línea';
-    })
-    .catch(function () {
-      box.classList.add('is-offline');
-      text.textContent = 'La ciudad está en mantenimiento';
+  /* ══════ PORTADA: LETRAS Y PARALAJE ══════ */
+  var h1 = $('.hero h1');
+  if (h1 && !quieto) {
+    var nodo = h1.firstChild;
+    if (nodo && nodo.nodeType === 3) {
+      var texto = nodo.textContent;
+      var envoltorio = document.createDocumentFragment();
+      texto.split('').forEach(function (c, i) {
+        var sp = document.createElement('span');
+        sp.className = 'l';
+        sp.textContent = c;
+        sp.style.animationDelay = (0.12 + i * 0.055) + 's';
+        envoltorio.appendChild(sp);
+      });
+      h1.replaceChild(envoltorio, nodo);
+    }
+  }
+
+  if (heroBg && !quieto && window.matchMedia('(pointer:fine)').matches) {
+    var hero = $('.hero');
+    hero.addEventListener('mousemove', function (e) {
+      var r = hero.getBoundingClientRect();
+      var dx = (e.clientX / r.width - 0.5) * 18;
+      var dy = (e.clientY / r.height - 0.5) * 12;
+      heroBg.style.setProperty('--mx', dx.toFixed(1) + 'px');
+      heroBg.style.setProperty('--my', dy.toFixed(1) + 'px');
+      heroBg.style.marginLeft = dx.toFixed(1) + 'px';
+      heroBg.style.marginTop = dy.toFixed(1) + 'px';
     });
+  }
 
-  /* ── Boletín ──────────────────────────────── */
-  var feed = document.getElementById('feed').children;
-  var fi = 0;
+  /* ══════ ESTADO DEL SERVIDOR ══════ */
+  var caja = $('#status');
+  var texto = $('#statusText');
+  var hace = $('#statusAgo');
+
+  var JOIN = 'kr546a';                              // código de Cfx.re (no cambia nunca)
+  var IP = 'http://190.55.54.67:30120/dynamic.json'; // respaldo por IP directa
+  var CFX = 'https://servers-frontend.fivem.net/api/servers/single/' + JOIN;
+
+  function deCfx(d) {
+    var D = d && d.Data;
+    if (!D) return null;
+    var max = D.sv_maxclients || D.svMaxclients || D.vars && D.vars.sv_maxClients;
+    if (typeof D.clients !== 'number') return null;
+    return { ahora: D.clients, tope: parseInt(max, 10) || 64 };
+  }
+  function deDyn(d) {
+    if (!d || typeof d.clients === 'undefined') return null;
+    return { ahora: parseInt(d.clients, 10), tope: parseInt(d.sv_maxclients, 10) || 64 };
+  }
+
+  var FUENTES = [
+    { url: CFX, leer: deCfx },
+    { url: 'https://api.allorigins.win/raw?url=' + encodeURIComponent(CFX), leer: deCfx },
+    { url: 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(CFX), leer: deCfx },
+    { url: 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(IP), leer: deDyn }
+  ];
+
+  function pedir(fuente) {
+    var corte = null, señal;
+    if ('AbortController' in window) {
+      var ac = new AbortController();
+      señal = ac.signal;
+      corte = setTimeout(function () { ac.abort(); }, 7000);
+    }
+    return fetch(fuente.url, { signal: señal, cache: 'no-store' })
+      .then(function (r) {
+        if (corte) clearTimeout(corte);
+        if (!r.ok) throw new Error(r.status);
+        return r.json();
+      })
+      .then(function (d) {
+        var val = fuente.leer(d);
+        if (!val) throw new Error('formato inesperado');
+        return val;
+      });
+  }
+
+  function probar(i) {
+    i = i || 0;
+    if (i >= FUENTES.length) return Promise.reject(new Error('sin respuesta'));
+    return pedir(FUENTES[i]).catch(function () { return probar(i + 1); });
+  }
+
+  var previo = 0;
+  function contarHasta(el, destino) {
+    if (quieto) { el.textContent = destino; previo = destino; return; }
+    var desde = previo, t0 = performance.now(), dur = 900;
+    (function paso(t) {
+      var k = Math.min((t - t0) / dur, 1);
+      var suave = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(desde + (destino - desde) * suave);
+      if (k < 1) requestAnimationFrame(paso);
+      else previo = destino;
+    })(t0);
+  }
+
+  var ultimo = 0, relojAgo = null;
+  function pintarAgo() {
+    if (!ultimo) return;
+    var s = Math.round((Date.now() - ultimo) / 1000);
+    hace.textContent = s < 10 ? 'recién' : s < 60 ? 'hace ' + s + ' s' : 'hace ' + Math.round(s / 60) + ' min';
+  }
+
+  function consultar() {
+    probar().then(function (d) {
+      caja.classList.remove('is-offline');
+      caja.classList.add('is-online');
+      texto.innerHTML = '<strong class="num" id="numOn">' + previo + '</strong> de ' + d.tope + ' ciudadanos en línea';
+      contarHasta($('#numOn'), d.ahora);
+      ultimo = Date.now();
+      pintarAgo();
+      if (!relojAgo) relojAgo = setInterval(pintarAgo, 10000);
+    }).catch(function () {
+      caja.classList.remove('is-online');
+      caja.classList.add('is-offline');
+      texto.textContent = 'No pudimos leer el estado de la ciudad';
+      hace.textContent = '';
+    });
+  }
+  consultar();
+  setInterval(consultar, 60000);
+
+  /* ══════ BOLETÍN ══════ */
+  var feed = $('#feed').children, fi = 0;
   if (feed.length > 1) {
     setInterval(function () {
       feed[fi].classList.remove('is-on');
@@ -1292,106 +1688,335 @@ p:last-child{ margin-bottom:0; }
     }, 6500);
   }
 
-  /* ── Copiar el comando ────────────────────── */
-  var copyBtn = document.getElementById('copyBtn');
+  /* ══════ COPIAR EL COMANDO ══════ */
+  var copyBtn = $('#copyBtn');
   copyBtn.addEventListener('click', function () {
-    var cmd = document.getElementById('cmd').textContent.trim();
-    var done = function () {
+    var cmd = $('#cmd').textContent.trim();
+    var listo = function () {
       copyBtn.textContent = 'Copiado';
       copyBtn.classList.add('done');
-      setTimeout(function () {
-        copyBtn.textContent = 'Copiar';
-        copyBtn.classList.remove('done');
-      }, 2200);
+      setTimeout(function () { copyBtn.textContent = 'Copiar'; copyBtn.classList.remove('done'); }, 2200);
     };
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(cmd).then(done, function () {});
-    } else {
+    if (navigator.clipboard) navigator.clipboard.writeText(cmd).then(listo, function () {});
+    else {
       var t = document.createElement('textarea');
       t.value = cmd; document.body.appendChild(t); t.select();
-      try { document.execCommand('copy'); done(); } catch (e) {}
+      try { document.execCommand('copy'); listo(); } catch (e) {}
       document.body.removeChild(t);
     }
   });
 
-  /* ── Normativa: capítulos ─────────────────── */
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.code-index [role=tab]'));
-  var open = function (tab, focus) {
-    tabs.forEach(function (t) {
+  /* ══════ SELECTOR DE MUNDOS ══════ */
+  var MUNDOS = [
+    {
+      tag: 'Mundo I', nom: 'Rol',
+      txt: 'La ciudad de siempre. Vida civil, facciones legales e ilegales, trabajo, economía y consecuencias que quedan en el historial de tu personaje. Es el corazón del servidor y donde se aplica la normativa completa.',
+      datos: [['Estado', 'Abierto'], ['Normativa', 'Completa'], ['Entrada', 'Al elegir personaje']]
+    },
+    {
+      tag: 'Mundo II', nom: 'Cuarentena',
+      txt: 'Supervivencia contra hordas. Se entra hablando con el oficial del campamento militar, solo o en grupo. Diez hordas para salir con vida, pactos que dan un beneficio a cambio de una maldición, y una segunda arena dentro de Humane Labs para los que ya ganaron.',
+      datos: [['Estado', 'Abierto'], ['Grupo', 'De 1 a 5 jugadores'], ['Entrada', 'Por el campamento militar']]
+    },
+    {
+      tag: 'Mundo III', nom: 'PvP',
+      txt: 'Combate puro, con lobby, modos de juego y recompensas propias. Sin rol de por medio y sin nada que cruce hacia la ciudad.',
+      datos: [['Estado', 'En construcción'], ['Formato', 'Por rondas'], ['Entrada', 'Próximamente']]
+    },
+    {
+      tag: 'Mundo IV', nom: 'Arena',
+      txt: 'Peleas organizadas entre personajes fuera de lo humano, con torneos anunciados por Discord y premios para los finalistas.',
+      datos: [['Estado', 'En diseño'], ['Formato', 'Torneos por Discord'], ['Entrada', 'Próximamente']]
+    }
+  ];
+
+  var railBtns = $$('.world-rail button');
+  var shots = $$('.world-shot img');
+  var wTag = $('#wTag'), wName = $('#wName'), wText = $('#wText'), wFacts = $('#wFacts'), wDetail = $('#wDetail');
+
+  function mostrarMundo(i, foco) {
+    var m = MUNDOS[i];
+    railBtns.forEach(function (b, k) { b.setAttribute('aria-selected', String(k === i)); });
+    shots.forEach(function (img, k) { img.classList.toggle('is-on', k === i); });
+
+    wTag.textContent = m.tag;
+    wName.textContent = m.nom;
+    wText.textContent = m.txt;
+    wFacts.innerHTML = m.datos.map(function (d) {
+      return '<div><b>' + d[0] + '</b>' + d[1] + '</div>';
+    }).join('');
+
+    $('#mundo-panel').setAttribute('aria-labelledby', 'w' + i);
+    if (!quieto) {
+      wDetail.classList.remove('world-fade');
+      void wDetail.offsetWidth;
+      wDetail.classList.add('world-fade');
+    }
+    if (foco) railBtns[i].focus();
+  }
+
+  railBtns.forEach(function (b, i) {
+    b.addEventListener('click', function () { mostrarMundo(i, false); });
+    b.addEventListener('keydown', function (e) {
+      var n = -1;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') n = (i + 1) % railBtns.length;
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') n = (i - 1 + railBtns.length) % railBtns.length;
+      if (e.key === 'Home') n = 0;
+      if (e.key === 'End') n = railBtns.length - 1;
+      if (n >= 0) { e.preventDefault(); mostrarMundo(n, true); }
+    });
+  });
+  mostrarMundo(0, false);
+
+  /* ══════ NORMATIVA: CAPÍTULOS ══════ */
+  var pestañas = $$('.code-index [role=tab]');
+  var indice = $('#codeIndex');
+  var enBusqueda = false;
+
+  function abrirCapitulo(tab, foco) {
+    pestañas.forEach(function (t) {
       var panel = document.getElementById(t.getAttribute('aria-controls'));
       var on = t === tab;
       t.setAttribute('aria-selected', String(on));
       panel.hidden = !on;
     });
-    if (focus) tab.focus();
-  };
-  tabs.forEach(function (tab, i) {
-    tab.addEventListener('click', function () { open(tab, false); });
+    if (foco) tab.focus();
+  }
+  pestañas.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { if (!enBusqueda) abrirCapitulo(tab, false); });
     tab.addEventListener('keydown', function (e) {
+      if (enBusqueda) return;
       var n = null;
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') n = tabs[(i + 1) % tabs.length];
-      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') n = tabs[(i - 1 + tabs.length) % tabs.length];
-      if (e.key === 'Home') n = tabs[0];
-      if (e.key === 'End') n = tabs[tabs.length - 1];
-      if (n) { e.preventDefault(); open(n, true); }
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') n = pestañas[(i + 1) % pestañas.length];
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') n = pestañas[(i - 1 + pestañas.length) % pestañas.length];
+      if (e.key === 'Home') n = pestañas[0];
+      if (e.key === 'End') n = pestañas[pestañas.length - 1];
+      if (n) { e.preventDefault(); abrirCapitulo(n, true); }
     });
   });
 
-  /* ── Elysium FM ───────────────────────────── */
-  var radio = document.getElementById('radio');
-  var audio = document.getElementById('audio');
-  var trackEl = document.getElementById('track');
-  var playIcon = document.getElementById('playIcon');
+  /* ══════ NORMATIVA: BUSCADOR ══════ */
+  var campo = $('#findInput');
+  var limpiar = $('#findClear');
+  var cuenta = $('#findCount');
+  var capitulos = $$('.chapter');
+  var articulos = $$('.article');
+
+  articulos.forEach(function (a) { a.setAttribute('data-orig', a.innerHTML); });
+
+  function plano(t) {
+    return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
+  function resaltar(el, termino) {
+    var paseo = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    var nodos = [], n;
+    while ((n = paseo.nextNode())) nodos.push(n);
+
+    nodos.forEach(function (nodo) {
+      var crudo = nodo.nodeValue;
+      var idx = plano(crudo).indexOf(termino);
+      if (idx === -1) return;
+
+      var frag = document.createDocumentFragment();
+      var resto = crudo, base = 0;
+      while (true) {
+        var pos = plano(resto).indexOf(termino);
+        if (pos === -1) { frag.appendChild(document.createTextNode(resto)); break; }
+        frag.appendChild(document.createTextNode(resto.slice(0, pos)));
+        var m = document.createElement('mark');
+        m.textContent = resto.slice(pos, pos + termino.length);
+        frag.appendChild(m);
+        resto = resto.slice(pos + termino.length);
+        if (++base > 40) { frag.appendChild(document.createTextNode(resto)); break; }
+      }
+      nodo.parentNode.replaceChild(frag, nodo);
+    });
+  }
+
+  function restaurar() {
+    articulos.forEach(function (a) {
+      a.innerHTML = a.getAttribute('data-orig');
+      a.hidden = false;
+    });
+    $$('.chapter-title').forEach(function (t) { t.hidden = false; });
+  }
+
+  function buscar(termino) {
+    termino = plano(termino.trim());
+    limpiar.classList.toggle('is-on', termino.length > 0);
+
+    if (termino.length < 2) {
+      enBusqueda = false;
+      restaurar();
+      indice.classList.remove('is-off');
+      cuenta.classList.remove('is-on');
+      var activa = pestañas.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0] || pestañas[0];
+      abrirCapitulo(activa, false);
+      return;
+    }
+
+    enBusqueda = true;
+    restaurar();
+    indice.classList.add('is-off');
+
+    var total = 0;
+    capitulos.forEach(function (cap) {
+      cap.hidden = false;
+      var propios = $$('.article', cap);
+      var hallados = 0;
+      propios.forEach(function (a) {
+        if (plano(a.textContent).indexOf(termino) !== -1) {
+          a.hidden = false;
+          resaltar(a, termino);
+          hallados++;
+        } else {
+          a.hidden = true;
+        }
+      });
+      total += hallados;
+      cap.hidden = hallados === 0;
+    });
+
+    cuenta.classList.add('is-on');
+    cuenta.textContent = total === 0
+      ? 'Ningún artículo menciona eso. Probá con otra palabra.'
+      : total === 1 ? '1 artículo encontrado' : total + ' artículos encontrados';
+  }
+
+  var relojBusca = null;
+  campo.addEventListener('input', function () {
+    clearTimeout(relojBusca);
+    relojBusca = setTimeout(function () { buscar(campo.value); }, 180);
+  });
+  campo.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { campo.value = ''; buscar(''); }
+  });
+  limpiar.addEventListener('click', function () { campo.value = ''; buscar(''); campo.focus(); });
+
+  /* ══════ VISOR DE IMÁGENES ══════ */
+  var laminas = $$('.plate');
+  if (laminas.length) {
+    var visor = document.createElement('div');
+    visor.className = 'lb';
+    visor.setAttribute('role', 'dialog');
+    visor.setAttribute('aria-modal', 'true');
+    visor.setAttribute('aria-label', 'Archivos de la ciudad');
+    visor.innerHTML =
+      '<button class="lb-close" type="button">Cerrar</button>' +
+      '<button class="lb-btn lb-prev" type="button" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4-4.6-4.6z"/></svg></button>' +
+      '<img alt="">' +
+      '<button class="lb-btn lb-next" type="button" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4 4.6 4.6z"/></svg></button>' +
+      '<p class="lb-cap"><span></span><small></small></p>';
+    document.body.appendChild(visor);
+
+    var vImg = $('img', visor);
+    var vTxt = $('.lb-cap span', visor);
+    var vNum = $('.lb-cap small', visor);
+    var actual = 0, antes = null;
+
+    function abrirVisor(i) {
+      actual = (i + laminas.length) % laminas.length;
+      var fig = laminas[actual];
+      var img = $('img', fig);
+      vImg.src = img.getAttribute('src');
+      vImg.alt = img.getAttribute('alt') || '';
+      vTxt.textContent = $('figcaption', fig).textContent;
+      vNum.textContent = (actual + 1) + ' de ' + laminas.length;
+      visor.classList.add('is-on');
+      document.body.style.overflow = 'hidden';
+    }
+    function cerrarVisor() {
+      visor.classList.remove('is-on');
+      document.body.style.overflow = '';
+      if (antes) antes.focus();
+    }
+
+    laminas.forEach(function (fig, i) {
+      fig.setAttribute('tabindex', '0');
+      fig.setAttribute('role', 'button');
+      fig.setAttribute('aria-label', 'Ampliar: ' + $('figcaption', fig).textContent);
+      fig.addEventListener('click', function () { antes = fig; abrirVisor(i); });
+      fig.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); antes = fig; abrirVisor(i); }
+      });
+    });
+
+    $('.lb-close', visor).addEventListener('click', cerrarVisor);
+    $('.lb-prev', visor).addEventListener('click', function () { abrirVisor(actual - 1); });
+    $('.lb-next', visor).addEventListener('click', function () { abrirVisor(actual + 1); });
+    visor.addEventListener('click', function (e) { if (e.target === visor) cerrarVisor(); });
+    document.addEventListener('keydown', function (e) {
+      if (!visor.classList.contains('is-on')) return;
+      if (e.key === 'Escape') cerrarVisor();
+      if (e.key === 'ArrowLeft') abrirVisor(actual - 1);
+      if (e.key === 'ArrowRight') abrirVisor(actual + 1);
+    });
+  }
+
+  /* ══════ APARICIÓN AL DESPLAZAR ══════ */
+  var ocultos = $$('[data-reveal]');
+  if (quieto || !('IntersectionObserver' in window)) {
+    ocultos.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var vistos = [], cuentas = [];
+    ocultos.forEach(function (el) {
+      var padre = el.parentNode;
+      var i = vistos.indexOf(padre);
+      if (i === -1) { vistos.push(padre); cuentas.push(0); i = vistos.length - 1; }
+      el.style.setProperty('--d', Math.min(cuentas[i], 4) * 90 + 'ms');
+      cuentas[i]++;
+    });
+    var ojo = new IntersectionObserver(function (filas) {
+      filas.forEach(function (f) {
+        if (!f.isIntersecting) return;
+        f.target.classList.add('is-in');
+        ojo.unobserve(f.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    ocultos.forEach(function (el) { ojo.observe(el); });
+  }
+
+  /* ══════ ELYSIUM FM ══════ */
+  var radio = $('#radio'), audio = $('#audio'), pista = $('#track'), icono = $('#playIcon');
   var PLAY = 'M8 5v14l11-7z';
-  var PAUSE = 'M6 5h4v14H6zM14 5h4v14h-4z';
-
-  var list = [
-    { file: 'Inner_Light.mp3', name: 'Inner Light' },
-    { file: 'bad-bunny.mp3', name: 'Bad Bunny' },
-    { file: 'omar-courtz.mp3', name: 'Omar Courtz' },
-    { file: 'jhay-co.mp3', name: 'Jhayco' },
-    { file: 'Se_Me_Nota.mp3', name: 'Se Me Nota' },
-    { file: 'soy-favela.mp3', name: 'Soy Favela' },
-    { file: 'ice-cube.mp3', name: 'Ice Cube' }
+  var PAUSA = 'M6 5h4v14H6zM14 5h4v14h-4z';
+  var lista = [
+    { f: 'Inner_Light.mp3', n: 'Inner Light' },
+    { f: 'bad-bunny.mp3', n: 'Bad Bunny' },
+    { f: 'omar-courtz.mp3', n: 'Omar Courtz' },
+    { f: 'jhay-co.mp3', n: 'Jhayco' },
+    { f: 'Se_Me_Nota.mp3', n: 'Se Me Nota' },
+    { f: 'soy-favela.mp3', n: 'Soy Favela' },
+    { f: 'ice-cube.mp3', n: 'Ice Cube' }
   ];
-  var i = 0;
-
-  var load = function (play) {
-    audio.src = list[i].file;
-    trackEl.textContent = list[i].name;
-    if (play) audio.play().catch(function () {});
-  };
-
-  document.getElementById('radioToggle').addEventListener('click', function () {
-    radio.classList.toggle('is-open');
+  var ri = 0;
+  function cargar(sonar) {
+    audio.src = lista[ri].f;
+    pista.textContent = lista[ri].n;
+    if (sonar) audio.play().catch(function () {});
+  }
+  $('#radioToggle').addEventListener('click', function () { radio.classList.toggle('is-open'); });
+  $('#playBtn').addEventListener('click', function () {
+    if (!audio.src) cargar(false);
+    if (audio.paused) audio.play().catch(function () {}); else audio.pause();
   });
-
-  document.getElementById('playBtn').addEventListener('click', function () {
-    if (!audio.src) load(false);
-    if (audio.paused) { audio.play().catch(function () {}); } else { audio.pause(); }
+  $('#nextBtn').addEventListener('click', function () {
+    ri = (ri + 1) % lista.length;
+    cargar(!audio.paused || audio.currentTime > 0);
   });
-
-  document.getElementById('nextBtn').addEventListener('click', function () {
-    i = (i + 1) % list.length;
-    load(!audio.paused || audio.currentTime > 0);
-  });
-
-  audio.addEventListener('ended', function () {
-    i = (i + 1) % list.length;
-    load(true);
-  });
+  audio.addEventListener('ended', function () { ri = (ri + 1) % lista.length; cargar(true); });
   audio.addEventListener('play', function () {
     radio.classList.add('is-playing');
-    playIcon.innerHTML = '<path d="' + PAUSE + '"/>';
-    document.getElementById('playBtn').setAttribute('aria-label', 'Pausar');
+    icono.innerHTML = '<path d="' + PAUSA + '"/>';
+    $('#playBtn').setAttribute('aria-label', 'Pausar');
   });
   audio.addEventListener('pause', function () {
     radio.classList.remove('is-playing');
-    playIcon.innerHTML = '<path d="' + PLAY + '"/>';
-    document.getElementById('playBtn').setAttribute('aria-label', 'Reproducir');
+    icono.innerHTML = '<path d="' + PLAY + '"/>';
+    $('#playBtn').setAttribute('aria-label', 'Reproducir');
   });
-
-  var vol = document.getElementById('vol');
+  var vol = $('#vol');
   audio.volume = parseFloat(vol.value);
   vol.addEventListener('input', function () { audio.volume = parseFloat(vol.value); });
 })();
