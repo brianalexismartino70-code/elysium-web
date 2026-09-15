@@ -1646,6 +1646,11 @@ mark{ background:rgba(185,143,82,.22); color:var(--marble); padding:0 .15em; }
     return pedir(FUENTES[i]).catch(function () { return probar(i + 1); });
   }
 
+  /* Con poca gente conectada, un contador en cero desanima más de lo que suma.
+     Por debajo de este número la portada muestra "Fronteras abiertas" sin cifra.
+     Subilo a 3 o 5 si querés ser más exigente; ponelo en 0 para mostrar siempre. */
+  var MINIMO_VISIBLE = 1;
+
   var previo = 0;
   function contarHasta(el, destino) {
     if (quieto) { el.textContent = destino; previo = destino; return; }
@@ -1669,8 +1674,15 @@ mark{ background:rgba(185,143,82,.22); color:var(--marble); padding:0 .15em; }
       : 'hace ' + Math.round(s / 3600) + ' h';
   }
 
+  function neutral() {
+    caja.classList.remove('is-online', 'is-offline');
+    texto.innerHTML = '<strong>Fronteras abiertas</strong> · entrada libre';
+    hace.textContent = '';
+  }
+
   function consultar() {
     probar().then(function (d) {
+      if (d.ahora < MINIMO_VISIBLE) { neutral(); return; }
       caja.classList.remove('is-offline');
       caja.classList.add('is-online');
       texto.innerHTML = '<strong class="num" id="numOn">' + previo + '</strong> de ' + d.tope + ' ciudadanos en línea';
@@ -1678,13 +1690,7 @@ mark{ background:rgba(185,143,82,.22); color:var(--marble); padding:0 .15em; }
       ultimo = d.sello ? (Date.parse(d.sello) || Date.now()) : Date.now();
       pintarAgo();
       if (!relojAgo) relojAgo = setInterval(pintarAgo, 10000);
-    }).catch(function () {
-      /* Sin número preferimos una línea neutra antes que un cartel de error:
-         la ciudad sigue abierta aunque no podamos contar la gente. */
-      caja.classList.remove('is-online', 'is-offline');
-      texto.innerHTML = '<strong>Fronteras abiertas</strong> · entrada libre';
-      hace.textContent = '';
-    });
+    }).catch(neutral);   /* sin número, línea neutra: la ciudad sigue abierta */
   }
   consultar();
   setInterval(consultar, 60000);
