@@ -292,6 +292,7 @@ p:last-child{ margin-bottom:0; }
 }
 .status.is-online .dot{ background:var(--bronze); animation:beat 2.6s ease-out infinite; }
 .status.is-offline .dot{ background:#8C4A3F; }
+.status .dot{ animation:beat 3.4s ease-out infinite; }
 .status.is-online strong{ color:var(--marble); font-weight:500; }
 @keyframes beat{
   0%{ box-shadow:0 0 0 0 rgba(185,143,82,.5) }
@@ -1604,8 +1605,15 @@ mark{ background:rgba(185,143,82,.22); color:var(--marble); padding:0 .15em; }
     if (!d || typeof d.clients === 'undefined') return null;
     return { ahora: parseInt(d.clients, 10), tope: parseInt(d.sv_maxclients, 10) || 64 };
   }
+  /* estado.json lo publica la acción de GitHub cada 10 minutos.
+     Vive en nuestro propio dominio, así que no hay CORS ni proxies de por medio. */
+  function deLocal(d) {
+    if (!d || d.en_linea !== true || typeof d.jugadores === 'undefined') return null;
+    return { ahora: parseInt(d.jugadores, 10), tope: parseInt(d.tope, 10) || 64, sello: d.actualizado };
+  }
 
   var FUENTES = [
+    { url: 'estado.json', leer: deLocal },
     { url: CFX, leer: deCfx },
     { url: 'https://api.allorigins.win/raw?url=' + encodeURIComponent(CFX), leer: deCfx },
     { url: 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(CFX), leer: deCfx },
@@ -1655,7 +1663,10 @@ mark{ background:rgba(185,143,82,.22); color:var(--marble); padding:0 .15em; }
   function pintarAgo() {
     if (!ultimo) return;
     var s = Math.round((Date.now() - ultimo) / 1000);
-    hace.textContent = s < 10 ? 'recién' : s < 60 ? 'hace ' + s + ' s' : 'hace ' + Math.round(s / 60) + ' min';
+    hace.textContent = s < 20 ? 'recién'
+      : s < 60 ? 'hace ' + s + ' s'
+      : s < 5400 ? 'hace ' + Math.round(s / 60) + ' min'
+      : 'hace ' + Math.round(s / 3600) + ' h';
   }
 
   function consultar() {
@@ -1664,13 +1675,14 @@ mark{ background:rgba(185,143,82,.22); color:var(--marble); padding:0 .15em; }
       caja.classList.add('is-online');
       texto.innerHTML = '<strong class="num" id="numOn">' + previo + '</strong> de ' + d.tope + ' ciudadanos en línea';
       contarHasta($('#numOn'), d.ahora);
-      ultimo = Date.now();
+      ultimo = d.sello ? (Date.parse(d.sello) || Date.now()) : Date.now();
       pintarAgo();
       if (!relojAgo) relojAgo = setInterval(pintarAgo, 10000);
     }).catch(function () {
-      caja.classList.remove('is-online');
-      caja.classList.add('is-offline');
-      texto.textContent = 'No pudimos leer el estado de la ciudad';
+      /* Sin número preferimos una línea neutra antes que un cartel de error:
+         la ciudad sigue abierta aunque no podamos contar la gente. */
+      caja.classList.remove('is-online', 'is-offline');
+      texto.innerHTML = '<strong>Fronteras abiertas</strong> · entrada libre';
       hace.textContent = '';
     });
   }
