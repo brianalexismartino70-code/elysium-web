@@ -17,13 +17,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Marcellus+SC&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1XMC8M5F5X"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-1XMC8M5F5X');
-</script>
+<!-- Aviso de cookies. Google Analytics solo se carga si la persona acepta. -->
+<script src="cookies.js"></script>
 
 <style>
 /* ═══════════════════════════════════════════════════
@@ -1088,7 +1083,7 @@ mark{ background:rgba(185,143,82,.22); color:var(--marble); padding:0 .15em; }
 <section class="band wrap" id="archivos">
   <div class="band-head" data-reveal>
     <h2>Archivos de la ciudad</h2>
-    <p class="lede">Calles, uniformes y zonas peligrosas. Un vistazo a lo que te espera del otro lado de la consola.</p>
+    <p class="lede">Calles, uniformes e inframundo. Un vistazo a lo que te espera del otro lado de la consola.</p>
   </div>
 
   <div class="mosaic">
@@ -1102,7 +1097,7 @@ mark{ background:rgba(185,143,82,.22); color:var(--marble); padding:0 .15em; }
     </figure>
     <figure class="plate" data-reveal>
       <img src="wp8853423.webp" alt="Bandas y economía ilegal" loading="lazy">
-      <figcaption>Zona roja</figcaption>
+      <figcaption>El inframundo</figcaption>
     </figure>
     <figure class="plate" data-reveal>
       <img src="982-1-1024x576.webp" alt="Departamento de policía de Los Santos" loading="lazy">
@@ -1434,6 +1429,7 @@ mark{ background:rgba(185,143,82,.22); color:var(--marble); padding:0 .15em; }
         <li><a href="staff.html">Postular a staff</a></li>
         <li><a href="https://elysium-488.tebex.io" target="_blank" rel="noopener">Tienda oficial</a></li>
         <li><a href="terminos.html">Términos y políticas</a></li>
+        <li><a href="#" data-cookies>Preferencias de cookies</a></li>
       </ul>
     </div>
 
@@ -2000,6 +1996,11 @@ mark{ background:rgba(185,143,82,.22); color:var(--marble); padding:0 .15em; }
   var PAUSA = 'M6 5h4v14H6zM14 5h4v14h-4z';
   var lista = [
     { f: 'Inner_Light.mp3', n: 'Inner Light' },
+    { f: 'bad-bunny.mp3', n: 'Bad Bunny' },
+    { f: 'omar-courtz.mp3', n: 'Omar Courtz' },
+    { f: 'jhay-co.mp3', n: 'Jhayco' },
+    { f: 'Se_Me_Nota.mp3', n: 'Se Me Nota' },
+    { f: 'soy-favela.mp3', n: 'Soy Favela' },
     { f: 'ice-cube.mp3', n: 'Ice Cube' }
   ];
   var ri = 0;
