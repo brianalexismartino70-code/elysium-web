@@ -11,13 +11,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Marcellus+SC&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1XMC8M5F5X"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-1XMC8M5F5X');
-</script>
+<!-- Aviso de cookies. Google Analytics solo se carga si la persona acepta. -->
+<script src="cookies.js"></script>
 
 <style>
 /* ═══════════════════════════════════════════════════
@@ -316,7 +311,7 @@ p:last-child{ margin-bottom:0; }
   <h1>Términos, tienda y privacidad</h1>
   <p class="lede">Las tres reglas que rigen tu relación con Elysium fuera del rol: qué te ofrecemos, qué pasa con tu dinero si aportás a la tienda y qué hacemos con tus datos.</p>
   <div class="page-meta">
-    <span><b>Última actualización</b>14 de septiembre de 2026</span>
+    <span><b>Última actualización</b>21 de septiembre de 2026</span>
     <span><b>Alcance</b>elysiumesrp.com, el servidor de FiveM y el Discord oficial</span>
     <span><b>Vigencia</b>Desde el momento en que te conectás</span>
   </div>
@@ -526,9 +521,21 @@ p:last-child{ margin-bottom:0; }
 
     <article class="clause" id="p5">
       <h3>5. Cookies y analítica</h3>
-      <p>Este sitio usa Google Analytics para saber cuántas personas lo visitan y qué secciones leen. Esas cookies registran datos agregados de navegación y no te identifican personalmente para nosotros.</p>
-      <p>Podés bloquearlas desde la configuración de tu navegador o con el complemento oficial de inhabilitación de Google Analytics, sin perder ninguna función de la página.</p>
-      <p>El formulario de postulación a staff guarda un borrador de tus respuestas y la fecha de tu último envío en el almacenamiento local de tu navegador. Esa información no sale de tu equipo y podés borrarla limpiando los datos del sitio.</p>
+      <p>Este sitio usa Google Analytics para saber cuántas personas lo visitan y qué secciones leen. <b>No se activa hasta que lo aceptás</b> en el aviso que aparece en tu primera visita. Si lo denegás, el código de Analytics ni siquiera se descarga, y si tenías cookies de Analytics de una visita anterior, se borran.</p>
+      <p>Tu elección vale por un año. Pasado ese plazo te volvemos a preguntar. Podés cambiarla en cualquier momento desde el enlace "Preferencias de cookies" al pie de cada página, o desde acá:</p>
+      <p><a href="#" data-cookies class="btn btn--ghost" style="margin-top:.25rem">Cambiar mi elección</a></p>
+
+      <table class="legal-table">
+        <thead><tr><th>Nombre</th><th>Para qué sirve</th><th>Duración</th></tr></thead>
+        <tbody>
+          <tr><td>_ga</td><td>Analytics: distingue visitantes de forma anónima. Solo si aceptás.</td><td>2 años</td></tr>
+          <tr><td>_ga_1XMC8M5F5X</td><td>Analytics: mantiene el estado de la sesión. Solo si aceptás.</td><td>2 años</td></tr>
+          <tr><td>elysium_cookies</td><td>Recuerda si aceptaste o denegaste, para no preguntarte en cada página.</td><td>1 año</td></tr>
+          <tr><td>elysium_staff_draft</td><td>Borrador de tu postulación a staff mientras la escribís.</td><td>Hasta enviarla</td></tr>
+          <tr><td>elysium_staff_apply_date</td><td>Fecha de tu último envío, para la espera entre postulaciones.</td><td>15 días</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:1.1rem">Las tres últimas no son cookies: se guardan en el almacenamiento local de tu navegador, nunca salen de tu equipo y son necesarias para que el sitio funcione, por eso no dependen del aviso. Podés borrarlas limpiando los datos del sitio en tu navegador.</p>
     </article>
 
     <article class="clause" id="p6">
@@ -568,6 +575,7 @@ p:last-child{ margin-bottom:0; }
         <li><a href="staff.html">Postular a staff</a></li>
         <li><a href="https://elysium-488.tebex.io" target="_blank" rel="noopener">Tienda oficial</a></li>
         <li><a href="terminos.html">Términos y políticas</a></li>
+        <li><a href="#" data-cookies>Preferencias de cookies</a></li>
       </ul>
     </div>
     <div>
