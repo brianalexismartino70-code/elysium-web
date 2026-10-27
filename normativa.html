@@ -1,0 +1,57 @@
+---
+layout: base
+title: "Normativa oficial"
+seccion: normativa
+description: "Normativa oficial de rol de Elysium | ES: 11 capítulos y 31 artículos numerados, con índice, buscador y enlace directo a cada artículo."
+---
+{%- assign norma = site.data.normativa -%}
+<header class="pagehead">
+  <nav class="crumbs" aria-label="Ruta de navegación">
+    <ol>
+      <li><a href="/">Inicio</a></li>
+      <li aria-current="page">Normativa</li>
+    </ol>
+  </nav>
+  <p class="kicker">Documento vigente</p>
+  <h1>Normativa oficial</h1>
+  <p class="lede">Desconocer la normativa no exime de cumplirla. Está completa acá, sin letra chica: leela antes de crear tu personaje.</p>
+  <dl class="meta">
+    <div><dt>Versión</dt><dd>{{ norma.version }}</dd></div>
+    <div><dt>Contenido</dt><dd>{{ norma.capitulos.size }} capítulos · 31 artículos numerados</dd></div>
+    <div><dt>Aplicación</dt><dd>Completa en el Mundo I · Roleplay</dd></div>
+  </dl>
+
+  <form class="find" action="/normativa.html" method="get" role="search" style="margin-top:2.25rem">
+    {% include icono.html n="buscar" %}
+    <label class="sr-only" for="buscar-articulo">Buscar en la normativa</label>
+    <input type="search" id="buscar-articulo" name="q" placeholder="Buscar: VDM, secuestro, máscara…" autocomplete="off" data-buscador>
+    <button type="button" data-buscador-limpiar hidden>Limpiar</button>
+    <button type="submit" class="sr-only">Buscar</button>
+  </form>
+  <p class="find-count" data-buscador-cuenta role="status"></p>
+</header>
+
+<div class="wrap doc">
+  <nav class="doc-index" aria-label="Capítulos de la normativa" data-indice>
+    {%- for c in norma.capitulos %}
+    <a href="#{{ c.id }}"><i>{{ c.numero }}</i> {{ c.titulo }}</a>
+    {%- endfor %}
+  </nav>
+  <div class="doc-mobile">
+    <label class="sr-only" for="saltar-capitulo">Ir al capítulo</label>
+    <select id="saltar-capitulo" data-saltar>
+      <option value="">Ir al capítulo…</option>
+      {%- for c in norma.capitulos %}
+      <option value="{{ c.id }}">{{ c.numero }}. {{ c.titulo }}</option>
+      {%- endfor %}
+    </select>
+  </div>
+
+  <div class="doc-body">
+{% include normativa.html %}
+    <div class="doc-tools">
+      <button class="btn btn--ghost btn--sm" type="button" data-imprimir>{% include icono.html n="imprimir" %} Imprimir o guardar en PDF</button>
+      <a class="btn btn--ghost btn--sm" href="/moderacion.html">{% include icono.html n="escudo-check" %} Sanciones y apelaciones</a>
+    </div>
+  </div>
+</div>

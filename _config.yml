@@ -1,0 +1,55 @@
+# ════════════════════════════════════════════════════════════
+#  ELYSIUM | ES — configuración del sitio (Jekyll en GitHub Pages)
+#  GitHub Pages compila el sitio con Jekyll en cada push a main.
+#  Los textos que cambian seguido viven en _data/ y en _posts/.
+#  Guía rápida en README.md.
+# ════════════════════════════════════════════════════════════
+
+title: "Elysium | ES"
+tagline: "Sin fronteras"
+description: "Comunidad de rol hispanohablante en FiveM. Un proyecto de cuatro mundos con normativa pública y una identidad propia."
+url: "https://elysiumesrp.com"
+baseurl: ""
+lang: es
+
+# Sin tema de GitHub Pages: el sitio usa sus propias plantillas (_layouts/)
+theme: null
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+feed:
+  path: feed.xml
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: novedad
+      # Novedades: cada archivo de _posts/ tiene su propia página
+      permalink: /novedades/:title/
+  - scope:
+      path: ""
+    values:
+      image: /assets/img/og/elysium-og.jpg
+
+# Estos archivos son documentación interna o material de trabajo:
+# no se publican en elysiumesrp.com (siguen visibles en el repositorio).
+exclude:
+  - README.md
+  - CAMBIOS_WEB.md
+  - DECISIONES_PENDIENTES_WEB.md
+  - LEGAL_DATA_REQUIRED.md
+  - docs/
+  - legal/
+  - tools/
+  - tests/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+  # Pistas de audio de la radio: sin licencia verificada, no se publican
+  # (ver DECISIONES_PENDIENTES_WEB.md, punto «Radio»).
+  - "*.mp3"

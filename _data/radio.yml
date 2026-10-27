@@ -1,0 +1,14 @@
+# ════════════════════════════════════════════════════════════
+#  Elysium FM (reproductor flotante de la portada).
+#  Está apagado: la lista está vacía y el reproductor no se muestra.
+#  Las pistas anteriores eran canciones comerciales sin licencia verificada
+#  (ver DECISIONES_PENDIENTES_WEB.md, punto «Radio»).
+#
+#  Para volver a activarlo, agregá solo música con licencia que permita
+#  difundirla en el sitio (propia, encargada o libre de regalías):
+#  pistas:
+#    - archivo: /assets/audio/nombre.mp3
+#      titulo: "Nombre de la pista"
+#      licencia: "Tipo de licencia y enlace"
+# ════════════════════════════════════════════════════════════
+pistas: []

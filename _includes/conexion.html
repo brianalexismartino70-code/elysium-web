@@ -1,0 +1,5 @@
+{%- assign cid = include.id | default: "comando" -%}
+<div class="console">
+  <code id="{{ cid }}">connect cfx.re/join/{{ site.data.sitio.conexion.codigo }}</code>
+  <button type="button" data-copiar-de="{{ cid }}" data-copiado="Comando copiado">{% include icono.html n="copiar" %}<span>Copiar</span></button>
+</div>

@@ -1,0 +1,43 @@
+{%- assign sitio = site.data.sitio -%}
+<header class="site-header{% if page.cabecera_sobre %} site-header--over{% endif %}" id="cabecera">
+  <a class="brand" href="/" aria-label="Elysium | ES, ir al inicio">
+    <img src="/assets/img/marca/elysium-logo.png" width="20" height="30" alt="">
+    <span class="mark" aria-hidden="true">ELYSIUM <em>| ES</em></span>
+  </a>
+
+  <nav class="site-nav" id="navegacion" aria-label="Principal">
+    <ul>
+      {%- for item in site.data.navegacion.principal %}
+      <li><a href="{{ item.url }}"{% if page.seccion == item.id %} aria-current="page"{% endif %}>{{ item.texto }}</a></li>
+      {%- endfor %}
+    </ul>
+  </nav>
+
+  <div class="header-actions">
+    <a class="btn btn--sm" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">
+      {% include icono.html n="discord" %} Discord
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" hidden>
+      <i aria-hidden="true"></i><span>Menú</span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Menú principal">
+    <ol>
+      {%- for item in site.data.navegacion.principal %}
+      <li><a href="{{ item.url }}"{% if page.seccion == item.id %} aria-current="page"{% endif %}>{{ item.texto }}</a></li>
+      {%- endfor %}
+    </ol>
+  </nav>
+  <div class="actions">
+    <a class="btn" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">{% include icono.html n="discord" %} Unirse al Discord</a>
+    <a class="btn btn--ghost" href="/como-entrar.html">Cómo entrar</a>
+  </div>
+  <div class="social">
+    {%- for r in sitio.redes %}
+    <a href="{{ r.url }}" target="_blank" rel="noopener" aria-label="{{ r.nombre }}">{% include icono.html n=r.icono %}</a>
+    {%- endfor %}
+  </div>
+</div>

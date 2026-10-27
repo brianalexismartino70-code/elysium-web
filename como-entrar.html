@@ -1,0 +1,143 @@
+---
+layout: pagina
+title: "Cómo entrar a Elysium"
+miga: "Cómo entrar"
+seccion: entrar
+kicker: "Guía para entrar"
+encabezado: "Cómo entrar a Elysium"
+lede: "Todo lo que necesitás para jugar en Elysium desde cero: GTA V original, FiveM y el comando de conexión. Si ya jugás FiveM, andá directo al paso IV."
+description: "Guía paso a paso para entrar a Elysium | ES: conseguir GTA V de forma legítima, instalar FiveM y conectarte con el código oficial de Cfx.re."
+icono_cabecera: mando
+---
+{%- assign sitio = site.data.sitio -%}
+{%- assign fase = sitio.fases[sitio.fase] -%}
+
+<div class="wrap section">
+  <div class="notice{% if sitio.fase != 'abierto' %} notice--patina{% endif %}" style="margin-bottom:clamp(2.5rem,5vw,3.5rem)">
+    {% include icono.html n="info" %}
+    <div>
+      <p><b>Fase actual: {{ fase.etiqueta }} · {{ fase.detalle }}.</b> {{ fase.texto }}</p>
+      {%- if sitio.fase != 'abierto' %}
+      <p style="margin-top:.5rem">Podés seguir los pasos I a III desde ahora para tener todo listo el día de la apertura.</p>
+      {%- endif %}
+    </div>
+  </div>
+
+  <ol class="guide-steps" style="list-style:none;padding:0">
+    <li class="card guide-step" id="paso-1">
+      <span class="n" aria-hidden="true">I</span>
+      <div>
+        <h2 style="font-size:var(--t-xl);margin-bottom:.75rem">Conseguí GTA V para PC</h2>
+        <div class="prose">
+          <p>Necesitás una copia original de <b>Grand Theft Auto V</b> para PC. Las versiones pirateadas no conectan con FiveM. Si ya lo tenés en alguna de estas tiendas, no hace falta comprarlo de nuevo.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn--ghost btn--sm" href="https://store.rockstargames.com/es/game/buy-gta-v" target="_blank" rel="noopener">Rockstar Games {% include icono.html n="externo" %}</a>
+          <a class="btn btn--ghost btn--sm" href="https://store.steampowered.com/app/271590/Grand_Theft_Auto_V/" target="_blank" rel="noopener">Steam {% include icono.html n="externo" %}</a>
+          <a class="btn btn--ghost btn--sm" href="https://store.epicgames.com/es-MX/p/grand-theft-auto-v" target="_blank" rel="noopener">Epic Games {% include icono.html n="externo" %}</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="card guide-step" id="paso-2">
+      <span class="n" aria-hidden="true">II</span>
+      <div>
+        <h2 style="font-size:var(--t-xl);margin-bottom:.75rem">Instalá FiveM</h2>
+        <div class="prose">
+          <p>FiveM es el cliente que te deja entrar a servidores propios de GTA V. Descargalo solamente desde <b>fivem.net</b>, el sitio oficial: evitá instaladores de otras páginas.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn--sm" href="https://fivem.net/" target="_blank" rel="noopener">Descargar FiveM {% include icono.html n="externo" %}</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="card guide-step" id="paso-3">
+      <span class="n" aria-hidden="true">III</span>
+      <div>
+        <h2 style="font-size:var(--t-xl);margin-bottom:.75rem">Vinculá tu cuenta de Rockstar</h2>
+        <div class="prose">
+          <p>Al abrir FiveM por primera vez, iniciá sesión con tu cuenta de Rockstar Games para que FiveM compruebe que tenés el juego. Es un paso de FiveM y de Rockstar: Elysium no ve tu contraseña.</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="card guide-step" id="paso-4">
+      <span class="n" aria-hidden="true">IV</span>
+      <div>
+        <h2 style="font-size:var(--t-xl);margin-bottom:.75rem">Conectate a Elysium</h2>
+        <div class="prose">
+          <p>Con FiveM abierto, apretá <kbd>F8</kbd> para abrir la consola, pegá este comando y apretá <kbd>Enter</kbd>:</p>
+        </div>
+        {% include conexion.html id="comando-guia" %}
+        <div class="prose" style="margin-top:1.25rem">
+          <p>Si tenés FiveM instalado, también podés abrirlo directamente con el botón. La conexión pasa por el sistema oficial de Cfx.re: este sitio no publica la dirección IP del servidor.</p>
+        </div>
+        <div class="actions">
+          <a class="btn{% if sitio.fase != 'abierto' %} btn--ghost{% endif %}" href="fivem://connect/cfx.re/join/{{ sitio.conexion.codigo }}">{% include icono.html n="flecha" %} Abrir en FiveM</a>
+        </div>
+        {%- if sitio.fase != 'abierto' %}
+        <p class="small muted" style="margin-top:1rem">Durante la preapertura el servidor solo acepta al staff y no figura en el listado público de FiveM. Si el código cambia, se actualiza en esta página.</p>
+        {%- endif %}
+      </div>
+    </li>
+  </ol>
+</div>
+
+<section class="wrap section" aria-labelledby="titulo-mundos-acceso">
+  <div class="section-head">
+    <p class="kicker">Servidor y mundos</p>
+    <h2 id="titulo-mundos-acceso">Qué está disponible y qué no</h2>
+    <p class="lede">Los mundos se eligen dentro del mismo proyecto. Hoy, este es el estado de cada uno.</p>
+  </div>
+  <div class="compare">
+    {%- for m in site.data.mundos %}
+    <article class="card">
+      <span class="chip chip--{{ m.estado }}">{{ site.data.estados[m.estado] }}</span>
+      <h3>Mundo {{ m.numero }} · {{ m.nombre }}</h3>
+      <p>{{ m.resumen }}</p>
+    </article>
+    {%- endfor %}
+  </div>
+  <p class="small muted" style="margin-top:1.5rem">Ningún mundo figura como abierto hasta que cualquier persona con GTA V y FiveM pueda entrar.</p>
+</section>
+
+<section class="wrap section" aria-labelledby="titulo-requisitos">
+  <div class="faq-layout">
+    <div>
+      <p class="kicker">Requisitos</p>
+      <h2 id="titulo-requisitos" style="font-size:var(--t-xl);margin-bottom:1rem">Lo que sí hace falta</h2>
+      <div class="prose">
+        <ul>
+          <li>Una copia original de GTA V para PC.</li>
+          <li>FiveM instalado y vinculado con tu cuenta de Rockstar.</li>
+          <li>La edad mínima que fijan los <a href="/terminos.html#t2">términos de uso</a>.</li>
+          <li>Micrófono: la voz es la herramienta principal de interpretación (<a href="/normativa.html#art-8-1">Art. 8.1</a>).</li>
+          <li>Haber leído la <a href="/normativa.html">normativa</a>: desconocerla no exime de cumplirla.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <p class="kicker">Problemas frecuentes</p>
+      <div class="acc">
+        <details>
+          <summary>FiveM no encuentra el servidor</summary>
+          <div class="acc-body"><p>Revisá que el comando esté completo, incluido <code>cfx.re/join/</code>. {% if sitio.fase != 'abierto' %}Durante la preapertura el servidor no aparece en el listado público, así que puede no encontrarse por nombre. {% endif %}Si sigue sin funcionar, mirá las <a class="text-link" href="/novedades/">novedades</a> por si cambió el código.</p></div>
+        </details>
+        <details>
+          <summary>El servidor figura en línea pero no puedo entrar</summary>
+          <div class="acc-body"><p>{% if sitio.fase != 'abierto' %}Es lo esperable durante la preapertura: el acceso está reservado al staff.{% else %}Puede estar lleno o en un reinicio. Esperá unos minutos y volvé a intentar.{% endif %} Para cualquier otro problema, abrí un ticket en el Discord oficial.</p></div>
+        </details>
+        <details>
+          <summary>¿Por qué el sitio no muestra la IP del servidor?</summary>
+          <div class="acc-body"><p>Por seguridad. La conexión por código de Cfx.re es el mecanismo público y oficial de FiveM, y evita exponer datos técnicos que no hacen falta para jugar.</p></div>
+        </details>
+        <details>
+          <summary>Necesito ayuda</summary>
+          <div class="acc-body"><p>El soporte funciona por ticket en el <a class="text-link" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">Discord oficial</a>. Más detalles en <a class="text-link" href="/moderacion.html#soporte">Soporte y tickets</a>.</p></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+---
+layout: base
+---
+<header class="pagehead">
+  <nav class="crumbs" aria-label="Ruta de navegación">
+    <ol>
+      <li><a href="/">Inicio</a></li>
+      {%- if page.ruta %}{% for r in page.ruta %}
+      <li><a href="{{ r.url }}">{{ r.texto }}</a></li>
+      {%- endfor %}{% endif %}
+      <li aria-current="page">{{ page.miga | default: page.title }}</li>
+    </ol>
+  </nav>
+  {%- if page.kicker %}
+  <p class="kicker">{{ page.kicker }}</p>
+  {%- endif %}
+  <h1>{{ page.encabezado | default: page.title }}</h1>
+  {%- if page.lede %}
+  <p class="lede">{{ page.lede }}</p>
+  {%- endif %}
+  {%- if page.meta %}
+  <dl class="meta">
+    {%- for m in page.meta %}
+    <div><dt>{{ m[0] }}</dt><dd>{{ m[1] }}</dd></div>
+    {%- endfor %}
+  </dl>
+  {%- endif %}
+  {%- if page.icono_cabecera %}
+  <svg class="pagehead-art" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".6" aria-hidden="true" focusable="false"><use href="/assets/img/iconos.svg#{{ page.icono_cabecera }}"/></svg>
+  {%- endif %}
+</header>
+
+{{ content }}

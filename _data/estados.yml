@@ -1,0 +1,9 @@
+# Etiquetas visibles de cada estado (mundos, sistemas y fase del proyecto)
+abierto: "Abierto"
+disponible: "Disponible"
+preapertura: "Preapertura"
+pruebas: "En pruebas"
+desarrollo: "En desarrollo"
+diseno: "En diseño"
+confirmar: "Por confirmar"
+mantenimiento: "En mantenimiento"

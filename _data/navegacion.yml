@@ -1,0 +1,46 @@
+# Menú principal. "id" se compara con "seccion" en la cabecera de cada página.
+principal:
+  - id: mundos
+    texto: "Mundos"
+    url: "/#mundos"
+  - id: ciudad
+    texto: "La ciudad"
+    url: "/#ciudad"
+  - id: novedades
+    texto: "Novedades"
+    url: "/novedades/"
+  - id: entrar
+    texto: "Cómo entrar"
+    url: "/como-entrar.html"
+  - id: normativa
+    texto: "Normativa"
+    url: "/normativa.html"
+  - id: comunidad
+    texto: "Comunidad"
+    url: "/comunidad.html"
+  - id: tienda
+    texto: "Tienda"
+    url: "/tienda.html"
+  - id: staff
+    texto: "Staff"
+    url: "/staff.html"
+
+legal:
+  - id: privacidad
+    texto: "Política de privacidad"
+    url: "/privacidad.html"
+  - id: cookies
+    texto: "Política de cookies"
+    url: "/cookies.html"
+  - id: terminos
+    texto: "Términos de uso"
+    url: "/terminos.html"
+  - id: moderacion
+    texto: "Normas de comunidad"
+    url: "/moderacion.html"
+  - id: condiciones-tienda
+    texto: "Condiciones de la tienda"
+    url: "/condiciones-tienda.html"
+  - id: aviso-legal
+    texto: "Aviso legal"
+    url: "/aviso-legal.html"

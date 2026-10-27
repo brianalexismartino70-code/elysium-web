@@ -1,0 +1,94 @@
+{%- if page.titulo_completo -%}
+  {%- assign titulo = page.titulo_completo -%}
+{%- elsif page.title -%}
+  {%- assign titulo = page.title | append: " | " | append: site.title -%}
+{%- else -%}
+  {%- assign titulo = site.title | append: " — " | append: site.tagline -%}
+{%- endif -%}
+{%- assign descripcion = page.description | default: page.resumen | default: site.description | strip_html | normalize_whitespace -%}
+{%- assign imagen = page.image | default: "/assets/img/og/elysium-og.jpg" | absolute_url -%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ titulo | escape }}</title>
+<meta name="description" content="{{ descripcion | escape }}">
+<link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}">
+<meta name="theme-color" content="#0B0F0D">
+<meta name="color-scheme" content="dark">
+{%- if page.noindex %}
+<meta name="robots" content="noindex">
+{%- endif %}
+
+<meta property="og:site_name" content="{{ site.title | escape }}">
+<meta property="og:type" content="{% if page.layout == 'novedad' %}article{% else %}website{% endif %}">
+<meta property="og:title" content="{{ page.title | default: titulo | escape }}">
+<meta property="og:description" content="{{ descripcion | escape }}">
+<meta property="og:url" content="{{ page.url | replace: 'index.html', '' | absolute_url }}">
+<meta property="og:image" content="{{ imagen }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Arte de Elysium | ES: el logotipo sobre una escena de Los Santos">
+<meta property="og:locale" content="es_LA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ page.title | default: titulo | escape }}">
+<meta name="twitter:description" content="{{ descripcion | escape }}">
+<meta name="twitter:image" content="{{ imagen }}">
+{%- if page.layout == 'novedad' %}
+<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+{%- endif %}
+
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/marca/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="application/atom+xml" title="Novedades de Elysium | ES" href="/feed.xml">
+
+<link rel="preload" href="/assets/fonts/marcellus-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/elysium.css?v={{ site.time | date: '%Y%m%d%H%M' }}">
+<script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+
+<!-- Aviso de cookies: Google Analytics solo se carga si la persona lo acepta. -->
+<script src="/cookies.js?v={{ site.time | date: '%Y%m%d%H%M' }}" defer></script>
+<script src="/assets/js/elysium.js?v={{ site.time | date: '%Y%m%d%H%M' }}" defer></script>
+{%- for s in page.scripts %}
+<script src="{{ s }}?v={{ site.time | date: '%Y%m%d%H%M' }}" defer></script>
+{%- endfor %}
+{%- if page.url == '/' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "{{ '/#organizacion' | absolute_url }}",
+      "name": "Elysium | ES",
+      "url": "{{ '/' | absolute_url }}",
+      "logo": "{{ '/assets/img/marca/icono-512.png' | absolute_url }}",
+      "sameAs": [{% for r in site.data.sitio.redes %}"{{ r.url }}"{% unless forloop.last %}, {% endunless %}{% endfor %}]
+    },
+    {
+      "@type": "WebSite",
+      "name": "Elysium | ES",
+      "url": "{{ '/' | absolute_url }}",
+      "inLanguage": "es",
+      "publisher": { "@id": "{{ '/#organizacion' | absolute_url }}" }
+    }
+  ]
+}
+</script>
+{%- elsif page.layout == 'novedad' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ descripcion | jsonify }},
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "inLanguage": "es",
+  "mainEntityOfPage": "{{ page.url | absolute_url }}",
+  "image": "{{ imagen }}",
+  "author": { "@type": "Organization", "name": "Elysium | ES" },
+  "publisher": { "@type": "Organization", "name": "Elysium | ES", "logo": { "@type": "ImageObject", "url": "{{ '/assets/img/marca/icono-512.png' | absolute_url }}" } }
+}
+</script>
+{%- endif %}

@@ -1,0 +1,18 @@
+# ════════════════════════════════════════════════════════════
+#  Creadores de contenido y transmisiones.
+#  Solo se muestran quienes autorizaron por escrito aparecer en el sitio
+#  (autorizado: true). No agregues canales sin ese permiso.
+#
+#  Los reproductores de YouTube o Twitch NO se cargan al abrir la página:
+#  la persona tiene que apretar "reproducir" y aceptar el contenido externo.
+#
+#  Ejemplo (copiá el bloque, quitá los # y completá):
+#  - nombre: "Nombre del canal"
+#    plataforma: twitch        # twitch | youtube | tiktok | kick
+#    url: "https://www.twitch.tv/usuario"
+#    descripcion: "Qué rol hace en la ciudad, en una o dos líneas."
+#    autorizado: true
+#    twitch: "usuario"         # opcional: reproductor de Twitch bajo demanda
+#    youtube: "ID_DEL_VIDEO"   # opcional: video de YouTube bajo demanda
+# ════════════════════════════════════════════════════════════
+lista: []

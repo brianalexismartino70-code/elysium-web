@@ -1,10 +1,19 @@
 # ════════════════════════════════════════════════════════════
 #  Estado de Elysium
-#  Va en:  .github/workflows/estado-servidor.yml
-#  Consulta el servidor desde las máquinas de GitHub, que están
-#  fuera de tu red, y deja el resultado en estado.json.
-#  El paso de diagnóstico nunca corta: siempre llega al final
-#  y prueba todas las vías, aunque las primeras fallen.
+#  Consulta el servidor desde las máquinas de GitHub y deja el
+#  resultado en estado.json, que la web lee desde su propio dominio.
+#  El navegador de quien visita el sitio nunca consulta el servidor
+#  ni servicios de terceros.
+#
+#  Fuentes, en orden:
+#   1. API pública de Cfx.re con el código de conexión (sin secretos).
+#   2. Consulta directa al servidor, SOLO si existe el secreto
+#      FIVEM_ENDPOINT (formato ip:puerto). La dirección no se escribe
+#      en este archivo ni aparece en los registros.
+#      Se configura en: Settings → Secrets and variables → Actions →
+#      New repository secret → Nombre: FIVEM_ENDPOINT.
+#
+#  estado.json solo publica: en_linea, jugadores, tope y actualizado.
 # ════════════════════════════════════════════════════════════
 name: Estado del servidor
 
@@ -28,68 +37,57 @@ jobs:
 
       - name: Consultar el servidor
         shell: bash
+        env:
+          JOIN: kr546a                                # código público de Cfx.re
+          FIVEM_ENDPOINT: ${{ secrets.FIVEM_ENDPOINT }} # opcional, nunca se imprime
         run: |
-          set +e                      # ningún fallo corta el diagnóstico
+          set +e                      # ningún fallo corta la consulta
+          CLIENTS=""; MAX=""
 
-          # ── Editá estas dos líneas si cambian ──
-          JOIN="kr546a"
-          IP="186.18.187.241:30120"
-          # ───────────────────────────────────────
+          # La dirección directa, si existe, queda enmascarada en los registros
+          if [ -n "$FIVEM_ENDPOINT" ]; then
+            echo "::add-mask::$FIVEM_ENDPOINT"
+            echo "::add-mask::${FIVEM_ENDPOINT%%:*}"
+          fi
 
-          CLIENTS=""; MAX=""; VIA=""
-
-          echo "═══════════ 1. API de Cfx.re ═══════════"
-          CODE=$(curl -sS -m 20 -A "Mozilla/5.0" -o cfx.json -w "%{http_code}" \
-                 "https://servers-frontend.fivem.net/api/servers/single/$JOIN" 2>&1)
-          echo "Código HTTP: ${CODE:-sin respuesta}"
-          echo "Respuesta (primeros 300 caracteres):"
-          head -c 300 cfx.json 2>/dev/null; echo; echo
+          echo "── 1. API de Cfx.re ──"
+          CODE=$(curl -s -m 20 -A "ElysiumEstado/1.0" -o cfx.json -w "%{http_code}" \
+                 "https://servers-frontend.fivem.net/api/servers/single/$JOIN" 2>/dev/null)
+          echo "Respuesta HTTP: ${CODE:-sin respuesta}"
           if [ "$CODE" = "200" ]; then
             CLIENTS=$(jq -r '.Data.clients // empty' cfx.json 2>/dev/null)
             MAX=$(jq -r '.Data.sv_maxclients // .Data.svMaxclients // empty' cfx.json 2>/dev/null)
-            NOMBRE=$(jq -r '.Data.hostname // empty' cfx.json 2>/dev/null)
-            echo "Nombre del servidor: ${NOMBRE:-no vino}"
-            [ -n "$CLIENTS" ] && VIA="cfx"
           elif [ "$CODE" = "404" ]; then
-            echo ">> Cfx.re no tiene ningún servidor listado con el código $JOIN."
-            echo ">> O el servidor está apagado, o el código cambió, o está sin listar."
+            echo "El código no figura en el listado público (servidor apagado, oculto o con otro código)."
           fi
-          echo "Jugadores por esta vía: ${CLIENTS:-ninguno}"
-          echo
 
-          echo "═══════════ 2. Tu IP directa ═══════════"
-          echo "Si algo de acá responde, el puerto 30120 está abierto hacia afuera."
-          for ARCHIVO in info.json dynamic.json; do
-            C=$(curl -sS -m 20 -o "resp-$ARCHIVO" -w "%{http_code}" "http://$IP/$ARCHIVO" 2>&1)
-            echo "  $ARCHIVO → ${C:-sin respuesta}"
-            head -c 200 "resp-$ARCHIVO" 2>/dev/null; echo
-          done
-          if [ -z "$CLIENTS" ] && [ -s resp-dynamic.json ]; then
-            CLIENTS=$(jq -r '.clients // empty' resp-dynamic.json 2>/dev/null)
-            MAX=$(jq -r '.sv_maxclients // empty' resp-dynamic.json 2>/dev/null)
-            [ -n "$CLIENTS" ] && VIA="ip"
+          if [ -z "$CLIENTS" ] && [ -n "$FIVEM_ENDPOINT" ]; then
+            echo "── 2. Consulta directa (dirección protegida) ──"
+            C=$(curl -s -m 20 -o dynamic.json -w "%{http_code}" "http://$FIVEM_ENDPOINT/dynamic.json" 2>/dev/null)
+            echo "Respuesta HTTP: ${C:-sin respuesta}"
+            if [ "$C" = "200" ]; then
+              CLIENTS=$(jq -r '.clients // empty' dynamic.json 2>/dev/null)
+              MAX=$(jq -r '.sv_maxclients // empty' dynamic.json 2>/dev/null)
+            fi
+          elif [ -z "$CLIENTS" ]; then
+            echo "Sin secreto FIVEM_ENDPOINT: no se hace la consulta directa."
           fi
-          echo
 
-          echo "═══════════ VEREDICTO ═══════════"
-          if [ -n "$CLIENTS" ]; then
-            echo "El servidor responde por '$VIA' con $CLIENTS jugadores."
-          else
-            echo "Ninguna vía respondió."
-            echo "Si arriba ves 404 en Cfx y nada en tu IP, el servidor no es"
-            echo "alcanzable desde internet: revisá que esté prendido, que el"
-            echo "puerto 30120 esté abierto en TCP y UDP, y que la IP sea la actual."
-          fi
+          # Solo números: nada de texto del servidor llega a estado.json
+          case "$CLIENTS" in ''|*[!0-9]*) CLIENTS="" ;; esac
+          case "$MAX" in ''|*[!0-9]*) MAX="" ;; esac
 
           AHORA=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           if [ -z "$CLIENTS" ]; then
-            printf '{"en_linea":false,"actualizado":"%s"}\n' "$AHORA" > estado.json
+            echo "Veredicto: ninguna vía respondió."
+            jq -cn --arg t "$AHORA" '{en_linea: false, actualizado: $t}' > estado.json
           else
-            printf '{"en_linea":true,"jugadores":%s,"tope":%s,"via":"%s","actualizado":"%s"}\n' \
-              "$CLIENTS" "${MAX:-64}" "$VIA" "$AHORA" > estado.json
+            echo "Veredicto: en línea con $CLIENTS personas conectadas."
+            jq -cn --argjson j "$CLIENTS" --argjson m "${MAX:-64}" --arg t "$AHORA" \
+              '{en_linea: true, jugadores: $j, tope: $m, actualizado: $t}' > estado.json
           fi
           echo "${CLIENTS:-vacio}" > .jugadores
-          rm -f cfx.json resp-info.json resp-dynamic.json
+          rm -f cfx.json dynamic.json
           exit 0
 
       - name: Publicar solo si cambió el número
@@ -108,5 +106,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add estado.json
           git commit -m "Estado: $NUEVO jugadores"
-          git push
+          git push || { git pull --rebase && git push; }
           exit 0

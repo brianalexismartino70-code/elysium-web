@@ -1,0 +1,15 @@
+# Capítulos de la normativa (índice). El texto completo está en
+# _includes/normativa.html: si cambiás un título, cambialo en los dos lugares.
+version: "Publicada el 14/09/2026"
+capitulos:
+  - { id: cap-1,  numero: "I",    titulo: "Fundamentos narrativos" }
+  - { id: cap-2,  numero: "II",   titulo: "Transgresiones" }
+  - { id: cap-3,  numero: "III",  titulo: "Violencia y conflicto" }
+  - { id: cap-4,  numero: "IV",   titulo: "Estados y memoria" }
+  - { id: cap-5,  numero: "V",    titulo: "Interacción técnica" }
+  - { id: cap-6,  numero: "VI",   titulo: "Zonas seguras" }
+  - { id: cap-7,  numero: "VII",  titulo: "Identidad y estética" }
+  - { id: cap-8,  numero: "VIII", titulo: "Comunicación" }
+  - { id: cap-9,  numero: "IX",   titulo: "Secuestros" }
+  - { id: cap-10, numero: "X",    titulo: "Préstamos y deudas" }
+  - { id: cap-11, numero: "XI",   titulo: "Bloqueos y abusos" }
