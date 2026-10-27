@@ -225,7 +225,7 @@
           }
         } else {
           vivo.classList.add('is-offline');
-          texto.textContent = 'El servidor no respondió en la última consulta';
+          texto.textContent = 'No se pudo confirmar el estado del servidor';
         }
         if (hace) hace.textContent = sello ? 'Dato ' + haceCuanto(edad) + (viejo ? ' · puede estar desactualizado' : '') : '';
       });

@@ -206,7 +206,7 @@ const navegador = await chromium.launch();
 {
   const casos = [
     { nombre: 'en línea', json: { en_linea: true, jugadores: 7, tope: 48, actualizado: new Date().toISOString() }, espera: /Servidor en línea · 7 de 48 conectados/ },
-    { nombre: 'sin respuesta', json: { en_linea: false, actualizado: new Date().toISOString() }, espera: /no respondió/ },
+    { nombre: 'sin respuesta', json: { en_linea: false, actualizado: new Date().toISOString() }, espera: /No se pudo confirmar/ },
     { nombre: 'dato viejo', json: { en_linea: true, jugadores: 2, tope: 48, actualizado: new Date(Date.now() - 30 * 3600e3).toISOString() }, espera: /desactualizado/ },
     { nombre: 'archivo ausente', estado: 404, espera: /no disponible/ }
   ];

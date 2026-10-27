@@ -23,7 +23,7 @@ Consecuencias:
 - **Navegador:** `assets/js/elysium.js` solo lee `/estado.json`, del mismo dominio. No hay IP, puerto, proxies ni consultas a terceros. Se consulta al cargar y cada 5 minutos con la pestaña visible.
 - **Workflow:** la consulta directa usa el secreto `FIVEM_ENDPOINT` (formato `ip:puerto`). La dirección no está en el archivo, se enmascara en los registros (`::add-mask::`) y los errores de `curl` no se imprimen. Sin el secreto, solo se usa la API pública de Cfx.re.
 - **`estado.json`:** solo publica `en_linea`, `jugadores`, `tope` y `actualizado`. Se quitó `via` y se valida que los valores sean números, para que ningún texto del servidor llegue al sitio.
-- **Honestidad del indicador:** si el dato tiene más de 12 horas se muestra como posiblemente desactualizado; si el servidor no respondió, se dice eso; si no hay archivo, «Estado en vivo no disponible». Por debajo de 1 persona conectada no se muestra cifra (criterio que ya tenía el sitio).
+- **Honestidad del indicador:** si el dato tiene más de 12 horas se muestra como posiblemente desactualizado; si ninguna fuente respondió, se dice que no se pudo confirmar el estado; si no hay archivo, «Estado en vivo no disponible». Por debajo de 1 persona conectada no se muestra cifra (criterio que ya tenía el sitio).
 - **Conexión:** el botón y el comando usan el código público de Cfx.re (`cfx.re/join/<código>`), nunca la IP.
 
 ## Lo que tiene que hacer la administración

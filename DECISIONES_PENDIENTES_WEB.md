@@ -69,7 +69,7 @@
 ## 10. Estado del servidor y seguridad
 
 - Detalle técnico en [`docs/SEGURIDAD_ESTADO.md`](docs/SEGURIDAD_ESTADO.md).
-- **Acción necesaria del dueño:** crear el secreto `FIVEM_ENDPOINT` (Settings → Secrets and variables → Actions → New repository secret) con el valor `ip:puerto` del servidor. Sin ese secreto, el estado depende del listado público de Cfx.re, que hoy responde 404, y el sitio mostrará «El servidor no respondió en la última consulta».
+- **Acción necesaria del dueño:** crear el secreto `FIVEM_ENDPOINT` (Settings → Secrets and variables → Actions → New repository secret) con el valor `ip:puerto` del servidor. Sin ese secreto, el estado depende del listado público de Cfx.re, que hoy responde 404, y el sitio mostrará «No se pudo confirmar el estado del servidor».
 - **Evaluar:** la IP sigue en el historial de git y en registros viejos de GitHub Actions. Ver opciones en el documento de seguridad.
 
 ## 11. Foro
