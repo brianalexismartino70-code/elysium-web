@@ -66,13 +66,12 @@ Las pruebas se hicieron con un servidor local sin compresión. No equivalen a un
 
 ## Publicación
 
-GitHub Pages publica la rama `main`. La renovación se integra en `main` con un commit de fusión, de modo que toda la renovación se puede revertir de una sola vez.
+GitHub Pages publica la rama `main`. La renovación se integró en `main` el 27/10/2026 con el commit de fusión **`1cf243e`** («Publicar la renovación del sitio»), sobre `c94fbe9` (último commit del bot de estado). Así, toda la renovación se puede revertir de una sola vez.
 
 ### Cómo volver a la versión anterior
 
-1. Buscar el commit de fusión de la renovación en `main` («Publicar la renovación del sitio»).
-2. Revertirlo: `git revert -m 1 <hash-del-merge>` y hacer push a `main`. GitHub Pages vuelve a publicar la versión anterior en uno o dos minutos.
-3. Alternativa: crear una rama desde `af3b7da` para consultar el sitio anterior.
+1. Revertir la fusión: `git revert -m 1 1cf243e` y hacer push a `main`. GitHub Pages vuelve a publicar la versión anterior en uno o dos minutos. Los commits posteriores del bot de estado no interfieren: solo tocan `estado.json`.
+2. Para consultar el sitio anterior sin publicarlo: `git checkout c94fbe9` (o crear una rama desde ese commit).
 
 ### Revisión después de publicar
 
