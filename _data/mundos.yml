@@ -1,0 +1,55 @@
+# ════════════════════════════════════════════════════════════
+#  Los cuatro mundos de Elysium.
+#  estado: preapertura | abierto | pruebas | desarrollo | diseno
+#  No marques un mundo como "abierto" hasta que cualquiera pueda entrar.
+#  Las imágenes son ilustraciones conceptuales, no capturas del servidor.
+# ════════════════════════════════════════════════════════════
+
+- numero: "I"
+  nombre: "Roleplay"
+  estado: preapertura
+  imagen: /mundo-1.svg
+  alt: "Ilustración conceptual: horizonte de la ciudad al atardecer"
+  resumen: "La ciudad: vida civil, facciones, trabajo y economía."
+  texto: "La ciudad de siempre. Vida civil, facciones legales e ilegales, trabajo, economía y consecuencias que quedan en el historial de tu personaje. Es el corazón del proyecto, el primero en abrir y donde se aplica la normativa completa."
+  datos:
+    - ["Estado", "Preapertura, solo staff"]
+    - ["Normativa", "Completa"]
+    - ["Entrada", "Al elegir personaje"]
+
+- numero: "II"
+  nombre: "Cuarentena"
+  estado: pruebas
+  imagen: /mundo-2.svg
+  alt: "Ilustración conceptual: perímetro militar con reflectores y una horda al otro lado del alambrado"
+  resumen: "Supervivencia contra hordas, en pruebas."
+  texto: "Supervivencia contra hordas. El diseño actual: se entra hablando con el oficial del campamento militar, solo o en grupo; diez hordas para salir con vida, pactos que dan un beneficio a cambio de una maldición y una segunda arena dentro de Humane Labs para quienes ya ganaron. Todavía está en pruebas, así que los detalles pueden cambiar."
+  datos:
+    - ["Estado", "En pruebas"]
+    - ["Grupo previsto", "De 1 a 5 jugadores"]
+    - ["Entrada prevista", "Por el campamento militar"]
+
+- numero: "III"
+  nombre: "PvP"
+  estado: desarrollo
+  imagen: /mundo-3.svg
+  alt: "Ilustración conceptual: retícula táctica con dos formaciones enfrentadas"
+  resumen: "Combate por rondas, proyecto posterior."
+  texto: "Combate puro, con lobby, modos de juego y recompensas propias. Sin rol de por medio y sin nada que cruce hacia la ciudad. Es un proyecto posterior a la apertura del Mundo I."
+  datos:
+    - ["Estado", "En desarrollo"]
+    - ["Formato previsto", "Por rondas"]
+    - ["Entrada", "Sin fecha"]
+
+- numero: "IV"
+  nombre: "Arena"
+  nota: "Nombre provisional"
+  estado: diseno
+  imagen: /mundo-4.svg
+  alt: "Ilustración conceptual: coliseo con dos figuras enfrentadas y una descarga entre ellas"
+  resumen: "Personajes fuera de lo humano, en diseño."
+  texto: "Peleas organizadas entre personajes fuera de lo humano, con torneos anunciados por Discord. Es un proyecto en diseño: el nombre y el formato definitivos están por confirmar."
+  datos:
+    - ["Estado", "En diseño"]
+    - ["Formato previsto", "Torneos"]
+    - ["Entrada", "Sin fecha"]

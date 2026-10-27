@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+{% include head.html %}
+</head>
+<body{% if page.body_class %} class="{{ page.body_class }}"{% endif %} data-fase="{{ site.data.sitio.fase }}" data-minimo="{{ site.data.sitio.estado.minimo_visible }}" data-horas="{{ site.data.sitio.estado.horas_validez }}">
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="readbar" id="readbar" aria-hidden="true"></div>
+
+{% include header.html %}
+
+<main id="contenido" tabindex="-1">
+{{ content }}
+</main>
+
+{% include footer.html %}
+
+<button class="to-top" id="toTop" type="button" aria-label="Volver arriba">
+  {% include icono.html n="arriba" %}
+</button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

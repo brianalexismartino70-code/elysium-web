@@ -1,0 +1,46 @@
+---
+layout: pagina
+title: "Tienda oficial"
+miga: "Tienda"
+seccion: tienda
+kicker: "Tienda oficial"
+encabezado: "Antes de ir a la tienda"
+lede: "La tienda oficial de Elysium funciona en Tebex, una plataforma externa de pagos. Esta página reúne lo que conviene saber antes de comprar."
+description: "Información sobre la tienda oficial de Elysium | ES en Tebex: cómo se paga, dónde están las condiciones y cómo pedir ayuda con una compra."
+icono_cabecera: tienda
+---
+{%- assign sitio = site.data.sitio -%}
+<div class="wrap section">
+  <div class="notice notice--patina" style="margin-bottom:clamp(2.5rem,5vw,3.5rem)">
+    {% include icono.html n="info" %}
+    <p><b>Política de la tienda en revisión.</b> Estamos revisando cómo se describen los productos y sus beneficios. Hasta que se publique la política definitiva, la referencia para cada compra es la descripción del producto y las condiciones que muestra Tebex al pagar.</p>
+  </div>
+
+  <div class="shop-grid">
+    <article class="card">
+      <span class="system-icon">{% include icono.html n="escudo-check" %}</span>
+      <h2 style="font-size:var(--t-lg);margin:.9rem 0 .6rem">El pago lo procesa Tebex</h2>
+      <p>Tebex cobra y gestiona el pago. Elysium no recibe ni guarda los datos de tu tarjeta: solo ve el comprobante de la transacción.</p>
+    </article>
+    <article class="card">
+      <span class="system-icon">{% include icono.html n="alerta" %}</span>
+      <h2 style="font-size:var(--t-lg);margin:.9rem 0 .6rem">Solo por la tienda oficial</h2>
+      <p>Elysium no acepta pagos por ningún otro medio. Si alguien te pide dinero por fuera de la tienda, es una estafa: reportalo por ticket.</p>
+    </article>
+    <article class="card">
+      <span class="system-icon">{% include icono.html n="ticket" %}</span>
+      <h2 style="font-size:var(--t-lg);margin:.9rem 0 .6rem">Problemas con una compra</h2>
+      <p>Si pagaste y no recibiste lo comprado, esperá quince minutos y volvé a conectarte. Si sigue igual, abrí un ticket con el número de transacción que te envió Tebex.</p>
+    </article>
+  </div>
+
+  <div class="card frame" style="margin-top:clamp(2rem,4vw,3rem);display:grid;gap:1.25rem;justify-items:start">
+    <p class="kicker kicker--plain" style="margin:0">Sitio externo</p>
+    <h2 style="font-size:var(--t-xl)">Tienda oficial en Tebex</h2>
+    <p class="muted" style="margin:0">Se abre en <b>elysium-488.tebex.io</b>, con sus propias condiciones de compra y su propia política de privacidad.</p>
+    <div class="actions">
+      <a class="btn" href="{{ sitio.enlaces.tienda }}" target="_blank" rel="noopener">{% include icono.html n="tienda" %} Ir a la tienda {% include icono.html n="externo" %}</a>
+      <a class="btn btn--ghost" href="/condiciones-tienda.html">Leer las condiciones de la tienda</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+{%- assign sitio = site.data.sitio -%}
+{%- assign fase = sitio.fases[sitio.fase] -%}
+<div class="plaque frame" data-estado>
+  <div class="plaque-head">
+    <p class="plaque-title">Mundo I · Estado</p>
+    <span class="chip chip--{{ sitio.fase }}">{{ fase.etiqueta }}</span>
+  </div>
+  <p>{{ fase.texto }}</p>
+  <p class="live" data-estado-vivo>
+    <span class="dot" aria-hidden="true"></span>
+    <span><span data-estado-texto role="status">Consultando el servidor…</span><span class="ago" data-estado-hace></span></span>
+  </p>
+</div>

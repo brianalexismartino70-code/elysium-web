@@ -1,0 +1,66 @@
+# ════════════════════════════════════════════════════════════
+#  Datos generales del sitio. Cambiá acá, no en cada página.
+# ════════════════════════════════════════════════════════════
+
+# Fase pública del proyecto. Valores posibles:
+#   preapertura   → el servidor existe pero solo entra el staff
+#   abierto       → cualquier persona con GTA V y FiveM puede entrar
+#   mantenimiento → cerrado temporalmente
+# Verificado el 27/10/2026: el servidor se anuncia como
+# "Elysium | ES · PREAPERTURA (solo STAFF)".
+fase: preapertura
+
+fases:
+  preapertura:
+    etiqueta: "Preapertura"
+    detalle: "Acceso reservado al staff"
+    texto: "El Mundo I está en preapertura: por ahora solo entra el staff. Seguí el avance desde el Discord oficial."
+  abierto:
+    etiqueta: "Abierto"
+    detalle: "Entrada libre"
+    texto: "El Mundo I está abierto. Conseguí GTA V, instalá FiveM y conectate."
+  mantenimiento:
+    etiqueta: "En mantenimiento"
+    detalle: "Volvemos pronto"
+    texto: "El servidor está en mantenimiento. Las novedades se publican en el Discord oficial."
+
+# Conexión pública por Cfx.re. No se publica la IP ni el puerto.
+# El 27/10/2026 el listado público de Cfx.re no mostraba este código
+# (respuesta 404), algo esperable si el servidor está oculto durante la
+# preapertura. Confirmalo antes de la apertura (ver DECISIONES_PENDIENTES_WEB.md).
+conexion:
+  codigo: "kr546a"
+  verificado: "2026-10-27"
+
+# Estado en vivo: lo publica la acción "Estado del servidor" en estado.json.
+estado:
+  # Por debajo de este número de personas conectadas no se muestra la cifra.
+  minimo_visible: 1
+  # Pasadas estas horas sin datos nuevos, el estado se muestra como antiguo.
+  horas_validez: 12
+
+enlaces:
+  discord: "https://discord.gg/4mTVJhu3gx"
+  tienda: "https://elysium-488.tebex.io"
+
+redes:
+  - nombre: "Discord"
+    icono: discord
+    url: "https://discord.gg/4mTVJhu3gx"
+    usuario: "Servidor oficial"
+  - nombre: "TikTok"
+    icono: tiktok
+    url: "https://www.tiktok.com/@elysiumes.rp"
+    usuario: "@elysiumes.rp"
+  - nombre: "Instagram"
+    icono: instagram
+    url: "https://www.instagram.com/elysiumes"
+    usuario: "@elysiumes"
+  - nombre: "YouTube"
+    icono: youtube
+    url: "https://www.youtube.com/@ElysiumES"
+    usuario: "@ElysiumES"
+
+# Postulación a staff. "descarga": la persona descarga sus respuestas y las
+# adjunta en un ticket de Discord. No hay envío automático (ver decisiones).
+staff_envio: descarga

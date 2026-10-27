@@ -1,0 +1,12 @@
+{%- assign p = include.post -%}
+{%- assign cat = site.data.novedades[p.categoria] | default: "Novedades" -%}
+{%- assign nivel = include.nivel | default: 3 -%}
+<article class="card card--lift news-card{% if include.destacada %} news-card--feature{% endif %}" data-cat="{{ p.categoria }}" data-tilt>
+  <div class="news-meta">
+    <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%-d/%m/%Y" }}</time>
+    <span>{{ cat }}</span>
+  </div>
+  <h{{ nivel }}><a class="card-link" href="{{ p.url }}">{{ p.title }}</a></h{{ nivel }}>
+  <p>{{ p.resumen }}</p>
+  <span class="more" aria-hidden="true">Leer {% include icono.html n="flecha" %}</span>
+</article>

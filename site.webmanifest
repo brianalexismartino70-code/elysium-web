@@ -1,0 +1,14 @@
+{
+  "name": "Elysium | ES",
+  "short_name": "Elysium",
+  "description": "Comunidad de rol hispanohablante en FiveM.",
+  "lang": "es",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0B0F0D",
+  "theme_color": "#0B0F0D",
+  "icons": [
+    { "src": "/assets/img/marca/icono-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/img/marca/icono-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

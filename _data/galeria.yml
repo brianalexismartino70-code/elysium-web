@@ -1,0 +1,41 @@
+# ════════════════════════════════════════════════════════════
+#  Galería de la portada.
+#  tipo: arte (arte de marca) | concepto (ilustración conceptual) | captura
+#  Usá "captura" SOLO para imágenes tomadas dentro del servidor de Elysium,
+#  con permiso de quien aparece. No uses capturas de otros servidores ni
+#  imágenes descargadas de internet.
+#  "base" apunta a variantes generadas por tools/optimizar_imagenes.py
+#  (-640/-1280 en .avif y .webp); "src" sirve para una imagen única (SVG).
+# ════════════════════════════════════════════════════════════
+- titulo: "Elysium | ES"
+  tipo: arte
+  base: /assets/img/galeria/elysium-arte
+  ancho: 1280
+  alto: 720
+  alt: "Arte promocional de Elysium | ES: el logotipo sobre una calle de Los Santos con un auto deportivo rojo"
+  credito: "Arte de Elysium | ES sobre imágenes de Grand Theft Auto V"
+- titulo: "Mundo I · Roleplay"
+  tipo: concepto
+  src: /mundo-1.svg
+  ancho: 1600
+  alto: 900
+  alt: "Ilustración conceptual: horizonte de la ciudad al atardecer"
+- titulo: "Mundo II · Cuarentena"
+  tipo: concepto
+  src: /mundo-2.svg
+  ancho: 1600
+  alto: 900
+  alt: "Ilustración conceptual: perímetro militar con reflectores y una horda al otro lado del alambrado"
+- titulo: "Mundo III · PvP"
+  tipo: concepto
+  src: /mundo-3.svg
+  ancho: 1600
+  alto: 900
+  alt: "Ilustración conceptual: retícula táctica con dos formaciones enfrentadas"
+- titulo: "Mundo IV · Arena"
+  tipo: concepto
+  src: /mundo-4.svg
+  ancho: 1600
+  alto: 900
+  alt: "Ilustración conceptual: coliseo con dos figuras enfrentadas"
+

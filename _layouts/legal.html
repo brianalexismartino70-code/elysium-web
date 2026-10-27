@@ -1,0 +1,64 @@
+---
+layout: base
+---
+<header class="pagehead">
+  <nav class="crumbs" aria-label="Ruta de navegación">
+    <ol>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/aviso-legal.html">Legal</a></li>
+      <li aria-current="page">{{ page.miga | default: page.title }}</li>
+    </ol>
+  </nav>
+  <p class="kicker">Documentación</p>
+  <h1>{{ page.encabezado | default: page.title }}</h1>
+  {%- if page.lede %}
+  <p class="lede">{{ page.lede }}</p>
+  {%- endif %}
+  <dl class="meta">
+    <div><dt>Versión</dt><dd>{{ page.version }}</dd></div>
+    <div><dt>Estado</dt><dd>{{ page.estado_doc }}</dd></div>
+    <div><dt>Alcance</dt><dd>{{ page.alcance | default: "elysiumesrp.com, el servidor de FiveM y el Discord oficial" }}</dd></div>
+  </dl>
+  {%- if page.borrador %}
+  <div class="doc-status doc-status--draft" role="note">
+    <strong>Documento en revisión.</strong>
+    <span>{{ page.borrador }}</span>
+    <span>Los puntos marcados como <i class="pending">pendiente</i> esperan confirmación de la administración. Este texto no constituye asesoramiento legal.</span>
+  </div>
+  {%- endif %}
+  <nav class="related-docs" aria-label="Otros documentos legales">
+    {%- for item in site.data.navegacion.legal %}
+    <a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.texto }}</a>
+    {%- endfor %}
+  </nav>
+</header>
+
+<div class="wrap doc">
+  {%- if page.indice %}
+  <nav class="doc-index" aria-label="Índice del documento" data-indice>
+    {%- for grupo in page.indice %}
+    {%- if grupo.grupo %}<p class="group">{{ grupo.grupo }}</p>{% endif %}
+    {%- for e in grupo.items %}
+    <a href="#{{ e[0] }}"><i>{{ forloop.index }}</i> {{ e[1] }}</a>
+    {%- endfor %}
+    {%- endfor %}
+  </nav>
+  <div class="doc-mobile">
+    <label class="sr-only" for="saltar-a">Ir a la sección</label>
+    <select id="saltar-a" data-saltar>
+      <option value="">Ir a la sección…</option>
+      {%- for grupo in page.indice %}{% for e in grupo.items %}
+      <option value="{{ e[0] }}">{{ forloop.index }}. {{ e[1] }}</option>
+      {%- endfor %}{% endfor %}
+    </select>
+  </div>
+  {%- endif %}
+
+  <article class="doc-body legal">
+    {{ content }}
+    <div class="doc-tools">
+      <button class="btn btn--ghost btn--sm" type="button" data-imprimir>{% include icono.html n="imprimir" %} Imprimir o guardar en PDF</button>
+      <a class="btn btn--ghost btn--sm" href="{{ site.data.sitio.enlaces.discord }}" target="_blank" rel="noopener">{% include icono.html n="ticket" %} Consultas por ticket en Discord</a>
+    </div>
+  </article>
+</div>

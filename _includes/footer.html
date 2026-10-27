@@ -1,0 +1,57 @@
+{%- assign sitio = site.data.sitio -%}
+{%- assign fase = sitio.fases[sitio.fase] -%}
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/" aria-label="Elysium | ES, ir al inicio">
+        <img src="/assets/img/marca/elysium-logo.png" width="20" height="30" alt="" loading="lazy">
+        <span class="mark" aria-hidden="true">ELYSIUM <em>| ES</em></span>
+      </a>
+      <p>Ciudad de rol hispanohablante en FiveM. Infraestructura propia, economía cuidada y una comunidad que juega en serio.</p>
+      <p><span class="chip chip--{{ sitio.fase }}">{{ fase.etiqueta }} · {{ fase.detalle }}</span></p>
+      <div class="social">
+        {%- for r in sitio.redes %}
+        <a href="{{ r.url }}" target="_blank" rel="noopener" aria-label="{{ r.nombre }}">{% include icono.html n=r.icono %}</a>
+        {%- endfor %}
+      </div>
+    </div>
+
+    <div>
+      <h2>Explorar</h2>
+      <ul>
+        <li><a href="/#mundos">Los mundos</a></li>
+        <li><a href="/#ciudad">La ciudad</a></li>
+        <li><a href="/novedades/">Novedades</a></li>
+        <li><a href="/como-entrar.html">Cómo entrar</a></li>
+        <li><a href="/normativa.html">Normativa</a></li>
+        <li><a href="/tienda.html">Tienda</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Comunidad</h2>
+      <ul>
+        <li><a href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">Discord oficial</a></li>
+        <li><a href="/comunidad.html">Comunidad y creadores</a></li>
+        <li><a href="/staff.html">Postular a staff</a></li>
+        <li><a href="/moderacion.html#soporte">Soporte y tickets</a></li>
+        <li><a href="/feed.xml">Novedades por RSS</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Legal</h2>
+      <ul>
+        {%- for item in site.data.navegacion.legal %}
+        <li><a href="{{ item.url }}">{{ item.texto }}</a></li>
+        {%- endfor %}
+        <li><button type="button" data-cookies>Preferencias de cookies</button></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot-base">
+    <p>© {{ site.time | date: "%Y" }} Elysium | ES Roleplay</p>
+    <p>Proyecto independiente, sin afiliación con Rockstar Games, Take-Two Interactive ni Cfx.re.</p>
+  </div>
+</footer>
