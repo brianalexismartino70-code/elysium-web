@@ -63,6 +63,7 @@ Cuando habilites `elysiumesrp.com` en el entorno, hago esta verificación yo mis
 | 15/09/2026 | Registro de la acción de estado | API de Cfx.re: **404** | [API] |
 | 27/10/2026, 19:26 UTC | Registro de la acción (consulta directa al servidor) | El servidor respondió: `Elysium \| ES · PREAPERTURA (solo STAFF)`, 1 de 48 plazas | [API] |
 | 27/10/2026, 23:25 UTC | Registro de la acción | Cfx.re: **404**; sin secreto `FIVEM_ENDPOINT`, sin consulta directa | [API] |
+| 28/10/2026, 02:07 UTC | Registro de la ejecución programada | Cfx.re: **404**; el secreto sigue sin configurar | [API] |
 
 **Conclusión:** el código no está confirmado y el acceso público tampoco. El sitio anuncia la **reapertura** (tu decisión) y, por separado, informa «Acceso público: por confirmar». No muestra un comando que podría no funcionar. Para confirmar el código hay que entrar desde FiveM (F8 → `connect cfx.re/join/kr546a`) o abrir `cfx.re/join/kr546a`: Cuestionario, n.º 2 y 3.
 
