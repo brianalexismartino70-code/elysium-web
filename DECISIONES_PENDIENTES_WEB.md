@@ -121,7 +121,7 @@ El entorno los bloquea. La lista exacta de dominios y para qué sirve cada uno e
   - la edad mínima, la misma en todas las plataformas (opciones en la auditoría, F.5);
   - si se mantiene Google Analytics;
   - si se contrataría un representante en la UE y el Reino Unido, en caso de que el abogado lo pida.
-- **Recomendación:** responder primero la 4, la 5, la 8 y la 40. Con eso el abogado puede priorizar las filas de la matriz.
+- **Respondido el 28/10/2026:** titular (Brian Martino), país de administración (Argentina) y alcance (comunidad hispanohablante global). Siguen pendientes el domicilio y el correo (6 y 7) y las preguntas 41 a 49.
 
 ## 16. Aprobación de la V2
 

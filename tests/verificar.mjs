@@ -412,6 +412,8 @@ const navegador = await chromium.launch();
   await pagina.waitForTimeout(200);
   ok((await pagina.evaluate(() => navigator.clipboard.readText())).includes('Respuesta general 10'), 'staff: copiar las respuestas');
   ok(reg.externas.length === 0, 'staff: no envía nada a terceros');
+  ok(await pagina.locator('a[href="https://discord.com/channels/1484725476785393816/1494480100865872043"]').count() >= 2, 'staff: enlaza al canal de postulaciones del Discord oficial');
+  ok(contenido.includes('canal de postulaciones'), 'staff: el archivo indica dónde entregarlo');
   await pagina.reload({ waitUntil: 'networkidle' });
   ok(await pagina.locator('#pm-15').inputValue() === 'Respuesta de Playmaker 15', 'staff: el borrador se restaura al volver');
   await ctx.close();
@@ -506,7 +508,7 @@ const navegador = await chromium.launch();
     ok(/Política de privacidad/.test(await pagina.locator('h1').innerText()), `legal: el enlace a privacidad abre la política a ${ancho}px`);
   }
   // Enlaces externos: solo destinos conocidos y siempre por https
-  const permitidos = ['discord.gg', 'elysium-488.tebex.io', 'store.rockstargames.com', 'store.steampowered.com', 'store.epicgames.com',
+  const permitidos = ['discord.gg', 'discord.com', 'elysium-488.tebex.io', 'store.rockstargames.com', 'store.steampowered.com', 'store.epicgames.com',
     'fivem.net', 'www.tiktok.com', 'www.instagram.com', 'www.youtube.com',
     // políticas de terceros citadas en privacidad y cookies
     'policies.google.com', 'tools.google.com', 'www.twitch.tv'];

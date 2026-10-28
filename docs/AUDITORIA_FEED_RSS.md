@@ -36,4 +36,11 @@ Resultados:
 - **Versión publicada `c4d515b`:** 12 fallas de 45, las de la tabla.
 - **Fase 1 corregida:** 46 de 46.
 
-**Pendiente:** después de publicar, comprobar `https://elysiumesrp.com/feed.xml` desde fuera de este entorno, o habilitando el dominio en la configuración de red.
+## Publicación
+
+- **En `main`:** desde el commit `c94a47d` (28/10/2026). GitHub Pages lo desplegó sin errores (ejecución #309, 04:52 UTC).
+- **Sin verificar en vivo:** el proxy de este entorno bloquea `elysiumesrp.com` (error 403). Para comprobarlo desde un navegador:
+  1. Abrí `https://elysiumesrp.com/version.json?v=1` y confirmá que `commit` coincide con el último commit de `main`.
+  2. Abrí `https://elysiumesrp.com/feed.xml?v=1`. Tienen que aparecer el título «El Mundo I vuelve: Elysium | ES está en reapertura» y `<name>Elysium | ES</name>`, y no tienen que aparecer `&lt;table` ni «PREAPERTURA».
+  3. Si ves la versión anterior, esperá unos minutos y recargá: GitHub Pages guarda copias hasta 10 minutos.
+- **«Google Analytics, solo con tu consentimiento»:** coincide con `cookies.js`. Analytics no se descarga antes de aceptar, y la elección se cambia desde el pie.
