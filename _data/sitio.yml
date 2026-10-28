@@ -40,6 +40,15 @@ acceso:
   codigo_confirmado: false
   verificado: "2026-10-27"
 
+# Video de fondo de la portada (opcional). Solo material propio grabado en
+# Elysium, con permiso de quien aparezca (ver docs/GUION_VIDEOS.md).
+# Vacío = la portada usa solo su imagen. Nunca se descarga en pantallas
+# chicas, con ahorro de datos ni con "menos movimiento".
+portada:
+  video_mp4: ""       # ej.: /assets/video/portada.mp4 (máx. 2 MB)
+  video_webm: ""      # ej.: /assets/video/portada.webm
+  poster: ""          # ej.: /assets/video/portada-poster.webp
+
 # Estado en vivo: lo publica la acción "Estado del servidor" en estado.json.
 estado:
   # Por debajo de este número de personas conectadas no se muestra la cifra.

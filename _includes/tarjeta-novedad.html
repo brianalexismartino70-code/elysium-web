@@ -1,10 +1,25 @@
 {%- assign p = include.post -%}
 {%- assign cat = site.data.novedades[p.categoria] | default: "Novedades" -%}
 {%- assign nivel = include.nivel | default: 3 -%}
+{%- assign meses = "ENE,FEB,MAR,ABR,MAY,JUN,JUL,AGO,SEP,OCT,NOV,DIC" | split: "," -%}
+{%- assign mes = p.date | date: "%-m" | minus: 1 -%}
+{%- case p.categoria -%}
+  {%- when "anuncios" -%}{%- assign ico = "estandarte" -%}
+  {%- when "servidor" -%}{%- assign ico = "escudo-check" -%}
+  {%- when "eventos" -%}{%- assign ico = "mascara" -%}
+  {%- when "actualizaciones" -%}{%- assign ico = "descargar" -%}
+  {%- else -%}{%- assign ico = "libro" -%}
+{%- endcase -%}
 <article class="card card--lift news-card{% if include.destacada %} news-card--feature{% endif %}" data-cat="{{ p.categoria }}" data-tilt>
+  {%- comment -%} Portada propia: arte generado con CSS, sin fotos de terceros {%- endcomment %}
+  <div class="news-cover news-cover--{{ p.categoria | default: 'sitio' }}" aria-hidden="true">
+    <span class="news-cover-date"><b>{{ p.date | date: "%-d" }}</b>{{ meses[mes] }} {{ p.date | date: "%Y" }}</span>
+    {% include icono.html n=ico clase="news-cover-icon" %}
+  </div>
   <div class="news-meta">
     <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%-d/%m/%Y" }}</time>
     <span>{{ cat }}</span>
+    {%- if p.correccion %}<span class="news-flag">Corregida</span>{% endif %}
   </div>
   <h{{ nivel }}><a class="card-link" href="{{ p.url }}">{{ p.title }}</a></h{{ nivel }}>
   <p>{{ p.resumen }}</p>

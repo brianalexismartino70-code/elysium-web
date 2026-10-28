@@ -72,6 +72,34 @@
     });
   }
 
+  /* ══════ ACCESO RÁPIDO ══════
+     Aparece al dejar atrás la portada o el encabezado de la página y se
+     retira al llegar al cierre o al pie, que ya tienen sus propios botones. */
+  var dock = $('[data-dock]');
+  if (dock) {
+    var tapado = [false, false];
+    var dockPendiente = false;
+    var actualizarDock = function () {
+      dockPendiente = false;
+      var ver = window.scrollY > window.innerHeight * 0.75 && !tapado[0] && !tapado[1];
+      dock.classList.toggle('is-on', ver);
+      cuerpo.classList.toggle('dock-on', ver);
+    };
+    if ('IntersectionObserver' in window) {
+      [$('.closing'), $('.foot')].forEach(function (zona, i) {
+        if (!zona) return;
+        new IntersectionObserver(function (f) {
+          tapado[i] = f[0].isIntersecting;
+          actualizarDock();
+        }).observe(zona);
+      });
+    }
+    window.addEventListener('scroll', function () {
+      if (!dockPendiente) { dockPendiente = true; requestAnimationFrame(actualizarDock); }
+    }, { passive: true });
+    actualizarDock();
+  }
+
   /* ══════ MENÚ EN PANTALLAS MEDIANAS Y CHICAS ══════ */
   var menu = $('#menu');
   var botonMenu = $('.menu-toggle');
@@ -140,26 +168,9 @@
     }
   }
 
-  /* ══════ PORTADA: LETRAS Y PROFUNDIDAD ══════ */
-  var h1 = $('.hero h1');
-  if (h1 && !quieto) {
-    var nodo = h1.firstChild;
-    if (nodo && nodo.nodeType === 3) {
-      h1.setAttribute('aria-label', h1.textContent.replace(/\s+/g, ' ').trim());
-      var frag = document.createDocumentFragment();
-      nodo.textContent.split('').forEach(function (c, i) {
-        var sp = document.createElement('span');
-        sp.className = 'l';
-        sp.setAttribute('aria-hidden', 'true');
-        sp.textContent = c;
-        sp.style.animationDelay = (0.12 + i * 0.055) + 's';
-        frag.appendChild(sp);
-      });
-      h1.replaceChild(frag, nodo);
-      var es = $('.es', h1);
-      if (es) es.setAttribute('aria-hidden', 'true');
-    }
-  }
+  /* ══════ PORTADA: PROFUNDIDAD ══════
+     Las letras del título se separan en index.html, junto al título,
+     para no esperar a este archivo. */
   if (heroMedia && !quieto && fino) {
     var hero = $('.hero');
     var img = $('img', heroMedia);
@@ -170,6 +181,65 @@
       if (img) img.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0)';
     });
     if (img) img.style.transition = 'transform .6s cubic-bezier(.2,.7,.3,1)';
+  }
+
+  /* ══════ PORTADA: VIDEO OPCIONAL Y PAUSA DEL MOVIMIENTO ══════
+     El video de fondo existe solo si se configuró en _data/sitio.yml.
+     Nunca se descarga con menos movimiento, ahorro de datos, conexiones
+     lentas ni pantallas de menos de 900 px: ahí queda la imagen. */
+  var heroSec = $('.hero');
+  var pausar = $('[data-pausar-movimiento]');
+  var videoFondo = $('[data-video-fondo]');
+  var red = navigator.connection || {};
+  var videoPermitido = !!videoFondo && !quieto && !red.saveData &&
+    !/(^|-)2g$/.test(red.effectiveType || '') && window.innerWidth >= 900;
+  var heroQuieta = false;
+
+  function reproducirFondo() {
+    if (!videoFondo || !videoFondo.classList.contains('is-on') || heroQuieta) return;
+    var p = videoFondo.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  if (videoPermitido) {
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(function (f) {
+          var src = videoFondo.getAttribute('data-' + f[0]);
+          if (!src) return;
+          var s = document.createElement('source');
+          s.src = src; s.type = f[1];
+          videoFondo.appendChild(s);
+        });
+        videoFondo.preload = 'auto';
+        videoFondo.addEventListener('canplay', function () {
+          videoFondo.classList.add('is-on');
+          reproducirFondo();
+        }, { once: true });
+        videoFondo.load();
+      }, 600);
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (f) {
+        if (f[0].isIntersecting) reproducirFondo(); else videoFondo.pause();
+      }).observe(heroSec);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) videoFondo.pause(); else reproducirFondo();
+    });
+  }
+  // Botón para detener el movimiento ambiental (polvo y video)
+  if (pausar && heroSec && !quieto) {
+    pausar.hidden = false;
+    var textoPausa = $('span', pausar);
+    pausar.addEventListener('click', function () {
+      heroQuieta = !heroQuieta;
+      heroSec.classList.toggle('is-quieta', heroQuieta);
+      pausar.setAttribute('aria-pressed', String(heroQuieta));
+      textoPausa.textContent = heroQuieta ? 'Reanudar animación' : 'Pausar animación';
+      var uso = $('use', pausar);
+      if (uso) uso.setAttribute('href', '/assets/img/iconos.svg#' + (heroQuieta ? 'play' : 'pausa'));
+      if (videoFondo) { if (heroQuieta) videoFondo.pause(); else reproducirFondo(); }
+    });
   }
 
   /* ══════ ESTADO DEL SERVIDOR ══════
@@ -374,6 +444,46 @@
     }
   });
 
+  /* ══════ PASOS DE LA GUÍA ══════
+     Marca el paso que se está leyendo y llena la línea de avance. */
+  var pasos = $('[data-pasos]');
+  if (pasos && 'IntersectionObserver' in window) {
+    var enlacesPaso = $$('a', pasos);
+    var bloques = enlacesPaso.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+    var lista = $('ol', pasos);
+    var marcar = function () {
+      var linea = window.innerHeight * 0.45, activo = 0;
+      bloques.forEach(function (b, i) { if (b && b.getBoundingClientRect().top < linea) activo = i; });
+      enlacesPaso.forEach(function (a, i) {
+        if (i === activo) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current');
+        a.classList.toggle('is-done', i < activo);
+      });
+      lista.style.setProperty('--avance', ((activo + 1) / enlacesPaso.length).toFixed(3));
+    };
+    var pasoPendiente = false;
+    window.addEventListener('scroll', function () {
+      if (!pasoPendiente) { pasoPendiente = true; requestAnimationFrame(function () { pasoPendiente = false; marcar(); }); }
+    }, { passive: true });
+    marcar();
+  }
+
+  /* ══════ DETALLE DE CADA SISTEMA ══════
+     Sin JavaScript el detalle queda a la vista; con JavaScript se pliega
+     y se abre con un botón real (Enter o Espacio). */
+  $$('.system-more').forEach(function (boton) {
+    var detalle = document.getElementById(boton.getAttribute('aria-controls'));
+    if (!detalle) return;
+    boton.hidden = false;
+    detalle.hidden = true;
+    var etiqueta = $('span', boton);
+    boton.addEventListener('click', function () {
+      var abrir = boton.getAttribute('aria-expanded') !== 'true';
+      boton.setAttribute('aria-expanded', String(abrir));
+      detalle.hidden = !abrir;
+      etiqueta.textContent = abrir ? 'Ocultar el detalle' : 'Ver lo que dice la normativa';
+    });
+  });
+
   /* ══════ VISOR DE IMÁGENES ══════ */
   $$('[data-galeria]').forEach(function (galeria) {
     var laminas = $$('.plate', galeria);
@@ -386,12 +496,32 @@
     visor.innerHTML =
       '<button class="lb-close" type="button">Cerrar</button>' +
       '<button class="lb-btn lb-prev" type="button" aria-label="Imagen anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4-4.6-4.6z"/></svg></button>' +
-      '<figure><img alt=""><figcaption><span></span><small></small></figcaption></figure>' +
-      '<button class="lb-btn lb-next" type="button" aria-label="Imagen siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4 4.6 4.6z"/></svg></button>';
+      '<figure><img alt=""><figcaption aria-live="polite"><span></span><small></small></figcaption></figure>' +
+      '<button class="lb-btn lb-next" type="button" aria-label="Imagen siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4 4.6 4.6z"/></svg></button>' +
+      '<div class="lb-thumbs" role="group" aria-label="Miniaturas"></div>';
     document.body.appendChild(visor);
 
-    var vImg = $('img', visor), vTxt = $('figcaption span', visor), vNum = $('figcaption small', visor);
+    var vImg = $('figure img', visor), vTxt = $('figcaption span', visor), vNum = $('figcaption small', visor);
+    var tira = $('.lb-thumbs', visor);
     var actual = 0, antes = null;
+    var titulo = function (fig) { return $('figcaption', fig).firstChild.textContent.trim(); };
+
+    // Miniaturas: un botón por imagen, con la misma variante liviana de la galería
+    var miniaturas = laminas.map(function (fig, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lb-thumb';
+      b.setAttribute('aria-label', 'Ver imagen ' + (i + 1) + ' de ' + laminas.length + ': ' + titulo(fig));
+      var mini = document.createElement('img');
+      var origen = $('img', fig);
+      mini.src = origen.currentSrc || origen.src;
+      mini.alt = '';
+      mini.loading = 'lazy';
+      b.appendChild(mini);
+      b.addEventListener('click', function () { abrir(i); });
+      tira.appendChild(b);
+      return b;
+    });
 
     function abrir(i) {
       actual = (i + laminas.length) % laminas.length;
@@ -399,17 +529,38 @@
       var img = $('img', fig);
       vImg.src = fig.getAttribute('data-full') || img.currentSrc || img.src;
       vImg.alt = img.getAttribute('alt') || '';
-      vTxt.textContent = $('figcaption', fig).firstChild.textContent.trim();
+      vTxt.textContent = titulo(fig);
       vNum.textContent = (fig.getAttribute('data-credito') || '') + ' · ' + (actual + 1) + ' de ' + laminas.length;
+      miniaturas.forEach(function (b, k) {
+        if (k === actual) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+      });
+      var activa = miniaturas[actual];
+      if (activa && tira.scrollWidth > tira.clientWidth) {
+        tira.scrollTo({ left: activa.offsetLeft - tira.clientWidth / 2 + activa.offsetWidth / 2, behavior: quieto ? 'auto' : 'smooth' });
+      }
+      // Precarga de las vecinas para que avanzar no tenga espera
+      [actual - 1, actual + 1].forEach(function (k) {
+        var f = laminas[(k + laminas.length) % laminas.length];
+        var pre = new Image();
+        pre.src = f.getAttribute('data-full') || $('img', f).currentSrc || $('img', f).src;
+      });
       if (!visor.classList.contains('is-on')) {
         visor.classList.add('is-on');
         document.documentElement.style.overflow = 'hidden';
+        // Lo que queda detrás del visor no se puede alcanzar ni leer
+        fondo().forEach(function (el) { el.setAttribute('inert', ''); });
         $('.lb-close', visor).focus();
       }
+    }
+    function fondo() {
+      return Array.prototype.filter.call(document.body.children, function (el) {
+        return el !== visor && el.tagName !== 'SCRIPT';
+      });
     }
     function cerrar() {
       visor.classList.remove('is-on');
       document.documentElement.style.overflow = '';
+      fondo().forEach(function (el) { el.removeAttribute('inert'); });
       if (antes) antes.focus();
     }
     laminas.forEach(function (fig, i) {
@@ -421,6 +572,17 @@
       zoom.addEventListener('click', function () { antes = zoom; abrir(i); });
       fig.appendChild(zoom);
     });
+    // Deslizar con el dedo para cambiar de imagen
+    var inicioX = null;
+    var figura = $('figure', visor);
+    figura.addEventListener('pointerdown', function (e) { inicioX = e.clientX; });
+    figura.addEventListener('pointerup', function (e) {
+      if (inicioX === null) return;
+      var dx = e.clientX - inicioX;
+      inicioX = null;
+      if (Math.abs(dx) > 50) abrir(actual + (dx < 0 ? 1 : -1));
+    });
+    figura.addEventListener('pointercancel', function () { inicioX = null; });
     $('.lb-close', visor).addEventListener('click', cerrar);
     $('.lb-prev', visor).addEventListener('click', function () { abrir(actual - 1); });
     $('.lb-next', visor).addEventListener('click', function () { abrir(actual + 1); });
@@ -465,6 +627,36 @@
         if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-in');
       });
     });
+  }
+
+  /* ══════ PROFUNDIDAD AL DESPLAZAR ══════
+     Los numerales de fondo se mueven más lento que el contenido. Solo se
+     calculan los que están a la vista, y nada se mueve con menos movimiento. */
+  var capas = $$('[data-profundidad]');
+  if (capas.length && !quieto && 'IntersectionObserver' in window) {
+    var visibles = [];
+    var capaPendiente = false;
+    var moverCapas = function () {
+      capaPendiente = false;
+      var mitad = window.innerHeight / 2;
+      visibles.forEach(function (el) {
+        var r = el.parentNode.getBoundingClientRect();
+        var k = parseFloat(el.getAttribute('data-profundidad')) || 0.15;
+        el.style.setProperty('--py', ((r.top + r.height / 2 - mitad) * -k).toFixed(1) + 'px');
+      });
+    };
+    var ioCapas = new IntersectionObserver(function (filas) {
+      filas.forEach(function (f) {
+        var i = visibles.indexOf(f.target);
+        if (f.isIntersecting && i === -1) visibles.push(f.target);
+        if (!f.isIntersecting && i !== -1) visibles.splice(i, 1);
+      });
+      moverCapas();
+    }, { rootMargin: '20% 0px' });
+    capas.forEach(function (el) { ioCapas.observe(el); });
+    window.addEventListener('scroll', function () {
+      if (!capaPendiente) { capaPendiente = true; requestAnimationFrame(moverCapas); }
+    }, { passive: true });
   }
 
   /* ══════ TARJETAS: BRILLO E INCLINACIÓN ══════ */
@@ -658,6 +850,35 @@
       caja.innerHTML = '';
       caja.appendChild(f);
       f.focus();
+    });
+  });
+
+  /* ══════ VIDEOS PROPIOS BAJO DEMANDA ══════
+     El archivo no se descarga hasta apretar reproducir; nunca arranca solo. */
+  $$('[data-clip]').forEach(function (clip) {
+    var boton = $('.play', clip);
+    var marco = $('.clip-frame', clip);
+    if (!boton || !marco) return;
+    boton.addEventListener('click', function () {
+      var v = document.createElement('video');
+      v.controls = true;
+      v.playsInline = true;
+      v.preload = 'auto';
+      var poster = $('.clip-poster', clip);
+      if (poster) v.poster = poster.currentSrc || poster.src;
+      [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(function (f) {
+        var src = clip.getAttribute('data-' + f[0]);
+        if (!src) return;
+        var s = document.createElement('source');
+        s.src = src; s.type = f[1];
+        v.appendChild(s);
+      });
+      v.setAttribute('aria-label', boton.getAttribute('aria-label').replace('Reproducir el video: ', ''));
+      marco.innerHTML = '';
+      marco.appendChild(v);
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+      v.focus();
     });
   });
 

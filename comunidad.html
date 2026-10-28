@@ -103,25 +103,95 @@ icono_cabecera: usuarios
     <a class="btn btn--ghost btn--sm" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">{% include icono.html n="discord" %} Escribir en Discord</a>
   </div>
   {%- endif %}
+
+  <aside class="card proposal" aria-labelledby="titulo-propuesta">
+    <div class="proposal-head">
+      <span class="chip chip--confirmar">Propuesta · pendiente de aprobación</span>
+      <h3 id="titulo-propuesta">Cómo funcionaría un programa de creadores</h3>
+    </div>
+    <p class="muted">Esto es una propuesta, no un programa vigente. Se activa solo si la administración la aprueba.</p>
+    <ol class="proposal-steps">
+      <li><b>Autorización por escrito.</b> Cada creador pide aparecer por ticket y puede retirarse cuando quiera.</li>
+      <li><b>Contenido de Elysium.</b> Solo canales con contenido grabado en el servidor. Los videos se cargan al apretar reproducir.</li>
+      <li><b>Respeto por quien aparece.</b> Si alguien pide que se quite un clip donde se lo identifica, se quita.</li>
+      <li><b>Sin pagos ni recompensas.</b> No hay un programa de recompensas aprobado y no se ofrece nada por traer jugadores.</li>
+    </ol>
+  </aside>
 </section>
 
-<section class="wrap section" id="foro" aria-labelledby="titulo-foro">
-  <div class="faq-layout">
+<section class="wrap section" id="temas" aria-labelledby="titulo-temas">
+  <div class="section-head">
+    <p class="kicker">Comunidad</p>
+    <h2 id="titulo-temas">Temas de la comunidad</h2>
+    <p class="lede">Dónde va cada conversación hoy. Todos los enlaces llevan a destinos que ya existen: este sitio y el Discord oficial.</p>
+  </div>
+  <div class="topics">
+    <article class="card topic">
+      <span class="system-icon">{% include icono.html n="estandarte" %}</span>
+      <h3>Anuncios</h3>
+      <p>Los anuncios oficiales se publican en el Discord y, con su fecha, en las novedades de este sitio.</p>
+      <div class="topic-links">
+        <a class="link-row" href="/novedades/">Novedades del sitio <span class="tick">→</span></a>
+        <a class="link-row" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">Discord oficial <span class="tick">↗</span></a>
+      </div>
+    </article>
+    <article class="card topic">
+      <span class="system-icon">{% include icono.html n="libro" %}</span>
+      <h3>Novedades</h3>
+      <p>Cambios del servidor y del sitio, con categorías y una página para cada publicación.</p>
+      <div class="topic-links">
+        <a class="link-row" href="/novedades/">Ver novedades <span class="tick">→</span></a>
+        <a class="link-row" href="/feed.xml">Canal RSS <span class="tick">→</span></a>
+      </div>
+    </article>
+    <article class="card topic">
+      <span class="system-icon">{% include icono.html n="mando" %}</span>
+      <h3>Guías</h3>
+      <p>Cómo dejar todo listo para entrar y la normativa completa, con buscador.</p>
+      <div class="topic-links">
+        <a class="link-row" href="/como-entrar.html">Cómo entrar <span class="tick">→</span></a>
+        <a class="link-row" href="/normativa.html">Normativa oficial <span class="tick">→</span></a>
+      </div>
+    </article>
+    <article class="card topic">
+      <span class="system-icon">{% include icono.html n="ticket" %}</span>
+      <h3>Soporte</h3>
+      <p>Problemas técnicos, compras, apelaciones o pedidos sobre tus datos: por ticket, que deja registro.</p>
+      <div class="topic-links">
+        <a class="link-row" href="/moderacion.html#soporte">Cómo abrir un ticket <span class="tick">→</span></a>
+      </div>
+    </article>
+    <article class="card topic">
+      <span class="system-icon">{% include icono.html n="alerta" %}</span>
+      <h3>Bugs</h3>
+      <p>Reportá las fallas por ticket: qué pasó, cuándo y quiénes estaban. Si tenés un clip o una captura, adjuntala.</p>
+      <div class="topic-links">
+        <a class="link-row" href="/moderacion.html#soporte">Reportar por ticket <span class="tick">→</span></a>
+      </div>
+    </article>
+    <article class="card topic">
+      <span class="system-icon">{% include icono.html n="foro" %}</span>
+      <h3>Sugerencias</h3>
+      <p>Las ideas para la ciudad se conversan en el Discord oficial.</p>
+      <div class="topic-links">
+        <a class="link-row" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">Ir al Discord <span class="tick">↗</span></a>
+      </div>
+    </article>
+  </div>
+
+  <div class="faq-layout topics-note" id="foro">
     <div>
-      <p class="kicker">Foro</p>
-      <h2 id="titulo-foro" style="font-size:var(--t-xl);margin-bottom:1rem">Un foro web, en evaluación</h2>
-      <p class="lede">Queremos un foro con cuentas seguras, categorías, moderación y protección contra spam, montado sobre una plataforma probada y no sobre un sistema improvisado. Mientras se decide cómo hacerlo, las conversaciones, sugerencias y anuncios viven en el Discord oficial.</p>
+      <p class="kicker">¿Y un foro web?</p>
+      <h3 class="topics-title">En evaluación, sin atajos</h3>
+      <p class="muted">La recomendación para esta etapa son canales de tipo foro dentro del Discord oficial. Un foro web propio llega solo cuando haya alojamiento, copias de seguridad, protección contra spam y un equipo de moderación reales. No se publica un foro que no guarde ni modere de verdad lo que la gente escribe.</p>
     </div>
     <div class="card">
       <span class="chip chip--diseno">En evaluación</span>
       <ul class="prose" style="margin-top:1.25rem">
         <li><b>Hoy:</b> anuncios, debate y soporte en el Discord oficial.</li>
-        <li><b>Próximo paso:</b> elegir plataforma, alojamiento y equipo de moderación.</li>
-        <li><b>Condición:</b> no se publica un foro que no guarde ni modere de verdad lo que la gente escribe.</li>
+        <li><b>Próximo paso:</b> canales de foro en Discord, con un enlace directo a cada uno desde esta página.</li>
+        <li><b>Más adelante:</b> un foro web, solo con plataforma, alojamiento y moderación definidos.</li>
       </ul>
-      <div class="actions" style="margin-top:1.5rem">
-        <a class="btn btn--ghost btn--sm" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">{% include icono.html n="foro" %} Ir al Discord</a>
-      </div>
     </div>
   </div>
 </section>
