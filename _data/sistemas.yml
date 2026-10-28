@@ -5,8 +5,8 @@
 #  en un documento de diseño.
 #
 #  estado: disponible | pruebas | desarrollo | confirmar
-#  Mientras el servidor esté en preapertura, nada está "disponible"
-#  para el público: el equipo debe confirmar cada uno antes de abrir.
+#  Que la normativa contemple algo no significa que ya funcione: nada
+#  pasa a "disponible" hasta que el equipo lo verifique en el servidor.
 #
 #  ref: ancla de la normativa (normativa.html#art-X-Y o #cap-N)
 # ════════════════════════════════════════════════════════════
@@ -24,7 +24,7 @@ lista:
     categoria: civil
     icono: maletin
     estado: confirmar
-    texto: "Trabajos legales con rutas propias y un personaje que no se reinicia: su historial, sus antecedentes y su reputación se acumulan."
+    texto: "La normativa contempla trabajos legales con rutas propias y protege a quien los hace mientras trabaja."
     puntos:
       - texto: "Rutas laborales de basureros, carteros y repartidores, protegidas mientras trabajan."
         ref: art-9-2
@@ -38,7 +38,7 @@ lista:
     categoria: orden
     icono: escudo
     estado: confirmar
-    texto: "Facciones legales de servicio y bandas organizadas, cada una con sus herramientas y sus límites."
+    texto: "La normativa prevé facciones de servicio y bandas organizadas, cada una con sus límites."
     puntos:
       - texto: "LSPD, EMS y mecánicos, con uniformes reservados a sus miembros."
         ref: art-7-3
@@ -55,7 +55,7 @@ lista:
     categoria: economia
     icono: balanza
     estado: confirmar
-    texto: "Un banco con reglas, préstamos entre personas con contrato y límites pensados para no ahogar a quien recién llega."
+    texto: "La normativa regula el banco del servidor, los préstamos entre personas y un tope de interés pensado para no ahogar a quien recién llega."
     puntos:
       - texto: "Préstamos bancarios automáticos, con embargo de bienes si no se pagan."
         ref: art-10-1
@@ -72,7 +72,7 @@ lista:
     categoria: civil
     icono: volante
     estado: confirmar
-    texto: "Garajes, talleres y reglas claras sobre cómo se maneja en una ciudad que se toma en serio."
+    texto: "Reglas sobre garajes, mecánicos y conducción para una ciudad que se toma en serio."
     puntos:
       - texto: "Garajes centrales considerados zona segura."
         ref: art-6-1
@@ -89,7 +89,7 @@ lista:
     categoria: civil
     icono: llave
     estado: confirmar
-    texto: "Lo que tu personaje tiene queda a su nombre, y también responde por sus deudas y sus decisiones."
+    texto: "Según la normativa, los bienes del personaje responden por sus deudas y se pierden con una muerte definitiva."
     puntos:
       - texto: "Los bienes pueden embargarse por deudas con el banco."
         ref: art-10-1
@@ -103,7 +103,7 @@ lista:
     categoria: civil
     icono: voz
     estado: confirmar
-    texto: "La voz como herramienta principal, con radio, teléfono y prensa dentro del rol."
+    texto: "La normativa hace de la voz la herramienta principal y regula la radio, el teléfono y los anuncios dentro del rol."
     puntos:
       - texto: "Voz por proximidad, con tono y volumen coherentes con la escena."
         ref: art-8-1
@@ -120,7 +120,7 @@ lista:
     categoria: orden
     icono: sirena
     estado: confirmar
-    texto: "Líneas de emergencia, hospitales, comisarías y centros judiciales que sostienen el orden de la ciudad."
+    texto: "La normativa contempla líneas de emergencia, hospitales, comisarías y centros judiciales."
     puntos:
       - texto: "Llamadas al /911 y al /311, claras y descriptivas."
         ref: art-8-2
@@ -137,7 +137,7 @@ lista:
     categoria: calle
     icono: mascara
     estado: confirmar
-    texto: "El inframundo tiene reglas: motivos, tiempos, topes y respeto por la otra persona."
+    texto: "El rol ilegal tiene reglas: motivos, tiempos, topes y respeto por la otra persona."
     puntos:
       - texto: "Secuestros con negociación y robos a banco con un mínimo de cuatro oficiales en servicio."
         ref: art-9-1
@@ -154,7 +154,7 @@ lista:
     categoria: comunidad
     icono: estandarte
     estado: confirmar
-    texto: "Historias que le dan a la ciudad algo que hacer cuando el rol se estanca."
+    texto: "Eventos y tramas previstos para darle a la ciudad algo que hacer cuando el rol se estanca."
     puntos:
       - texto: "La postulación a staff incluye el rol de Playmaker, dedicado a crear y dirigir eventos y tramas."
         enlace: /staff.html
@@ -164,14 +164,15 @@ lista:
         fuente: "Art. 8.3.1"
 
   - id: soporte
-    nombre: "Inventario y soporte"
+    nombre: "Soporte y reportes"
     categoria: comunidad
-    icono: mochila
+    icono: ticket
     estado: confirmar
-    texto: "Una base técnica revisada recurso por recurso y un canal de soporte que deja registro."
+    texto: "Un canal de soporte que deja registro: reportes, apelaciones y consultas por ticket."
     puntos:
-      - texto: "Base QBox con inventario y objetivos de ox, según el equipo técnico de Elysium."
-        fuente: "Equipo técnico"
       - texto: "Soporte, reportes y apelaciones por ticket en el Discord oficial."
-        enlace: /moderacion.html
+        enlace: /moderacion.html#soporte
         fuente: "Normas de comunidad"
+      - texto: "Dudas técnicas durante el rol por /b o por ticket, nunca por voz."
+        ref: art-8-1
+        fuente: "Art. 8.1.1"

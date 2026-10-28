@@ -3,6 +3,8 @@ date: 2026-10-27 17:00:00 -0300
 title: "Renovamos elysiumesrp.com"
 categoria: sitio
 resumen: "Novedades con fecha, normativa navegable, guía para entrar, comunidad y documentación legal ordenada."
+last_modified_at: 2026-10-28 00:00:00 -0300
+correccion: "La guía para entrar muestra el comando de conexión solo cuando el código está confirmado. Mientras tanto, remite al Discord oficial."
 ---
 
 El sitio de Elysium | ES suma secciones nuevas sin perder su identidad: bronce sobre verde tinta, capitales romanas y la misma portada.

@@ -1,13 +1,23 @@
 {%- assign sitio = site.data.sitio -%}
-{%- assign fase = sitio.fases[sitio.fase] -%}
+{%- assign etapa = sitio.etapas[sitio.etapa] -%}
 <div class="plaque frame" data-estado>
   <div class="plaque-head">
     <p class="plaque-title">Mundo I · Estado</p>
-    <span class="chip chip--{{ sitio.fase }}">{{ fase.etiqueta }}</span>
+    <span class="chip chip--{{ sitio.etapa }}">{{ etapa.etiqueta }}</span>
   </div>
-  <p>{{ fase.texto }}</p>
-  <p class="live" data-estado-vivo>
-    <span class="dot" aria-hidden="true"></span>
-    <span><span data-estado-texto role="status">Consultando el servidor…</span><span class="ago" data-estado-hace></span></span>
-  </p>
+  <p>{{ etapa.texto }}</p>
+  <dl class="plaque-facts">
+    <div>
+      <dt>Acceso público</dt>
+      <dd>{% if sitio.acceso.publico %}Confirmado{% else %}Por confirmar{% endif %}</dd>
+    </div>
+    <div data-estado-fila>
+      <dt>Servidor</dt>
+      <dd class="live" data-estado-vivo>
+        <span class="dot" aria-hidden="true"></span>
+        <span><span data-estado-texto role="status">Consultando el estado…</span><span class="ago" data-estado-hace></span></span>
+      </dd>
+    </div>
+  </dl>
+  <noscript><p class="small">El estado en vivo necesita JavaScript.</p></noscript>
 </div>

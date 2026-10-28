@@ -20,6 +20,12 @@ seccion: novedades
 
 <div class="wrap post">
   <article class="post-body prose">
+    {%- if page.correccion %}
+    <aside class="notice notice--patina post-correction" aria-label="Corrección">
+      {% include icono.html n="info" %}
+      <p><b>Corrección{% if page.last_modified_at %} del {{ page.last_modified_at | date: "%-d/%m/%Y" }}{% endif %}.</b> {{ page.correccion }}</p>
+    </aside>
+    {%- endif %}
     {{ content }}
   </article>
 
@@ -27,6 +33,10 @@ seccion: novedades
     <dl>
       <dt>Publicado</dt>
       <dd><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d/%m/%Y" }}</time></dd>
+      {%- if page.last_modified_at %}
+      <dt>Actualizado</dt>
+      <dd><time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: "%-d/%m/%Y" }}</time></dd>
+      {%- endif %}
       <dt>Categoría</dt>
       <dd><a class="text-link" href="/novedades/?categoria={{ page.categoria }}">{{ cat }}</a></dd>
       {%- if page.fuente %}

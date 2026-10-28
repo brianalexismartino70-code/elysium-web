@@ -1,0 +1,10 @@
+---
+layout: null
+sitemap: false
+---
+{%- comment -%}
+  Qué versión del repositorio generó lo que está publicado.
+  Sirve para comparar el dominio con el commit de main sin depender
+  de cachés: https://elysiumesrp.com/version.json
+{%- endcomment -%}
+{"commit":{{ site.github.build_revision | jsonify }},"generado":{{ site.time | date_to_xmlschema | jsonify }},"etapa":{{ site.data.sitio.etapa | jsonify }}}

@@ -1,5 +1,5 @@
 {%- assign sitio = site.data.sitio -%}
-{%- assign fase = sitio.fases[sitio.fase] -%}
+{%- assign etapa = sitio.etapas[sitio.etapa] -%}
 <footer class="foot">
   <div class="foot-grid">
     <div class="foot-brand">
@@ -7,8 +7,8 @@
         <img src="/assets/img/marca/elysium-logo.png" width="20" height="30" alt="" loading="lazy">
         <span class="mark" aria-hidden="true">ELYSIUM <em>| ES</em></span>
       </a>
-      <p>Ciudad de rol hispanohablante en FiveM. Infraestructura propia, economía cuidada y una comunidad que juega en serio.</p>
-      <p><span class="chip chip--{{ sitio.fase }}">{{ fase.etiqueta }} · {{ fase.detalle }}</span></p>
+      <p>Comunidad de rol serio hispanohablante en FiveM. Un proyecto de cuatro mundos con su normativa publicada.</p>
+      <p><span class="chip chip--{{ sitio.etapa }}">{{ etapa.etiqueta }}</span> <span class="chip chip--{% if sitio.acceso.publico %}abierto{% else %}confirmar{% endif %}">Acceso {% if sitio.acceso.publico %}confirmado{% else %}por confirmar{% endif %}</span></p>
       <div class="social">
         {%- for r in sitio.redes %}
         <a href="{{ r.url }}" target="_blank" rel="noopener" aria-label="{{ r.nombre }}">{% include icono.html n=r.icono %}</a>
@@ -53,5 +53,8 @@
   <div class="foot-base">
     <p>© {{ site.time | date: "%Y" }} Elysium | ES Roleplay</p>
     <p>Proyecto independiente, sin afiliación con Rockstar Games, Take-Two Interactive ni Cfx.re.</p>
+    {%- if site.github.build_revision %}
+    <p class="foot-version">Versión del sitio <code>{{ site.github.build_revision | slice: 0, 7 }}</code> · {{ site.time | date: "%d/%m/%Y %H:%M" }} UTC</p>
+    {%- endif %}
   </div>
 </footer>

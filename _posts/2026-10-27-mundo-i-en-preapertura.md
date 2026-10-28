@@ -1,19 +1,26 @@
 ---
 date: 2026-10-27 18:00:00 -0300
-title: "El Mundo I, en preapertura"
+last_modified_at: 2026-10-28 00:00:00 -0300
+title: "Mundo I: lo que mostraba el servidor el 27 de octubre"
 categoria: servidor
-resumen: "El servidor del Mundo I funciona con acceso reservado al staff mientras se prepara la apertura."
+resumen: "Registro de lo comprobado el 27/10/2026. Corregido el 28/10: la etapa actual de Elysium es la reapertura."
 fuente: "Consulta automática del estado del servidor, 27/10/2026"
+correccion: "Esta publicación se tituló «El Mundo I, en preapertura». La etapa actual de Elysium | ES es la reapertura, porque el servidor ya estuvo abierto antes. El nombre de la etapa no confirma por sí solo que el acceso público funcione: el sitio informa ese dato por separado y solo lo da por confirmado después de comprobarlo."
 ---
 
-Al **27 de octubre de 2026**, el servidor del Mundo I se identifica como *Elysium | ES · PREAPERTURA (solo STAFF)*. Eso significa que la ciudad ya está en marcha, pero por ahora solo puede entrar el equipo.
+## Qué se comprobó el 27 de octubre de 2026
 
-## Qué cambia en el sitio
+- El servidor del Mundo I se identificaba como *Elysium | ES · PREAPERTURA (solo STAFF)*.
+- El código de conexión `kr546a` no figuraba en el listado público de Cfx.re.
 
-- La portada muestra la fase del proyecto junto con el estado en vivo del servidor, que se actualiza solo.
-- La guía para entrar sigue disponible para que puedas dejar todo listo: GTA V original, FiveM instalado y el comando de conexión a mano.
-- Los mundos II, III y IV figuran con su estado real: Cuarentena en pruebas, PvP en desarrollo y Arena en diseño.
+Es un registro de ese día, no una descripción del estado actual.
+
+## Qué muestra ahora el sitio
+
+- La **etapa** del proyecto, hoy la reapertura, y por separado si el **acceso público** y el **código de conexión** están confirmados. Mientras no lo estén, la guía para entrar no muestra un código que podría no funcionar.
+- El **estado en vivo** del servidor solo cuando hay una fuente fiable. Si no la hay, el sitio dice que el dato no está disponible en lugar de mostrar un cero.
+- Los mundos II, III y IV figuran como proyectos sin fecha anunciada.
 
 ## Mientras tanto
 
-El [Discord oficial](https://discord.gg/4mTVJhu3gx) es el punto de encuentro de la comunidad. Cuando cambie la fase del Mundo I, lo vas a ver reflejado en esta sección y en la portada.
+El [Discord oficial](https://discord.gg/4mTVJhu3gx) es el punto de encuentro de la comunidad: ahí se confirman el acceso y el código de conexión.

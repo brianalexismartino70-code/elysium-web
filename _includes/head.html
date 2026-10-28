@@ -14,6 +14,9 @@
 <link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}">
 <meta name="theme-color" content="#0B0F0D">
 <meta name="color-scheme" content="dark">
+{%- if site.github.build_revision %}
+<meta name="elysium-version" content="{{ site.github.build_revision }}">
+{%- endif %}
 {%- if page.noindex %}
 <meta name="robots" content="noindex">
 {%- endif %}

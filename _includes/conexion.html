@@ -1,5 +1,18 @@
+{%- comment -%}
+  Comando de conexión. Solo se muestra cuando el código está confirmado
+  (acceso.codigo_confirmado en _data/sitio.yml). Mientras tanto, remite
+  al Discord oficial en lugar de mostrar un código que no funciona.
+{%- endcomment -%}
+{%- assign sitio = site.data.sitio -%}
 {%- assign cid = include.id | default: "comando" -%}
+{%- if sitio.acceso.codigo_confirmado %}
 <div class="console">
-  <code id="{{ cid }}">connect cfx.re/join/{{ site.data.sitio.conexion.codigo }}</code>
+  <code id="{{ cid }}">connect cfx.re/join/{{ sitio.acceso.codigo }}</code>
   <button type="button" data-copiar-de="{{ cid }}" data-copiado="Comando copiado">{% include icono.html n="copiar" %}<span>Copiar</span></button>
 </div>
+{%- else %}
+<div class="console console--pendiente" id="{{ cid }}" data-conexion-pendiente>
+  {% include icono.html n="info" %}
+  <p>El código de conexión se publica acá cuando esté confirmado. Mientras tanto, el dato oficial está en el Discord.</p>
+</div>
+{%- endif %}
