@@ -89,3 +89,30 @@ Las indicaciones están en inglés porque las herramientas suelen responder mejo
 
 No hace falta tocar el código. Después hay que correr `tests/verificar.mjs` y publicar.
 
+## Referencia del propietario (28/10/2026)
+
+El propietario compartió tres maquetas conceptuales. Muestran una portada con un grupo de personajes, tarjetas de mundo con un personaje cada una y un banner de Halloween. Son solo orientación y **no se publican**: tienen textos y botones dibujados dentro de la imagen, y elementos que remiten a GTA.
+
+**Qué se toma:**
+
+- un grupo de 4 o 5 personajes adultos originales, escalonados en profundidad, con el título a la izquierda;
+- luz de atardecer, bruma, contraluz y acabado de póster de videojuego;
+- en cada tarjeta de mundo, un personaje y su entorno;
+- un banner nocturno de Halloween con luna, calabazas y una amenaza original.
+
+**Qué no se toma:**
+
+- letreros, barrios, edificios o paisajes reconocibles de GTA, como «Vinewood», «Los Santos» o la colina con letras;
+- uniformes o vehículos con insignias reales o de la saga;
+- logotipos, textos y botones dentro de la imagen;
+- los estados de los mundos de la maqueta. Los títulos, botones y estados siguen siendo HTML real, conectado a `_data/sitio.yml`.
+
+## Cómo encargar las imágenes (vía viable)
+
+Las maquetas muestran que tenés acceso a un generador de imágenes. Es la vía más directa:
+
+1. **Generá cada imagen sin texto ni interfaz.** Usá las indicaciones de este documento y agregá: `no text, no lettering, no signs with words, no user interface, clean plate`.
+2. **Generá la portada en 16:9**, de 2560 × 1440 o más, con el tercio izquierdo oscuro y despejado para el título. Para el móvil, pedí una versión 4:5 o reencuadrala.
+3. **Confirmá que las condiciones del generador permiten el uso comercial** y guardá una captura de esas condiciones.
+4. **Subí las imágenes** a `assets/img/portada/`, `assets/img/mundos/` y `assets/img/novedades/`, o mandámelas. Se integran sin tocar el código: los campos `portada.*` de `_data/sitio.yml` y las rutas de la tabla «Variantes que hacen falta».
+
