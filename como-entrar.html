@@ -10,16 +10,14 @@ description: "Guía paso a paso para entrar a Elysium | ES: conseguir GTA V de f
 icono_cabecera: mando
 ---
 {%- assign sitio = site.data.sitio -%}
-{%- assign fase = sitio.fases[sitio.fase] -%}
+{%- assign etapa = sitio.etapas[sitio.etapa] -%}
 
 <div class="wrap section">
-  <div class="notice{% if sitio.fase != 'abierto' %} notice--patina{% endif %}" style="margin-bottom:clamp(2.5rem,5vw,3.5rem)">
+  <div class="notice{% unless sitio.acceso.publico %} notice--patina{% endunless %}" style="margin-bottom:clamp(2.5rem,5vw,3.5rem)">
     {% include icono.html n="info" %}
     <div>
-      <p><b>Fase actual: {{ fase.etiqueta }} · {{ fase.detalle }}.</b> {{ fase.texto }}</p>
-      {%- if sitio.fase != 'abierto' %}
-      <p style="margin-top:.5rem">Podés seguir los pasos I a III desde ahora para tener todo listo el día de la apertura.</p>
-      {%- endif %}
+      <p><b>Etapa actual: {{ etapa.etiqueta }}.</b> {{ etapa.texto }}</p>
+      <p style="margin-top:.5rem"><b>Acceso público:</b> {% if sitio.acceso.publico %}confirmado.{% else %}por confirmar. Podés seguir los pasos I a III desde ahora para tener todo listo.{% endif %}</p>
     </div>
   </div>
 
@@ -67,18 +65,26 @@ icono_cabecera: mando
       <div>
         <h2 style="font-size:var(--t-xl);margin-bottom:.75rem">Conectate a Elysium</h2>
         <div class="prose">
+          {%- if sitio.acceso.codigo_confirmado %}
           <p>Con FiveM abierto, apretá <kbd>F8</kbd> para abrir la consola, pegá este comando y apretá <kbd>Enter</kbd>:</p>
+          {%- else %}
+          <p>La conexión se hace con el código oficial de Cfx.re, desde la consola de FiveM (<kbd>F8</kbd>).</p>
+          {%- endif %}
         </div>
         {% include conexion.html id="comando-guia" %}
         <div class="prose" style="margin-top:1.25rem">
+          {%- if sitio.acceso.codigo_confirmado %}
           <p>Si tenés FiveM instalado, también podés abrirlo directamente con el botón. La conexión pasa por el sistema oficial de Cfx.re: este sitio no publica la dirección IP del servidor.</p>
+          {%- else %}
+          <p>El código se publica en esta página y en el Discord oficial cuando esté comprobado. Este sitio no publica la dirección IP del servidor: la conexión pasa por el sistema oficial de Cfx.re.</p>
+          {%- endif %}
         </div>
         <div class="actions">
-          <a class="btn{% if sitio.fase != 'abierto' %} btn--ghost{% endif %}" href="fivem://connect/cfx.re/join/{{ sitio.conexion.codigo }}">{% include icono.html n="flecha" %} Abrir en FiveM</a>
+          {%- if sitio.acceso.codigo_confirmado %}
+          <a class="btn{% unless sitio.acceso.publico %} btn--ghost{% endunless %}" href="fivem://connect/cfx.re/join/{{ sitio.acceso.codigo }}">{% include icono.html n="flecha" %} Abrir en FiveM</a>
+          {%- endif %}
+          <a class="btn{% if sitio.acceso.codigo_confirmado %} btn--ghost{% endif %}" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">{% include icono.html n="discord" %} Ir al Discord oficial</a>
         </div>
-        {%- if sitio.fase != 'abierto' %}
-        <p class="small muted" style="margin-top:1rem">Durante la preapertura el servidor solo acepta al staff y no figura en el listado público de FiveM. Si el código cambia, se actualiza en esta página.</p>
-        {%- endif %}
       </div>
     </li>
   </ol>
@@ -88,7 +94,7 @@ icono_cabecera: mando
   <div class="section-head">
     <p class="kicker">Servidor y mundos</p>
     <h2 id="titulo-mundos-acceso">Qué está disponible y qué no</h2>
-    <p class="lede">Los mundos se eligen dentro del mismo proyecto. Hoy, este es el estado de cada uno.</p>
+    <p class="lede">Los cuatro mundos forman parte del mismo proyecto. Este es el estado de cada uno, sin dar por hecho nada que no esté confirmado.</p>
   </div>
   <div class="compare">
     {%- for m in site.data.mundos %}
@@ -99,7 +105,7 @@ icono_cabecera: mando
     </article>
     {%- endfor %}
   </div>
-  <p class="small muted" style="margin-top:1.5rem">Ningún mundo figura como abierto hasta que cualquier persona con GTA V y FiveM pueda entrar.</p>
+  <p class="small muted" style="margin-top:1.5rem">Ningún mundo figura como abierto hasta comprobar que cualquier persona con GTA V y FiveM puede entrar.</p>
 </section>
 
 <section class="wrap section" aria-labelledby="titulo-requisitos">
@@ -123,11 +129,11 @@ icono_cabecera: mando
       <div class="acc">
         <details>
           <summary>FiveM no encuentra el servidor</summary>
-          <div class="acc-body"><p>Revisá que el comando esté completo, incluido <code>cfx.re/join/</code>. {% if sitio.fase != 'abierto' %}Durante la preapertura el servidor no aparece en el listado público, así que puede no encontrarse por nombre. {% endif %}Si sigue sin funcionar, mirá las <a class="text-link" href="/novedades/">novedades</a> por si cambió el código.</p></div>
+          <div class="acc-body"><p>Revisá que el comando esté completo, incluido <code>cfx.re/join/</code>, y que sea el código publicado en esta página o en el Discord oficial. {% unless sitio.acceso.publico %}Mientras el acceso público no esté confirmado, el servidor puede no aparecer en el listado de FiveM. {% endunless %}Si sigue sin funcionar, mirá las <a class="text-link" href="/novedades/">novedades</a> por si cambió el código.</p></div>
         </details>
         <details>
           <summary>El servidor figura en línea pero no puedo entrar</summary>
-          <div class="acc-body"><p>{% if sitio.fase != 'abierto' %}Es lo esperable durante la preapertura: el acceso está reservado al staff.{% else %}Puede estar lleno o en un reinicio. Esperá unos minutos y volvé a intentar.{% endif %} Para cualquier otro problema, abrí un ticket en el Discord oficial.</p></div>
+          <div class="acc-body"><p>{% unless sitio.acceso.publico %}Puede pasar mientras el acceso público no esté confirmado: el Discord oficial informa quién puede entrar en cada momento.{% else %}Puede estar lleno o en un reinicio. Esperá unos minutos y volvé a intentar.{% endunless %} Para cualquier otro problema, abrí un ticket en el Discord oficial.</p></div>
         </details>
         <details>
           <summary>¿Por qué el sitio no muestra la IP del servidor?</summary>

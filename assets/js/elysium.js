@@ -175,7 +175,12 @@
   /* ══════ ESTADO DEL SERVIDOR ══════
      Solo se lee /estado.json, que publica la acción "Estado del servidor"
      en este mismo dominio. El navegador no consulta servicios externos
-     ni conoce la dirección del servidor. */
+     ni conoce la dirección del servidor.
+     estado.json:
+       { disponible:false }                    → no hay una fuente fiable
+       { disponible:true, en_linea:false }     → la fuente no obtuvo respuesta
+       { disponible:true, en_linea:true, jugadores, tope }
+     Nunca se inventa una cifra: sin dato fiable, se dice que no hay dato. */
   var cajas = $$('[data-estado]');
   if (cajas.length) {
     var MINIMO = parseInt(cuerpo.getAttribute('data-minimo') || '1', 10);
@@ -205,9 +210,11 @@
         var hace = $('[data-estado-hace]', caja);
         if (!vivo || !texto) return;
         vivo.classList.remove('is-online', 'is-offline', 'is-stale');
-        if (!d) {
+        vivo.setAttribute('data-estado-vivo', 'sin-dato');
+        if (hace) hace.textContent = '';
+        // Sin archivo, o sin una fuente fiable detrás: se informa tal cual.
+        if (!d || d.disponible !== true) {
           texto.textContent = 'Estado en vivo no disponible';
-          if (hace) hace.textContent = '';
           return;
         }
         var sello = Date.parse(d.actualizado || '');
@@ -215,19 +222,21 @@
         var viejo = edad > HORAS * 3600000;
         var jugadores = parseInt(d.jugadores, 10);
         var tope = parseInt(d.tope, 10);
-        if (d.en_linea === true && !isNaN(jugadores)) {
+        if (d.en_linea === true) {
           vivo.classList.add(viejo ? 'is-stale' : 'is-online');
-          if (jugadores >= MINIMO) {
-            texto.innerHTML = 'Servidor en línea · <strong class="num">' + previo + '</strong>' + (tope ? ' de ' + tope : '') + ' conectados';
+          vivo.setAttribute('data-estado-vivo', viejo ? 'antiguo' : 'en-linea');
+          if (!viejo && !isNaN(jugadores) && jugadores >= MINIMO) {
+            texto.innerHTML = 'En línea · <strong class="num">' + previo + '</strong>' + (tope > 0 ? ' de ' + tope : '') + ' conectados';
             contar($('.num', texto), jugadores);
           } else {
-            texto.textContent = 'Servidor en línea';
+            texto.textContent = viejo ? 'Estaba en línea en el último dato' : 'En línea';
           }
         } else {
-          vivo.classList.add('is-offline');
-          texto.textContent = 'No se pudo confirmar el estado del servidor';
+          vivo.classList.add(viejo ? 'is-stale' : 'is-offline');
+          vivo.setAttribute('data-estado-vivo', viejo ? 'antiguo' : 'sin-respuesta');
+          texto.textContent = 'Sin respuesta en la última comprobación';
         }
-        if (hace) hace.textContent = sello ? 'Dato ' + haceCuanto(edad) + (viejo ? ' · puede estar desactualizado' : '') : '';
+        if (hace) hace.textContent = sello ? 'Comprobado ' + haceCuanto(edad) + (viejo ? ' · puede estar desactualizado' : '') : '';
       });
     };
     var consultar = function () {

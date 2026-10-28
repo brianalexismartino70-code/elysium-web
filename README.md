@@ -13,8 +13,8 @@ Sitio oficial de **Elysium | ES — Sin fronteras**, comunidad de rol hispanohab
 
 | Quiero… | Archivo |
 |---|---|
-| Cambiar la fase (preapertura, abierto, mantenimiento) | `_data/sitio.yml` → `fase` |
-| Cambiar el código de conexión | `_data/sitio.yml` → `conexion.codigo` (y `JOIN` en el workflow) |
+| Cambiar la etapa que se anuncia (reapertura, abierto, mantenimiento) | `_data/sitio.yml` → `etapa` |
+| Confirmar el acceso público o el código de conexión | `_data/sitio.yml` → `acceso` (`publico`, `codigo_confirmado`, `codigo`). El workflow lee el mismo código |
 | Cambiar el enlace de Discord, la tienda o las redes | `_data/sitio.yml` → `enlaces` y `redes` |
 | Editar los mundos | `_data/mundos.yml` |
 | Editar los sistemas y su estado | `_data/sistemas.yml` |
@@ -76,13 +76,18 @@ index.html …           páginas
 cookies.js             aviso de cookies y carga condicionada de Google Analytics
 estado.json            lo escribe la acción «Estado del servidor»
 docs/, legal/          documentación interna (no se publica)
-tools/                 script para regenerar imágenes optimizadas
+tools/                 imágenes optimizadas y búsqueda de secretos en el historial
+version.json           commit publicado (para comprobar el despliegue sin caché)
 tests/                 pruebas automáticas
 ```
 
 ## Documentación de la renovación
 
-- `CAMBIOS_WEB.md`: qué cambió, cómo se probó y cómo volver atrás.
-- `DECISIONES_PENDIENTES_WEB.md`: lo que necesita una decisión del dueño.
-- `LEGAL_DATA_REQUIRED.md`: datos que faltan para cerrar los textos legales.
-- `docs/`: seguridad del estado, foro y tienda.
+- `CAMBIOS_WEB.md`: qué cambió en cada etapa, cómo se probó y cómo volver atrás.
+- `DECISIONES_PENDIENTES_WEB.md`: lo que necesita una decisión del dueño, con recomendaciones.
+- `LEGAL_DATA_REQUIRED.md`: cuestionario único para el propietario y verificaciones pendientes.
+- `docs/AUDITORIA_WEB_100.md`: auditoría de la publicación y matriz funcional.
+- `docs/AUDITORIA_LEGAL.md`: privacidad, cookies, términos, tienda y enlaces legales.
+- `docs/REGISTRO_ASSETS.md`: autoría y licencia de cada recurso.
+- `docs/LIMPIEZA_HISTORIAL.md`: datos sensibles en el historial y cómo tratarlos.
+- `docs/`: además, seguridad del estado, foro, tienda y guion de videos.

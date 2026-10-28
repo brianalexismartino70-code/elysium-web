@@ -6,14 +6,19 @@
 #  ni servicios de terceros.
 #
 #  Fuentes, en orden:
-#   1. API pública de Cfx.re con el código de conexión (sin secretos).
+#   1. API pública de Cfx.re con el código de conexión, que se lee de
+#      _data/sitio.yml (acceso.codigo). Sin secretos.
 #   2. Consulta directa al servidor, SOLO si existe el secreto
 #      FIVEM_ENDPOINT (formato ip:puerto). La dirección no se escribe
 #      en este archivo ni aparece en los registros.
 #      Se configura en: Settings → Secrets and variables → Actions →
 #      New repository secret → Nombre: FIVEM_ENDPOINT.
 #
-#  estado.json solo publica: en_linea, jugadores, tope y actualizado.
+#  estado.json publica solo lo mínimo:
+#   {"disponible":false}                       sin una fuente fiable
+#   {"disponible":true,"en_linea":false}       la fuente no obtuvo respuesta
+#   {"disponible":true,"en_linea":true,"jugadores":N,"tope":M}
+#  más la hora de la comprobación ("actualizado"). Nunca inventa cifras.
 # ════════════════════════════════════════════════════════════
 name: Estado del servidor
 
@@ -38,11 +43,10 @@ jobs:
       - name: Consultar el servidor
         shell: bash
         env:
-          JOIN: kr546a                                # código público de Cfx.re
           FIVEM_ENDPOINT: ${{ secrets.FIVEM_ENDPOINT }} # opcional, nunca se imprime
         run: |
           set +e                      # ningún fallo corta la consulta
-          CLIENTS=""; MAX=""
+          CLIENTS=""; MAX=""; DIRECTA=""
 
           # La dirección directa, si existe, queda enmascarada en los registros
           if [ -n "$FIVEM_ENDPOINT" ]; then
@@ -50,18 +54,28 @@ jobs:
             echo "::add-mask::${FIVEM_ENDPOINT%%:*}"
           fi
 
-          echo "── 1. API de Cfx.re ──"
-          CODE=$(curl -s -m 20 -A "ElysiumEstado/1.0" -o cfx.json -w "%{http_code}" \
-                 "https://servers-frontend.fivem.net/api/servers/single/$JOIN" 2>/dev/null)
-          echo "Respuesta HTTP: ${CODE:-sin respuesta}"
-          if [ "$CODE" = "200" ]; then
-            CLIENTS=$(jq -r '.Data.clients // empty' cfx.json 2>/dev/null)
-            MAX=$(jq -r '.Data.sv_maxclients // .Data.svMaxclients // empty' cfx.json 2>/dev/null)
-          elif [ "$CODE" = "404" ]; then
-            echo "El código no figura en el listado público (servidor apagado, oculto o con otro código)."
+          # Código público de Cfx.re: una sola fuente, _data/sitio.yml
+          JOIN=$(yq -r '.acceso.codigo // ""' _data/sitio.yml 2>/dev/null)
+          [ -z "$JOIN" ] && JOIN=$(ruby -ryaml -e 'print YAML.load_file("_data/sitio.yml").dig("acceso","codigo").to_s' 2>/dev/null)
+          case "$JOIN" in ''|*[!A-Za-z0-9]*) JOIN="" ;; esac
+
+          if [ -n "$JOIN" ]; then
+            echo "── 1. API de Cfx.re (código $JOIN) ──"
+            CODE=$(curl -s -m 20 -A "ElysiumEstado/1.0" -o cfx.json -w "%{http_code}" \
+                   "https://servers-frontend.fivem.net/api/servers/single/$JOIN" 2>/dev/null)
+            echo "Respuesta HTTP: ${CODE:-sin respuesta}"
+            if [ "$CODE" = "200" ]; then
+              CLIENTS=$(jq -r '.Data.clients // empty' cfx.json 2>/dev/null)
+              MAX=$(jq -r '.Data.sv_maxclients // .Data.svMaxclients // empty' cfx.json 2>/dev/null)
+            elif [ "$CODE" = "404" ]; then
+              echo "El código no figura en el listado público (servidor apagado, oculto o con otro código)."
+            fi
+          else
+            echo "Sin código de conexión válido en _data/sitio.yml."
           fi
 
           if [ -z "$CLIENTS" ] && [ -n "$FIVEM_ENDPOINT" ]; then
+            DIRECTA="si"
             echo "── 2. Consulta directa (dirección protegida) ──"
             C=$(curl -s -m 20 -o dynamic.json -w "%{http_code}" "http://$FIVEM_ENDPOINT/dynamic.json" 2>/dev/null)
             echo "Respuesta HTTP: ${C:-sin respuesta}"
@@ -78,33 +92,48 @@ jobs:
           case "$MAX" in ''|*[!0-9]*) MAX="" ;; esac
 
           AHORA=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          if [ -z "$CLIENTS" ]; then
-            echo "Veredicto: ninguna vía respondió."
-            jq -cn --arg t "$AHORA" '{en_linea: false, actualizado: $t}' > estado.json
-          else
+          if [ -n "$CLIENTS" ]; then
             echo "Veredicto: en línea con $CLIENTS personas conectadas."
-            jq -cn --argjson j "$CLIENTS" --argjson m "${MAX:-64}" --arg t "$AHORA" \
-              '{en_linea: true, jugadores: $j, tope: $m, actualizado: $t}' > estado.json
+            jq -cn --argjson j "$CLIENTS" --arg m "$MAX" --arg t "$AHORA" \
+              '{disponible: true, en_linea: true, jugadores: $j}
+               + (if $m == "" then {} else {tope: ($m | tonumber)} end)
+               + {actualizado: $t}' > estado.json
+          elif [ -n "$DIRECTA" ]; then
+            echo "Veredicto: el servidor no respondió a la consulta directa."
+            jq -cn --arg t "$AHORA" '{disponible: true, en_linea: false, actualizado: $t}' > estado.json
+          else
+            echo "Veredicto: no hay una fuente fiable. La web muestra «Estado en vivo no disponible»."
+            jq -cn --arg t "$AHORA" '{disponible: false, actualizado: $t}' > estado.json
           fi
-          echo "${CLIENTS:-vacio}" > .jugadores
           rm -f cfx.json dynamic.json
           exit 0
 
-      - name: Publicar solo si cambió el número
+      - name: Publicar si cambió el estado o el dato quedó viejo
         shell: bash
         run: |
           set +e
-          NUEVO=$(cat .jugadores); rm -f .jugadores
-          VIEJO=$(git show HEAD:estado.json 2>/dev/null | jq -r '.jugadores // "vacio"' 2>/dev/null)
-          [ -z "$VIEJO" ] && VIEJO="sin-archivo"
+          FIRMA='[.disponible, .en_linea, .jugadores, .tope] | map(tostring) | join("|")'
+          NUEVA=$(jq -r "$FIRMA" estado.json 2>/dev/null)
+          VIEJA=$(git show HEAD:estado.json 2>/dev/null | jq -r "$FIRMA" 2>/dev/null)
+          ANTES=$(git show HEAD:estado.json 2>/dev/null | jq -r '.actualizado // empty' 2>/dev/null)
+          EDAD=$(( $(date -u +%s) - $(date -u -d "${ANTES:-1970-01-01T00:00:00Z}" +%s 2>/dev/null || echo 0) ))
+          DISPONIBLE=$(jq -r '.disponible' estado.json 2>/dev/null)
 
-          if [ "$NUEVO" = "$VIEJO" ]; then
-            echo "Sigue en $NUEVO: no hace falta publicar."
+          # Sin cambios: solo se renueva la hora si hay una fuente real y el
+          # dato publicado tiene más de 6 horas (la web lo marca como viejo a las 12).
+          if [ "$NUEVA" = "$VIEJA" ] && { [ "$DISPONIBLE" != "true" ] || [ "$EDAD" -lt 21600 ]; }; then
+            echo "Sin cambios ($NUEVA): no hace falta publicar."
             exit 0
           fi
+
+          case "$(jq -r 'if .disponible != true then "x" elif .en_linea then "on" else "off" end' estado.json)" in
+            on)  MENSAJE="Estado: en línea, $(jq -r '.jugadores' estado.json) conectados" ;;
+            off) MENSAJE="Estado: sin respuesta del servidor" ;;
+            *)   MENSAJE="Estado: sin fuente disponible" ;;
+          esac
           git config user.name  "Elysium bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add estado.json
-          git commit -m "Estado: $NUEVO jugadores"
+          git commit -m "$MENSAJE"
           git push || { git pull --rebase && git push; }
           exit 0

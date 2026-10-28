@@ -1,92 +1,110 @@
 # Decisiones pendientes — sitio web de Elysium | ES
 
-Última revisión: 27/10/2026. Cada punto indica qué se encontró, qué quedó hecho mientras tanto y qué falta decidir. Nada de esto bloquea el sitio: donde había una afirmación pública sin verificar, se eligió la opción más prudente.
+- **Última revisión:** 28/10/2026, segunda etapa.
+- **Qué contiene:** cada punto dice qué se encontró, qué quedó hecho y qué hay que decidir, con una recomendación. Las preguntas concretas están **una sola vez**, numeradas, en [`LEGAL_DATA_REQUIRED.md`](LEGAL_DATA_REQUIRED.md). Acá se citan como «Cuestionario, n.º».
+- **Criterio:** nada de esto bloquea el sitio. Donde había una afirmación pública sin verificar, se eligió la opción más prudente.
 
 ---
 
-## 1. Fase pública del Mundo I
+## 1. Etapa pública: Reapertura, y acceso verificado por separado
 
-- **Verificado (27/10/2026, 19:26 UTC):** la consulta automática del servidor devolvió el nombre `Elysium | ES · PREAPERTURA (solo STAFF)`, 1 persona conectada y 48 plazas.
-- **Antes:** la web decía «La ciudad ya está abierta», «Fronteras abiertas · entrada libre» y «El ingreso está habilitado para toda la comunidad».
-- **Hecho:** el sitio muestra la fase **Preapertura · acceso reservado al staff** y el botón principal lleva al Discord en lugar de conectar al servidor.
-- **Para abrir:** en `_data/sitio.yml` cambiar `fase: preapertura` por `fase: abierto`. Eso cambia la portada, el cierre, la guía y las preguntas frecuentes, y vuelve a poner «Entrar a la ciudad» como botón principal. Publicar además una novedad en `_posts/`.
+- **Decidido por vos:** el mensaje actual es **REAPERTURA**, porque el servidor ya estuvo abierto. «Preapertura» dejó de usarse como mensaje actual.
+- **Verificado:**
+  - el 27/10/2026 a las 19:26 UTC, el servidor se identificaba como `Elysium | ES · PREAPERTURA (solo STAFF)`, con 1 persona conectada y 48 plazas;
+  - la API de Cfx.re respondió 404 para `kr546a` el 15/09 y el 27/10/2026.
+- **Hecho:** `_data/sitio.yml` es la única fuente de verdad:
+  - `etapa: reapertura` es lo que se anuncia: portada, placa de estado, pie, guía, preguntas frecuentes y cierre;
+  - `acceso.publico` y `acceso.codigo_confirmado` guardan lo comprobado. Hoy los dos son `false`, así que el sitio dice «Acceso público: por confirmar» y no muestra el comando ni el botón «Abrir en FiveM».
+- **Para cambiarlo** (Cuestionario, n.º 2 y 3):
+  1. Comprobá que una persona sin rol de staff puede conectarse y que `cfx.re/join/<código>` lleva al servidor.
+  2. Poné `codigo_confirmado: true` y, si corresponde, `publico: true`, con la fecha en `verificado`.
+  3. Con ambos en `true`, la portada vuelve a mostrar «Entrar a la ciudad».
+  4. `etapa: abierto` se usa cuando la reapertura termine.
+  5. Publicá una novedad en `_posts/`.
 
-## 2. Código de conexión `kr546a`
+## 2. Mundos
 
-- **Verificado:** el 27/10/2026 la API pública de Cfx.re respondió **404** para `kr546a` (el código no figura en el listado). Puede deberse a que el servidor está oculto durante la preapertura, a que el código cambió o a que el servidor no está registrado en el listado.
-- **Hecho:** el código se mantiene (es el que usaba la web y el workflow), centralizado en `_data/sitio.yml` → `conexion.codigo`. El comando pasó de `connect kr546a` a **`connect cfx.re/join/kr546a`**, que es el formato que acepta la consola F8 de FiveM.
-- **Decidir:** confirmar el código definitivo antes de la apertura y probar el botón «Abrir en FiveM» (`fivem://connect/cfx.re/join/<código>`) desde una PC con FiveM instalado. Si el código cambia, actualizarlo también en `.github/workflows/estado-servidor.yml` (`JOIN`).
+| Mundo | Antes en la web | Ahora |
+|---|---|---|
+| I | Rol · Abierto | **Roleplay · Reapertura**, acceso por confirmar |
+| II | Cuarentena · Abierto, «ya recibe grupos de hasta cinco» | Cuarentena · **Por confirmar**, diseño previsto, sin fecha |
+| III | PvP · En construcción | PvP · En desarrollo, proyecto posterior, sin fecha |
+| IV | Arena · En diseño | Arena (nombre provisional) · En diseño, sin fecha |
 
-## 3. Identidad y estado de los mundos
+- **Decidir:** el estado real de Cuarentena y si los detalles de diseño (hordas, pactos, Humane Labs, grupos de 1 a 5) siguen vigentes. Los textos están en `_data/mundos.yml`.
 
-| Mundo | Antes en la web | Ahora | Pendiente |
-|---|---|---|---|
-| I | «Rol» · Abierto | **Roleplay** · Preapertura | Confirmar el nombre «Roleplay» |
-| II | Cuarentena · Abierto | Cuarentena · **En pruebas** | Confirmar detalles (grupos de 1 a 5, hordas, pactos) tras las pruebas |
-| III | PvP · En construcción | PvP · **En desarrollo** | — |
-| IV | Arena · En diseño | Arena (**nombre provisional**) · En diseño | Confirmar nombre definitivo (¿Arena o proyecto de héroes?) |
+## 3. Sistemas, empleos, facciones y economía
 
-- Los textos de cada mundo están en `_data/mundos.yml`. Se quitó la promesa de «premios para los finalistas» del Mundo IV hasta que se confirme.
-- `mundo4.webp` (no usado) muestra a Superman y Batman: son personajes de DC Comics. **No conviene usarlo** para presentar el mundo de héroes.
+- **Hecho:** los diez sistemas se presentan como **lo que contempla la normativa**, con el artículo de cada punto, y todos figuran «Por confirmar». Se quitaron del sitio «Construida sobre QBox… más FPS» y «Infraestructura propia, economía cuidada», porque no se pudieron verificar.
+- **Decidir:** confirmar en el servidor qué funciona hoy y cambiar `estado` en `_data/sistemas.yml`. Si la base técnica es QBox con recursos ox y querés mostrarlo, confirmalo y se vuelve a publicar.
 
-## 4. Sistemas de rol
+## 4. Seguridad: webhook en el historial — **urgente**
 
-- Se presentan diez sistemas (empleos, facciones, economía, vehículos, propiedades, comunicación, emergencias, rol ilegal, eventos, inventario y soporte). Cada punto cita el artículo de la normativa o el texto de Elysium del que sale.
-- **Todos figuran «Por confirmar»**, porque con el servidor en preapertura no hay forma de verificar desde el sitio qué está implementado para el público.
-- **Decidir:** revisar `_data/sistemas.yml` y cambiar `estado` a `disponible`, `pruebas` o `desarrollo` según corresponda. No agregar sistemas que solo existan en un documento de diseño.
+- **Encontrado (28/10/2026, con el historial completo):** entre el 16/04 y el 14/09/2026, `index.html` y `staff.html` tuvieron una **URL real de webhook de Discord**. La versión del 27/10 de este documento decía que el webhook «nunca se configuró»: eso describía solo la última versión del código y quedó corregido. Sigue legible en el historial público.
+- **Decidir:** eliminar el webhook en Discord ya (Cuestionario, n.º 1). Si además querés reescribir el historial, ver el punto 12.
 
-## 5. Tienda y modelo de monetización
+## 5. Postulación a staff
 
-- **Hecho:** el enlace a Tebex se mantiene, ahora con una página previa (`tienda.html`) que explica que es un sitio externo, que Tebex procesa el pago y dónde están las condiciones.
-- Las condiciones de la tienda del 21/09/2026 siguen vigentes **sin cambios** en pagos, cancelaciones ni reembolsos. Solo se retiró la afirmación «Nada de pay-to-win» y la descripción de beneficios («cosmético, de comodidad o de acceso anticipado»), porque no se pudo verificar contra los productos reales.
-- **Decidir:** la política de la tienda. Las discrepancias concretas y las alternativas están en [`docs/TIENDA_DISCREPANCIAS.md`](docs/TIENDA_DISCREPANCIAS.md). Hay un borrador de condiciones nuevas para revisar en [`legal/borradores/condiciones-tienda-propuesta.md`](legal/borradores/condiciones-tienda-propuesta.md); **no está publicado**.
+- **Hecho:** el examen no cambió. Al terminar, la persona descarga sus respuestas (o las copia) y las adjunta en un ticket. El sitio no envía nada.
+- **Recomendación:** si se quiere envío automático, usar un bot de tickets con formularios o una función en servidor que guarde el secreto. Nunca un webhook en el HTML.
 
-## 6. Postulación a staff
+## 6. Tienda
 
-- **Encontrado:** el formulario intentaba enviar las respuestas a un webhook de Discord escrito en el código de la página. El webhook nunca se configuró (el código tenía el texto `PEGA_ACA_TU_WEBHOOK_NUEVO`), así que después de 40–60 minutos de examen la persona recibía «el formulario todavía no está conectado». Además, un webhook puesto en el navegador lo puede leer cualquiera y usarlo para publicar o borrar en ese canal.
-- **Hecho:** el examen se conserva igual. Al terminar, la persona **descarga un archivo .txt** (o copia las respuestas) y lo adjunta en un ticket del Discord. El paso «Enviás el examen» dice ahora eso, en lugar de «Llega directo al canal privado de la dirección».
-- **Decidir:** si se quiere envío automático, hacerlo con una pieza en servidor que guarde el secreto (por ejemplo, un bot de tickets de Discord con formularios, o una función serverless con límite de envíos y captcha). Nunca con el webhook en el HTML.
+- **Hecho:** no se cambiaron productos, precios, suscripciones, la configuración de Tebex ni las condiciones del 21/09/2026. No hay promesas de «sin pay-to-win».
+- **Decidir:**
+  - quién vende (Tebex Checkout o pasarelas propias);
+  - suscripciones y cancelación;
+  - revisión jurídica de las cláusulas de donación, reembolsos y contracargos;
+  - aplicación de la Disposición 954/2025.
 
-## 7. Radio «Elysium FM»
+  Ver Cuestionario, n.º 16 a 24; [`docs/AUDITORIA_LEGAL.md`](docs/AUDITORIA_LEGAL.md), sección D; y el borrador **no publicado** [`legal/borradores/condiciones-tienda-propuesta.md`](legal/borradores/condiciones-tienda-propuesta.md).
 
-- **Encontrado:** siete MP3 en el repositorio (≈ 34 MB). Las etiquetas internas muestran que al menos dos son descargas de YouTube de canciones comerciales («Ice Cube – You Know How We Do It», «La T y La M – Soy Favela (Official Audio)»), y los nombres de otros archivos sugieren artistas comerciales (`bad-bunny.mp3`, `omar-courtz.mp3`, `jhay-co.mp3`). No hay licencia que permita difundirlos.
-- **Hecho:** el reproductor queda apagado (`_data/radio.yml` con la lista vacía) y los MP3 **ya no se publican** en elysiumesrp.com (`exclude` en `_config.yml`). Los archivos siguen en el repositorio.
-- **Decidir:** borrar los MP3 del repositorio (siguen en el historial de git) y, si se quiere la radio, cargar solo música propia, encargada o con licencia libre de regalías en `_data/radio.yml`.
+## 7. Música e imágenes
 
-## 8. Imágenes de la galería
+- **Hecho (28/10/2026):** se retiraron del repositorio y de la publicación 19 archivos sin autorización verificable: 7 MP3 comerciales, 4 imágenes descargadas, 4 imágenes viejas de los mundos (una con personajes de DC Comics) y 4 recursos de Rockstar u origen desconocido. Registro en [`docs/REGISTRO_ASSETS.md`](docs/REGISTRO_ASSETS.md).
+- **Decidir:**
+  - el origen de la escena de GTA V de la portada (Cuestionario, n.º 35);
+  - la autoría del logotipo en Canva (n.º 36);
+  - los metadatos con el nombre de una persona (n.º 37).
+- **Recomendación:** reemplazar el fondo de la portada por una captura propia del servidor en cuanto exista (lista de tomas en [`docs/GUION_VIDEOS.md`](docs/GUION_VIDEOS.md)). La radio queda vacía hasta tener música propia o con licencia.
 
-- **Encontrado:** la sección «Archivos de la ciudad» presentaba cuatro imágenes como contenido de Elysium (`police-map-fivem-1536x848.webp`, `4903967.webp`, `wp8853423.webp`, `982-1-1024x576.webp`). Sus nombres son los de imágenes descargadas de sitios web y fondos de pantalla, no tienen marca de Elysium y varias son PNG o JPEG con extensión `.webp`.
-- **Hecho:** la galería muestra solo arte de marca de Elysium e ilustraciones conceptuales, con su tipo indicado. Las cuatro imágenes siguen en el repositorio, sin usar.
-- **Decidir:** si alguna de esas imágenes es una captura real del servidor, confirmarlo y agregarla en `_data/galeria.yml` con `tipo: captura`. Lo ideal es reemplazarlas por capturas tomadas en Elysium, con permiso de quienes aparecen.
-- Otros archivos sin uso: `mundo1-4.webp`, `logo-lspd.png` (sello de Los Santos, de Rockstar), `mapa-gta.jpg` (mapa de GTA V, de Rockstar), `fondo-lspd.webp`, `cash-clean.png`. Se pueden borrar o archivar fuera del repositorio.
+## 8. Estado del servidor
 
-## 9. Boletín de la portada
+- **Hecho:** el indicador ya no muestra una luz roja ni un cero cuando no hay datos: dice «Estado en vivo no disponible» mientras no exista una fuente fiable. Nunca inventa cifras. Detalle en [`docs/SEGURIDAD_ESTADO.md`](docs/SEGURIDAD_ESTADO.md).
+- **Decidir:** crear el secreto `FIVEM_ENDPOINT`. Los pasos en la interfaz de GitHub están en ese documento: **nunca pegues el valor en un chat ni en el repositorio**.
 
-- **Antes:** cuatro titulares sin fecha que mezclaban ficción del rol con afirmaciones reales falsas o sin verificar («Fronteras abiertas», «El Mundo II ya recibe grupos de hasta cinco supervivientes», «Academia de cadetes», «Economía estable»).
-- **Hecho:** el boletín muestra los titulares de las novedades reales, con fecha.
-- **Decidir:** si se quiere un «diario de la ciudad» con noticias dentro del rol, crearlo como categoría propia y señalarlo claramente como ficción.
+## 9. Foro — recomendación concreta
 
-## 10. Estado del servidor y seguridad
+- **Recomendación:** en esta fase, **canales de tipo Foro en el Discord oficial** (anuncios, novedades, guías, soporte, bugs y sugerencias). Un foro web propio, como Discourse en un subdominio, solo después: cuando haya presupuesto, alojamiento, una persona técnica responsable, un equipo de moderación y la decisión de tocar el DNS. Comparación completa en [`docs/FORO_EVALUACION.md`](docs/FORO_EVALUACION.md).
+- **En la rama de trabajo, sin publicar:** la página se llama **«Comunidad»**, no «Foro activo». Organiza los temas con destinos que existen hoy y no simula un foro.
+- **Decidir:** crear o confirmar esos canales y pasarme sus enlaces (Cuestionario, n.º 33), y confirmar si la invitación es permanente (n.º 34).
 
-- Detalle técnico en [`docs/SEGURIDAD_ESTADO.md`](docs/SEGURIDAD_ESTADO.md).
-- **Acción necesaria del dueño:** crear el secreto `FIVEM_ENDPOINT` (Settings → Secrets and variables → Actions → New repository secret) con el valor `ip:puerto` del servidor. Sin ese secreto, el estado depende del listado público de Cfx.re, que hoy responde 404, y el sitio mostrará «No se pudo confirmar el estado del servidor».
-- **Evaluar:** la IP sigue en el historial de git y en registros viejos de GitHub Actions. Ver opciones en el documento de seguridad.
+## 10. Creadores y transmisiones
 
-## 11. Foro
+- **Hecho:** la sección solo muestra canales con autorización expresa (`autorizado: true` en `_data/creadores.yml`). Hoy no hay ninguno, así que muestra un estado vacío honesto. En la rama de trabajo, sin publicar, se prepara una **propuesta marcada como pendiente** de cómo funcionaría el programa.
+- **Decidir:** si existe un programa (Cuestionario, n.º 31 y 32). No se anuncian recompensas ni pagos por traer jugadores.
 
-- Evaluación completa en [`docs/FORO_EVALUACION.md`](docs/FORO_EVALUACION.md). **Recomendación:** usar canales de foro en el Discord oficial en una primera etapa y, si hace falta un foro web público, montar Discourse con inicio de sesión por Discord en una segunda etapa.
-- **Decidir:** plataforma, alojamiento, subdominio (requiere tocar el DNS) y equipo de moderación.
+## 11. Material cinematográfico
 
-## 12. Enlaces que no se pudieron verificar desde este entorno
+- **En la rama de trabajo, sin publicar:** reproductor de video bajo demanda, con portada, que no se reproduce solo en celulares. Lista de tomas para grabar en FiveM en [`docs/GUION_VIDEOS.md`](docs/GUION_VIDEOS.md).
+- **Decidir:** quién graba, con qué permisos de quienes aparecen y con qué música (propia o con licencia).
 
-- El entorno de trabajo no tenía acceso a `elysiumesrp.com`, `gtahub.gg`, Discord ni Tebex. Se conservaron los enlaces que ya usaba el sitio: invitación `https://discord.gg/4mTVJhu3gx`, tienda `https://elysium-488.tebex.io` y las redes de TikTok, Instagram y YouTube.
-- **Confirmar:** que la invitación de Discord sea permanente (sin vencimiento ni límite de usos).
+## 12. Historial público
+
+- **Decidir** (Cuestionario, n.º 39): si, además de eliminar el webhook, querés reescribir el historial. Implica un push forzado y cambia todos los identificadores, incluido `1cf243e`. Procedimiento con respaldo previo en [`docs/LIMPIEZA_HISTORIAL.md`](docs/LIMPIEZA_HISTORIAL.md). No se hace sin tu autorización expresa.
 
 ## 13. Google Analytics
 
 - El identificador `G-1XMC8M5F5X` se mantiene y solo se carga con consentimiento.
-- **Confirmar en la propiedad de Analytics:** plazo de retención de datos, que Google Signals y la vinculación publicitaria estén desactivados, y quién tiene acceso. Esos datos completan la política de privacidad.
+- **Confirmar:** retención, Google Signals y accesos (Cuestionario, n.º 28 a 30).
 
-## 14. Datos legales
+## 14. Verificaciones que necesitan acceso de red
 
-- Las preguntas concretas para cerrar los documentos están en [`LEGAL_DATA_REQUIRED.md`](LEGAL_DATA_REQUIRED.md).
+No pude abrir:
+
+- `elysiumesrp.com`;
+- `gtahub.gg`, `news.gtahub.gg` y `foro.gtahub.gg`;
+- los sitios oficiales de Argentina;
+- Tebex, Cfx.re y Discord.
+
+El entorno los bloquea. La lista exacta de dominios y para qué sirve cada uno está en `LEGAL_DATA_REQUIRED.md`, parte 3. Hasta habilitarlos, la versión publicada se verifica con la API de GitHub y con `version.json`.

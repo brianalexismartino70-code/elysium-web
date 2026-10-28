@@ -1,6 +1,6 @@
 # Estado del servidor: problema de seguridad y corrección
 
-Última revisión: 27/10/2026.
+Última revisión: 28/10/2026.
 
 ## Qué pasaba
 
@@ -22,17 +22,40 @@ Consecuencias:
 
 - **Navegador:** `assets/js/elysium.js` solo lee `/estado.json`, del mismo dominio. No hay IP, puerto, proxies ni consultas a terceros. Se consulta al cargar y cada 5 minutos con la pestaña visible.
 - **Workflow:** la consulta directa usa el secreto `FIVEM_ENDPOINT` (formato `ip:puerto`). La dirección no está en el archivo, se enmascara en los registros (`::add-mask::`) y los errores de `curl` no se imprimen. Sin el secreto, solo se usa la API pública de Cfx.re.
-- **`estado.json`:** solo publica `en_linea`, `jugadores`, `tope` y `actualizado`. Se quitó `via` y se valida que los valores sean números, para que ningún texto del servidor llegue al sitio.
-- **Honestidad del indicador:** si el dato tiene más de 12 horas se muestra como posiblemente desactualizado; si ninguna fuente respondió, se dice que no se pudo confirmar el estado; si no hay archivo, «Estado en vivo no disponible». Por debajo de 1 persona conectada no se muestra cifra (criterio que ya tenía el sitio).
-- **Conexión:** el botón y el comando usan el código público de Cfx.re (`cfx.re/join/<código>`), nunca la IP.
+- **`estado.json`** publica solo el estado mínimo: `disponible`, `en_linea`, `jugadores`, `tope` y `actualizado`. Los valores se validan como números, así que ningún texto del servidor llega al sitio. Desde el 28/10/2026 nunca se inventa un tope: antes se usaba 64 cuando faltaba el dato.
+- **Honestidad del indicador** (28/10/2026):
+
+  | `estado.json` | Qué ve la persona |
+  |---|---|
+  | `disponible: false` (no hay fuente fiable: Cfx.re responde 404 y no hay secreto) | «Estado en vivo no disponible», sin luz verde ni roja |
+  | `disponible: true`, `en_linea: false` (la consulta directa no respondió) | «Sin respuesta en la última comprobación» |
+  | `disponible: true`, `en_linea: true` | «En línea · N de M conectados». Con 0 personas, solo «En línea», sin un cero eterno |
+  | Dato de más de 12 horas | «Estaba en línea en el último dato · puede estar desactualizado», sin cifra |
+  | Archivo ausente o dañado | «Estado en vivo no disponible» |
+
+- **Frecuencia:** el workflow publica cuando cambia el estado. Si hay una fuente real y no hubo cambios, renueva la hora cada 6 horas para que el dato no quede viejo. Sin fuente fiable, no publica nada nuevo.
+- **Una sola fuente para el código:** el workflow lee el código de conexión de `_data/sitio.yml` (`acceso.codigo`), igual que la web.
+- **Conexión:** el comando y el botón usan el código público de Cfx.re (`cfx.re/join/<código>`), nunca la IP. Desde el 28/10/2026 **solo se muestran cuando `acceso.codigo_confirmado` es `true`**. Hasta entonces, la web remite al Discord oficial.
 
 ## Lo que tiene que hacer la administración
 
-1. Crear el secreto en GitHub: **Settings → Secrets and variables → Actions → New repository secret**, nombre `FIVEM_ENDPOINT`, valor `ip:puerto`.
-2. Ejecutar el workflow a mano una vez (pestaña **Actions → Estado del servidor → Run workflow**) y revisar que `estado.json` se actualice.
+Al 27/10/2026 el secreto **no estaba configurado**: el registro de la acción decía «Sin secreto FIVEM_ENDPOINT: no se hace la consulta directa». Mientras falte, y mientras Cfx.re responda 404 para el código, el sitio muestra «Estado en vivo no disponible».
+
+Para configurarlo desde la web de GitHub, **sin compartir el valor con nadie**:
+
+1. Entrá al repositorio `brianalexismartino70-code/elysium-web` con la cuenta que lo administra.
+2. Abrí **Settings** (Configuración), arriba a la derecha de la pestaña del repositorio.
+3. En el menú lateral: **Secrets and variables** → **Actions**.
+4. En la pestaña **Secrets**, apretá **New repository secret**.
+5. En **Name** escribí exactamente `FIVEM_ENDPOINT`.
+6. En **Secret** escribí la dirección del servidor en formato `ip:puerto` (por ejemplo, con el puerto de FiveM, `30120`). No agregues `http://` ni espacios.
+7. Apretá **Add secret**. GitHub no vuelve a mostrar el valor, ni siquiera a vos.
+8. Para probarlo: **Actions** → **Estado del servidor** → **Run workflow** → **Run workflow**. Al terminar, el registro debería decir «Consulta directa (dirección protegida)» con la dirección reemplazada por `***`, y `estado.json` debería cambiar.
+
+Si la dirección cambia: **Settings** → **Secrets and variables** → **Actions** → el lápiz junto a `FIVEM_ENDPOINT` → escribí el valor nuevo → **Update secret**.
 
 ## Riesgo que queda
 
-- La IP sigue en el **historial de git** (por ejemplo, en los commits `af2e94a` y `9e0518f` del 15/09/2026 y siguientes) y en los **registros viejos de Actions** (GitHub los conserva 90 días por defecto). Borrarla del historial exige reescribirlo, lo que rompe las copias existentes del repositorio: no se hizo y es decisión del dueño.
+- Dos direcciones del servidor siguen en el **historial de git** (de agosto al 27/10/2026) y en los **registros viejos de Actions** (vencen a los 90 días como máximo). Además, el historial conserva una **URL de webhook de Discord** válida: es más grave que la IP y se resuelve eliminando el webhook en Discord. Detalle y estrategia en [`LIMPIEZA_HISTORIAL.md`](LIMPIEZA_HISTORIAL.md).
 - Cualquier servidor de FiveM que figure en el listado público expone su dirección a quien la busque. Para reducir la exposición conviene evaluar la opción de FiveM que oculta la dirección en el listado (`sv_endpointPrivacy`), una protección contra ataques de denegación de servicio del proveedor de alojamiento y, si se considera necesario, un cambio de IP.
 - El cron del workflow pide cada 10 minutos, pero GitHub ejecuta los programados con demoras de horas en repositorios con poca actividad. El sitio muestra la antigüedad del dato para no aparentar un estado «en vivo» que no es.

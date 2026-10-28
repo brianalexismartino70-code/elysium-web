@@ -26,6 +26,14 @@ Los beneficios se aplican de forma automática, en general dentro de los 15 minu
 
 **[PENDIENTE: redacción a definir con revisión jurídica según el país del titular y la configuración real de Tebex]**
 
+Para compradores en Argentina, el abogado debe revisar al menos:
+
+- el derecho de revocación en contratos a distancia (Ley 24.240 y Código Civil y Comercial, arts. 1110 a 1116, con la excepción para contenido digital ya entregado);
+- la **Disposición 954/2025**, que según fuentes secundarias reemplazó a las Resoluciones 424/2020 y 316/2018 y exige un «Botón de Arrepentimiento» y un «Botón de Baja de Servicio» visibles y sin registro previo;
+- la **Resolución 274/2021**: enlace «Defensa de las y los Consumidores. Para reclamos ingrese aquí».
+
+El análisis completo está en `docs/AUDITORIA_LEGAL.md`, sección D.
+
 Opciones a evaluar:
 
 - **Opción 1.** Plazo de desistimiento para compras que todavía no se usaron, y pérdida de ese derecho cuando la persona acepta expresamente que el beneficio se active de inmediato.
