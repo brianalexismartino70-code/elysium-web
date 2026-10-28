@@ -123,6 +123,21 @@ En la columna «Prueba», «Prueba N» es la sección N de `tests/verificar.mjs`
 5. **Riqueza visual:** la V2 queda en la rama, sin publicar (sección 4).
 6. **Foro:** recomendación concreta en `FORO_EVALUACION.md`.
 
-## 4. Evolución visual V2
+## 4. Evolución visual V2 (en la rama, sin publicar)
 
-Se completa al cerrar la etapa: ver `CAMBIOS_WEB.md`, sección «Segunda etapa».
+Qué se implementó de la matriz y cómo se probó. «Prueba 13» es la sección V2 de `tests/verificar.mjs`.
+
+| Fila de la matriz | Implementado | Prueba |
+|---|---|---|
+| 1. Navegación | Acceso rápido fijo: guía y Discord, o «Entrar» cuando el acceso esté confirmado | 13 (aparece, se retira en el pie, no tapa el aviso de cookies, no está en staff, móvil) y variante |
+| 2. Inicio y hero | Telón con hilo de bronce (escritorio), acercamiento, polvo dorado con pausa, brillo del título, video propio opcional bajo condiciones | 13 (telón, polvo, pausa y reanudar, sin video si no hay), 10 y 13 (menos movimiento y sin JS), variante (video solo en escritorio) |
+| 3. Mundos | Miniaturas, cortina y un tratamiento visual por estado | 5 y 13 (estados, etiqueta en una línea, imagen distinta por estado, miniaturas) |
+| 4. Sistemas | Detalle desplegable con teclado; visible sin JavaScript | 5 (filtros) y 13 (abrir, teclado, plegar, sin JS) |
+| 6. Novedades | Portadas propias por categoría con la fecha; marca «Corregida» | 11 (RSS) y 13 (portadas) |
+| 8. Creadores | Propuesta rotulada «pendiente», sin recompensas; componente de video propio bajo demanda | 9 y 13 (propuesta, video sin descarga previa) |
+| 9. Foro y comunidad | Temas con destinos reales, nota honesta sobre el foro, ancla `#foro` conservada | 2 y 13 (destinos, sin «foro activo») |
+| 10. Incorporación | Indicador de pasos que avanza y cierre «Listo para entrar» | 13 (paso actual, cierre sin conectar a un código sin confirmar) |
+| 14. Galería | Miniaturas, deslizamiento, anuncio para lectores de pantalla, fondo inerte | 5 y 13 |
+| 15 y 16. Rendimiento y accesibilidad | Efectos en CSS y en el JS existente, sin bibliotecas. Menos efectos en celulares. Todo respeta «menos movimiento» | axe: 0 problemas. html-validate: sin errores. Lighthouse solo como referencia (ver `CAMBIOS_WEB.md`) |
+
+Resultado: **753 de 753** comprobaciones en `tests/verificar.mjs` y **10 de 10** en `tests/verificar-variante.mjs`.

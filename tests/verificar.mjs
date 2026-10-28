@@ -524,6 +524,193 @@ const navegador = await chromium.launch();
   await ctx.close();
 }
 
+// ── 13. Evolución visual V2 ──────────────────────────────────
+{
+  const ctx = await contexto(navegador);
+  await ctx.addInitScript(e => { try { localStorage.setItem('elysium_cookies', e); } catch (x) {} }, ELECCION);
+  const pagina = await ctx.newPage();
+  const reg = vigilar(pagina);
+  await pagina.goto(BASE + '/', { waitUntil: 'networkidle' });
+
+  // Portada: telón que se abre, polvo dorado y control para pausarlo
+  await pagina.waitForTimeout(2400);
+  ok(await pagina.evaluate(() => getComputedStyle(document.querySelector('.hero-veil')).opacity) === '0', 'portada V2: el telón se abre y desaparece');
+  ok(await pagina.locator('.hero-dust i').count() === 16, 'portada V2: 16 partículas de polvo decorativo');
+  ok(await pagina.evaluate(() => getComputedStyle(document.querySelector('.hero-dust i')).animationName) === 'polvo', 'portada V2: el polvo se anima');
+  const pausa = pagina.locator('[data-pausar-movimiento]');
+  ok(await pausa.isVisible(), 'portada V2: hay un botón para pausar la animación');
+  await pausa.click();
+  ok(await pausa.getAttribute('aria-pressed') === 'true' && /Reanudar/.test(await pausa.innerText()), 'portada V2: el botón pausa y cambia su texto');
+  ok(await pagina.evaluate(() => getComputedStyle(document.querySelector('.hero-dust i')).animationPlayState) === 'paused', 'portada V2: el polvo queda en pausa');
+  await pausa.click();
+  ok(await pagina.evaluate(() => getComputedStyle(document.querySelector('.hero-dust i')).animationPlayState) === 'running', 'portada V2: el polvo se reanuda');
+  ok(await pagina.locator('video').count() === 0, 'portada V2: sin video configurado no hay video de fondo');
+
+  // Llamada a la acción fija
+  const dock = pagina.locator('[data-dock]');
+  ok(!(await dock.isVisible()), 'acceso rápido: oculto sobre la portada');
+  await pagina.evaluate(() => document.getElementById('sistemas').scrollIntoView({ behavior: 'instant' }));
+  await pagina.waitForTimeout(700);
+  ok(await dock.isVisible(), 'acceso rápido: aparece al bajar');
+  const destinos = await pagina.locator('[data-dock] a').evaluateAll(as => as.map(a => a.getAttribute('href')));
+  ok(destinos.includes('/como-entrar.html') && destinos.some(h => h.startsWith('https://discord.gg/')) && !destinos.some(h => h.startsWith('fivem://')),
+    `acceso rápido: lleva a la guía y al Discord, sin conectar a un código sin confirmar (${destinos.join(' ')})`);
+  await pagina.evaluate(() => document.querySelector('.foot').scrollIntoView({ behavior: 'instant' }));
+  await pagina.waitForTimeout(700);
+  ok(!(await dock.isVisible()), 'acceso rápido: se retira al llegar al pie');
+  await pagina.evaluate(() => document.getElementById('sistemas').scrollIntoView({ behavior: 'instant' }));
+  await pagina.waitForTimeout(500);
+  await pagina.click('.foot [data-cookies]').catch(() => {});
+  await pagina.evaluate(() => window.ElysiumCookies && window.ElysiumCookies.abrir());
+  await pagina.waitForTimeout(600);
+  ok(!(await dock.isVisible()), 'acceso rápido: no tapa el aviso de cookies');
+  await pagina.keyboard.press('Escape');
+  await pagina.waitForTimeout(500);
+
+  // Mundos: un tratamiento visual por estado
+  const estadosTabs = await pagina.locator('.world-tab').evaluateAll(ts => ts.map(t => t.getAttribute('data-mundo-estado')));
+  ok(estadosTabs.join(',') === 'reapertura,confirmar,desarrollo,diseno', `mundos V2: cada pestaña declara su estado (${estadosTabs.join(',')})`);
+  ok(await pagina.locator('.world-tab .chip').first().evaluate(c => /flex/.test(getComputedStyle(c).display) && c.getBoundingClientRect().height < 40), 'mundos V2: la etiqueta de estado se ve en una línea');
+  await pagina.locator('#mundo-tab-3').click();
+  await pagina.waitForTimeout(400);
+  ok(/desarrollo/i.test(await pagina.locator('#mundo-3 .world-state').innerText()), 'mundos V2: el panel muestra su estado sobre la ilustración');
+  const filtros = await pagina.locator('#mundo-3 .world-shot img').evaluate(i => getComputedStyle(i).filter);
+  ok(/saturate/.test(filtros), 'mundos V2: el mundo en desarrollo se ve distinto del que está en reapertura');
+  ok(await pagina.locator('.world-thumb').evaluateAll(is => is.every(i => i.complete && i.naturalWidth > 0)), 'mundos V2: las miniaturas cargan');
+
+  // Sistemas: detalle desplegable y accesible
+  ok(await pagina.locator('.system-more:visible').count() === 10, 'sistemas V2: cada tarjeta tiene su botón de detalle');
+  ok(await pagina.locator('.system-detail:visible').count() === 0, 'sistemas V2: el detalle empieza plegado');
+  const primero = pagina.locator('.system-more').first();
+  await primero.click();
+  ok(await primero.getAttribute('aria-expanded') === 'true' && await pagina.locator('#sistema-empleos-detalle li:visible').count() === 2, 'sistemas V2: el botón despliega los puntos con su fuente');
+  await pagina.locator('#sistema-facciones .system-more').focus();
+  await pagina.keyboard.press('Enter');
+  ok(await pagina.locator('#sistema-facciones-detalle').isVisible(), 'sistemas V2: también se abre con el teclado');
+  await primero.click();
+  ok(await primero.getAttribute('aria-expanded') === 'false' && !(await pagina.locator('#sistema-empleos-detalle').isVisible()), 'sistemas V2: se vuelve a plegar');
+
+  // Visor: miniaturas, deslizamiento y anuncio del cambio
+  await pagina.locator('.plate-zoom').first().click();
+  await pagina.waitForTimeout(300);
+  ok(await pagina.locator('.lb-thumb').count() === 5, 'visor V2: una miniatura por imagen');
+  await pagina.locator('.lb-thumb').nth(2).click();
+  ok(/3 de 5/.test(await pagina.locator('.lb figcaption small').innerText()) && await pagina.locator('.lb-thumb').nth(2).getAttribute('aria-current') === 'true', 'visor V2: la miniatura lleva a su imagen y queda marcada');
+  ok(await pagina.locator('.lb figcaption').getAttribute('aria-live') === 'polite', 'visor V2: el cambio de imagen se anuncia');
+  ok(await pagina.evaluate(() => document.querySelector('main').hasAttribute('inert')), 'visor V2: el fondo queda inerte mientras está abierto');
+  await pagina.evaluate(() => {
+    const f = document.querySelector('.lb figure');
+    f.dispatchEvent(new PointerEvent('pointerdown', { clientX: 600, bubbles: true }));
+    f.dispatchEvent(new PointerEvent('pointerup', { clientX: 480, bubbles: true }));
+  });
+  ok(/4 de 5/.test(await pagina.locator('.lb figcaption small').innerText()), 'visor V2: deslizar hacia la izquierda avanza');
+  await pagina.keyboard.press('Escape');
+  ok(!(await pagina.evaluate(() => document.querySelector('main').hasAttribute('inert'))), 'visor V2: al cerrar, el fondo vuelve a ser accesible');
+
+  // Novedades con portada propia (arte en CSS, sin fotos de terceros)
+  const portadas = await pagina.locator('#novedades .news-card').evaluateAll(cs => cs.map(c => {
+    const p = c.querySelector('.news-cover');
+    return !!p && p.getAttribute('aria-hidden') === 'true' && !p.querySelector('img') && /\d/.test(p.textContent);
+  }));
+  ok(portadas.length === 3 && portadas.every(Boolean), 'novedades V2: cada tarjeta tiene portada propia con la fecha');
+
+  // Profundidad al desplazar
+  ok(await pagina.locator('.band-num').count() === 9, 'profundidad: un numeral de fondo por escena');
+  await pagina.evaluate(() => document.getElementById('ciudad').scrollIntoView({ behavior: 'instant' }));
+  await pagina.waitForTimeout(400);
+  ok(await pagina.evaluate(() => /px$/.test(document.querySelector('#ciudad .band-num').style.getPropertyValue('--py'))), 'profundidad: el numeral se desplaza a otro ritmo');
+  ok(reg.errores.length === 0, `V2 portada: sin errores de consola ${reg.errores.join(' | ')}`);
+  await ctx.close();
+}
+{
+  // Comunidad: temas con destinos reales y propuesta de creadores rotulada
+  const ctx = await contexto(navegador);
+  await ctx.addInitScript(e => { try { localStorage.setItem('elysium_cookies', e); } catch (x) {} }, ELECCION);
+  const pagina = await ctx.newPage();
+  await pagina.goto(BASE + '/comunidad.html', { waitUntil: 'networkidle' });
+  ok(await pagina.locator('.topic').count() === 6, 'comunidad: seis temas (anuncios, novedades, guías, soporte, bugs, sugerencias)');
+  const destinosTemas = await pagina.locator('.topic a').evaluateAll(as => as.map(a => a.getAttribute('href')));
+  ok(destinosTemas.every(h => h.startsWith('/') || h === 'https://discord.gg/4mTVJhu3gx'), `comunidad: cada tema lleva a un destino real (${[...new Set(destinosTemas)].join(' ')})`);
+  ok(!/foro activo/i.test(await pagina.evaluate(() => document.body.innerText)), 'comunidad: no se anuncia un «foro activo»');
+  ok(await pagina.locator('#foro').count() === 1, 'comunidad: el ancla antigua #foro sigue funcionando');
+  const propuesta = await pagina.locator('.proposal').innerText();
+  ok(/pendiente/i.test(propuesta) && /Sin pagos ni recompensas/.test(propuesta), 'creadores: la propuesta figura como pendiente y sin recompensas');
+
+  // Video propio bajo demanda: nada se descarga hasta apretar reproducir
+  const pedidos = [];
+  await ctx.route('**/prueba.mp4', r => { pedidos.push(r.request().url()); return r.fulfill({ status: 200, contentType: 'video/mp4', body: '' }); });
+  await pagina.evaluate(() => {
+    const f = document.createElement('figure');
+    f.className = 'clip'; f.setAttribute('data-clip', ''); f.setAttribute('data-mp4', '/assets/video/prueba.mp4'); f.setAttribute('data-webm', '');
+    f.innerHTML = '<div class="clip-frame"><button class="play" type="button" aria-label="Reproducir el video: Prueba">▶</button></div><figcaption>Prueba</figcaption>';
+    document.querySelector('#creadores').appendChild(f);
+  });
+  await pagina.addScriptTag({ url: '/assets/js/elysium.js' });
+  await pagina.waitForTimeout(400);
+  ok(pedidos.length === 0 && await pagina.locator('#creadores video').count() === 0, 'video propio: no se descarga antes de reproducir');
+  await pagina.locator('#creadores .clip .play').click();
+  await pagina.waitForTimeout(600);
+  const fuente = await pagina.locator('#creadores .clip video source').getAttribute('src');
+  ok(fuente === '/assets/video/prueba.mp4' && pedidos.length >= 1, 'video propio: al reproducir se carga el archivo, con controles');
+  ok(await pagina.locator('#creadores .clip video').evaluate(v => v.controls && !v.autoplay && !v.loop), 'video propio: con controles y sin bucle automático');
+
+  // Guía para entrar: pasos que avanzan y cierre
+  await pagina.goto(BASE + '/como-entrar.html', { waitUntil: 'networkidle' });
+  ok(await pagina.locator('[data-pasos] a').count() === 4, 'guía V2: indicador con cuatro pasos');
+  await pagina.evaluate(() => document.getElementById('paso-3').scrollIntoView({ behavior: 'instant' }));
+  await pagina.waitForTimeout(500);
+  ok(await pagina.locator('[data-pasos] a').nth(2).getAttribute('aria-current') === 'step', 'guía V2: marca el paso que se está leyendo');
+  ok(await pagina.locator('#listo a[href^="https://discord.gg/"]').count() === 1 && await pagina.locator('#listo a[href^="fivem://"]').count() === 0, 'guía V2: el cierre remite al Discord mientras el código no esté confirmado');
+  ok(await pagina.locator('[data-dock] a[href="/como-entrar.html"]').count() === 0, 'acceso rápido: en la guía no se enlaza a sí misma');
+  await pagina.goto(BASE + '/staff.html', { waitUntil: 'networkidle' });
+  ok(await pagina.locator('[data-dock]').count() === 0, 'acceso rápido: no aparece durante el examen de staff');
+  await ctx.close();
+}
+{
+  // Móvil: acceso rápido abajo, sin pisar el botón de volver arriba
+  const ctx = await contexto(navegador, { viewport: { width: 390, height: 844 } });
+  await ctx.addInitScript(e => { try { localStorage.setItem('elysium_cookies', e); } catch (x) {} }, ELECCION);
+  const pagina = await ctx.newPage();
+  await pagina.goto(BASE + '/', { waitUntil: 'networkidle' });
+  await pagina.evaluate(() => document.getElementById('sistemas').scrollIntoView({ behavior: 'instant' }));
+  await pagina.waitForTimeout(800);
+  const cajas = await pagina.evaluate(() => {
+    const d = document.querySelector('[data-dock]').getBoundingClientRect();
+    const t = document.getElementById('toTop').getBoundingClientRect();
+    return { dTop: d.top, dAncho: d.width, tBottom: t.bottom, vw: innerWidth };
+  });
+  ok(cajas.dAncho >= cajas.vw - 1 && cajas.tBottom <= cajas.dTop + 1, `móvil: el acceso rápido ocupa el ancho y no tapa «volver arriba» (${JSON.stringify(cajas)})`);
+  await ctx.close();
+}
+{
+  // Menos movimiento: sin telón, polvo ni profundidad; sin JavaScript, nada oculto
+  const ctx = await contexto(navegador, { reducedMotion: 'reduce' });
+  await ctx.addInitScript(e => { try { localStorage.setItem('elysium_cookies', e); } catch (x) {} }, ELECCION);
+  const pagina = await ctx.newPage();
+  await pagina.goto(BASE + '/', { waitUntil: 'networkidle' });
+  const quieto = await pagina.evaluate(() => ({
+    velo: getComputedStyle(document.querySelector('.hero-veil')).display,
+    polvo: getComputedStyle(document.querySelector('.hero-dust')).display,
+    boton: document.querySelector('[data-pausar-movimiento]').hidden
+  }));
+  ok(quieto.velo === 'none' && quieto.polvo === 'none' && quieto.boton, `menos movimiento: sin telón ni polvo (${JSON.stringify(quieto)})`);
+  await pagina.evaluate(() => document.getElementById('ciudad').scrollIntoView({ behavior: 'instant' }));
+  await pagina.waitForTimeout(300);
+  ok(await pagina.evaluate(() => document.querySelector('#ciudad .band-num').style.getPropertyValue('--py') === ''), 'menos movimiento: los numerales no se desplazan');
+  await ctx.close();
+
+  const ctx2 = await contexto(navegador, { javaScriptEnabled: false });
+  const p2 = await ctx2.newPage();
+  await p2.goto(BASE + '/', { waitUntil: 'networkidle' });
+  const sinJs = await p2.evaluate(() => ({
+    velo: getComputedStyle(document.querySelector('.hero-veil')).display,
+    dock: getComputedStyle(document.querySelector('[data-dock]')).display,
+    detalle: [...document.querySelectorAll('.system-detail')].every(d => !d.hidden && d.offsetHeight > 0)
+  }));
+  ok(sinJs.velo === 'none' && sinJs.dock === 'none' && sinJs.detalle, `sin JS: sin telón ni acceso rápido, y el detalle de los sistemas a la vista (${JSON.stringify(sinJs)})`);
+  await ctx2.close();
+}
+
 await navegador.close();
 
 const informe = resultado.join('\n') + `\n\n${pruebas - fallas} de ${pruebas} comprobaciones correctas.`;

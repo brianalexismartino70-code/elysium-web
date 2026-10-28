@@ -21,6 +21,8 @@ Sitio oficial de **Elysium | ES — Sin fronteras**, comunidad de rol hispanohab
 | Publicar una novedad | Crear `_posts/AAAA-MM-DD-titulo-corto.md` (ver abajo) |
 | Agregar imágenes a la galería | `_data/galeria.yml` |
 | Mostrar creadores de contenido | `_data/creadores.yml` (solo con autorización) |
+| Video de fondo de la portada (material propio) | `_data/sitio.yml` → `portada` |
+| Insertar un video propio bajo demanda | `{% include video.html … %}` (ver `_includes/video.html`) |
 | Editar la normativa | `_includes/normativa.html` (y los títulos en `_data/normativa.yml`) |
 | Cambiar el menú | `_data/navegacion.yml` |
 | Colores, tipografías y componentes | `assets/css/elysium.css` |
@@ -61,6 +63,14 @@ bundle exec jekyll serve
 bundle exec jekyll build -d _site
 python3 -m http.server 4000 --directory _site --bind 127.0.0.1 &
 node tests/verificar.mjs http://127.0.0.1:4000 tests/capturas
+```
+
+Para probar cómo se verá el sitio cuando se confirmen el acceso y el código de conexión (y un video de portada), sin tocar el repositorio:
+
+```bash
+bash tests/variante-acceso.sh /tmp/variante
+python3 -m http.server 4001 --directory /tmp/variante --bind 127.0.0.1 &
+node tests/verificar-variante.mjs http://127.0.0.1:4001
 ```
 
 ## Estructura

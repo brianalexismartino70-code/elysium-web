@@ -55,5 +55,5 @@ Grabar cada sistema **recién cuando su estado en `_data/sistemas.yml` pase a `d
 1. Exportar con las especificaciones de la tabla.
 2. Guardar en `assets/video/` (portada: `portada.mp4`, `portada.webm`, `portada-poster.avif` y `.webp`).
 3. Anotar cada pieza en `docs/REGISTRO_ASSETS.md`.
-4. Activar el video de portada en `_data/sitio.yml` (`portada.video`).
+4. Activar el video de portada en `_data/sitio.yml`: `portada.video_mp4`, `portada.video_webm` y `portada.poster`. Los cortos se insertan con `{% include video.html … %}`; las instrucciones están en `_includes/video.html`.
 5. Compilar y correr `tests/verificar.mjs` antes de publicar.

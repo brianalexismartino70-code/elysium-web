@@ -2,7 +2,7 @@
 
 Etapas:
 
-- **Segunda etapa (28/10/2026):** correcciones verificadas, publicadas en `main`, y evolución visual V2 en la rama, sin publicar. Ver abajo.
+- **Segunda etapa (28/10/2026):** correcciones verificadas, listas para publicar, y evolución visual V2 en la rama, sin publicar. Ver abajo.
 - **Primera etapa (27/10/2026):** renovación integrada con el merge `1cf243e`. Ver «Primera etapa».
 
 ## Segunda etapa — 28/10/2026
@@ -10,7 +10,14 @@ Etapas:
 - **Rama:** `claude/nice-ritchie-njorw8`, reiniciada desde `main` en `c4d515b`.
 - **Informe completo:** `docs/AUDITORIA_WEB_100.md`.
 
-### Fase 1: correcciones verificadas (para publicar en `main`)
+### Fase 1: correcciones verificadas (listas para publicar en `main`)
+
+**Estado de la publicación:**
+
+- Las correcciones están completas en la rama hasta el commit `ae29cfd`.
+- Desde este entorno se preparó el merge a `main`, pero **el envío a `main` quedó pendiente de tu autorización**: el sistema de permisos lo bloqueó por ser un despliegue a producción.
+- Mientras tanto, lo publicado sigue siendo `c4d515b`.
+- Las formas de publicar están en el informe final.
 
 | Cambio | Por qué |
 |---|---|
@@ -32,6 +39,34 @@ Etapas:
 | `tests/verificar.mjs`: 17 páginas en 3 anchos, 9 casos del indicador de estado, textos y archivos retirados, RSS, rutas legales y enlaces externos | **699 de 699** |
 | html-validate | 17 páginas sin errores |
 | axe-core (WCAG 2.1 AA) a 1440 y 390 px | 0 problemas |
+
+### Fase 2: evolución visual V2 (en la rama, sin publicar)
+
+| Mejora | Detalle |
+|---|---|
+| Portada cinematográfica | Telón que se abre con un hilo de bronce (solo en pantallas grandes), acercamiento lento de la imagen, polvo dorado ambiental con botón «Pausar animación» y un brillo que cruza el título |
+| Video de portada opcional | Configurable en `_data/sitio.yml` (`portada`), **solo con material propio**. Nunca se descarga en pantallas chicas, con ahorro de datos ni con «menos movimiento» |
+| Acceso rápido | Barra fija con «Cómo entrar» (o «Entrar» cuando el acceso esté confirmado) y Discord. Aparece al bajar, se retira en el cierre y el pie, no tapa el aviso de cookies y no aparece en el examen de staff |
+| Selector de mundos V2 | Miniatura en cada pestaña, transición de cortina y un tratamiento propio por estado: luz cálida (reapertura), imagen apagada con borde punteado (por confirmar), retícula de plano (desarrollo) y trama de boceto (diseño) |
+| Profundidad al desplazar | Numerales romanos de fondo que se mueven más lento que el contenido y líneas de bronce que se dibujan al entrar cada escena |
+| Sistemas | Detalle desplegable y accesible («Ver lo que dice la normativa»). Sin JavaScript, el detalle queda a la vista |
+| Visor de la galería | Miniaturas, deslizamiento táctil, anuncio del cambio para lectores de pantalla, precarga de vecinas y fondo inerte |
+| Novedades | Portada propia por categoría (arte en CSS, sin fotos de terceros), con fecha y marca «Corregida» |
+| Comunidad | «Temas de la comunidad» (anuncios, novedades, guías, soporte, bugs y sugerencias) con destinos reales; nota sobre el foro, sin simularlo; propuesta de programa de creadores rotulada como pendiente |
+| Guía para entrar | Indicador de pasos fijo que avanza con la lectura y un cierre «Listo para entrar» |
+| Videos propios | Componente `_includes/video.html`: póster y descarga solo al apretar reproducir, rotulado como captura o como pieza conceptual |
+
+**Pruebas de la V2** (local, `github-pages` 232):
+
+| Prueba | Resultado |
+|---|---|
+| `tests/verificar.mjs` (secciones 1 a 13) | **753 de 753** |
+| `tests/verificar-variante.mjs` (acceso confirmado y video de portada) | **10 de 10** |
+| html-validate | 17 páginas sin errores |
+| axe-core en las 17 páginas a 1440 y 390 px, más acceso rápido visible, sistemas abiertos, visor abierto y guía con pasos | 0 problemas |
+| Lighthouse, solo como referencia (servidor local sin compresión) | Escritorio 99 · 100 · 100 · 100. Móvil 89–91 · 100 · 100 · 100, contra 90–93 de la fase 1 |
+
+Con la compresión que usa GitHub Pages, la V2 suma unos 7 KB: CSS +3,5 KB, JS +2,4 KB, HTML +1,4 KB.
 
 ## Primera etapa — 27/10/2026
 
