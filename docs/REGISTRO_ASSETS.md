@@ -25,6 +25,33 @@ Estados posibles:
 | `_includes/normativa.html` y textos de staff | Normativa oficial y examen de staff | Textos de la administración de Elysium, publicados antes de la renovación | Propios | Sitio y Discord | **OK** |
 | Nombres «Grand Theft Auto V», «FiveM», «Cfx.re», «Rockstar Games» | Guía para entrar, aviso legal y preguntas frecuentes | Marcas de terceros | Uso nominativo: el aviso legal aclara que no hay afiliación | Explicar requisitos y enlazar a tiendas oficiales | **OK** |
 
+### V2 (en la rama, sin publicar): ilustraciones generadas por código
+
+Generadas el 28/10/2026 con `tools/arte/generar_arte.py`. El script dibuja todo desde cero con numpy y Pillow y da siempre el mismo resultado:
+
+- no usa fotos, capturas, modelos de IA ni recursos de terceros;
+- no tiene personajes, logotipos ni marcas.
+
+En este entorno no había una herramienta de generación de imágenes por IA, ni una GPU para usar un modelo abierto. Por eso los mundos y las portadas de novedades son ilustraciones procedurales de estilo gráfico.
+
+La portada se rehízo en 3D:
+
+- una escena construida por código con `tools/arte/escena_hero.py`;
+- renderizada con Blender 5.2 (módulo oficial `bpy`, GPL, instalado desde PyPI) y su motor Cycles en CPU;
+- terminada con `tools/arte/postproceso_hero.py`.
+
+Lo que produce Blender pertenece al proyecto. No se usaron modelos, texturas ni recursos de terceros.
+
+| Recurso | Qué es y dónde se usa | Autoría y licencia | Estado |
+|---|---|---|---|
+| `assets/img/portada/hero-fondo-*`, `hero-frente-*` | Portada en dos capas: la ciudad al atardecer y, en primer plano, la terraza con columnas y balaustrada | Propias del proyecto: escena 3D renderizada en Blender | **OK.** Rotulada en la portada «Ilustración conceptual · no es una captura del servidor» |
+| `assets/img/portada/hero-completa-1280.*` | Galería: «La terraza» | Igual | **OK** |
+| `assets/img/mundos/mundo-1…4-*` | Selector de mundos y galería: avenida, cuarentena, patio de contenedores y coliseo | Igual | **OK.** Rotuladas «Ilustración conceptual». Reemplazan a `mundo-1…4.svg` |
+| `assets/img/novedades/novedad-*` | Portadas de las tarjetas y de cada artículo | Recortes de las ilustraciones anteriores | **OK.** Rotuladas en el artículo |
+| `assets/img/redes/elysium-og-1200x630.jpg`, `elysium-cuadrado-1080.jpg`, `elysium-vertical-1080x1920.jpg` | Vista previa al compartir y formatos para redes, sin texto incrustado | Recortes de la portada | **OK** |
+
+**La V2 retira** las imágenes sobre escenas de GTA V (`assets/img/portada/elysium-portada-*`, `assets/img/og/elysium-og.jpg` y `assets/img/galeria/elysium-arte-*`) y `mundo-1…4.svg`. Mientras la V2 no se apruebe, la versión publicada (Fase 1) las sigue usando.
+
 ### Metadatos personales en archivos publicados
 
 Los PNG originales de marca (`E.png`, `E2.png`, `ELYSIUM.png`, `ELYSIUM2.png` y `ELYSIUM3.png`) se publican en la raíz del sitio. Sus metadatos XMP incluyen:

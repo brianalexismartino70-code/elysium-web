@@ -2,7 +2,7 @@
 
 Etapas:
 
-- **Segunda etapa (28/10/2026):** correcciones verificadas, publicadas en `main`, y evolución visual V2 en la rama, sin publicar. Ver abajo.
+- **Segunda etapa (28/10/2026):** correcciones verificadas, listas para publicar; evolución visual V2 y ampliación internacional de privacidad en la rama, sin publicar. Ver abajo.
 - **Primera etapa (27/10/2026):** renovación integrada con el merge `1cf243e`. Ver «Primera etapa».
 
 ## Segunda etapa — 28/10/2026
@@ -10,7 +10,14 @@ Etapas:
 - **Rama:** `claude/nice-ritchie-njorw8`, reiniciada desde `main` en `c4d515b`.
 - **Informe completo:** `docs/AUDITORIA_WEB_100.md`.
 
-### Fase 1: correcciones verificadas (para publicar en `main`)
+### Fase 1: correcciones verificadas (listas para publicar en `main`)
+
+**Estado de la publicación:**
+
+- Las correcciones están completas en la rama hasta el commit `ae29cfd`.
+- Desde este entorno se preparó el merge a `main`, pero **el envío a `main` quedó pendiente de tu autorización**: el sistema de permisos lo bloqueó por ser un despliegue a producción.
+- Mientras tanto, lo publicado sigue siendo `c4d515b`.
+- Las formas de publicar están en el informe final.
 
 | Cambio | Por qué |
 |---|---|
@@ -34,6 +41,86 @@ Etapas:
 | `tests/verificar.mjs`: 17 páginas en 3 anchos, 9 casos del indicador de estado, textos y archivos retirados, RSS, rutas legales y enlaces externos | **699 de 699** |
 | html-validate | 17 páginas sin errores |
 | axe-core (WCAG 2.1 AA) a 1440 y 390 px | 0 problemas |
+
+### Fase 2: evolución visual V2 (en la rama, sin publicar)
+
+| Mejora | Detalle |
+|---|---|
+| Portada cinematográfica | Telón que se abre con un hilo de bronce (solo en pantallas grandes), acercamiento lento de la imagen, polvo dorado ambiental con botón «Pausar animación» y un brillo que cruza el título |
+| Video de portada opcional | Configurable en `_data/sitio.yml` (`portada`), **solo con material propio**. Nunca se descarga en pantallas chicas, con ahorro de datos ni con «menos movimiento» |
+| Acceso rápido | Barra fija con «Cómo entrar» (o «Entrar» cuando el acceso esté confirmado) y Discord. Aparece al bajar, se retira en el cierre y el pie, no tapa el aviso de cookies y no aparece en el examen de staff |
+| Selector de mundos V2 | Miniatura en cada pestaña, transición de cortina y un tratamiento propio por estado: luz cálida (reapertura), imagen apagada con borde punteado (por confirmar), retícula de plano (desarrollo) y trama de boceto (diseño) |
+| Profundidad al desplazar | Numerales romanos de fondo que se mueven más lento que el contenido y líneas de bronce que se dibujan al entrar cada escena |
+| Sistemas | Detalle desplegable y accesible («Ver lo que dice la normativa»). Sin JavaScript, el detalle queda a la vista |
+| Visor de la galería | Miniaturas, deslizamiento táctil, anuncio del cambio para lectores de pantalla, precarga de vecinas y fondo inerte |
+| Novedades | Portada propia por categoría (arte en CSS, sin fotos de terceros), con fecha y marca «Corregida» |
+| Comunidad | «Temas de la comunidad» (anuncios, novedades, guías, soporte, bugs y sugerencias) con destinos reales; nota sobre el foro, sin simularlo; propuesta de programa de creadores rotulada como pendiente |
+| Guía para entrar | Indicador de pasos fijo que avanza con la lectura y un cierre «Listo para entrar» |
+| Videos propios | Componente `_includes/video.html`: póster y descarga solo al apretar reproducir, rotulado como captura o como pieza conceptual |
+
+**Pruebas de la V2** (local, `github-pages` 232):
+
+| Prueba | Resultado |
+|---|---|
+| `tests/verificar.mjs` (secciones 1 a 13) | **753 de 753** |
+| `tests/verificar-variante.mjs` (acceso confirmado y video de portada) | **10 de 10** |
+| html-validate | 17 páginas sin errores |
+| axe-core en las 17 páginas a 1440 y 390 px, más acceso rápido visible, sistemas abiertos, visor abierto y guía con pasos | 0 problemas |
+| Lighthouse, solo como referencia (servidor local sin compresión) | Escritorio 99 · 100 · 100 · 100. Móvil 89–91 · 100 · 100 · 100, contra 90–93 de la fase 1 |
+
+Con la compresión que usa GitHub Pages, la V2 suma unos 7 KB: CSS +3,5 KB, JS +2,4 KB, HTML +1,4 KB.
+
+### Fase 3: ampliación internacional de privacidad (en la rama, sin publicar)
+
+Análisis completo, matriz por país y fuentes en `docs/AUDITORIA_LEGAL.md`, sección F. Ningún documento legal pasa a definitivo.
+
+| Cambio | Por qué |
+|---|---|
+| `cookies.js`: la señal Global Privacy Control vale como rechazo de la medición para cualquier persona; con la señal, el interruptor queda desactivado y «Aceptar» no aparece | Respetar una señal de privacidad del navegador, con el mismo criterio en todos los países |
+| `cookies.html`: secciones sobre GPC, el mismo criterio en todos los países y cómo se registra la elección | Describir exactamente lo que hace el código, sin declarar cumplimiento legal |
+| `privacidad.html`: política principal para cualquier país, con quién controla cada dato, transferencias, incidentes y anexos A a E (Argentina; UE, EEE y Reino Unido; Brasil; EE. UU.; México, Chile, Colombia, Perú y otros) | Política internacional sin promesas que no se puedan cumplir: lo no verificado queda «pendiente» |
+| `_layouts/legal.html`: el índice puede numerar con letras | Anexos A a E |
+| `terminos.html`: dos marcas «pendiente» amplían la revisión a otros países | Edad mínima y ley aplicable |
+| Matriz de 7 columnas por país, preguntas 40 a 49, decisión n.º 15 y borradores de privacidad y tienda actualizados | Entregables de la ampliación |
+
+**No se hizo, a propósito:** selector de país, analítica nueva, cambios en Tebex o en las condiciones de la tienda.
+
+**Pruebas de la fase 3** (local, `github-pages` 232):
+
+| Prueba | Resultado |
+|---|---|
+| `tests/verificar.mjs` (secciones 1 a 14; la 14 es nueva: GPC, anexos y anclas antiguas) | **792 de 792** |
+| `tests/verificar-variante.mjs` | **10 de 10** |
+| html-validate | 17 páginas sin errores |
+| axe-core en las 17 páginas a 1440 y 390 px, más el panel de preferencias con GPC en privacidad y cookies | 0 problemas |
+
+### Fase 5: publicación de la V2 (28/10/2026, autorizada por el propietario)
+
+- **Portada:** la tipografía pasa a ser la protagonista. La escena 3D queda como fondo desenfocado, y `portada.arte_escritorio` y `portada.arte_movil` reciben el arte definitivo (`docs/DIRECCION_ARTE.md`).
+- **Halloween:** decoración con luna, niebla y brasas, encendida por fechas desde `_data/sitio.yml`.
+- **RSS:** hoja XSLT y página «Novedades por RSS».
+- **Pruebas:** 811 de 811 en el navegador, feed 46 de 46 y html-validate sin errores.
+
+### Fase 4: arte original y movimiento
+
+| Cambio | Detalle |
+|---|---|
+| Ilustraciones propias | `tools/arte/generar_arte.py` genera la portada en dos capas, los cuatro mundos, las portadas de novedades y tres formatos para redes, sin recursos de terceros (`docs/REGISTRO_ASSETS.md`). Retira las imágenes sobre escenas de GTA V |
+| Portada en 3D | Escena construida por código y renderizada con Blender (Cycles): ciudad con bruma, sol y terraza con luz real. Se exporta en dos capas y en los formatos para redes |
+| Portada con profundidad | Ciudad al fondo y columnata en primer plano: se mueven a distinta velocidad con el puntero y al desplazar. Con «menos movimiento», quedan quietas. Velo de contraste más liviano |
+| Mundos | Imagen con `srcset`, miniaturas livianas y una luz que sigue al puntero |
+| Novedades | Portada ilustrada en cada tarjeta y en cada artículo, rotulada como conceptual |
+| Navegación | El menú marca la sección de la portada que está en pantalla («Mundos», «La ciudad») |
+| Rotulado | La portada, los mundos, la galería y los artículos aclaran que son ilustraciones conceptuales, no capturas del servidor |
+
+**Pruebas de la fase 4:**
+
+| Prueba | Resultado |
+|---|---|
+| `tests/verificar.mjs` (secciones 1 a 15) | **805 de 805** |
+| `tests/verificar_feed.py` | **46 de 46** |
+| html-validate | Sin errores |
+| axe-core en las 17 páginas a 1440 y 390 px | 0 problemas |
 
 ## Primera etapa — 27/10/2026
 

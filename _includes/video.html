@@ -1,0 +1,21 @@
+{%- comment -%}
+  Video propio bajo demanda. Solo muestra el póster hasta que la persona
+  aprieta reproducir: recién ahí se descarga el archivo.
+  Uso:
+    {% include video.html mp4="/assets/video/clip.mp4" webm="/assets/video/clip.webm"
+       poster="/assets/video/clip.webp" alt="Descripción del póster"
+       titulo="Título" tipo="captura" credito="Grabación propia, 10/2026" %}
+  tipo: captura (grabado en el servidor de Elysium) | concepto (no es juego real)
+  Antes de sumar un video, anotarlo en docs/REGISTRO_ASSETS.md.
+{%- endcomment -%}
+{%- if include.tipo == "concepto" -%}{%- assign rotulo = "Pieza conceptual" -%}{%- else -%}{%- assign rotulo = "Captura del servidor" -%}{%- endif -%}
+<figure class="clip" data-clip data-mp4="{{ include.mp4 }}" data-webm="{{ include.webm }}">
+  <div class="clip-frame">
+    {%- if include.poster %}
+    <img class="clip-poster" src="{{ include.poster }}" alt="{{ include.alt | default: include.titulo | escape }}" loading="lazy" decoding="async">
+    {%- endif %}
+    <button class="play" type="button" aria-label="Reproducir el video: {{ include.titulo | escape }}">{% include icono.html n="play" %}</button>
+    <span class="clip-tag">{{ rotulo }}</span>
+  </div>
+  <figcaption>{{ include.titulo }}{% if include.credito %} <small>{{ include.credito }}</small>{% endif %}</figcaption>
+</figure>

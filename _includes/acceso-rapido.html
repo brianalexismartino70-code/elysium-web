@@ -1,0 +1,19 @@
+{%- comment -%}
+  Llamada a la acción fija: aparece al dejar atrás la portada o el
+  encabezado y se oculta al llegar al cierre o al pie. Lleva a la guía
+  para entrar (o a FiveM, si el acceso y el código están confirmados) y
+  al Discord oficial.
+{%- endcomment -%}
+{%- assign sitio = site.data.sitio -%}
+{%- assign etapa = sitio.etapas[sitio.etapa] -%}
+<aside class="dock" aria-label="Acceso rápido" data-dock>
+  <p class="dock-txt"><span class="chip chip--{{ sitio.etapa }}">{{ etapa.etiqueta }}</span><span class="dock-hint">{% if sitio.acceso.publico and sitio.acceso.codigo_confirmado %}El acceso está abierto{% else %}Dejá todo listo para entrar{% endif %}</span></p>
+  <div class="dock-actions">
+    {%- if sitio.acceso.publico and sitio.acceso.codigo_confirmado %}
+    <a class="btn btn--sm" href="fivem://connect/cfx.re/join/{{ sitio.acceso.codigo }}">{% include icono.html n="flecha" %} Entrar</a>
+    {%- elsif page.seccion != "entrar" %}
+    <a class="btn btn--sm" href="/como-entrar.html">Cómo entrar</a>
+    {%- endif %}
+    <a class="btn btn--sm{% if page.seccion != 'entrar' %} btn--ghost{% endif %}" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">{% include icono.html n="discord" %} Discord</a>
+  </div>
+</aside>

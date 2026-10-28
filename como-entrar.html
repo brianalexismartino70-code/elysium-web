@@ -21,6 +21,15 @@ icono_cabecera: mando
     </div>
   </div>
 
+  <nav class="stepper" aria-label="Pasos para entrar" data-pasos>
+    <ol>
+      <li><a href="#paso-1"><i>I</i><span>GTA V</span></a></li>
+      <li><a href="#paso-2"><i>II</i><span>FiveM</span></a></li>
+      <li><a href="#paso-3"><i>III</i><span>Cuenta de Rockstar</span></a></li>
+      <li><a href="#paso-4"><i>IV</i><span>Conexión</span></a></li>
+    </ol>
+  </nav>
+
   <ol class="guide-steps" style="list-style:none;padding:0">
     <li class="card guide-step" id="paso-1">
       <span class="n" aria-hidden="true">I</span>
@@ -88,6 +97,22 @@ icono_cabecera: mando
       </div>
     </li>
   </ol>
+
+  <div class="ready frame" id="listo">
+    <div>
+      <p class="kicker">Listo para entrar</p>
+      <h2 class="ready-title">{% if sitio.acceso.publico and sitio.acceso.codigo_confirmado %}Ya podés conectarte{% else %}Ya tenés todo preparado{% endif %}</h2>
+      <p class="muted">{% if sitio.acceso.publico and sitio.acceso.codigo_confirmado %}Abrí FiveM con el botón o pegá el comando en la consola. Antes de entrar, repasá la normativa.{% else %}Con GTA V, FiveM y tu cuenta de Rockstar listos, solo falta la confirmación del acceso. Se anuncia en el Discord oficial y en esta página.{% endif %}</p>
+    </div>
+    <div class="actions">
+      {%- if sitio.acceso.publico and sitio.acceso.codigo_confirmado %}
+      <a class="btn" href="fivem://connect/cfx.re/join/{{ sitio.acceso.codigo }}">{% include icono.html n="flecha" %} Abrir en FiveM</a>
+      {%- else %}
+      <a class="btn" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">{% include icono.html n="discord" %} Seguir la reapertura</a>
+      {%- endif %}
+      <a class="btn btn--ghost" href="/normativa.html">Leer la normativa</a>
+    </div>
+  </div>
 </div>
 
 <section class="wrap section" aria-labelledby="titulo-mundos-acceso">

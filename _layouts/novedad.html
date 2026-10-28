@@ -20,6 +20,12 @@ seccion: novedades
 
 <div class="wrap post">
   <article class="post-body prose">
+    {%- if page.portada %}
+    <figure class="post-cover">
+      <img src="{{ page.portada }}-1200.webp" srcset="{{ page.portada }}-600.webp 600w, {{ page.portada }}-1200.webp 1200w" sizes="(max-width: 900px) 100vw, 720px" width="1200" height="630" alt="" decoding="async">
+      <figcaption>Ilustración conceptual · no es una captura del servidor</figcaption>
+    </figure>
+    {%- endif %}
     {%- if page.correccion %}
     <aside class="notice notice--patina post-correction" aria-label="Corrección">
       {% include icono.html n="info" %}

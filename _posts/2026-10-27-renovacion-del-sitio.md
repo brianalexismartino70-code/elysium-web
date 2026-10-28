@@ -1,6 +1,7 @@
 ---
 date: 2026-10-27 17:00:00 -0300
 title: "Renovamos elysiumesrp.com"
+portada: /assets/img/novedades/novedad-sitio
 categoria: sitio
 resumen: "Novedades con fecha, normativa navegable, guía para entrar, comunidad y documentación legal ordenada."
 description: "Novedades con fecha, normativa navegable, guía para entrar, comunidad y documentación legal ordenada."

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="no-js">
+<html lang="es" class="no-js"{% if site.data.sitio.temporada.activa %} data-temporada="{{ site.data.sitio.temporada.nombre }}" data-temporada-desde="{{ site.data.sitio.temporada.desde }}" data-temporada-hasta="{{ site.data.sitio.temporada.hasta }}"{% endif %}>
 <head>
 {% include head.html %}
 </head>
@@ -15,6 +15,9 @@
 
 {% include footer.html %}
 
+{%- unless page.acceso_rapido == false %}
+{% include acceso-rapido.html %}
+{%- endunless %}
 <button class="to-top" id="toTop" type="button" aria-label="Volver arriba">
   {% include icono.html n="arriba" %}
 </button>

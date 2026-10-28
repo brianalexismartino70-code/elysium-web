@@ -1,6 +1,7 @@
 ---
 date: 2026-09-21 19:50:00 -0300
 title: "Google Analytics, solo con tu consentimiento"
+portada: /assets/img/novedades/novedad-privacidad
 categoria: sitio
 resumen: "El sitio incorporó un aviso de cookies: la medición de visitas no se activa hasta que la aceptás."
 description: "El sitio incorporó un aviso de cookies: la medición de visitas no se activa hasta que la aceptás."

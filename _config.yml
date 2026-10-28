@@ -39,7 +39,7 @@ defaults:
   - scope:
       path: ""
     values:
-      image: /assets/img/og/elysium-og.jpg
+      image: /assets/img/redes/elysium-og-1200x630.jpg
 
 # Estos archivos son documentación interna o material de trabajo:
 # no se publican en elysiumesrp.com (siguen visibles en el repositorio).

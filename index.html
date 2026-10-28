@@ -14,17 +14,71 @@ body_class: inicio
 <!-- ════════ PORTADA ════════ -->
 <section class="hero" id="portada" aria-labelledby="titulo-portada">
   <div class="hero-media" aria-hidden="true">
-    <picture>
-      <source type="image/avif" sizes="112vw" srcset="/assets/img/portada/elysium-portada-768.avif 768w, /assets/img/portada/elysium-portada-1280.avif 1280w, /assets/img/portada/elysium-portada-1920.avif 1920w">
-      <source type="image/webp" sizes="112vw" srcset="/assets/img/portada/elysium-portada-768.webp 768w, /assets/img/portada/elysium-portada-1280.webp 1280w, /assets/img/portada/elysium-portada-1920.webp 1920w">
-      <img src="/assets/img/portada/elysium-portada-1280.jpg" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
+    {%- if sitio.portada.arte_escritorio != "" %}
+    <picture class="hero-arte">
+      <source media="(max-width: 760px)" srcset="{{ sitio.portada.arte_movil | default: sitio.portada.arte_escritorio }}">
+      <img src="{{ sitio.portada.arte_escritorio }}" width="2560" height="1440" alt="" fetchpriority="high" decoding="async">
     </picture>
+    {%- else %}
+    {%- comment -%} Escena 3D en dos capas (tools/arte/escena_hero.py), usada como fondo desenfocado {%- endcomment %}
+    <picture>
+      <source type="image/avif" sizes="112vw" srcset="/assets/img/portada/hero-fondo-768.avif 768w, /assets/img/portada/hero-fondo-1280.avif 1280w, /assets/img/portada/hero-fondo-1920.avif 1920w, /assets/img/portada/hero-fondo-2560.avif 2560w">
+      <source type="image/webp" sizes="112vw" srcset="/assets/img/portada/hero-fondo-768.webp 768w, /assets/img/portada/hero-fondo-1280.webp 1280w, /assets/img/portada/hero-fondo-1920.webp 1920w, /assets/img/portada/hero-fondo-2560.webp 2560w">
+      <img src="/assets/img/portada/hero-fondo-1280.jpg" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
+    </picture>
+    <picture class="hero-frente">
+      <source type="image/avif" sizes="112vw" srcset="/assets/img/portada/hero-frente-768.avif 768w, /assets/img/portada/hero-frente-1280.avif 1280w, /assets/img/portada/hero-frente-1920.avif 1920w, /assets/img/portada/hero-frente-2560.avif 2560w">
+      <img src="/assets/img/portada/hero-frente-1280.webp" srcset="/assets/img/portada/hero-frente-768.webp 768w, /assets/img/portada/hero-frente-1280.webp 1280w, /assets/img/portada/hero-frente-1920.webp 1920w, /assets/img/portada/hero-frente-2560.webp 2560w" sizes="112vw" width="1280" height="720" alt="" decoding="async">
+    </picture>
+    {%- endif %}
+    {%- if sitio.portada.video_mp4 != "" or sitio.portada.video_webm != "" %}
+    <video class="hero-video" muted loop playsinline preload="none" data-video-fondo
+      {%- if sitio.portada.poster != "" %} poster="{{ sitio.portada.poster }}"{% endif %}
+      data-webm="{{ sitio.portada.video_webm }}" data-mp4="{{ sitio.portada.video_mp4 }}"></video>
+    {%- endif %}
   </div>
+  {%- comment -%} Polvo dorado: posiciones fijas, decorativo y en pausa con «menos movimiento» {%- endcomment %}
+  <div class="hero-dust" aria-hidden="true">
+    {%- for i in (1..16) %}
+    {%- assign x = i | times: 37 | modulo: 97 | plus: 2 -%}
+    {%- assign t = i | times: 7 | modulo: 11 | plus: 13 -%}
+    {%- assign d = i | times: 5 | modulo: 17 -%}
+    {%- assign tam = i | modulo: 3 | plus: 2 -%}
+    {%- assign dx = i | times: 13 | modulo: 61 | minus: 30 %}
+    <i style="--x:{{ x }}%;--t:{{ t }}s;--d:-{{ d }}s;--s:{{ tam }}px;--dx:{{ dx }}px"></i>
+    {%- endfor %}
+  </div>
+  <div class="hero-temporada" aria-hidden="true"><i class="hero-luna"></i><i class="hero-niebla"></i><i class="hero-niebla hero-niebla--2"></i></div>
+  <div class="hero-veil" aria-hidden="true"><i></i></div>
 
   <div class="hero-inner">
     <div>
       <p class="kicker">Rol serio en FiveM · Comunidad hispanohablante</p>
       <h1 id="titulo-portada">ELYSIUM<span class="es">ES</span></h1>
+      <script>
+        /* Título letra por letra. Corre acá, apenas existe el título, para no
+           esperar a elysium.js. En pantallas grandes espera a que se abra el
+           telón; con «menos movimiento» no se anima. */
+        (function () {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var h1 = document.getElementById('titulo-portada'), nodo = h1.firstChild;
+          if (!nodo || nodo.nodeType !== 3) return;
+          var es = h1.querySelector('.es');
+          var inicio = window.matchMedia('(min-width: 761px)').matches ? 0.75 : 0.12;
+          h1.setAttribute('aria-label', nodo.textContent.trim() + (es ? ' ' + es.textContent : ''));
+          var frag = document.createDocumentFragment();
+          nodo.textContent.split('').forEach(function (c, i) {
+            var sp = document.createElement('span');
+            sp.className = 'l';
+            sp.setAttribute('aria-hidden', 'true');
+            sp.textContent = c;
+            sp.style.animationDelay = (inicio + i * 0.055) + 's';
+            frag.appendChild(sp);
+          });
+          h1.replaceChild(frag, nodo);
+          if (es) es.setAttribute('aria-hidden', 'true');
+        })();
+      </script>
       <p class="tagline">Sin fronteras</p>
       <div class="hero-rule" aria-hidden="true"></div>
       <p class="pitch">
@@ -53,7 +107,9 @@ body_class: inicio
     {% include estado.html %}
   </div>
 
+  <p class="hero-credit">Ilustración conceptual · no es una captura del servidor</p>
   <p class="hero-cue" id="cue" aria-hidden="true"><i></i> Deslizá para entrar</p>
+  <button class="hero-motion" type="button" aria-pressed="false" data-pausar-movimiento hidden>{% include icono.html n="pausa" %}<span>Pausar animación</span></button>
 </section>
 
 {%- if site.posts.size > 0 %}
@@ -73,6 +129,7 @@ body_class: inicio
 
 <!-- ════════ LOS MUNDOS ════════ -->
 <section class="band band--plain wrap" id="mundos" aria-labelledby="titulo-mundos">
+  <span class="band-num" aria-hidden="true" data-profundidad="0.16">I</span>
   <div class="band-head" data-reveal>
     <div>
       <p class="kicker">Cuatro mundos</p>
@@ -84,7 +141,8 @@ body_class: inicio
   <div class="worlds-pick" data-reveal data-mundos>
     <div class="world-rail" data-etiqueta="Mundos del proyecto">
       {%- for m in site.data.mundos %}
-      <button class="world-tab" type="button" id="mundo-tab-{{ forloop.index }}" data-panel="mundo-{{ forloop.index }}">
+      <button class="world-tab" type="button" id="mundo-tab-{{ forloop.index }}" data-panel="mundo-{{ forloop.index }}" data-mundo-estado="{{ m.estado }}">
+        <img class="world-thumb" src="{{ m.miniatura | default: m.imagen }}" alt="" width="160" height="90" loading="lazy" decoding="async">
         <i>{{ m.numero }}</i>
         <span><strong>{{ m.nombre }}</strong><span class="chip chip--{{ m.estado }}">{{ estados[m.estado] }}</span></span>
       </button>
@@ -93,9 +151,11 @@ body_class: inicio
 
     <div class="world-stage">
       {%- for m in site.data.mundos %}
-      <div class="world-panel{% if forloop.first %} is-on{% endif %}" id="mundo-{{ forloop.index }}">
+      <div class="world-panel{% if forloop.first %} is-on{% endif %}" id="mundo-{{ forloop.index }}" data-mundo-estado="{{ m.estado }}">
         <div class="world-shot frame">
-          <img src="{{ m.imagen }}" alt="{{ m.alt }}" width="1600" height="900" decoding="async"{% unless forloop.first %} loading="lazy"{% endunless %}>
+          <img src="{{ m.imagen }}"{% if m.base %} srcset="{{ m.base }}-960.webp 960w, {{ m.base }}-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 62vw"{% endif %} alt="{{ m.alt }}" width="1600" height="900" decoding="async"{% unless forloop.first %} loading="lazy"{% endunless %}>
+          <span class="world-luz" aria-hidden="true"></span>
+          <span class="world-state" aria-hidden="true">{{ estados[m.estado] }}</span>
           <span class="tag">Mundo {{ m.numero }}</span>
           <span class="credit">Ilustración conceptual</span>
         </div>
@@ -116,6 +176,7 @@ body_class: inicio
 
 <!-- ════════ QUÉ ES ELYSIUM ════════ -->
 <section class="band wrap" id="ciudad" aria-labelledby="titulo-ciudad">
+  <span class="band-num" aria-hidden="true" data-profundidad="0.16">II</span>
   <div class="concept">
     <div class="concept-lead" data-reveal>
       <p class="kicker">Qué es Elysium</p>
@@ -158,6 +219,7 @@ body_class: inicio
 
 <!-- ════════ SISTEMAS ════════ -->
 <section class="band wrap" id="sistemas" aria-labelledby="titulo-sistemas">
+  <span class="band-num" aria-hidden="true" data-profundidad="0.16">III</span>
   <div class="band-head" data-reveal>
     <div>
       <p class="kicker">Recorrido</p>
@@ -186,11 +248,16 @@ body_class: inicio
         <h3>{{ s.nombre }}</h3>
       </div>
       <p>{{ s.texto }}</p>
-      <ul>
-        {%- for pt in s.puntos %}
-        <li>{{ pt.texto }}{% if pt.ref %} <a href="/normativa.html#{{ pt.ref }}">{{ pt.fuente }}</a>{% elsif pt.enlace %} <a href="{{ pt.enlace }}">{{ pt.fuente }}</a>{% else %} <span class="src">{{ pt.fuente }}</span>{% endif %}</li>
-        {%- endfor %}
-      </ul>
+      <button class="system-more" type="button" aria-expanded="false" aria-controls="sistema-{{ s.id }}-detalle" hidden>
+        <span>Ver lo que dice la normativa</span> <small>{{ s.puntos.size }} {% if s.puntos.size == 1 %}punto{% else %}puntos{% endif %}</small>
+      </button>
+      <div class="system-detail" id="sistema-{{ s.id }}-detalle">
+        <ul>
+          {%- for pt in s.puntos %}
+          <li>{{ pt.texto }}{% if pt.ref %} <a href="/normativa.html#{{ pt.ref }}">{{ pt.fuente }}</a>{% elsif pt.enlace %} <a href="{{ pt.enlace }}">{{ pt.fuente }}</a>{% else %} <span class="src">{{ pt.fuente }}</span>{% endif %}</li>
+          {%- endfor %}
+        </ul>
+      </div>
     </article>
     {%- endfor %}
   </div>
@@ -198,6 +265,7 @@ body_class: inicio
 
 <!-- ════════ NOVEDADES ════════ -->
 <section class="band wrap" id="novedades" aria-labelledby="titulo-novedades">
+  <span class="band-num" aria-hidden="true" data-profundidad="0.16">IV</span>
   <div class="band-head" data-reveal>
     <div>
       <p class="kicker">Boletín oficial</p>
@@ -215,6 +283,7 @@ body_class: inicio
 
 <!-- ════════ CÓMO ENTRAR ════════ -->
 <section class="band wrap" id="entrar" aria-labelledby="titulo-entrar">
+  <span class="band-num" aria-hidden="true" data-profundidad="0.16">V</span>
   <div class="band-head" data-reveal>
     <div>
       <p class="kicker">Guía rápida</p>
@@ -276,6 +345,7 @@ body_class: inicio
 
 <!-- ════════ COMUNIDAD ════════ -->
 <section class="band band--alt wrap" id="comunidad" aria-labelledby="titulo-comunidad">
+  <span class="band-num" aria-hidden="true" data-profundidad="0.16">VI</span>
   <div class="band-head" data-reveal>
     <div>
       <p class="kicker">Comunidad</p>
@@ -316,8 +386,8 @@ body_class: inicio
       <article class="card mini-card" data-reveal>
         <span class="system-icon">{% include icono.html n="foro" %}</span>
         <div>
-          <h3><a class="card-link" href="/comunidad.html#foro">Foro de la comunidad</a></h3>
-          <p>Un foro web está en evaluación. Por ahora, las conversaciones viven en Discord.</p>
+          <h3><a class="card-link" href="/comunidad.html#temas">Temas de la comunidad</a></h3>
+          <p>Anuncios, guías, soporte, bugs y sugerencias, cada uno con su destino real. Un foro web está en evaluación.</p>
         </div>
       </article>
     </div>
@@ -326,6 +396,7 @@ body_class: inicio
 
 <!-- ════════ GALERÍA ════════ -->
 <section class="band wrap" id="archivos" aria-labelledby="titulo-archivos">
+  <span class="band-num" aria-hidden="true" data-profundidad="0.16">VII</span>
   <div class="band-head" data-reveal>
     <div>
       <p class="kicker">Galería</p>
@@ -337,7 +408,7 @@ body_class: inicio
   <div class="mosaic" data-galeria>
     {%- for g in site.data.galeria %}
     {%- capture tipo %}{% case g.tipo %}{% when "arte" %}Arte de marca{% when "concepto" %}Ilustración conceptual{% else %}Captura del servidor{% endcase %}{% endcapture %}
-    <figure class="plate" data-reveal data-full="{% if g.base %}{{ g.base }}-1280.webp{% else %}{{ g.src }}{% endif %}" data-credito="{{ g.credito | default: tipo }}">
+    <figure class="plate" data-reveal data-full="{% if g.base %}{{ g.base }}-1280.webp{% else %}{{ g.full | default: g.src }}{% endif %}" data-credito="{{ g.credito | default: tipo }}">
       {%- if g.base %}
       <picture>
         <source type="image/avif" sizes="(max-width:760px) 100vw, 50vw" srcset="{{ g.base }}-640.avif 640w, {{ g.base }}-1280.avif 1280w">
@@ -355,6 +426,7 @@ body_class: inicio
 
 <!-- ════════ NORMATIVA ════════ -->
 <section class="band wrap" id="normativa" aria-labelledby="titulo-normativa">
+  <span class="band-num" aria-hidden="true" data-profundidad="0.16">VIII</span>
   <div class="rules-teaser">
     <div data-reveal>
       <p class="kicker">Normativa oficial</p>
@@ -378,6 +450,7 @@ body_class: inicio
 
 <!-- ════════ PREGUNTAS FRECUENTES ════════ -->
 <section class="band wrap" id="ayuda" aria-labelledby="titulo-ayuda">
+  <span class="band-num" aria-hidden="true" data-profundidad="0.16">IX</span>
   <div class="faq-layout">
     <div data-reveal>
       <p class="kicker">Ayuda</p>

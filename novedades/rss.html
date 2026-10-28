@@ -1,0 +1,27 @@
+---
+layout: base
+title: "Novedades por RSS"
+permalink: /novedades/rss/
+description: "Cómo seguir las novedades de Elysium | ES con un lector de RSS o Atom, y la lista de publicaciones."
+---
+<header class="pagehead">
+  <nav class="crumbs" aria-label="Ruta de navegación">
+    <ol><li><a href="/">Inicio</a></li><li><a href="/novedades/">Novedades</a></li><li aria-current="page">RSS</li></ol>
+  </nav>
+  <p class="kicker">Feed Atom</p>
+  <h1>Novedades por RSS</h1>
+  <p class="lede">Seguí cada publicación de Elysium | ES desde tu lector de noticias, sin depender de redes sociales.</p>
+</header>
+<div class="wrap prose" data-feed-rss>
+  <p><b>Cómo suscribirte.</b> Copiá esta dirección en tu lector de RSS o Atom (por ejemplo, el de tu navegador o una aplicación de noticias):</p>
+  <p><code>{{ "/feed.xml" | absolute_url }}</code></p>
+  <p><a class="text-link" href="/feed.xml">Abrir el feed XML</a>. Es un archivo pensado para lectores de noticias: algunos navegadores lo muestran como texto.</p>
+  <h2>Publicaciones</h2>
+  {%- for post in site.posts %}
+  <article class="feed-item">
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d/%m/%Y" }}</time>
+    <h3><a class="text-link" href="{{ post.url }}">{{ post.title }}</a></h3>
+    <p>{{ post.resumen }}</p>
+  </article>
+  {%- endfor %}
+</div>

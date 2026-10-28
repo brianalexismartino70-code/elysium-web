@@ -31,14 +31,27 @@ etapas:
 #   codigo_confirmado: true cuando cfx.re/join/<codigo> lleva al servidor.
 #     Mientras sea false, la web no muestra el comando ni el botón
 #     "Abrir en FiveM": remite al Discord oficial.
-# Último control: 27/10/2026. La API pública de Cfx.re respondió 404 para
-# kr546a (también el 15/09/2026) y ese día el servidor se identificaba
-# como "PREAPERTURA (solo STAFF)".
+# Último control: 28/10/2026, 02:07 UTC. La API pública de Cfx.re respondió
+# 404 para kr546a (también el 15/09 y el 27/10/2026). El 27/10 el servidor
+# se identificaba como "PREAPERTURA (solo STAFF)".
 acceso:
   publico: false
   codigo: "kr546a"
   codigo_confirmado: false
-  verificado: "2026-10-27"
+  verificado: "2026-10-28"
+
+# Video de fondo de la portada (opcional). Solo material propio grabado en
+# Elysium, con permiso de quien aparezca (ver docs/GUION_VIDEOS.md).
+# Vacío = la portada usa solo su imagen. Nunca se descarga en pantallas
+# chicas, con ahorro de datos ni con "menos movimiento".
+portada:
+  # Arte principal de la portada (por ejemplo, la ilustración de personajes de docs/DIRECCION_ARTE.md).
+  # Mientras esté vacío, se usa la escena 3D en dos capas como fondo.
+  arte_escritorio: ""   # ej.: /assets/img/portada/arte-2560.webp (16:9)
+  arte_movil: ""        # ej.: /assets/img/portada/arte-movil-1080.webp (4:5)
+  video_mp4: ""       # ej.: /assets/video/portada.mp4 (máx. 2 MB)
+  video_webm: ""      # ej.: /assets/video/portada.webm
+  poster: ""          # ej.: /assets/video/portada-poster.webp
 
 # Estado en vivo: lo publica la acción "Estado del servidor" en estado.json.
 estado:
@@ -75,3 +88,11 @@ redes:
 # Postulación a staff. "descarga": la persona descarga sus respuestas y las
 # adjunta en un ticket de Discord. No hay envío automático (ver decisiones).
 staff_envio: descarga
+
+# Decoración de temporada: se enciende sola entre "desde" y "hasta" (fecha del visitante).
+# Para apagarla, poné activa: false. Es solo decoración: no anuncia eventos ni fechas.
+temporada:
+  activa: true
+  nombre: halloween
+  desde: "2026-10-24"
+  hasta: "2026-11-02"

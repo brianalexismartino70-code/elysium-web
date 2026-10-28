@@ -1,6 +1,6 @@
 # BORRADOR — Agregados a la política de privacidad (para revisión jurídica)
 
-> **No publicado.** Complementa `privacidad.html` (borrador en revisión). Lo marcado con **[PENDIENTE]** depende de datos del propietario. Lo marcado con **[VERIFICAR]** sale de conocimiento general o de fuentes secundarias: el entorno de trabajo no pudo abrir Infoleg ni el Boletín Oficial. Las razones de cada punto están en `docs/AUDITORIA_LEGAL.md`, sección A.
+> **No publicado.** Complementa `privacidad.html` (borrador en revisión), que desde el 28/10/2026 es una política para cualquier país con anexos regionales (A a E). Lo marcado con **[PENDIENTE]** depende de datos del propietario. Lo marcado con **[VERIFICAR]** sale de conocimiento general o de fuentes secundarias: el entorno de trabajo no pudo abrir Infoleg ni el Boletín Oficial. Las razones de cada punto están en `docs/AUDITORIA_LEGAL.md`, sección A.
 
 ## 1. Responsable
 
@@ -55,3 +55,23 @@ Sumar el plazo de conservación de tickets y transcripciones de Discord y el que
 ## 8. Seguridad **[PENDIENTE]**
 
 Describir solo medidas reales y verificadas: quién accede a la base de datos, copias de seguridad y qué se hace ante una filtración. La afirmación actual del sitio quedó marcada como pendiente de confirmación.
+
+## 9. Procedimiento ante incidentes **[PENDIENTE: adopción por la administración]**
+
+La política publicada solo repite el compromiso del 21/09/2026: avisar en el Discord oficial apenas se confirme una filtración. Propuesta de procedimiento interno, para que la administración lo adopte o lo cambie:
+
+1. **Contener:** cortar el acceso indebido, cambiar credenciales y conservar los registros.
+2. **Evaluar:** qué datos, cuántas personas y de qué países.
+3. **Avisar a las personas afectadas** cuando el riesgo lo justifique, por el Discord y, si existe, por correo.
+4. **Avisar a la autoridad** cuando la ley lo exija. Según fuentes secundarias: 72 horas en la UE y el Reino Unido, y 3 días hábiles en Brasil. Argentina y otros países: **[VERIFICAR]**.
+5. **Registrar** cada incidente, se haya avisado o no. En Brasil, según fuentes secundarias, el registro se conserva al menos 5 años.
+
+*Motivo:* sin un procedimiento, los plazos cortos de algunas leyes son imposibles de cumplir. Análisis en `docs/AUDITORIA_LEGAL.md`, F.3.
+
+## 10. Versión internacional: lo que falta decidir
+
+- **Mismos derechos para todos:** la política lista los derechos que ya ofrecía la versión del 21/09/2026 y remite a los anexos para el resto. Ofrecer a todos los mismos derechos y plazos es más simple, pero es un compromiso: decide el propietario (cuestionario, n.º 45).
+- **Bases jurídicas:** las del anexo B están marcadas como propuesta, **[PENDIENTE: revisión jurídica]**.
+- **Representantes en la UE y el Reino Unido:** **[PENDIENTE: revisión jurídica y decisión del propietario]** (n.º 47).
+- **Anexos:** solo informan reglas conocidas de cada lugar y no prometen nada que el sitio no pueda cumplir. No hay selector de país.
+

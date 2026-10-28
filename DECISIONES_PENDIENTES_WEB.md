@@ -1,6 +1,6 @@
 # Decisiones pendientes — sitio web de Elysium | ES
 
-- **Última revisión:** 28/10/2026, segunda etapa.
+- **Última revisión:** 28/10/2026, segunda etapa y ampliación internacional.
 - **Qué contiene:** cada punto dice qué se encontró, qué quedó hecho y qué hay que decidir, con una recomendación. Las preguntas concretas están **una sola vez**, numeradas, en [`LEGAL_DATA_REQUIRED.md`](LEGAL_DATA_REQUIRED.md). Acá se citan como «Cuestionario, n.º».
 - **Criterio:** nada de esto bloquea el sitio. Donde había una afirmación pública sin verificar, se eligió la opción más prudente.
 
@@ -104,7 +104,31 @@ No pude abrir:
 
 - `elysiumesrp.com`;
 - `gtahub.gg`, `news.gtahub.gg` y `foro.gtahub.gg`;
-- los sitios oficiales de Argentina;
+- los sitios oficiales de Argentina y de los demás países de la matriz internacional;
 - Tebex, Cfx.re y Discord.
 
 El entorno los bloquea. La lista exacta de dominios y para qué sirve cada uno está en `LEGAL_DATA_REQUIRED.md`, parte 3. Hasta habilitarlos, la versión publicada se verifica con la API de GitHub y con `version.json`.
+
+## 15. Cumplimiento internacional
+
+- **Encontrado:** sin saber dónde está el titular ni a qué países se dirige la comunidad, no se puede decidir qué leyes se aplican. Tampoco se puede suponer que ninguna lo hace. El análisis y la matriz por país están en [`docs/AUDITORIA_LEGAL.md`](docs/AUDITORIA_LEGAL.md), sección F.
+- **Hecho (en la rama, sin publicar):**
+  - una sola política de privacidad para cualquier país, con anexos para Argentina, la UE y el Reino Unido, Brasil, EE. UU. y otros países de América Latina. Sigue como «Borrador en revisión»;
+  - la señal GPC vale como rechazo de la medición para todas las personas;
+  - un solo criterio de cookies para todos, sin selector de país.
+- **Decidir** (Cuestionario, n.º 40 a 49, más la 8, la 18 y la 25 ampliadas):
+  - si los derechos y plazos se ofrecen igual en todos los países. Recomendado, si el equipo puede cumplirlos;
+  - la edad mínima, la misma en todas las plataformas (opciones en la auditoría, F.5);
+  - si se mantiene Google Analytics;
+  - si se contrataría un representante en la UE y el Reino Unido, en caso de que el abogado lo pida.
+- **Respondido el 28/10/2026:** titular (Brian Martino), país de administración (Argentina) y alcance (comunidad hispanohablante global). Siguen pendientes el domicilio y el correo (6 y 7) y las preguntas 41 a 49.
+
+## 16. Aprobación de la V2
+
+- **Estado:** la V2 y los borradores de privacidad internacional se publicaron el 28/10/2026 con autorización del propietario. Falta el arte con personajes (`docs/DIRECCION_ARTE.md`).
+- **Cómo revisarla:**
+  1. Compilá la rama (`bundle exec jekyll serve`) o pedime capturas de las páginas que quieras ver.
+  2. Revisá la portada, los mundos, las novedades y la comunidad, a 1440 y a 390 px.
+- **Para aprobarla:** decime «publicá la V2». Se integra la rama en `main` con un merge normal, sin reescribir el historial, y se verifica el despliegue.
+- **A tener en cuenta:** las ilustraciones son procedurales y conceptuales. Para un acabado fotográfico hacen falta capturas reales del servidor, con permiso de quienes aparecen, o arte de una herramienta o de un artista con licencia documentada (punto 11).
+

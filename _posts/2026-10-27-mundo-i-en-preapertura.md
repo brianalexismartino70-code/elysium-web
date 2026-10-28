@@ -2,6 +2,7 @@
 date: 2026-10-27 18:00:00 -0300
 last_modified_at: 2026-10-28 01:41:00 -0300
 title: "El Mundo I vuelve: Elysium | ES está en reapertura"
+portada: /assets/img/novedades/novedad-servidor
 categoria: servidor
 resumen: "La etapa actual es la reapertura. El acceso público y el código de conexión se informan por separado, solo cuando están confirmados."
 description: "La etapa actual es la reapertura. El acceso público y el código de conexión se informan por separado, solo cuando están confirmados."

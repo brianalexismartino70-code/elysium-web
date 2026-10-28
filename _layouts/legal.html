@@ -39,7 +39,7 @@ layout: base
     {%- for grupo in page.indice %}
     {%- if grupo.grupo %}<p class="group">{{ grupo.grupo }}</p>{% endif %}
     {%- for e in grupo.items %}
-    <a href="#{{ e[0] }}"><i>{{ forloop.index }}</i> {{ e[1] }}</a>
+    <a href="#{{ e[0] }}"><i>{{ e[2] | default: forloop.index }}</i> {{ e[1] }}</a>
     {%- endfor %}
     {%- endfor %}
   </nav>
@@ -48,7 +48,7 @@ layout: base
     <select id="saltar-a" data-saltar>
       <option value="">Ir a la sección…</option>
       {%- for grupo in page.indice %}{% for e in grupo.items %}
-      <option value="{{ e[0] }}">{{ forloop.index }}. {{ e[1] }}</option>
+      <option value="{{ e[0] }}">{{ e[2] | default: forloop.index }}. {{ e[1] }}</option>
       {%- endfor %}{% endfor %}
     </select>
   </div>
