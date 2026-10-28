@@ -14,10 +14,15 @@ body_class: inicio
 <!-- ════════ PORTADA ════════ -->
 <section class="hero" id="portada" aria-labelledby="titulo-portada">
   <div class="hero-media" aria-hidden="true">
+    {%- comment -%} Ilustración conceptual en dos capas, generada por tools/arte/generar_arte.py {%- endcomment %}
     <picture>
-      <source type="image/avif" sizes="112vw" srcset="/assets/img/portada/elysium-portada-768.avif 768w, /assets/img/portada/elysium-portada-1280.avif 1280w, /assets/img/portada/elysium-portada-1920.avif 1920w">
-      <source type="image/webp" sizes="112vw" srcset="/assets/img/portada/elysium-portada-768.webp 768w, /assets/img/portada/elysium-portada-1280.webp 1280w, /assets/img/portada/elysium-portada-1920.webp 1920w">
-      <img src="/assets/img/portada/elysium-portada-1280.jpg" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
+      <source type="image/avif" sizes="112vw" srcset="/assets/img/portada/hero-fondo-768.avif 768w, /assets/img/portada/hero-fondo-1280.avif 1280w, /assets/img/portada/hero-fondo-1920.avif 1920w, /assets/img/portada/hero-fondo-2560.avif 2560w">
+      <source type="image/webp" sizes="112vw" srcset="/assets/img/portada/hero-fondo-768.webp 768w, /assets/img/portada/hero-fondo-1280.webp 1280w, /assets/img/portada/hero-fondo-1920.webp 1920w, /assets/img/portada/hero-fondo-2560.webp 2560w">
+      <img src="/assets/img/portada/hero-fondo-1280.jpg" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
+    </picture>
+    <picture class="hero-frente">
+      <source type="image/avif" sizes="112vw" srcset="/assets/img/portada/hero-frente-768.avif 768w, /assets/img/portada/hero-frente-1280.avif 1280w, /assets/img/portada/hero-frente-1920.avif 1920w, /assets/img/portada/hero-frente-2560.avif 2560w">
+      <img src="/assets/img/portada/hero-frente-1280.webp" srcset="/assets/img/portada/hero-frente-768.webp 768w, /assets/img/portada/hero-frente-1280.webp 1280w, /assets/img/portada/hero-frente-1920.webp 1920w, /assets/img/portada/hero-frente-2560.webp 2560w" sizes="112vw" width="1280" height="720" alt="" decoding="async">
     </picture>
     {%- if sitio.portada.video_mp4 != "" or sitio.portada.video_webm != "" %}
     <video class="hero-video" muted loop playsinline preload="none" data-video-fondo
@@ -94,6 +99,7 @@ body_class: inicio
     {% include estado.html %}
   </div>
 
+  <p class="hero-credit">Ilustración conceptual · no es una captura del servidor</p>
   <p class="hero-cue" id="cue" aria-hidden="true"><i></i> Deslizá para entrar</p>
   <button class="hero-motion" type="button" aria-pressed="false" data-pausar-movimiento hidden>{% include icono.html n="pausa" %}<span>Pausar animación</span></button>
 </section>
@@ -128,7 +134,7 @@ body_class: inicio
     <div class="world-rail" data-etiqueta="Mundos del proyecto">
       {%- for m in site.data.mundos %}
       <button class="world-tab" type="button" id="mundo-tab-{{ forloop.index }}" data-panel="mundo-{{ forloop.index }}" data-mundo-estado="{{ m.estado }}">
-        <img class="world-thumb" src="{{ m.imagen }}" alt="" width="160" height="90" loading="lazy" decoding="async">
+        <img class="world-thumb" src="{{ m.miniatura | default: m.imagen }}" alt="" width="160" height="90" loading="lazy" decoding="async">
         <i>{{ m.numero }}</i>
         <span><strong>{{ m.nombre }}</strong><span class="chip chip--{{ m.estado }}">{{ estados[m.estado] }}</span></span>
       </button>
@@ -139,7 +145,8 @@ body_class: inicio
       {%- for m in site.data.mundos %}
       <div class="world-panel{% if forloop.first %} is-on{% endif %}" id="mundo-{{ forloop.index }}" data-mundo-estado="{{ m.estado }}">
         <div class="world-shot frame">
-          <img src="{{ m.imagen }}" alt="{{ m.alt }}" width="1600" height="900" decoding="async"{% unless forloop.first %} loading="lazy"{% endunless %}>
+          <img src="{{ m.imagen }}"{% if m.base %} srcset="{{ m.base }}-960.webp 960w, {{ m.base }}-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 62vw"{% endif %} alt="{{ m.alt }}" width="1600" height="900" decoding="async"{% unless forloop.first %} loading="lazy"{% endunless %}>
+          <span class="world-luz" aria-hidden="true"></span>
           <span class="world-state" aria-hidden="true">{{ estados[m.estado] }}</span>
           <span class="tag">Mundo {{ m.numero }}</span>
           <span class="credit">Ilustración conceptual</span>
@@ -393,7 +400,7 @@ body_class: inicio
   <div class="mosaic" data-galeria>
     {%- for g in site.data.galeria %}
     {%- capture tipo %}{% case g.tipo %}{% when "arte" %}Arte de marca{% when "concepto" %}Ilustración conceptual{% else %}Captura del servidor{% endcase %}{% endcapture %}
-    <figure class="plate" data-reveal data-full="{% if g.base %}{{ g.base }}-1280.webp{% else %}{{ g.src }}{% endif %}" data-credito="{{ g.credito | default: tipo }}">
+    <figure class="plate" data-reveal data-full="{% if g.base %}{{ g.base }}-1280.webp{% else %}{{ g.full | default: g.src }}{% endif %}" data-credito="{{ g.credito | default: tipo }}">
       {%- if g.base %}
       <picture>
         <source type="image/avif" sizes="(max-width:760px) 100vw, 50vw" srcset="{{ g.base }}-640.avif 640w, {{ g.base }}-1280.avif 1280w">

@@ -12,7 +12,10 @@
 {%- endcase -%}
 <article class="card card--lift news-card{% if include.destacada %} news-card--feature{% endif %}" data-cat="{{ p.categoria }}" data-tilt>
   {%- comment -%} Portada propia: arte generado con CSS, sin fotos de terceros {%- endcomment %}
-  <div class="news-cover news-cover--{{ p.categoria | default: 'sitio' }}" aria-hidden="true">
+  <div class="news-cover news-cover--{{ p.categoria | default: 'sitio' }}{% if p.portada %} news-cover--img{% endif %}" aria-hidden="true">
+    {%- if p.portada %}
+    <img class="news-cover-img" src="{{ p.portada }}-600.webp" srcset="{{ p.portada }}-600.webp 600w, {{ p.portada }}-1200.webp 1200w" sizes="(max-width: 760px) 100vw, 40vw" width="600" height="315" alt="" loading="lazy" decoding="async">
+    {%- endif %}
     <span class="news-cover-date"><b>{{ p.date | date: "%-d" }}</b>{{ meses[mes] }} {{ p.date | date: "%Y" }}</span>
     {% include icono.html n=ico clase="news-cover-icon" %}
   </div>

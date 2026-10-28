@@ -10,8 +10,10 @@
 - numero: "I"
   nombre: "Roleplay"
   estado: reapertura
-  imagen: /mundo-1.svg
-  alt: "Ilustración conceptual: horizonte de la ciudad al atardecer"
+  imagen: /assets/img/mundos/mundo-1-1600.webp
+  base: /assets/img/mundos/mundo-1
+  miniatura: /assets/img/mundos/mundo-1-480.webp
+  alt: "Ilustración conceptual del Mundo I: una avenida de la ciudad al atardecer, con edificios iluminados y estelas de autos"
   resumen: "La ciudad de rol serio, en reapertura."
   texto: "La ciudad de siempre, ahora en reapertura: vida civil, facciones, trabajo y economía según la normativa publicada, con consecuencias que quedan en la historia de tu personaje. Es el corazón del proyecto. Cada sistema se confirma antes de anunciarlo como disponible."
   datos:
@@ -22,8 +24,10 @@
 - numero: "II"
   nombre: "Cuarentena"
   estado: confirmar
-  imagen: /mundo-2.svg
-  alt: "Ilustración conceptual: perímetro militar con reflectores y una horda al otro lado del alambrado"
+  imagen: /assets/img/mundos/mundo-2-1600.webp
+  base: /assets/img/mundos/mundo-2
+  miniatura: /assets/img/mundos/mundo-2-480.webp
+  alt: "Ilustración conceptual del Mundo II: un alambrado frente a una zona de cuarentena con carpas, barreras y un reflector en la niebla"
   resumen: "Supervivencia contra hordas. Diseño previsto, sin fecha."
   texto: "Supervivencia contra hordas. El diseño previsto: se entra por el campamento militar, solo o en grupo; diez hordas para salir con vida, pactos que dan un beneficio a cambio de una maldición y una segunda arena dentro de Humane Labs para quienes ya ganaron. Es un proyecto: su estado y su fecha no están confirmados y los detalles pueden cambiar."
   datos:
@@ -34,8 +38,10 @@
 - numero: "III"
   nombre: "PvP"
   estado: desarrollo
-  imagen: /mundo-3.svg
-  alt: "Ilustración conceptual: retícula táctica con dos formaciones enfrentadas"
+  imagen: /assets/img/mundos/mundo-3-1600.webp
+  base: /assets/img/mundos/mundo-3
+  miniatura: /assets/img/mundos/mundo-3-480.webp
+  alt: "Ilustración conceptual del Mundo III: un patio de contenedores de noche, cruzado por reflectores y chispas"
   resumen: "Combate por rondas. Proyecto posterior."
   texto: "Combate puro, con lobby, modos de juego y recompensas propias. Sin rol de por medio y sin nada que cruce hacia la ciudad. Es un proyecto posterior a la reapertura del Mundo I."
   datos:
@@ -47,8 +53,10 @@
   nombre: "Arena"
   nota: "Nombre provisional"
   estado: diseno
-  imagen: /mundo-4.svg
-  alt: "Ilustración conceptual: coliseo con dos figuras enfrentadas y una descarga entre ellas"
+  imagen: /assets/img/mundos/mundo-4-1600.webp
+  base: /assets/img/mundos/mundo-4
+  miniatura: /assets/img/mundos/mundo-4-480.webp
+  alt: "Ilustración conceptual del Mundo IV: un coliseo futurista con gradas iluminadas y un haz de luz en el centro"
   resumen: "Personajes fuera de lo humano. En diseño."
   texto: "Peleas organizadas entre personajes fuera de lo humano, con torneos anunciados por Discord. Es un proyecto en diseño: el nombre y el formato definitivos están por confirmar."
   datos:

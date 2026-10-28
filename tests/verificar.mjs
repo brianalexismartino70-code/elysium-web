@@ -612,9 +612,10 @@ const navegador = await chromium.launch();
   // Novedades con portada propia (arte en CSS, sin fotos de terceros)
   const portadas = await pagina.locator('#novedades .news-card').evaluateAll(cs => cs.map(c => {
     const p = c.querySelector('.news-cover');
-    return !!p && p.getAttribute('aria-hidden') === 'true' && !p.querySelector('img') && /\d/.test(p.textContent);
+    const img = p && p.querySelector('img');
+    return !!p && p.getAttribute('aria-hidden') === 'true' && (!img || img.getAttribute('src').startsWith('/assets/img/novedades/')) && /\d/.test(p.textContent);
   }));
-  ok(portadas.length === 3 && portadas.every(Boolean), 'novedades V2: cada tarjeta tiene portada propia con la fecha');
+  ok(portadas.length === 3 && portadas.every(Boolean), 'novedades V2: cada tarjeta tiene portada propia (arte del proyecto) con la fecha');
 
   // Profundidad al desplazar
   ok(await pagina.locator('.band-num').count() === 9, 'profundidad: un numeral de fondo por escena');
@@ -800,6 +801,55 @@ const navegador = await chromium.launch();
     await pagina.goto(BASE + '/terminos.html#' + vieja, { waitUntil: 'networkidle' });
     ok(pagina.url().endsWith('/privacidad.html#' + vieja), `terminos: el ancla antigua #${vieja} sigue llevando a la privacidad`);
   }
+  await ctx.close();
+}
+
+// ── 15. Arte generado, capas e interacciones nuevas ──────────
+{
+  let ctx = await contexto(navegador);
+  await ctx.addInitScript(e => { try { localStorage.setItem('elysium_cookies', e); } catch (x) {} }, ELECCION);
+  let pagina = await ctx.newPage();
+  await pagina.goto(BASE + '/', { waitUntil: 'networkidle' });
+  const hero = await pagina.evaluate(() => ({
+    fondo: document.querySelector('.hero-media picture img').currentSrc,
+    frente: !!document.querySelector('.hero-frente img') && document.querySelector('.hero-frente img').getAttribute('alt') === '',
+    credito: (document.querySelector('.hero-credit') || {}).textContent || ''
+  }));
+  ok(/hero-fondo/.test(hero.fondo) && hero.frente, `arte: la portada usa la ilustración en dos capas (${hero.fondo.split('/').pop()})`);
+  ok(/Ilustración conceptual/.test(hero.credito) && await pagina.locator('.hero-credit').isVisible(), 'arte: la portada aclara que es una ilustración conceptual');
+  await pagina.mouse.move(300, 300);
+  await pagina.mouse.move(1200, 600, { steps: 4 });
+  await pagina.waitForTimeout(200);
+  ok(await pagina.evaluate(() => document.querySelector('.hero-frente img').style.getPropertyValue('--fx') !== ''), 'arte: la columnata se mueve con el puntero');
+  const mundos = await pagina.evaluate(() => [...document.querySelectorAll('.world-panel')].map(p => ({
+    img: p.querySelector('.world-shot img').getAttribute('src'),
+    credito: p.querySelector('.world-shot .credit').textContent
+  })));
+  ok(mundos.length === 4 && mundos.every(m => m.img.startsWith('/assets/img/mundos/') && /Ilustración conceptual/.test(m.credito)), 'arte: los cuatro mundos usan las ilustraciones nuevas, rotuladas');
+  ok((await pagina.locator('.world-thumb').evaluateAll(t => t.map(i => i.getAttribute('src')))).every(s => s.endsWith('-480.webp')), 'arte: las miniaturas de los mundos usan la versión chica');
+  const galeria = await pagina.locator('figure.plate').evaluateAll(f => f.map(x => x.dataset.credito));
+  ok(galeria.length === 5 && galeria.every(c => c === 'Ilustración conceptual'), `arte: la galería tiene ${galeria.length} ilustraciones rotuladas como conceptuales`);
+  await pagina.evaluate(() => document.getElementById('mundos').scrollIntoView({ behavior: 'instant' }));
+  await pagina.waitForTimeout(500);
+  const activo = pagina.locator('#cabecera a[href="/#mundos"]').first();
+  ok(await activo.evaluate(a => a.classList.contains('is-activo') && a.getAttribute('aria-current') === 'location'), 'navegación: marca la sección de la portada que está en pantalla');
+  const og = await pagina.locator('meta[property="og:image"]').getAttribute('content');
+  ok(og.endsWith('/assets/img/redes/elysium-og-1200x630.jpg') && (await pagina.request.get(BASE + new URL(og).pathname)).status() === 200, 'redes: la vista previa usa la ilustración nueva y existe');
+  await pagina.goto(BASE + '/novedades/', { waitUntil: 'networkidle' });
+  ok(await pagina.locator('.news-card .news-cover-img').count() === await pagina.locator('.news-card').count(), 'novedades: cada tarjeta tiene su portada');
+  await pagina.goto(BASE + '/novedades/mundo-i-en-preapertura/', { waitUntil: 'networkidle' });
+  ok(/Ilustración conceptual/.test(await pagina.locator('.post-cover figcaption').textContent()), 'novedades: la portada del artículo se rotula como conceptual');
+  await ctx.close();
+
+  // Con menos movimiento, la columnata no se mueve
+  ctx = await contexto(navegador, { reducedMotion: 'reduce' });
+  await ctx.addInitScript(e => { try { localStorage.setItem('elysium_cookies', e); } catch (x) {} }, ELECCION);
+  pagina = await ctx.newPage();
+  await pagina.goto(BASE + '/', { waitUntil: 'networkidle' });
+  await pagina.mouse.move(300, 300);
+  await pagina.mouse.move(1200, 600, { steps: 4 });
+  await pagina.waitForTimeout(200);
+  ok(await pagina.evaluate(() => document.querySelector('.hero-frente img').style.getPropertyValue('--fx') === ''), 'arte: con menos movimiento, la columnata queda quieta');
   await ctx.close();
 }
 

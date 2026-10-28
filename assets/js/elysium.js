@@ -45,6 +45,7 @@
   var toTop = $('#toTop');
   var cue = $('#cue');
   var heroMedia = $('.hero-media');
+  var frente = $('.hero-frente img');      // columnata en primer plano
   var pendiente = false;
 
   function alDesplazar() {
@@ -57,6 +58,7 @@
     if (cue) cue.classList.toggle('is-gone', y > 80);
     if (heroMedia && !quieto && y < window.innerHeight * 1.2) {
       heroMedia.style.transform = 'translate3d(0,' + (y * 0.22).toFixed(1) + 'px,0)';
+      if (frente) frente.style.setProperty('--fs', (y * -0.12).toFixed(1) + 'px');
     }
   }
   window.addEventListener('scroll', function () {
@@ -174,13 +176,54 @@
   if (heroMedia && !quieto && fino) {
     var hero = $('.hero');
     var img = $('img', heroMedia);
+    var mover = function (dx, dy) {
+      if (img) img.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0)';
+      // La columnata está más cerca que la ciudad: se mueve más
+      if (frente) {
+        frente.style.setProperty('--fx', (dx * 2.4).toFixed(1) + 'px');
+        frente.style.setProperty('--fy', (dy * 1.8).toFixed(1) + 'px');
+      }
+    };
     hero.addEventListener('pointermove', function (e) {
       var r = hero.getBoundingClientRect();
-      var dx = (e.clientX / r.width - 0.5) * -14;
-      var dy = ((e.clientY - r.top) / r.height - 0.5) * -10;
-      if (img) img.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0)';
+      mover((e.clientX / r.width - 0.5) * -14, ((e.clientY - r.top) / r.height - 0.5) * -10);
     });
+    hero.addEventListener('pointerleave', function () { mover(0, 0); });
     if (img) img.style.transition = 'transform .6s cubic-bezier(.2,.7,.3,1)';
+  }
+
+  /* ══════ MUNDOS: LUZ QUE SIGUE AL PUNTERO ══════ */
+  if (!quieto && fino) {
+    [].slice.call(document.querySelectorAll('.world-shot')).forEach(function (s) {
+      s.addEventListener('pointermove', function (e) {
+        var r = s.getBoundingClientRect();
+        s.style.setProperty('--lx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+        s.style.setProperty('--ly', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+        s.classList.add('is-luz');
+      });
+      s.addEventListener('pointerleave', function () { s.classList.remove('is-luz'); });
+    });
+  }
+
+  /* ══════ NAVEGACIÓN: SECCIÓN ACTIVA EN LA PORTADA ══════
+     Los enlaces del menú que apuntan a una sección de la portada se
+     marcan mientras esa sección está en pantalla. */
+  if (location.pathname === '/' && 'IntersectionObserver' in window) {
+    var anclas = [].slice.call(document.querySelectorAll('#cabecera a[href^="/#"]')).filter(function (a) {
+      return document.getElementById(a.getAttribute('href').slice(2));
+    });
+    if (anclas.length) {
+      var seccionVista = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (en) {
+          anclas.forEach(function (a) {
+            if (a.getAttribute('href') !== '/#' + en.target.id) return;
+            a.classList.toggle('is-activo', en.isIntersecting);
+            if (en.isIntersecting) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+          });
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      anclas.forEach(function (a) { seccionVista.observe(document.getElementById(a.getAttribute('href').slice(2))); });
+    }
   }
 
   /* ══════ PORTADA: VIDEO OPCIONAL Y PAUSA DEL MOVIMIENTO ══════

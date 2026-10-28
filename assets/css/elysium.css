@@ -836,9 +836,9 @@ mark{ background:rgba(185,143,82,.24); color:var(--marble); padding:0 .12em; }
 .hero::before{
   content:''; position:absolute; inset:0; z-index:-1;
   background:
-    linear-gradient(to top, var(--ink) 3%, rgba(11,15,13,.84) 40%, rgba(11,15,13,.45) 100%),
-    linear-gradient(to right, rgba(11,15,13,.92), rgba(11,15,13,.2) 72%),
-    radial-gradient(ellipse at 70% 30%, transparent 40%, rgba(11,15,13,.55));
+    linear-gradient(to top, var(--ink) 2%, rgba(11,15,13,.66) 30%, rgba(11,15,13,.14) 68%, rgba(11,15,13,.3) 100%),
+    linear-gradient(to right, rgba(11,15,13,.82), rgba(11,15,13,.06) 62%),
+    radial-gradient(ellipse at 70% 40%, transparent 45%, rgba(11,15,13,.4));
 }
 .hero-inner{ position:relative; width:100%; display:grid; gap:2.5rem; grid-template-columns:minmax(0,1fr) auto; align-items:end; }
 .hero h1{
@@ -1794,4 +1794,40 @@ legend small,.block-title small{ display:block; font-family:'Jost',sans-serif; f
   .clause h3,.article h3,.kicker{ color:#000 !important; }
   a{ color:#000; text-decoration:none; }
   .chapter[hidden],.article[hidden]{ display:block !important; }
+}
+
+/* ══════ V2 · ILUSTRACIONES POR CAPAS ══════
+   Arte generado por tools/arte/generar_arte.py (ver docs/REGISTRO_ASSETS.md). */
+.hero-frente{ position:absolute; inset:0; z-index:1; pointer-events:none; }
+.hero-frente img{
+  width:100%; height:100%; object-fit:cover; object-position:60% 40%;
+  transform:translate3d(var(--fx,0px), calc(var(--fy,0px) + var(--fs,0px)), 0) scale(1.04);
+  transform-origin:50% 100%; transition:transform .6s cubic-bezier(.2,.7,.3,1);
+}
+.hero-credit{
+  position:absolute; right:var(--gutter); top:calc(var(--header-h) + 1.4rem); z-index:5; margin:0; max-width:none; text-align:right;
+  font-size:var(--t-2xs); letter-spacing:.12em; text-transform:uppercase; color:rgba(236,231,220,.66);
+}
+.world-luz{
+  position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0;
+  background:radial-gradient(circle at var(--lx,50%) var(--ly,50%), rgba(242,196,138,.24), transparent 42%);
+  transition:opacity .4s ease;
+}
+.world-shot.is-luz .world-luz{ opacity:1; }
+.news-cover-img{
+  position:absolute; inset:0; z-index:-1; width:100%; height:100%; object-fit:cover; opacity:.8;
+  transition:transform .8s cubic-bezier(.2,.7,.3,1), opacity .4s ease;
+}
+.news-cover--img::before{ display:none; }
+.news-cover--img::after{ content:''; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(11,15,13,0) 30%, rgba(11,15,13,.85)); }
+.news-cover--img .news-cover-icon{ display:none; }
+.news-card:hover .news-cover-img{ transform:scale(1.04); opacity:.94; }
+.post-cover{ margin:0 0 2rem; }
+.post-cover img{ display:block; width:100%; height:auto; border:1px solid var(--laurel); }
+.post-cover figcaption{ margin-top:.55rem; font-size:var(--t-2xs); letter-spacing:.12em; text-transform:uppercase; color:var(--muted-2); }
+#cabecera a.is-activo{ color:var(--bronze) !important; }
+@media (max-width:760px){ .hero-credit{ right:auto; left:var(--gutter); text-align:left; top:calc(var(--header-h) + .9rem); } }
+@media (prefers-reduced-motion:reduce){
+  .hero-frente img,.news-cover-img{ transition:none; }
+  .world-luz{ display:none; }
 }

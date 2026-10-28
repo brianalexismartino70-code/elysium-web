@@ -4,38 +4,41 @@
 #  Usá "captura" SOLO para imágenes tomadas dentro del servidor de Elysium,
 #  con permiso de quien aparece. No uses capturas de otros servidores ni
 #  imágenes descargadas de internet.
-#  "base" apunta a variantes generadas por tools/optimizar_imagenes.py
-#  (-640/-1280 en .avif y .webp); "src" sirve para una imagen única (SVG).
+#  "base" apunta a variantes -640/-1280 (.avif y .webp); "src" es una
+#  imagen única y "full", la versión grande para el visor.
+#  Las ilustraciones de esta lista las genera tools/arte/generar_arte.py.
 # ════════════════════════════════════════════════════════════
-- titulo: "Elysium | ES"
-  tipo: arte
-  base: /assets/img/galeria/elysium-arte
+- titulo: "Elysium | ES · La terraza"
+  tipo: concepto
+  src: /assets/img/portada/hero-completa-1280.webp
   ancho: 1280
   alto: 720
-  alt: "Arte promocional de Elysium | ES: el logotipo sobre una calle de Los Santos con un auto deportivo rojo"
-  credito: "Arte de Elysium | ES sobre imágenes de Grand Theft Auto V"
+  alt: "Ilustración conceptual: una terraza con columnas clásicas y una balaustrada frente a la ciudad al atardecer"
 - titulo: "Mundo I · Roleplay"
   tipo: concepto
-  src: /mundo-1.svg
-  ancho: 1600
-  alto: 900
-  alt: "Ilustración conceptual: horizonte de la ciudad al atardecer"
+  src: /assets/img/mundos/mundo-1-960.webp
+  full: /assets/img/mundos/mundo-1-1600.webp
+  ancho: 960
+  alto: 540
+  alt: "Ilustración conceptual del Mundo I: una avenida de la ciudad al atardecer, con edificios iluminados y estelas de autos"
 - titulo: "Mundo II · Cuarentena"
   tipo: concepto
-  src: /mundo-2.svg
-  ancho: 1600
-  alto: 900
-  alt: "Ilustración conceptual: perímetro militar con reflectores y una horda al otro lado del alambrado"
+  src: /assets/img/mundos/mundo-2-960.webp
+  full: /assets/img/mundos/mundo-2-1600.webp
+  ancho: 960
+  alto: 540
+  alt: "Ilustración conceptual del Mundo II: un alambrado frente a una zona de cuarentena con carpas, barreras y un reflector en la niebla"
 - titulo: "Mundo III · PvP"
   tipo: concepto
-  src: /mundo-3.svg
-  ancho: 1600
-  alto: 900
-  alt: "Ilustración conceptual: retícula táctica con dos formaciones enfrentadas"
+  src: /assets/img/mundos/mundo-3-960.webp
+  full: /assets/img/mundos/mundo-3-1600.webp
+  ancho: 960
+  alto: 540
+  alt: "Ilustración conceptual del Mundo III: un patio de contenedores de noche, cruzado por reflectores y chispas"
 - titulo: "Mundo IV · Arena"
   tipo: concepto
-  src: /mundo-4.svg
-  ancho: 1600
-  alto: 900
-  alt: "Ilustración conceptual: coliseo con dos figuras enfrentadas"
-
+  src: /assets/img/mundos/mundo-4-960.webp
+  full: /assets/img/mundos/mundo-4-1600.webp
+  ancho: 960
+  alto: 540
+  alt: "Ilustración conceptual del Mundo IV: un coliseo futurista con gradas iluminadas y un haz de luz en el centro"

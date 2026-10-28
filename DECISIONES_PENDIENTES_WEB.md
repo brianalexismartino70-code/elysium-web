@@ -122,3 +122,13 @@ El entorno los bloquea. La lista exacta de dominios y para qué sirve cada uno e
   - si se mantiene Google Analytics;
   - si se contrataría un representante en la UE y el Reino Unido, en caso de que el abogado lo pida.
 - **Recomendación:** responder primero la 4, la 5, la 8 y la 40. Con eso el abogado puede priorizar las filas de la matriz.
+
+## 16. Aprobación de la V2
+
+- **Estado:** la Fase 1 está publicada desde el 28/10/2026 (`c94a47d`). La V2 y los borradores de privacidad internacional siguen en la rama `claude/nice-ritchie-njorw8`, sin publicar.
+- **Cómo revisarla:**
+  1. Compilá la rama (`bundle exec jekyll serve`) o pedime capturas de las páginas que quieras ver.
+  2. Revisá la portada, los mundos, las novedades y la comunidad, a 1440 y a 390 px.
+- **Para aprobarla:** decime «publicá la V2». Se integra la rama en `main` con un merge normal, sin reescribir el historial, y se verifica el despliegue.
+- **A tener en cuenta:** las ilustraciones son procedurales y conceptuales. Para un acabado fotográfico hacen falta capturas reales del servidor, con permiso de quienes aparecen, o arte de una herramienta o de un artista con licencia documentada (punto 11).
+

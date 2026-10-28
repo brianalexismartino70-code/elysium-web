@@ -6,7 +6,7 @@
   {%- assign titulo = site.title | append: " — " | append: site.tagline -%}
 {%- endif -%}
 {%- assign descripcion = page.description | default: page.resumen | default: site.description | strip_html | normalize_whitespace -%}
-{%- assign imagen = page.image | default: "/assets/img/og/elysium-og.jpg" | absolute_url -%}
+{%- assign imagen = page.image | default: "/assets/img/redes/elysium-og-1200x630.jpg" | absolute_url -%}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ titulo | escape }}</title>
@@ -29,7 +29,7 @@
 <meta property="og:image" content="{{ imagen }}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Arte de Elysium | ES: el logotipo sobre una escena de Los Santos">
+<meta property="og:image:alt" content="Ilustración conceptual de Elysium | ES: una terraza con columnas frente a la ciudad al atardecer">
 <meta property="og:locale" content="es_LA">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ page.title | default: titulo | escape }}">
