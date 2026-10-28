@@ -41,3 +41,51 @@
 | Halloween | Portada estacional, una escena urbana nocturna, una de investigación paranormal y versiones para historias | Sin gore; rotuladas como conceptuales |
 
 La decoración de Halloween del sitio (luna, niebla y brasas) ya existe y se activa por fechas desde `_data/sitio.yml` (`temporada`).
+
+## Paquete para producir el arte (28/10/2026)
+
+El lenguaje buscado son los personajes 3D estilizados con acabado de ilustración digital, como en el arte promocional de un videojuego de mundo abierto. Las escenas, los personajes y las composiciones de abajo son propias de Elysium | ES.
+
+**No se usa como referencia ni como imagen de entrada:**
+
+- la imagen de GTAHUB con cinco personajes y zombis;
+- pantallas de carga de GTA V;
+- personajes, logotipos ni rostros reales.
+
+Las indicaciones están en inglés porque las herramientas suelen responder mejor así. Generá varias opciones, elegí una y retocá rostros y manos.
+
+**Base común** (se suma a cada indicación):
+`stylized 3D render with painterly digital illustration finish, AAA open-world video game promotional key art, original adult characters, defined faces, detailed hair, fabric and accessories, strong rim lighting, dramatic cinematic shading, atmospheric depth, high detail, 16:9`
+
+**Lo que se excluye:**
+`text, logos, watermark, existing game or movie characters, celebrity likeness, gore, extra fingers, distorted faces, flat silhouettes`
+
+| Imagen | Indicación (en inglés) | Notas |
+|---|---|---|
+| **Portada** | `night emergency on a rain-slick downtown avenue; a determined woman in a bronze utility jacket strides forward with a flashlight (focal point, right of center); beside her a paramedic carrying a medical bag and a mechanic gripping a wrench; stalled cars with flashing light bars, fog, wet reflections, skyscrapers fading into haze, a distant infected crowd far in the background; deep ink-black night with laurel-green and bronze accents; empty dark space on the left third for a large title` | La protagonista a la derecha del centro y el tercio izquierdo libre para el título |
+| **Portada de Halloween** | `Halloween night in an old city square; a paranormal investigator with a glowing EMF reader, a firefighter raising a lantern and a hacker with a tablet lighting her face explore stone steps with carved pumpkins; full moon behind a gothic bell tower, low fog, eerie green and warm orange light, shadowy figures between the trees` | Sin gore. Otra historia y otra composición que la de GTAHUB |
+| **Mundo I · Roleplay** | `golden-hour downtown street full of everyday life: a taxi driver leaning on his car, a lawyer crossing with a briefcase, a street musician; cafés, traffic and modern architecture` | Ciudad y vida civil |
+| **Mundo II · Cuarentena** | `abandoned quarantine checkpoint: two survivors, a scavenger with a backpack and a medic in a gas mask, move carefully past tents and chain-link fences; infected shapes behind the fence in green floodlit fog` | Rotular como conceptual |
+| **Mundo III · PvP** | `nighttime container-port arena: two rival crews in unbranded tactical gear face off under crossing spotlights, sparks and smoke, dynamic poses` | En desarrollo: rotular como conceptual |
+| **Mundo IV · Arena** | `futuristic colosseum of marble and bronze: modern armored competitors enter under a central beam of light, crowd lights in tiered stands` | Proyecto futuro: rotular como conceptual |
+
+**Formatos y entrega:**
+
+- **Original:** la mayor resolución que dé la herramienta, guardado sin pérdida (PNG). El tamaño mínimo de la portada es 2560 × 1440.
+- **Reencuadres:** el móvil (1080 × 1350), las novedades (1200 × 630) y las redes (1080 × 1080 y 1080 × 1920) se recortan de ese original, sin estirarlo y sin cortar rostros.
+- **Para la web:** WebP o AVIF en las rutas de la tabla «Variantes que hacen falta».
+
+**Licencia (antes de publicar):**
+
+1. Confirmá que las condiciones de la herramienta o el contrato con el artista permiten el uso comercial. Guardá una copia de esas condiciones.
+2. Anotá en `docs/REGISTRO_ASSETS.md` la herramienta, la fecha, quién la generó y la indicación usada.
+3. En el sitio, rotulá cada imagen como «Ilustración conceptual», nunca como captura del servidor.
+
+**Cómo integrarlo:**
+
+- **Portada:** completá `portada.arte_escritorio` y `portada.arte_movil` en `_data/sitio.yml`.
+- **Mundos:** reemplazá `assets/img/mundos/mundo-N-{480,960,1600}.webp`.
+- **Novedades:** reemplazá `assets/img/novedades/novedad-*-{600,1200}.webp`.
+
+No hace falta tocar el código. Después hay que correr `tests/verificar.mjs` y publicar.
+
