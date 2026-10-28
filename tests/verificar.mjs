@@ -711,6 +711,96 @@ const navegador = await chromium.launch();
   await ctx2.close();
 }
 
+// ── 14. Ampliación internacional: señal GPC y anexos ─────────
+{
+  // Contexto con la señal Global Privacy Control encendida
+  const conGPC = async () => {
+    const ctx = await contexto(navegador);
+    await ctx.addInitScript(() => Object.defineProperty(Navigator.prototype, 'globalPrivacyControl', { get: () => true, configurable: true }));
+    return ctx;
+  };
+
+  // Primera visita con la señal
+  let ctx = await conGPC();
+  let pagina = await ctx.newPage();
+  const ga = [];
+  pagina.on('request', r => { if (r.url().includes('googletagmanager')) ga.push(r.url()); });
+  await pagina.goto(BASE + '/', { waitUntil: 'networkidle' });
+  await pagina.waitForTimeout(1200);
+  ok(await pagina.locator('.ely-ck.is-on').count() === 0, 'GPC: con la señal, el aviso no aparece en la primera visita');
+  let guardado = await pagina.evaluate(() => JSON.parse(localStorage.getItem('elysium_cookies')));
+  ok(guardado && guardado.v === 2 && guardado.analitica === false && guardado.gpc === true, `GPC: la elección queda como rechazo y registra la señal (${JSON.stringify(guardado && { analitica: guardado.analitica, gpc: guardado.gpc })})`);
+  ok(ga.length === 0, 'GPC: Analytics no se carga');
+  ok(await pagina.evaluate(() => window['ga-disable-G-1XMC8M5F5X'] === true), 'GPC: el envío de Analytics queda bloqueado');
+  ok(await pagina.evaluate(() => window.ElysiumCookies.senalGPC() === true && window.ElysiumCookies.permite('analitica') === false && window.ElysiumCookies.permite('necesarias') === true), 'GPC: la API informa la señal y no permite la medición');
+
+  await pagina.click('.foot [data-cookies]');
+  await pagina.waitForTimeout(500);
+  ok(await pagina.locator('.ely-ck-gpc').isVisible(), 'GPC: las preferencias explican la señal');
+  const sw = pagina.locator('[data-ck-sw="analitica"]');
+  ok(await sw.isDisabled() && await sw.getAttribute('aria-checked') === 'false', 'GPC: el interruptor de medición queda apagado y desactivado');
+  ok(await pagina.locator('.ely-ck [data-ck="si"]').isHidden(), 'GPC: el botón «Aceptar» no aparece');
+  ok(await pagina.evaluate(() => !!document.activeElement && document.activeElement.matches('.ely-ck [data-ck="no"], .ely-ck [data-ck="guardar"]')), 'GPC: el foco queda en un botón disponible');
+  await pagina.click('.ely-ck [data-ck="guardar"]');
+  await pagina.waitForTimeout(500);
+  guardado = await pagina.evaluate(() => JSON.parse(localStorage.getItem('elysium_cookies')));
+  ok(guardado.analitica === false && ga.length === 0, 'GPC: «Guardar selección» no activa la medición');
+  await ctx.close();
+
+  // Alguien que había aceptado y después enciende la señal
+  ctx = await conGPC();
+  pagina = await ctx.newPage();
+  const ga2 = [];
+  pagina.on('request', r => { if (r.url().includes('googletagmanager')) ga2.push(r.url()); });
+  await pagina.goto(BASE + '/cookies.html', { waitUntil: 'domcontentloaded' });
+  await pagina.evaluate(() => { localStorage.setItem('elysium_cookies', JSON.stringify({ v: 2, analitica: true, t: Date.now() })); document.cookie = '_ga=GA1.1.123; path=/'; });
+  await pagina.reload({ waitUntil: 'networkidle' });
+  await pagina.waitForTimeout(900);
+  const tras = await pagina.evaluate(() => ({ e: JSON.parse(localStorage.getItem('elysium_cookies')), c: document.cookie }));
+  ok(tras.e.analitica === false && tras.e.gpc === true, 'GPC: una aceptación anterior pasa a rechazo');
+  ok(!/_ga/.test(tras.c), 'GPC: se borran las cookies _ga que hubieran quedado');
+  ok(ga2.length === 0, 'GPC: Analytics no se carga aunque antes se hubiera aceptado');
+  await ctx.close();
+
+  // Sin la señal, todo sigue igual
+  ctx = await contexto(navegador);
+  pagina = await ctx.newPage();
+  await pagina.goto(BASE + '/', { waitUntil: 'networkidle' });
+  await pagina.waitForTimeout(1200);
+  ok(await pagina.evaluate(() => window.ElysiumCookies.senalGPC() === false) && await pagina.locator('.ely-ck.is-on').count() === 1, 'GPC: sin la señal, el aviso aparece como siempre');
+  await ctx.close();
+
+  // Política internacional, anexos y anclas antiguas
+  ctx = await contexto(navegador);
+  await ctx.addInitScript(e => { try { localStorage.setItem('elysium_cookies', e); } catch (x) {} }, ELECCION);
+  pagina = await ctx.newPage();
+  await pagina.goto(BASE + '/privacidad.html', { waitUntil: 'networkidle' });
+  const anclas = ['p-responsable', 'p-alcance', 'p1', 'p2', 'p-base', 'p3', 'p4', 'p-transferencias', 'p5', 'p6', 'p-menores', 'p7', 'p-incidentes', 'p-cambios',
+    'anexo-ar', 'anexo-ue', 'anexo-br', 'anexo-eeuu', 'anexo-latam'];
+  const faltan = await pagina.evaluate(ids => ids.filter(id => !document.getElementById(id)), anclas);
+  ok(faltan.length === 0, `privacidad: existen las ${anclas.length} secciones y anexos ${faltan.join(' ')}`);
+  const letras = await pagina.locator('.doc-index a[href^="#anexo-"] i').allTextContents();
+  ok(letras.join('') === 'ABCDE', `privacidad: el índice numera los anexos con letras (${letras.join('')})`);
+  const opciones = await pagina.locator('#saltar-a option[value^="anexo-"]').allTextContents();
+  ok(opciones.length === 5 && opciones[0].startsWith('A. '), 'privacidad: el selector móvil también usa letras');
+  ok((await pagina.locator('.meta dd').nth(1).textContent()).includes('Borrador'), 'privacidad: sigue rotulada como borrador en revisión');
+  const marcas = await pagina.locator('[id^="anexo-"] .pending').count();
+  ok(marcas >= 5, `privacidad: los anexos marcan lo que espera revisión (${marcas} marcas)`);
+  ok(await pagina.evaluate(() => document.querySelectorAll('select:not(#saltar-a), [data-pais]').length === 0), 'privacidad: no hay selector de país');
+
+  await pagina.goto(BASE + '/cookies.html', { waitUntil: 'networkidle' });
+  const secciones = await pagina.evaluate(() => ['k-gpc', 'k-paises', 'k-prueba', 'contenido-externo', 'k6'].filter(id => !document.getElementById(id)));
+  ok(secciones.length === 0, `cookies: existen las secciones de GPC, criterio único y registro de la elección ${secciones.join(' ')}`);
+  const fila = await pagina.locator('tr', { has: pagina.locator('code', { hasText: 'elysium_cookies' }) }).textContent();
+  ok(/GPC/.test(fila), 'cookies: la tabla dice que la elección registra la señal GPC');
+
+  for (const vieja of ['p1', 'p2', 'p3', 'p4', 'p6', 'p7']) {
+    await pagina.goto(BASE + '/terminos.html#' + vieja, { waitUntil: 'networkidle' });
+    ok(pagina.url().endsWith('/privacidad.html#' + vieja), `terminos: el ancla antigua #${vieja} sigue llevando a la privacidad`);
+  }
+  await ctx.close();
+}
+
 await navegador.close();
 
 const informe = resultado.join('\n') + `\n\n${pruebas - fallas} de ${pruebas} comprobaciones correctas.`;

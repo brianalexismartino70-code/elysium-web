@@ -1,6 +1,6 @@
 # Decisiones pendientes — sitio web de Elysium | ES
 
-- **Última revisión:** 28/10/2026, segunda etapa.
+- **Última revisión:** 28/10/2026, segunda etapa y ampliación internacional.
 - **Qué contiene:** cada punto dice qué se encontró, qué quedó hecho y qué hay que decidir, con una recomendación. Las preguntas concretas están **una sola vez**, numeradas, en [`LEGAL_DATA_REQUIRED.md`](LEGAL_DATA_REQUIRED.md). Acá se citan como «Cuestionario, n.º».
 - **Criterio:** nada de esto bloquea el sitio. Donde había una afirmación pública sin verificar, se eligió la opción más prudente.
 
@@ -104,7 +104,21 @@ No pude abrir:
 
 - `elysiumesrp.com`;
 - `gtahub.gg`, `news.gtahub.gg` y `foro.gtahub.gg`;
-- los sitios oficiales de Argentina;
+- los sitios oficiales de Argentina y de los demás países de la matriz internacional;
 - Tebex, Cfx.re y Discord.
 
 El entorno los bloquea. La lista exacta de dominios y para qué sirve cada uno está en `LEGAL_DATA_REQUIRED.md`, parte 3. Hasta habilitarlos, la versión publicada se verifica con la API de GitHub y con `version.json`.
+
+## 15. Cumplimiento internacional
+
+- **Encontrado:** sin saber dónde está el titular ni a qué países se dirige la comunidad, no se puede decidir qué leyes se aplican. Tampoco se puede suponer que ninguna lo hace. El análisis y la matriz por país están en [`docs/AUDITORIA_LEGAL.md`](docs/AUDITORIA_LEGAL.md), sección F.
+- **Hecho (en la rama, sin publicar):**
+  - una sola política de privacidad para cualquier país, con anexos para Argentina, la UE y el Reino Unido, Brasil, EE. UU. y otros países de América Latina. Sigue como «Borrador en revisión»;
+  - la señal GPC vale como rechazo de la medición para todas las personas;
+  - un solo criterio de cookies para todos, sin selector de país.
+- **Decidir** (Cuestionario, n.º 40 a 49, más la 8, la 18 y la 25 ampliadas):
+  - si los derechos y plazos se ofrecen igual en todos los países. Recomendado, si el equipo puede cumplirlos;
+  - la edad mínima, la misma en todas las plataformas (opciones en la auditoría, F.5);
+  - si se mantiene Google Analytics;
+  - si se contrataría un representante en la UE y el Reino Unido, en caso de que el abogado lo pida.
+- **Recomendación:** responder primero la 4, la 5, la 8 y la 40. Con eso el abogado puede priorizar las filas de la matriz.

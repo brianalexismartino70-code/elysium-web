@@ -2,7 +2,7 @@
 
 Etapas:
 
-- **Segunda etapa (28/10/2026):** correcciones verificadas, listas para publicar, y evolución visual V2 en la rama, sin publicar. Ver abajo.
+- **Segunda etapa (28/10/2026):** correcciones verificadas, listas para publicar; evolución visual V2 y ampliación internacional de privacidad en la rama, sin publicar. Ver abajo.
 - **Primera etapa (27/10/2026):** renovación integrada con el merge `1cf243e`. Ver «Primera etapa».
 
 ## Segunda etapa — 28/10/2026
@@ -67,6 +67,30 @@ Etapas:
 | Lighthouse, solo como referencia (servidor local sin compresión) | Escritorio 99 · 100 · 100 · 100. Móvil 89–91 · 100 · 100 · 100, contra 90–93 de la fase 1 |
 
 Con la compresión que usa GitHub Pages, la V2 suma unos 7 KB: CSS +3,5 KB, JS +2,4 KB, HTML +1,4 KB.
+
+### Fase 3: ampliación internacional de privacidad (en la rama, sin publicar)
+
+Análisis completo, matriz por país y fuentes en `docs/AUDITORIA_LEGAL.md`, sección F. Ningún documento legal pasa a definitivo.
+
+| Cambio | Por qué |
+|---|---|
+| `cookies.js`: la señal Global Privacy Control vale como rechazo de la medición para cualquier persona; con la señal, el interruptor queda desactivado y «Aceptar» no aparece | Respetar una señal de privacidad del navegador, con el mismo criterio en todos los países |
+| `cookies.html`: secciones sobre GPC, el mismo criterio en todos los países y cómo se registra la elección | Describir exactamente lo que hace el código, sin declarar cumplimiento legal |
+| `privacidad.html`: política principal para cualquier país, con quién controla cada dato, transferencias, incidentes y anexos A a E (Argentina; UE, EEE y Reino Unido; Brasil; EE. UU.; México, Chile, Colombia, Perú y otros) | Política internacional sin promesas que no se puedan cumplir: lo no verificado queda «pendiente» |
+| `_layouts/legal.html`: el índice puede numerar con letras | Anexos A a E |
+| `terminos.html`: dos marcas «pendiente» amplían la revisión a otros países | Edad mínima y ley aplicable |
+| Matriz de 7 columnas por país, preguntas 40 a 49, decisión n.º 15 y borradores de privacidad y tienda actualizados | Entregables de la ampliación |
+
+**No se hizo, a propósito:** selector de país, analítica nueva, cambios en Tebex o en las condiciones de la tienda.
+
+**Pruebas de la fase 3** (local, `github-pages` 232):
+
+| Prueba | Resultado |
+|---|---|
+| `tests/verificar.mjs` (secciones 1 a 14; la 14 es nueva: GPC, anexos y anclas antiguas) | **792 de 792** |
+| `tests/verificar-variante.mjs` | **10 de 10** |
+| html-validate | 17 páginas sin errores |
+| axe-core en las 17 páginas a 1440 y 390 px, más el panel de preferencias con GPC en privacidad y cookies | 0 problemas |
 
 ## Primera etapa — 27/10/2026
 

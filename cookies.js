@@ -11,6 +11,11 @@
      el atributo data-cookies (por ejemplo, el pie de página).
    · Los videos de terceros no dependen de este aviso: nunca se cargan
      solos, solo cuando la persona aprieta reproducir.
+   · Si el navegador envía la señal Global Privacy Control (GPC), vale como
+     rechazo de la medición para cualquier persona, sin importar el país,
+     y no se puede activar mientras la señal siga encendida.
+   · Si cambian los servicios opcionales, subir la versión (v) para que se
+     vuelva a preguntar: un consentimiento viejo no cubre lo nuevo.
 
    API: window.ElysiumCookies.abrir(), .configurar(), .estado(),
         .permite('analitica'), .alCambiar(fn)
@@ -23,6 +28,7 @@
   var VIGENCIA_DIAS = 365;              // pasado un año se vuelve a preguntar
   var MAS_INFO = '/cookies.html';
   var oyentes = [];
+  var GPC = navigator.globalPrivacyControl === true;   // señal del navegador
 
   /* ── gtag disponible desde el principio (no envía nada por sí solo) ── */
   window.dataLayer = window.dataLayer || [];
@@ -44,7 +50,7 @@
   }
   function guardar(eleccion) {
     try {
-      localStorage.setItem(CLAVE, JSON.stringify({ v: 2, analitica: !!eleccion.analitica, t: Date.now() }));
+      localStorage.setItem(CLAVE, JSON.stringify({ v: 2, analitica: !!eleccion.analitica, t: Date.now(), gpc: GPC }));
     } catch (e) {}
   }
 
@@ -89,12 +95,19 @@
   }
 
   var eleccion = leer();
+  // Con la señal GPC encendida, la medición queda rechazada aunque antes se
+  // hubiera aceptado; se guarda para no preguntar en cada página.
+  if (GPC && (!eleccion || eleccion.analitica)) {
+    eleccion = { analitica: false, t: Date.now() };
+    guardar(eleccion);
+    apagarAnalytics();
+  }
   if (eleccion && eleccion.analitica) activarAnalytics();
   else window['ga-disable-' + GA_ID] = true;
 
   function aplicar(nueva) {
     var antes = eleccion;
-    eleccion = { analitica: !!nueva.analitica, t: Date.now() };
+    eleccion = { analitica: !!nueva.analitica && !GPC, t: Date.now() };
     guardar(eleccion);
     if (eleccion.analitica) activarAnalytics(); else apagarAnalytics();
     oyentes.forEach(function (fn) { try { fn(eleccion, antes); } catch (e) {} });
@@ -135,6 +148,8 @@
     '.ely-ck-cat h3{margin:0;font-family:"Marcellus",Georgia,serif;font-weight:400;font-size:1rem;color:#ECE7DC;letter-spacing:.01em;}',
     '.ely-ck-cat p{grid-column:1/-1;margin:0;font-size:.8125rem;line-height:1.6;color:#94A09A;max-width:none;}',
     '.ely-ck-fija{font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:#B98F52;}',
+    '.ely-ck-gpc{border-left:2px solid #7FA393;padding-left:.75rem;color:#ECE7DC !important;}',
+    '.ely-ck-sw:disabled{opacity:.45;cursor:not-allowed;}',
     '.ely-ck-sw{position:relative;width:3rem;height:1.6rem;flex:none;cursor:pointer;border-radius:1rem;',
     ' background:#171F1A;border:1px solid #5F7568;padding:0;transition:background .3s ease,border-color .3s ease;}',
     '.ely-ck-sw::after{content:"";position:absolute;top:.2rem;left:.22rem;width:1.05rem;height:1.05rem;border-radius:50%;',
@@ -179,6 +194,7 @@
             '<h3 id="ely-ck-ga">Medición de visitas · Google Analytics</h3>' +
             '<button type="button" class="ely-ck-sw" role="switch" aria-checked="false" aria-labelledby="ely-ck-ga" data-ck-sw="analitica"></button>' +
             '<p>Cuenta visitas y secciones leídas con las cookies _ga y _ga_1XMC8M5F5X, de Google. Solo se cargan si activás esta opción.</p>' +
+            '<p class="ely-ck-gpc" hidden>Tu navegador envía la señal Global Privacy Control (GPC). Mientras esté encendida, la medición de visitas queda desactivada.</p>' +
           '</div>' +
           '<div class="ely-ck-cat">' +
             '<h3>Contenido externo · YouTube y Twitch</h3><span class="ely-ck-fija">Solo al reproducir</span>' +
@@ -200,6 +216,11 @@
     interruptor = aviso.querySelector('[data-ck-sw]');
     guardarSel = aviso.querySelector('[data-ck="guardar"]');
     aceptarBtn = aviso.querySelector('[data-ck="si"]');
+    if (GPC) {
+      aviso.querySelector('.ely-ck-gpc').hidden = false;
+      interruptor.disabled = true;
+      aceptarBtn.hidden = true;
+    }
 
     aviso.addEventListener('click', function (e) {
       var sw = e.target.closest('[data-ck-sw]');
@@ -227,7 +248,7 @@
     guardarSel.hidden = !ver;
     aviso.querySelector('[data-ck="cfg"]').setAttribute('aria-expanded', String(ver));
     aceptarBtn.textContent = ver ? 'Aceptar todo' : 'Aceptar';
-    if (ver) interruptor.focus();
+    if (ver) (interruptor.disabled ? guardarSel : interruptor).focus();
   }
 
   var origenFoco = null;
@@ -250,7 +271,7 @@
     if (conFoco) {
       origenFoco = document.activeElement;
       setTimeout(function () {
-        (enConfiguracion ? interruptor : aviso.querySelector('[data-ck="no"]')).focus();
+        (enConfiguracion && !interruptor.disabled ? interruptor : aviso.querySelector('[data-ck="no"]')).focus();
       }, 80);
     }
   }
@@ -287,8 +308,9 @@
     estado: function () { return leer(); },
     permite: function (categoria) {
       var e = leer();
-      return categoria === 'necesarias' || !!(e && e[categoria]);
+      return categoria === 'necesarias' || (!GPC && !!(e && e[categoria]));
     },
+    senalGPC: function () { return GPC; },
     alCambiar: function (fn) { if (typeof fn === 'function') oyentes.push(fn); }
   };
 })();

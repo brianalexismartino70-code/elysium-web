@@ -2,45 +2,76 @@
 layout: legal
 title: "Política de privacidad"
 miga: "Privacidad"
-version: "28/10/2026 · reemplaza la sección de privacidad del 21/09/2026"
+version: "28/10/2026 · versión internacional en preparación; reemplaza la sección de privacidad del 21/09/2026"
 estado_doc: "Borrador en revisión"
-borrador: "Esta versión ordena la política publicada el 21 de septiembre de 2026 y describe lo que hace hoy el sitio, verificado en su código. Lo que corresponde al servidor de juego, al Discord y a la tienda proviene de la versión anterior y la administración debe confirmarlo."
-lede: "Qué datos se tratan cuando visitás este sitio, jugás en el servidor o usás el Discord y la tienda, para qué se usan y cómo ejercer tus derechos."
-description: "Política de privacidad de Elysium | ES: datos que trata el sitio, el servidor de FiveM, el Discord y la tienda, finalidades, plazos y derechos."
+borrador: "Política pensada para personas de cualquier país, con anexos regionales. Lo que hace el sitio está verificado en su código. Lo que corresponde al servidor de juego, al Discord y a la tienda viene de la documentación anterior y la administración debe confirmarlo. Las bases jurídicas, los plazos legales y los anexos esperan revisión profesional."
+lede: "Qué datos se tratan cuando visitás este sitio, jugás en el servidor o usás el Discord y la tienda, quién los controla, para qué se usan y cómo ejercer tus derechos, estés donde estés."
+description: "Política de privacidad de Elysium | ES para usuarios de cualquier país: datos que trata el sitio, el servidor de FiveM, el Discord y la tienda, proveedores, transferencias, derechos y anexos regionales."
 indice:
   - grupo: "Política de privacidad"
     items:
       - ["p-responsable", "Quién es responsable"]
+      - ["p-alcance", "Qué controla Elysium y qué controlan otros"]
       - ["p1", "Qué datos se tratan"]
       - ["p2", "Para qué se usan"]
       - ["p-base", "Por qué podemos tratarlos"]
       - ["p3", "Cuánto tiempo se guardan"]
       - ["p4", "Con quién se comparten"]
-      - ["p5", "Cookies y analítica"]
-      - ["p6", "Tus derechos"]
+      - ["p-transferencias", "Transferencias a otros países"]
+      - ["p5", "Cookies y señales de privacidad"]
+      - ["p6", "Tus derechos y cómo ejercerlos"]
       - ["p-menores", "Menores de edad"]
-      - ["p7", "Seguridad"]
+      - ["p7", "Seguridad y sus límites"]
+      - ["p-incidentes", "Incidentes y reclamos"]
       - ["p-cambios", "Cambios en esta política"]
+  - grupo: "Anexos regionales"
+    items:
+      - ["anexo-ar", "Argentina", "A"]
+      - ["anexo-ue", "Unión Europea, EEE y Reino Unido", "B"]
+      - ["anexo-br", "Brasil", "C"]
+      - ["anexo-eeuu", "Estados Unidos", "D"]
+      - ["anexo-latam", "México, Chile, Colombia, Perú y otros países", "E"]
 ---
 <section aria-labelledby="h-privacidad">
   <h2 id="h-privacidad">Política de privacidad</h2>
 
   <article class="clause" id="p-responsable">
     <h3>1. Quién es responsable</h3>
-    <p>Los datos los trata la administración de Elysium | ES, la comunidad de rol que publica este sitio y administra el servidor de FiveM y el Discord oficial. <i class="pending">pendiente: nombre o razón social del titular, país y un medio de contacto escrito</i></p>
-    <p>Mientras se completa ese dato, cualquier consulta o pedido sobre tus datos se atiende por ticket en el Discord oficial.</p>
+    <p>Los datos los trata la administración de Elysium | ES, la comunidad de rol que publica este sitio y administra el servidor de FiveM y el Discord oficial. <i class="pending">pendiente: nombre o razón social del titular, país, domicilio si la ley lo exige y un correo de contacto</i></p>
+    <p>Mientras se completa ese dato, cualquier consulta o pedido sobre tus datos se atiende por ticket en el Discord oficial. <i class="pending">pendiente: sumar un correo que no requiera cuenta de Discord</i></p>
+    <p>Esta política se aplica a personas de cualquier país. Al final hay anexos con lo que cambia según dónde vivas; donde un anexo no diga otra cosa, rige lo que está acá.</p>
+  </article>
+
+  <article class="clause" id="p-alcance">
+    <h3>2. Qué controla Elysium y qué controlan otros</h3>
+    <p>Elysium decide sobre algunos datos; otros los tratan empresas independientes, con sus propias políticas, que Elysium no controla. Saber cuál es cuál te dice a quién pedirle qué.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabla: Quién controla cada dato">
+      <table class="table">
+        <thead><tr><th scope="col">Servicio</th><th scope="col">Quién decide sobre los datos</th><th scope="col">Qué hace Elysium</th></tr></thead>
+        <tbody>
+          <tr><td>Este sitio (elysiumesrp.com)</td><td>Elysium. El sitio no guarda datos personales en ningún servidor propio</td><td>Decide qué se guarda en tu navegador y si se carga la medición de visitas</td></tr>
+          <tr><td>Alojamiento del sitio (GitHub Pages)</td><td>GitHub, para sus registros de acceso</td><td>Nada: no tiene acceso a esos registros</td></tr>
+          <tr><td>Medición de visitas (Google Analytics)</td><td>Google procesa los datos según sus condiciones para este servicio <i class="pending">pendiente: confirmar el rol de Google en la configuración de la propiedad</i></td><td>Decide si se usa y ve estadísticas agregadas</td></tr>
+          <tr><td>Servidor de juego de FiveM</td><td>Elysium, para su base de datos y sus registros <i class="pending">pendiente: confirmar con el equipo técnico</i></td><td>Guarda personajes, sanciones y registros</td></tr>
+          <tr><td>Plataforma FiveM (Cfx.re) y cuenta de Rockstar</td><td>Cfx.re y Rockstar Games, para tus cuentas y la conexión</td><td>Recibe los identificadores que la plataforma entrega al servidor</td></tr>
+          <tr><td>Discord</td><td>Discord, para tu cuenta y tus mensajes</td><td>Modera el servidor oficial y lee los tickets que abrís</td></tr>
+          <tr><td>Tienda (Tebex)</td><td>Tebex, para el pago y la facturación <i class="pending">pendiente: confirmar el rol exacto de Tebex en la cuenta de Elysium</i></td><td>Recibe los datos de la compra que Tebex comparte para entregar el beneficio</td></tr>
+          <tr><td>Videos de YouTube o Twitch</td><td>Google o Twitch, si reproducís un video</td><td>Nada: el reproductor no se carga hasta que apretás reproducir</td></tr>
+        </tbody>
+      </table>
+    </div>
   </article>
 
   <article class="clause" id="p1">
-    <h3>2. Qué datos se tratan</h3>
-    <p><b>Al visitar elysiumesrp.com.</b> Esto está verificado en el código del sitio:</p>
+    <h3>3. Qué datos se tratan</h3>
+    <p><b>Al visitar este sitio.</b> Verificado en el código del sitio:</p>
     <ul>
-      <li><b>Registros del alojamiento.</b> El sitio está alojado en GitHub Pages. GitHub registra la dirección IP de cada visita por motivos de seguridad, según su propia documentación. Esos registros los gestiona GitHub bajo su política de privacidad.</li>
-      <li><b>Google Analytics 4, solo si lo aceptás.</b> Si activás la medición de visitas, Google recibe datos de uso del sitio (páginas vistas, tiempo de lectura, tipo de dispositivo y una ubicación aproximada) asociados a un identificador aleatorio guardado en la cookie <code>_ga</code>. Si no lo aceptás, el código de Analytics no se descarga.</li>
-      <li><b>Datos guardados en tu navegador.</b> Tu elección sobre cookies y, si usás la postulación a staff, el borrador de tus respuestas. Quedan en el almacenamiento local de tu navegador y no se envían a ningún servidor.</li>
-      <li><b>Estado del servidor.</b> El indicador de la portada lee un archivo de este mismo sitio. Tu navegador no se conecta con el servidor de juego ni con servicios de terceros para mostrarlo.</li>
+      <li><b>Registros del alojamiento.</b> GitHub registra la dirección IP de cada visita por motivos de seguridad, según su propia documentación, y los gestiona bajo su política de privacidad.</li>
+      <li><b>Google Analytics 4, solo si lo aceptás.</b> Si activás la medición, Google recibe datos de uso del sitio (páginas vistas, tiempo de lectura, tipo de dispositivo y una ubicación aproximada) asociados a un identificador aleatorio guardado en la cookie <code>_ga</code>. Si no lo aceptás, o si tu navegador envía la señal Global Privacy Control, el código de Analytics no se descarga.</li>
+      <li><b>Datos guardados en tu navegador.</b> Tu elección sobre cookies y, si usás la postulación a staff, el borrador de tus respuestas. Quedan en tu navegador y no se envían a ningún servidor.</li>
+      <li><b>Estado del servidor.</b> El indicador lee un archivo de este mismo sitio. Tu navegador no se conecta con el servidor de juego ni con servicios de terceros para mostrarlo.</li>
       <li><b>Tipografías.</b> Se sirven desde el propio sitio: visitarlo no genera consultas a Google Fonts ni a otros proveedores.</li>
-      <li><b>Videos de terceros.</b> Si en algún momento hay videos de YouTube o Twitch, se cargan solo cuando apretás reproducir. En ese momento esos servicios reciben tu dirección IP y pueden usar sus propias cookies.</li>
+      <li><b>Videos de terceros.</b> Si hay videos de YouTube o Twitch, se cargan solo cuando apretás reproducir. Desde ese momento esos servicios reciben tu dirección IP y pueden usar sus propias cookies.</li>
       <li><b>Enlaces externos.</b> Al seguir un enlace a Discord, Tebex, Rockstar Games, Steam, Epic Games, FiveM o a nuestras redes, pasás a sitios con sus propias políticas.</li>
     </ul>
     <p>El sitio no tiene cuentas de usuario, comentarios ni publicidad, y ningún formulario envía datos personales.</p>
@@ -59,37 +90,44 @@ indice:
         </tbody>
       </table>
     </div>
-    <p style="margin-top:1.1rem"><b>Al postularte al staff.</b> El formulario del sitio no envía nada: lo que adjuntes en un ticket (usuario de Discord, edad, disponibilidad y respuestas) lo recibe la administración por Discord.</p>
-    <p><b>Al comprar en la tienda.</b> El pago lo procesa Tebex. Elysium no recibe ni guarda datos de tu tarjeta: ve el comprobante de la transacción. <i class="pending">pendiente: detallar qué datos de la compra comparte Tebex con la administración</i></p>
-    <p><b>En el Discord.</b> Tus mensajes y tickets los procesa Discord según sus propias condiciones; la administración los lee para dar soporte y moderar.</p>
+    <p style="margin-top:1.1rem"><b>En el Discord.</b> Tus mensajes y tickets los trata Discord según sus propias condiciones; el staff de Elysium los lee para dar soporte y moderar.</p>
+    <p><b>Al postularte al staff.</b> El formulario del sitio no envía nada: lo que adjuntes en un ticket (usuario de Discord, edad, disponibilidad y respuestas) lo recibe la administración por Discord.</p>
+    <p><b>Al comprar en la tienda.</b> El pago lo procesa Tebex. Elysium no recibe ni guarda datos de tu tarjeta. <i class="pending">pendiente: detallar qué datos de la compra comparte Tebex con la administración</i></p>
     <p>No pedimos ni almacenamos tu nombre real, tu documento ni tu domicilio.</p>
   </article>
 
   <article class="clause" id="p2">
-    <h3>3. Para qué se usan</h3>
+    <h3>4. Para qué se usan</h3>
     <ul>
       <li>Hacer funcionar la comunidad: guardar personajes, aplicar la normativa, investigar reportes, resolver apelaciones y prevenir fraudes y ataques.</li>
       <li>Atender tickets de soporte, compras y pedidos sobre tus datos.</li>
       <li>Evaluar postulaciones al staff.</li>
       <li>Saber cuánta gente visita el sitio y qué secciones lee, solo si aceptaste la medición.</li>
     </ul>
-    <p><b>No vendemos, cedemos ni compartimos tu información con empresas de publicidad.</b></p>
+    <p><b>No vendemos, cedemos ni compartimos tu información con empresas de publicidad.</b> En el sitio no hay publicidad, y la medición, si la aceptás, funciona con las funciones de publicidad y de anuncios personalizados de Google desactivadas (verificado en el código).</p>
   </article>
 
   <article class="clause" id="p-base">
-    <h3>4. Por qué podemos tratarlos</h3>
-    <p>La medición de visitas se basa en tu consentimiento, que podés retirar cuando quieras. Los datos del servidor, del Discord y de las postulaciones se tratan porque son necesarios para darte el servicio que pedís al conectarte o al escribirnos, y para proteger la seguridad de la comunidad. <i class="pending">pendiente: revisión jurídica según la jurisdicción del titular</i></p>
+    <h3>5. Por qué podemos tratarlos</h3>
+    <p>Cada uso tiene un fundamento distinto, y cómo se llama ese fundamento depende de la ley de cada país. En términos generales:</p>
+    <ul>
+      <li><b>Tu consentimiento</b> para la medición de visitas. Podés retirarlo cuando quieras, sin consecuencias.</li>
+      <li><b>Lo que hace falta para darte el servicio que pedís</b>: tu personaje, la entrega de una compra, la respuesta a un ticket.</li>
+      <li><b>La seguridad y el orden de la comunidad</b>: prevenir trampas, cuentas alternativas y ataques, y conservar el registro de sanciones.</li>
+    </ul>
+    <p>Los anexos regionales muestran la base que corresponde en cada lugar. <i class="pending">pendiente: revisión jurídica de las bases según la jurisdicción del titular</i></p>
   </article>
 
   <article class="clause" id="p3">
-    <h3>5. Cuánto tiempo se guardan</h3>
+    <h3>6. Cuánto tiempo se guardan</h3>
+    <p>Cada dato se guarda mientras sirva para la finalidad por la que se tomó, más el tiempo que haga falta para resolver reclamos o cumplir una obligación legal. Después se borra o se anonimiza.</p>
     <p><b>En el sitio</b> (verificado):</p>
     <ul>
       <li>Tu elección sobre cookies: 12 meses. Pasado ese plazo te volvemos a preguntar.</li>
       <li>El borrador de la postulación: hasta que lo borres desde el formulario o limpies los datos del sitio.</li>
       <li>Cookies de Google Analytics: hasta 2 años en tu navegador. <i class="pending">pendiente: informar el plazo de retención configurado en Google Analytics</i></li>
     </ul>
-    <p><b>En el servidor y el Discord</b>, según la versión anterior <i class="pending">pendiente: confirmar que se aplican</i>:</p>
+    <p><b>En el servidor y el Discord</b>, según la versión anterior <i class="pending">pendiente: confirmar que se aplican y sumar el plazo de los tickets y de las copias de seguridad</i>:</p>
     <ul>
       <li>Datos del personaje: mientras la cuenta esté activa y hasta 12 meses después de tu última conexión.</li>
       <li>Registros de juego: hasta 6 meses, salvo que estén ligados a una investigación abierta.</li>
@@ -99,45 +137,132 @@ indice:
   </article>
 
   <article class="clause" id="p4">
-    <h3>6. Con quién se comparten</h3>
+    <h3>7. Con quién se comparten</h3>
     <p>Solo con los servicios que hacen falta para funcionar, y con lo mínimo indispensable:</p>
     <ul>
-      <li><b>GitHub</b> (Microsoft): alojamiento de este sitio.</li>
-      <li><b>Google</b>: Google Analytics, solo si lo aceptás.</li>
-      <li><b>Discord</b>: tickets, roles, avisos y postulaciones.</li>
-      <li><b>Tebex</b>: procesamiento de los pagos de la tienda.</li>
+      <li><b>GitHub</b> (Microsoft, Estados Unidos): alojamiento de este sitio.</li>
+      <li><b>Google</b> (Estados Unidos): Google Analytics, solo si lo aceptás.</li>
+      <li><b>Discord</b> (Estados Unidos): tickets, roles, avisos y postulaciones.</li>
+      <li><b>Tebex</b>: procesamiento de los pagos de la tienda. <i class="pending">pendiente: confirmar país y rol</i></li>
       <li><b>El proveedor de alojamiento del servidor de juego</b>: almacenamiento de la base de datos. <i class="pending">pendiente: identificar proveedor y país</i></li>
       <li><b>YouTube o Twitch</b>: solo si reproducís un video incrustado.</li>
     </ul>
-    <p>Varios de estos servicios pueden procesar datos fuera de tu país. También podemos entregar información si la requiere una autoridad competente.</p>
+    <p>También podemos entregar información si la requiere una autoridad competente según la ley aplicable.</p>
+  </article>
+
+  <article class="clause" id="p-transferencias">
+    <h3>8. Transferencias a otros países</h3>
+    <p>Elysium reúne personas de distintos países y usa proveedores que tratan datos fuera de tu país, sobre todo en Estados Unidos. Eso significa que tus datos pueden viajar a lugares con leyes de privacidad distintas de las tuyas.</p>
+    <p>Cómo protege cada proveedor esas transferencias lo explica su propia política. <i class="pending">pendiente: revisión jurídica de los mecanismos que le corresponden a Elysium como responsable y de si hace falta firmar acuerdos con algún proveedor</i></p>
   </article>
 
   <article class="clause" id="p5">
-    <h3>7. Cookies y analítica</h3>
-    <p>El detalle de cada cookie y de cada dato guardado en tu navegador está en la <a class="text-link" href="/cookies.html">política de cookies</a>. Podés cambiar tu elección cuando quieras:</p>
+    <h3>9. Cookies y señales de privacidad</h3>
+    <p>El sitio aplica la misma regla en todos los países: nada opcional se activa antes de que lo aceptes. Si tu navegador envía la señal <b>Global Privacy Control</b>, se toma como rechazo de la medición; la señal «Do Not Track» no se interpreta. El detalle de cada cookie y de cada dato guardado en tu navegador está en la <a class="text-link" href="/cookies.html">política de cookies</a>. Podés cambiar tu elección cuando quieras:</p>
     <p><button class="btn btn--ghost btn--sm" type="button" data-cookies>Preferencias de cookies</button></p>
   </article>
 
   <article class="clause" id="p6">
-    <h3>8. Tus derechos</h3>
-    <p>Podés pedirnos que te digamos qué datos tuyos tenemos, que corrijamos los que estén mal, que eliminemos tu cuenta y su contenido, u oponerte a un uso concreto. También podés retirar el consentimiento de la medición desde las preferencias de cookies, sin dar explicaciones.</p>
-    <p>Se pide por ticket en el Discord oficial y respondemos dentro de los plazos que fija la ley aplicable. <i class="pending">pendiente: definir la ley aplicable y sumar un correo de contacto que no requiera cuenta de Discord</i> Una aclaración honesta: eliminar tu cuenta borra tu personaje, tus bienes y tu progreso, y no tiene vuelta atrás. El registro de sanciones se conserva incluso después del borrado, porque sin él la expulsión no significaría nada.</p>
-    <p>Si considerás que no atendimos bien tu pedido, podés acudir a la autoridad de protección de datos de tu país.</p>
+    <h3>10. Tus derechos y cómo ejercerlos</h3>
+    <p>Podés pedirnos:</p>
+    <ul>
+      <li>saber qué datos tuyos tenemos;</li>
+      <li>corregir los que estén mal;</li>
+      <li>eliminar tu cuenta y su contenido;</li>
+      <li>oponerte a un uso concreto;</li>
+      <li>retirar el consentimiento de la medición desde las preferencias de cookies, sin dar explicaciones.</li>
+    </ul>
+    <p>Según dónde vivas, la ley puede darte otros derechos, como recibir una copia de tus datos en un formato que puedas llevarte o pedir que se limite un uso. Los anexos indican los conocidos. <i class="pending">pendiente: decidir si estos pedidos se atienden igual para personas de cualquier país y confirmar que la administración puede cumplirlos</i></p>
+    <p><b>Cómo pedirlo.</b> Por ticket en el Discord oficial. <i class="pending">pendiente: correo electrónico alternativo</i> Antes de entregar o borrar información hay que comprobar que el pedido viene de quien es titular de la cuenta, por ejemplo desde el mismo usuario de Discord o con la misma licencia de juego. <i class="pending">pendiente: procedimiento de verificación definido por la administración</i></p>
+    <p><b>Plazo.</b> Respondemos dentro de los plazos que fija la ley aplicable a tu caso; los anexos indican los conocidos. <i class="pending">pendiente: plazo interno máximo que la administración pueda cumplir</i></p>
+    <p><b>Una aclaración honesta.</b> Eliminar tu cuenta borra tu personaje, tus bienes y tu progreso, y no tiene vuelta atrás. El registro de sanciones se conserva incluso después del borrado, porque sin él la expulsión no significaría nada. Sobre los datos que controlan Discord, Cfx.re, Rockstar, GitHub, Google o Tebex, el pedido se hace directamente a esas empresas.</p>
+    <p>Si considerás que no atendimos bien tu pedido, podés reclamar ante la autoridad de protección de datos de tu país (ver anexos).</p>
   </article>
 
   <article class="clause" id="p-menores">
-    <h3>9. Menores de edad</h3>
-    <p>La edad mínima para jugar es la que fijan los <a class="text-link" href="/terminos.html#t2">términos de uso</a>. Si detectamos que alguien no la alcanza, su acceso se cierra y sus datos se eliminan. Si sos madre, padre o tutor y querés que borremos la cuenta de un menor a tu cargo, escribinos por ticket en el Discord oficial.</p>
+    <h3>11. Menores de edad</h3>
+    <p>La edad mínima para jugar es la que fijan los <a class="text-link" href="/terminos.html#t2">términos de uso</a>, que están en revisión. <i class="pending">pendiente: confirmar la política de edad frente a las condiciones de FiveM, Discord y Tebex y a la ley de cada país</i></p>
+    <p>Además rigen las reglas de cada plataforma: Discord, por ejemplo, exige tener al menos 13 años y, además, la edad mínima que fije la ley de cada país.</p>
+    <p>Si detectamos que alguien no alcanza la edad mínima, su acceso se cierra y sus datos se eliminan. Si sos madre, padre o tutor y querés que borremos la cuenta de un menor a tu cargo, escribinos por ticket en el Discord oficial. <i class="pending">pendiente: un canal que no requiera cuenta de Discord</i></p>
   </article>
 
   <article class="clause" id="p7">
-    <h3>10. Seguridad</h3>
-    <p>Según la administración, la base de datos del servidor está protegida con credenciales de acceso restringido y solo la dirección técnica puede consultarla. <i class="pending">pendiente: confirmar con el equipo técnico</i> El sitio no publica la dirección del servidor ni credenciales, y el estado en vivo se obtiene sin exponer datos técnicos.</p>
-    <p>Aun así, ningún sistema es infalible: si llegara a producirse una filtración que afecte tus datos, lo comunicaríamos en el Discord oficial apenas la confirmemos.</p>
+    <h3>12. Seguridad y sus límites</h3>
+    <p><b>En el sitio</b> (verificado en el código): no hay datos personales guardados en servidores propios, ningún servicio opcional se carga antes de tu consentimiento y las páginas no muestran la dirección IP del servidor ni credenciales. El estado en vivo lo consulta un proceso automático de GitHub; si se activa la consulta directa al servidor, su dirección queda guardada como secreto de GitHub y no se publica.</p>
+    <p><b>En el servidor de juego.</b> Según la administración, la base de datos está protegida con credenciales de acceso restringido y solo la dirección técnica puede consultarla. <i class="pending">pendiente: confirmar con el equipo técnico</i></p>
+    <p><b>Los límites.</b> Ningún sistema es infalible, y la seguridad de las cuentas y los datos que guardan Discord, Cfx.re, Rockstar, GitHub, Google o Tebex depende de esas empresas, no de Elysium.</p>
+  </article>
+
+  <article class="clause" id="p-incidentes">
+    <h3>13. Incidentes y reclamos</h3>
+    <p>Si llegara a producirse una filtración que afecte tus datos, lo comunicaríamos en el Discord oficial apenas la confirmemos.</p>
+    <p>Además, algunas leyes obligan a avisar a la autoridad de control, y a veces a las personas afectadas, en plazos cortos; los anexos indican los conocidos. <i class="pending">pendiente: procedimiento interno de respuesta a incidentes, propuesto para revisión</i></p>
+    <p>Los reclamos sobre privacidad se presentan por los mismos canales de la sección 10. También podés acudir a la autoridad de protección de datos de tu país.</p>
   </article>
 
   <article class="clause" id="p-cambios">
-    <h3>11. Cambios en esta política</h3>
+    <h3>14. Cambios en esta política</h3>
     <p>Cuando cambie esta política, se actualiza la fecha de versión de esta página y, si el cambio es importante, se avisa en <a class="text-link" href="/novedades/">Novedades</a> y en el Discord oficial.</p>
+  </article>
+</section>
+
+<section aria-labelledby="h-anexos">
+  <h2 id="h-anexos">Anexos regionales</h2>
+  <p class="muted">Cada anexo suma lo que cambia según dónde vivís. Que exista un anexo no significa que esa ley se aplique a Elysium en todos los casos: depende de dónde se administra Elysium y a quién se dirige, y está en revisión jurídica. Ninguno ofrece protecciones distintas de las que el sitio puede cumplir.</p>
+
+  <article class="clause" id="anexo-ar">
+    <h3>A. Argentina</h3>
+    <ul>
+      <li><b>Ley:</b> Ley 25.326 de Protección de los Datos Personales y su reglamentación. Autoridad: Agencia de Acceso a la Información Pública (AAIP).</li>
+      <li><b>Plazos:</b> 10 días corridos para el acceso y 5 días hábiles para rectificar, actualizar o suprimir. <i class="pending">pendiente: verificar en el texto oficial</i></li>
+      <li><b>Leyenda de la autoridad:</b> El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley N.° 25.326. La Agencia de Acceso a la Información Pública, en su carácter de Órgano de Control de la Ley N.° 25.326, tiene la atribución de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por incumplimiento de las normas vigentes en materia de protección de datos personales. <i class="pending">pendiente: verificar el texto exacto de la leyenda en la norma de la AAIP</i></li>
+      <li><i class="pending">pendiente: evaluar la inscripción de la base de datos del servidor en el registro de la AAIP</i></li>
+    </ul>
+  </article>
+
+  <article class="clause" id="anexo-ue">
+    <h3>B. Unión Europea, Espacio Económico Europeo y Reino Unido</h3>
+    <ul>
+      <li><b>Leyes:</b> Reglamento General de Protección de Datos (RGPD) y, en el Reino Unido, el UK GDPR y la Data Protection Act 2018.</li>
+      <li><b>Bases propuestas</b> <i class="pending">pendiente: revisión jurídica</i>: consentimiento (medición de visitas); ejecución de las condiciones del servicio (cuenta de juego, tickets, entrega de compras); interés legítimo (seguridad, prevención de trampas y conservación de sanciones).</li>
+      <li><b>Derechos adicionales:</b> además de los de la sección 10, la limitación del tratamiento y la portabilidad en los términos del RGPD. La ley fija un plazo de un mes para responder, prorrogable en casos complejos.</li>
+      <li><b>Reclamos:</b> podés acudir a la autoridad de control de tu país (por ejemplo, la Agencia Española de Protección de Datos o, en el Reino Unido, la ICO).</li>
+      <li><b>Representante:</b> <i class="pending">pendiente: evaluar si Elysium debe designar un representante en la UE y otro en el Reino Unido</i></li>
+      <li><b>Incidentes:</b> la ley exige avisar a la autoridad dentro de las 72 horas cuando el incidente supone un riesgo.</li>
+      <li><b>Edad:</b> cuando un servicio en línea se basa en el consentimiento de un menor, cada país de la UE fija una edad entre 13 y 16 años (en España, 14); en el Reino Unido es 13. <i class="pending">pendiente: política de edad</i></li>
+    </ul>
+  </article>
+
+  <article class="clause" id="anexo-br">
+    <h3>C. Brasil</h3>
+    <ul>
+      <li><b>Ley:</b> Lei Geral de Proteção de Dados (LGPD). Autoridad: Autoridade Nacional de Proteção de Dados (ANPD). Puede alcanzar los datos tomados mientras la persona está en Brasil.</li>
+      <li><b>Derechos:</b> confirmación y acceso, corrección, anonimización, bloqueo o eliminación, portabilidad, información sobre con quién se comparten, revocación del consentimiento y oposición.</li>
+      <li><b>Canal:</b> los pedidos se presentan por los mismos canales de la sección 10. <i class="pending">pendiente: definir encargado o canal de atención según el tamaño de Elysium</i></li>
+      <li><b>Incidentes:</b> la norma de la ANPD fija tres días hábiles para avisar a la autoridad y a las personas afectadas cuando corresponde. <i class="pending">pendiente: verificar en el texto oficial</i></li>
+      <li><b>Menores:</b> <i class="pending">pendiente: revisión jurídica de las reglas para niños y adolescentes, incluido el Estatuto Digital (Ley 15.211/2025)</i></li>
+    </ul>
+  </article>
+
+  <article class="clause" id="anexo-eeuu">
+    <h3>D. Estados Unidos</h3>
+    <ul>
+      <li><b>Sin venta de datos:</b> Elysium no vende datos personales ni los comparte para publicidad. <i class="pending">pendiente: confirmar que Google Signals está desactivado</i></li>
+      <li><b>Señal Global Privacy Control:</b> el sitio la respeta como rechazo de la medición.</li>
+      <li><b>Derechos estatales:</b> si la ley de tu estado te reconoce derechos de privacidad, podés ejercerlos por los canales de la sección 10.</li>
+      <li><b>Menores de 13 años:</b> la ley federal COPPA exige el consentimiento verificable de los padres cuando un servicio está dirigido a menores de 13 años o sabe que trata sus datos. <i class="pending">pendiente: política de edad</i></li>
+    </ul>
+  </article>
+
+  <article class="clause" id="anexo-latam">
+    <h3>E. México, Chile, Colombia, Perú y otros países</h3>
+    <ul>
+      <li><b>México:</b> Ley Federal de Protección de Datos Personales en Posesión de los Particulares (2025). Los derechos se conocen como ARCO: acceso, rectificación, cancelación y oposición.</li>
+      <li><b>Chile:</b> Ley 19.628, reformada por la Ley 21.719, que rige desde el 1 de diciembre de 2026 y crea la Agencia de Protección de Datos Personales.</li>
+      <li><b>Colombia:</b> Ley 1581 de 2012. Autoridad: Superintendencia de Industria y Comercio.</li>
+      <li><b>Perú:</b> Ley 29733 y su reglamento de 2024. Autoridad: Autoridad Nacional de Protección de Datos Personales.</li>
+      <li><b>Otros países:</b> rige la política principal y los derechos que reconozca tu ley local, que podés ejercer por los mismos canales.</li>
+    </ul>
+    <p><i class="pending">pendiente: revisión jurídica de si estas leyes alcanzan a Elysium, de sus plazos y de las autoridades ante las que se puede reclamar</i></p>
   </article>
 </section>

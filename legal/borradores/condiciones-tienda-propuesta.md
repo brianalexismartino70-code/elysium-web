@@ -68,3 +68,19 @@ Problemas con una compra: ticket en el Discord oficial con el número de transac
 ## 12. Ley aplicable
 
 **[PENDIENTE: país del titular y jurisdicción]**
+
+## 13. Compradores de otros países **[PENDIENTE: revisión jurídica]**
+
+Texto propuesto:
+
+> Nada de estas condiciones limita los derechos que te reconozca como consumidor la ley del país donde vivís.
+
+Puntos que el abogado debe revisar antes de publicar cualquier promesa (análisis en `docs/AUDITORIA_LEGAL.md`, F.6):
+
+- **UE y Reino Unido:** 14 días de desistimiento. En contenido digital, el derecho se pierde solo si antes de la entrega la persona da su consentimiento expreso y reconoce que lo pierde. Ese paso ocurre en el checkout de Tebex: hay que ver qué muestra (cuestionario, n.º 43). Desde el 19/06/2026, la UE exige además una función de desistimiento en línea.
+- **Brasil:** 7 días de arrepentimiento (Código de Defensa del Consumidor, art. 49) e identificación del proveedor en el sitio de venta (Decreto 7.962/2013).
+- **EE. UU.:** si hay suscripciones, ROSCA y, en California, la ley de renovación automática (consentimiento, recordatorios y baja en línea).
+- **Chile, Colombia, México y Perú:** retracto con plazos y excepciones propios, a verificar.
+- **Moneda e impuestos:** los define Tebex en el checkout (n.º 42). Estas condiciones no deben fijar precios ni prometer una moneda.
+
+No se propone ningún reembolso, plazo ni garantía por país hasta que el abogado confirme la ley aplicable y la configuración real de Tebex.
