@@ -14,7 +14,13 @@ body_class: inicio
 <!-- ════════ PORTADA ════════ -->
 <section class="hero" id="portada" aria-labelledby="titulo-portada">
   <div class="hero-media" aria-hidden="true">
-    {%- comment -%} Ilustración conceptual en dos capas, generada por tools/arte/generar_arte.py {%- endcomment %}
+    {%- if sitio.portada.arte_escritorio != "" %}
+    <picture class="hero-arte">
+      <source media="(max-width: 760px)" srcset="{{ sitio.portada.arte_movil | default: sitio.portada.arte_escritorio }}">
+      <img src="{{ sitio.portada.arte_escritorio }}" width="2560" height="1440" alt="" fetchpriority="high" decoding="async">
+    </picture>
+    {%- else %}
+    {%- comment -%} Escena 3D en dos capas (tools/arte/escena_hero.py), usada como fondo desenfocado {%- endcomment %}
     <picture>
       <source type="image/avif" sizes="112vw" srcset="/assets/img/portada/hero-fondo-768.avif 768w, /assets/img/portada/hero-fondo-1280.avif 1280w, /assets/img/portada/hero-fondo-1920.avif 1920w, /assets/img/portada/hero-fondo-2560.avif 2560w">
       <source type="image/webp" sizes="112vw" srcset="/assets/img/portada/hero-fondo-768.webp 768w, /assets/img/portada/hero-fondo-1280.webp 1280w, /assets/img/portada/hero-fondo-1920.webp 1920w, /assets/img/portada/hero-fondo-2560.webp 2560w">
@@ -24,6 +30,7 @@ body_class: inicio
       <source type="image/avif" sizes="112vw" srcset="/assets/img/portada/hero-frente-768.avif 768w, /assets/img/portada/hero-frente-1280.avif 1280w, /assets/img/portada/hero-frente-1920.avif 1920w, /assets/img/portada/hero-frente-2560.avif 2560w">
       <img src="/assets/img/portada/hero-frente-1280.webp" srcset="/assets/img/portada/hero-frente-768.webp 768w, /assets/img/portada/hero-frente-1280.webp 1280w, /assets/img/portada/hero-frente-1920.webp 1920w, /assets/img/portada/hero-frente-2560.webp 2560w" sizes="112vw" width="1280" height="720" alt="" decoding="async">
     </picture>
+    {%- endif %}
     {%- if sitio.portada.video_mp4 != "" or sitio.portada.video_webm != "" %}
     <video class="hero-video" muted loop playsinline preload="none" data-video-fondo
       {%- if sitio.portada.poster != "" %} poster="{{ sitio.portada.poster }}"{% endif %}
@@ -41,6 +48,7 @@ body_class: inicio
     <i style="--x:{{ x }}%;--t:{{ t }}s;--d:-{{ d }}s;--s:{{ tam }}px;--dx:{{ dx }}px"></i>
     {%- endfor %}
   </div>
+  <div class="hero-temporada" aria-hidden="true"><i class="hero-luna"></i><i class="hero-niebla"></i><i class="hero-niebla hero-niebla--2"></i></div>
   <div class="hero-veil" aria-hidden="true"><i></i></div>
 
   <div class="hero-inner">

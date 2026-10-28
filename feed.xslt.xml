@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ELYSIUM | ES — presentación legible del feed Atom en el navegador.
+  jekyll-feed agrega la instrucción xml-stylesheet a /feed.xml cuando este
+  archivo existe. El feed sigue siendo Atom válido para los lectores RSS.
+-->
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:atom="http://www.w3.org/2005/Atom" exclude-result-prefixes="atom">
+  <xsl:output method="html" encoding="utf-8" doctype-system="about:legacy-compat" indent="yes"/>
+  <xsl:template match="/">
+    <html lang="es">
+      <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="robots" content="noindex"/>
+        <title>Feed de novedades · <xsl:value-of select="atom:feed/atom:title"/></title>
+        <style>
+          @font-face{font-family:'Marcellus';src:url('/assets/fonts/marcellus-latin-400-normal.woff2') format('woff2');font-display:swap;}
+          :root{color-scheme:dark;}
+          body{margin:0;background:#0B0F0D;color:#ECE7DC;font:300 1rem/1.7 Jost,system-ui,sans-serif;}
+          main{max-width:46rem;margin:0 auto;padding:3rem 1.25rem 4rem;}
+          .kicker{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#B98F52;margin:0 0 .5rem;}
+          h1{font-family:Marcellus,Georgia,serif;font-weight:400;font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.15;margin:0 0 1rem;}
+          .aviso{border-left:2px solid #7FA393;padding:.25rem 0 .25rem 1rem;color:#94A09A;}
+          code{display:block;margin:.6rem 0 0;padding:.6rem .8rem;background:#101613;border:1px solid #2B3B32;color:#ECE7DC;overflow-wrap:anywhere;font-size:.9rem;}
+          article{border-top:1px solid #2B3B32;padding:1.6rem 0;}
+          time{font-size:.8rem;letter-spacing:.14em;color:#94A09A;}
+          h2{font-family:Marcellus,Georgia,serif;font-weight:400;font-size:1.4rem;line-height:1.3;margin:.3rem 0 .5rem;}
+          a{color:#ECE7DC;text-decoration-color:#B98F52;text-underline-offset:3px;}
+          a:hover,a:focus-visible{color:#B98F52;}
+          p{margin:.4rem 0;color:#C9C4B8;}
+          footer{border-top:1px solid #2B3B32;padding-top:1.5rem;color:#94A09A;font-size:.9rem;}
+        </style>
+      </head>
+      <body>
+        <main>
+          <p class="kicker">Feed Atom</p>
+          <h1>Novedades de <xsl:value-of select="atom:feed/atom:title"/></h1>
+          <p class="aviso">Esta página es el feed de novedades. Para recibir cada publicación, copiá esta dirección en tu lector de RSS o Atom:
+            <code><xsl:value-of select="atom:feed/atom:link[@rel='self']/@href"/></code>
+          </p>
+          <xsl:for-each select="atom:feed/atom:entry">
+            <article>
+              <time datetime="{atom:published}">
+                <xsl:value-of select="concat(substring(atom:published, 9, 2), '/', substring(atom:published, 6, 2), '/', substring(atom:published, 1, 4))"/>
+              </time>
+              <h2><a href="{atom:link[@rel='alternate']/@href}"><xsl:value-of select="atom:title"/></a></h2>
+              <p><xsl:value-of select="atom:summary"/></p>
+            </article>
+          </xsl:for-each>
+          <footer>
+            <p><a href="/novedades/">Ver las novedades en el sitio</a> · <a href="/novedades/rss/">Cómo seguir el feed</a></p>
+          </footer>
+        </main>
+      </body>
+    </html>
+  </xsl:template>
+</xsl:stylesheet>

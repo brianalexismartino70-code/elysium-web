@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="no-js">
+<html lang="es" class="no-js"{% if site.data.sitio.temporada.activa %} data-temporada="{{ site.data.sitio.temporada.nombre }}" data-temporada-desde="{{ site.data.sitio.temporada.desde }}" data-temporada-hasta="{{ site.data.sitio.temporada.hasta }}"{% endif %}>
 <head>
 {% include head.html %}
 </head>

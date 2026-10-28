@@ -94,7 +94,14 @@ Análisis completo, matriz por país y fuentes en `docs/AUDITORIA_LEGAL.md`, sec
 | html-validate | 17 páginas sin errores |
 | axe-core en las 17 páginas a 1440 y 390 px, más el panel de preferencias con GPC en privacidad y cookies | 0 problemas |
 
-### Fase 4: arte original y movimiento (en la rama, sin publicar)
+### Fase 5: publicación de la V2 (28/10/2026, autorizada por el propietario)
+
+- **Portada:** la tipografía pasa a ser la protagonista. La escena 3D queda como fondo desenfocado, y `portada.arte_escritorio` y `portada.arte_movil` reciben el arte definitivo (`docs/DIRECCION_ARTE.md`).
+- **Halloween:** decoración con luna, niebla y brasas, encendida por fechas desde `_data/sitio.yml`.
+- **RSS:** hoja XSLT y página «Novedades por RSS».
+- **Pruebas:** 811 de 811 en el navegador, feed 46 de 46 y html-validate sin errores.
+
+### Fase 4: arte original y movimiento
 
 | Cambio | Detalle |
 |---|---|

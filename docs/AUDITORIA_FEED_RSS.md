@@ -44,3 +44,9 @@ Resultados:
   2. Abrí `https://elysiumesrp.com/feed.xml?v=1`. Tienen que aparecer el título «El Mundo I vuelve: Elysium | ES está en reapertura» y `<name>Elysium | ES</name>`, y no tienen que aparecer `&lt;table` ni «PREAPERTURA».
   3. Si ves la versión anterior, esperá unos minutos y recargá: GitHub Pages guarda copias hasta 10 minutos.
 - **«Google Analytics, solo con tu consentimiento»:** coincide con `cookies.js`. Analytics no se descarga antes de aceptar, y la elección se cambia desde el pie.
+
+## Lectura en el navegador (V2)
+
+- **Hoja XSLT:** `feed.xslt.xml` está en la raíz y `jekyll-feed` agrega la instrucción `xml-stylesheet` al feed. El feed sigue siendo Atom válido: la prueba `tests/verificar_feed.py` pasa 46 de 46.
+- **Sin probar en el dominio:** `jekyll-feed` enlaza la hoja con la dirección del dominio publicado, así que en la prueba local no se aplica. Además, algunos navegadores están dejando de soportar XSLT.
+- **Página «Novedades por RSS» (`/novedades/rss/`):** existe para que nadie dependa de XSLT. Explica cómo suscribirse, lista las publicaciones y enlaza el XML. El pie, Comunidad y Novedades llevan ahí.

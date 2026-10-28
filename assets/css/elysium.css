@@ -1831,3 +1831,34 @@ legend small,.block-title small{ display:block; font-family:'Jost',sans-serif; f
   .hero-frente img,.news-cover-img{ transition:none; }
   .world-luz{ display:none; }
 }
+
+/* ══════ PORTADA: LA TIPOGRAFÍA COMO PROTAGONISTA ══════
+   La escena 3D queda como fondo desenfocado hasta tener el arte principal
+   (sitio.portada.arte_escritorio). */
+.hero-media picture:not(.hero-arte) img{ filter:blur(2.5px) brightness(.78) saturate(.9); }
+.hero-frente img{ filter:blur(1px) brightness(.62); }
+.hero-arte img{ width:100%; height:100%; object-fit:cover; }
+
+/* ══════ TEMPORADA: HALLOWEEN ══════
+   Se activa desde _data/sitio.yml (clase temporada-halloween en <html>). */
+.hero-temporada{ display:none; }
+.temporada-halloween .hero-temporada{ display:block; position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.hero-luna{
+  position:absolute; right:12%; top:17%; width:clamp(72px,9vw,150px); aspect-ratio:1; border-radius:50%;
+  background:radial-gradient(circle at 38% 36%, #fff6e2, #f2d9a8 45%, #c9a46a 70%, rgba(201,164,106,0) 71%);
+  box-shadow:0 0 60px 18px rgba(255,190,110,.26), 0 0 170px 70px rgba(255,140,40,.12);
+}
+.hero-niebla{
+  position:absolute; left:-30%; right:-30%; bottom:3%; height:40%;
+  background:radial-gradient(ellipse at 30% 60%, rgba(214,190,160,.20), transparent 60%), radial-gradient(ellipse at 75% 70%, rgba(190,165,140,.16), transparent 55%);
+  filter:blur(18px); animation:niebla 46s linear infinite alternate;
+}
+.hero-niebla--2{ bottom:-8%; height:30%; opacity:.85; animation-duration:64s; animation-direction:alternate-reverse; }
+@keyframes niebla{ from{ transform:translateX(-6%); } to{ transform:translateX(6%); } }
+.temporada-halloween{ --bronze:#d98a3a; }
+.temporada-halloween .hero-dust i{ background:#ff9a3c; box-shadow:0 0 6px rgba(255,140,40,.75); }
+@media (max-width:760px){ .hero-niebla--2{ display:none; } .hero-luna{ width:48px; right:5%; top:8.5%; } }
+@media (prefers-reduced-motion:reduce){ .hero-niebla{ animation:none; } }
+.feed-item{ border-top:1px solid var(--laurel); padding:1.2rem 0; }
+.feed-item time{ font-size:var(--t-xs); letter-spacing:.14em; color:var(--muted); }
+.feed-item h3{ margin:.25rem 0 .4rem; }

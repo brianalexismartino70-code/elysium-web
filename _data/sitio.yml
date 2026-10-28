@@ -45,6 +45,10 @@ acceso:
 # Vacío = la portada usa solo su imagen. Nunca se descarga en pantallas
 # chicas, con ahorro de datos ni con "menos movimiento".
 portada:
+  # Arte principal de la portada (por ejemplo, la ilustración de personajes de docs/DIRECCION_ARTE.md).
+  # Mientras esté vacío, se usa la escena 3D en dos capas como fondo.
+  arte_escritorio: ""   # ej.: /assets/img/portada/arte-2560.webp (16:9)
+  arte_movil: ""        # ej.: /assets/img/portada/arte-movil-1080.webp (4:5)
   video_mp4: ""       # ej.: /assets/video/portada.mp4 (máx. 2 MB)
   video_webm: ""      # ej.: /assets/video/portada.webm
   poster: ""          # ej.: /assets/video/portada-poster.webp
@@ -84,3 +88,11 @@ redes:
 # Postulación a staff. "descarga": la persona descarga sus respuestas y las
 # adjunta en un ticket de Discord. No hay envío automático (ver decisiones).
 staff_envio: descarga
+
+# Decoración de temporada: se enciende sola entre "desde" y "hasta" (fecha del visitante).
+# Para apagarla, poné activa: false. Es solo decoración: no anuncia eventos ni fechas.
+temporada:
+  activa: true
+  nombre: halloween
+  desde: "2026-10-24"
+  hasta: "2026-11-02"

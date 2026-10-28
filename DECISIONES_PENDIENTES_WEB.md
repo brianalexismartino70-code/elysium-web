@@ -125,7 +125,7 @@ El entorno los bloquea. La lista exacta de dominios y para qué sirve cada uno e
 
 ## 16. Aprobación de la V2
 
-- **Estado:** la Fase 1 está publicada desde el 28/10/2026 (`c94a47d`). La V2 y los borradores de privacidad internacional siguen en la rama `claude/nice-ritchie-njorw8`, sin publicar.
+- **Estado:** la V2 y los borradores de privacidad internacional se publicaron el 28/10/2026 con autorización del propietario. Falta el arte con personajes (`docs/DIRECCION_ARTE.md`).
 - **Cómo revisarla:**
   1. Compilá la rama (`bundle exec jekyll serve`) o pedime capturas de las páginas que quieras ver.
   2. Revisá la portada, los mundos, las novedades y la comunidad, a 1440 y a 390 px.

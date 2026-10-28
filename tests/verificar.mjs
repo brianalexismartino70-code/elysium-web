@@ -855,6 +855,30 @@ const navegador = await chromium.launch();
   await ctx.close();
 }
 
+// ── 16. RSS legible y temporada ───────────────────────────────
+{
+  const ctx = await contexto(navegador);
+  await ctx.addInitScript(e => { try { localStorage.setItem('elysium_cookies', e); } catch (x) {} }, ELECCION);
+  const pagina = await ctx.newPage();
+  const feed = await (await pagina.request.get(BASE + '/feed.xml')).text();
+  ok(/<\?xml-stylesheet[^>]+\/feed\.xslt\.xml/.test(feed) && (await pagina.request.get(BASE + '/feed.xslt.xml')).status() === 200, 'rss: el feed enlaza su hoja XSLT y la hoja existe');
+  await pagina.goto(BASE + '/feed.xml', { waitUntil: 'load' });
+  const conXslt = await pagina.evaluate(() => !!document.querySelector('h1') && /Novedades/.test(document.querySelector('h1').textContent) && document.querySelectorAll('article').length);
+  resultado.push('INFO  rss: ' + (conXslt ? `Chromium muestra el feed con diseño (${conXslt} publicaciones)` : 'Chromium no aplica la hoja XSLT: queda la página /novedades/rss/'));
+  await pagina.goto(BASE + '/novedades/rss/', { waitUntil: 'networkidle' });
+  const rss = await pagina.evaluate(() => ({ n: document.querySelectorAll('.feed-item').length, xml: !!document.querySelector('a[href="/feed.xml"]'), url: /feed\.xml/.test(document.querySelector('code') ? document.querySelector('code').textContent : '') }));
+  ok(rss.n === 3 && rss.xml && rss.url, `rss: la página «Novedades por RSS» lista ${rss.n} publicaciones y enlaza el feed`);
+  ok(await pagina.locator('.foot a[href="/novedades/rss/"]').count() === 1, 'rss: el pie lleva a la página legible');
+  await pagina.goto(BASE + '/', { waitUntil: 'networkidle' });
+  const temp = await pagina.evaluate(() => {
+    const h = document.documentElement, a = h.dataset.temporadaDesde, b = h.dataset.temporadaHasta;
+    const d = new Date(), t = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    return { esperada: !!a && t >= a && t <= b, activa: h.classList.contains('temporada-halloween'), luna: getComputedStyle(document.querySelector('.hero-temporada')).display };
+  });
+  ok(temp.activa === temp.esperada && (temp.luna !== 'none') === temp.esperada, `temporada: la decoración sigue las fechas de _data/sitio.yml (activa: ${temp.activa})`);
+  await ctx.close();
+}
+
 await navegador.close();
 
 const informe = resultado.join('\n') + `\n\n${pruebas - fallas} de ${pruebas} comprobaciones correctas.`;

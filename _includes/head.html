@@ -95,3 +95,12 @@
 }
 </script>
 {%- endif %}
+<script>
+  /* Decoración de temporada: solo entre las fechas de _data/sitio.yml */
+  (function (h) {
+    var a = h.getAttribute('data-temporada-desde'), b = h.getAttribute('data-temporada-hasta');
+    if (!a || !b) return;
+    var d = new Date(), t = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    if (t >= a && t <= b) h.classList.add('temporada-' + h.getAttribute('data-temporada'));
+  })(document.documentElement);
+</script>
