@@ -407,6 +407,7 @@ const navegador = await chromium.launch();
   const contenido = readFileSync(await descarga.path(), 'utf8');
   ok(contenido.includes('Respuesta de Playmaker 20') && contenido.includes('Área: Playmaker') && contenido.includes('Caso:'), 'staff: el archivo incluye perfil, casos y respuestas');
   ok(!(await pagina.locator('#notice').isHidden()) && /lista/.test(await pagina.locator('#noticeTitle').innerText()), 'staff: indica cómo seguir');
+  ok(/Todavía no lo recibió nadie/.test(await pagina.locator('#noticeText').innerText()), 'staff: aclara que descargar no envía la postulación');
   await pagina.click('#btnCopiar');
   await pagina.waitForTimeout(200);
   ok((await pagina.evaluate(() => navigator.clipboard.readText())).includes('Respuesta general 10'), 'staff: copiar las respuestas');
@@ -478,6 +479,7 @@ const navegador = await chromium.launch();
   }
   await pagina.goto(BASE + '/novedades/mundo-i-en-preapertura/', { waitUntil: 'networkidle' });
   ok(await pagina.locator('.post-correction').count() === 1, 'novedades: la publicación corregida muestra la nota de corrección');
+  ok(/reapertura/i.test(await pagina.locator('h1').innerText()), 'novedades: el título de la publicación corregida dice reapertura');
   ok(/Actualizado/.test(await pagina.locator('.post-aside').innerText()), 'novedades: la corrección tiene fecha de actualización');
   await ctx.close();
 }

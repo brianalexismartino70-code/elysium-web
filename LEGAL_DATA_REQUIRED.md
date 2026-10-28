@@ -29,7 +29,7 @@
 11. ¿Quién aloja el servidor y la base de datos, y en qué país?
 12. **Plazos reales de conservación.** ¿Se cumplen los que se publicaban: personaje 12 meses, registros 6 meses, sanciones permanentes, postulaciones 12 meses? ¿Cuánto se guardan los tickets, las transcripciones y las copias de seguridad?
 13. ¿Quién del equipo accede a la base de datos y a los registros? ¿Es cierto que solo la dirección técnica, con credenciales restringidas? Hoy esa frase figura como pendiente.
-14. ¿Qué bots de Discord se usan (tickets, registros, verificación) y qué guardan?
+14. ¿Qué bots de Discord se usan (tickets, registros, verificación) y qué guardan? ¿Hay un tipo de ticket o un canal para recibir las postulaciones a staff? El sitio solo dice «un ticket del Discord oficial» hasta que lo confirmes (`docs/POSTULACION_STAFF.md`).
 15. ¿Se publican clips o capturas de jugadores en redes o en un tráiler? ¿Con qué autorización?
 
 ### Tienda (Tebex)

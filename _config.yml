@@ -11,6 +11,12 @@ description: "Comunidad de rol hispanohablante en FiveM. Un proyecto de cuatro m
 url: "https://elysiumesrp.com"
 baseurl: ""
 lang: es
+# Autor de las entradas del feed Atom: sin este dato, cada entrada sale con un autor vacío
+author:
+  name: "Elysium | ES"
+  uri: "https://elysiumesrp.com/"
+# Solo se publican entradas con la fecha ya cumplida (GitHub Pages permite fechas futuras por defecto)
+future: false
 
 # Sin tema de GitHub Pages: el sitio usa sus propias plantillas (_layouts/)
 theme: null

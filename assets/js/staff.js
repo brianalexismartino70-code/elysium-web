@@ -263,7 +263,7 @@
     setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
     avisar(
       'Postulación lista para enviar',
-      'Se descargó el archivo ' + nombre + '. Ahora abrí un ticket en el Discord oficial y adjuntalo. Lo leemos completo, así que puede tardar hasta diez días. Tu borrador sigue guardado en este navegador hasta que lo borres.',
+      'Se descargó el archivo ' + nombre + '. Todavía no lo recibió nadie: el staff solo lo ve cuando abrís un ticket en el Discord oficial y lo adjuntás ahí. Lo leemos completo, así que puede tardar hasta diez días. Tu borrador sigue guardado en este navegador hasta que lo borres.',
       false,
       true
     );
@@ -278,7 +278,7 @@
     var ok = function () {
       avisar(
         'Respuestas copiadas',
-        'Pegalas en un ticket del Discord oficial. Si el texto es largo, Discord te ofrece enviarlo como archivo: aceptá esa opción.',
+        'Todavía no las recibió nadie: el staff solo las ve cuando las pegás en un ticket del Discord oficial. Si el texto es largo, Discord te ofrece enviarlo como archivo: aceptá esa opción.',
         false,
         true
       );
