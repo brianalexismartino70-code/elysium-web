@@ -24,6 +24,8 @@ Etapas:
 | `version.json`, meta `elysium-version` y versión en el pie | Comprobar el despliegue sin depender de cachés |
 | Privacidad y moderación: plazo de «30 días» reemplazado por «los plazos que fija la ley aplicable»; promesa de seguridad y cláusulas de los términos marcadas como pendientes; cookies «En revisión» | Riesgos legales, sin cambiar condiciones comerciales |
 | Documentos: auditoría web y legal, registro de assets, limpieza del historial, cuestionario único, guion de videos y foro | Entregables de la etapa |
+| Feed Atom y novedades (28/10): «Reapertura» en la noticia del Mundo I con la misma dirección y fecha; sin tablas ni Markdown literal; autor del feed; resúmenes reales; `future: false`; prueba `tests/verificar_feed.py` | El feed publicado repetía la etapa anterior y tenía errores de formato (`docs/AUDITORIA_FEED_RSS.md`) |
+| Postulación a staff: el aviso aclara que descargar o copiar no envía nada | Que nadie crea que su postulación llegó al staff (`docs/POSTULACION_STAFF.md`) |
 
 **Pruebas de la fase 1** (sitio compilado con `github-pages` 232):
 
