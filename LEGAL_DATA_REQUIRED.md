@@ -16,11 +16,11 @@
 
 ### Identidad y alcance
 
-4. ¿Quién es el titular del sitio y del servidor? Nombre de la persona o razón social. *Desbloquea:* privacidad, aviso legal, tienda.
-5. ¿Desde qué país se administra Elysium? *Desbloquea:* la ley aplicable y la autoridad de datos.
+4. ¿Quién es el titular del sitio y del servidor? Nombre de la persona o razón social. *Desbloquea:* privacidad, aviso legal, tienda. **Respondida el 28/10/2026:** Brian Martino, creador y administrador de Elysium | ES. Falta saber si en la tienda interviene alguna entidad comercial (pregunta 16).
+5. ¿Desde qué país se administra Elysium? *Desbloquea:* la ley aplicable y la autoridad de datos. **Respondida el 28/10/2026:** Argentina.
 6. ¿Qué domicilio y qué identificación fiscal (por ejemplo, CUIT) corresponde publicar? Respondé solo si tu abogado confirma que hace falta.
 7. ¿Qué **correo electrónico** se puede publicar para temas legales y de privacidad?
-8. ¿En qué países está la comunidad? ¿Se dirige también a personas en España u otros países de la UE? Eso puede sumar el RGPD.
+8. ¿En qué países está la comunidad? ¿Se dirige también a personas en España u otros países de la UE? Eso puede sumar el RGPD. **Respondida el 28/10/2026:** abierta a personas de todo el mundo y dirigida a una audiencia hispanohablante global.
 9. ¿Qué ley y qué jurisdicción querés fijar en los términos? Tu abogado debe validarlo.
 
 ### Servidor, Discord y datos
@@ -29,7 +29,7 @@
 11. ¿Quién aloja el servidor y la base de datos, y en qué país?
 12. **Plazos reales de conservación.** ¿Se cumplen los que se publicaban: personaje 12 meses, registros 6 meses, sanciones permanentes, postulaciones 12 meses? ¿Cuánto se guardan los tickets, las transcripciones y las copias de seguridad?
 13. ¿Quién del equipo accede a la base de datos y a los registros? ¿Es cierto que solo la dirección técnica, con credenciales restringidas? Hoy esa frase figura como pendiente.
-14. ¿Qué bots de Discord se usan (tickets, registros, verificación) y qué guardan? ¿Hay un tipo de ticket o un canal para recibir las postulaciones a staff? El sitio solo dice «un ticket del Discord oficial» hasta que lo confirmes (`docs/POSTULACION_STAFF.md`).
+14. ¿Qué bots de Discord se usan (tickets, registros, verificación) y qué guardan? ¿Hay un tipo de ticket o un canal para recibir las postulaciones a staff? El sitio solo dice «un ticket del Discord oficial» hasta que lo confirmes (`docs/POSTULACION_STAFF.md`). **Respondida el 28/10/2026:** las postulaciones se recibían en el canal `1494480100865872043` del Discord oficial. Falta comprobar que acepte publicaciones de quienes no son staff.
 15. ¿Se publican clips o capturas de jugadores en redes o en un tráiler? ¿Con qué autorización?
 
 ### Tienda (Tebex)
@@ -61,7 +61,7 @@
 31. ¿Hay creadores que ya autorizaron por escrito mostrar su canal? ¿Cómo se registra esa autorización?
 32. ¿Existe o se aprobó algún programa de recompensas para creadores? Si no, el sitio no lo menciona.
 33. ¿El Discord tiene canales de tipo Foro? ¿Con qué nombres? ¿Querés que el sitio enlace a ellos?
-34. ¿La invitación `discord.gg/4mTVJhu3gx` es permanente (sin vencimiento ni límite de usos)?
+34. ¿La invitación `discord.gg/4mTVJhu3gx` es permanente (sin vencimiento ni límite de usos)? **Respondida el 28/10/2026:** sí, es permanente.
 
 ### Imágenes y marca
 

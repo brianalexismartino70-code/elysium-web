@@ -49,6 +49,9 @@ estado:
 
 enlaces:
   discord: "https://discord.gg/4mTVJhu3gx"
+  # Canal donde se reciben las postulaciones a staff (dato del propietario, 28/10/2026).
+  # El enlace funciona para quien ya entró al servidor de Discord.
+  postulaciones: "https://discord.com/channels/1484725476785393816/1494480100865872043"
   tienda: "https://elysium-488.tebex.io"
 
 redes:

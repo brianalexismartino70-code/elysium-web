@@ -2,7 +2,7 @@
    ELYSIUM | ES — postulación a staff
    Guarda un borrador en este navegador mientras la persona escribe.
    Al terminar, genera un archivo .txt (o copia el texto) para
-   adjuntarlo en un ticket del Discord oficial.
+   publicarlo en el canal de postulaciones del Discord oficial.
 
    No hay envío automático: un webhook de Discord puesto en el código
    del navegador lo puede leer y usar cualquiera (ver
@@ -232,7 +232,7 @@
         ''
       );
     });
-    partes.push(linea, 'Adjuntá este archivo en un ticket del Discord oficial de Elysium | ES.');
+    partes.push(linea, 'Publicá este archivo en el canal de postulaciones del Discord oficial de Elysium | ES.');
     return partes.join('\n');
   }
 
@@ -263,7 +263,7 @@
     setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
     avisar(
       'Postulación lista para enviar',
-      'Se descargó el archivo ' + nombre + '. Todavía no lo recibió nadie: el staff solo lo ve cuando abrís un ticket en el Discord oficial y lo adjuntás ahí. Lo leemos completo, así que puede tardar hasta diez días. Tu borrador sigue guardado en este navegador hasta que lo borres.',
+      'Se descargó el archivo ' + nombre + '. Todavía no lo recibió nadie: el staff solo lo ve cuando lo publicás en el canal de postulaciones del Discord oficial. Lo leemos completo, así que puede tardar hasta diez días. Tu borrador sigue guardado en este navegador hasta que lo borres.',
       false,
       true
     );
@@ -278,7 +278,7 @@
     var ok = function () {
       avisar(
         'Respuestas copiadas',
-        'Todavía no las recibió nadie: el staff solo las ve cuando las pegás en un ticket del Discord oficial. Si el texto es largo, Discord te ofrece enviarlo como archivo: aceptá esa opción.',
+        'Todavía no las recibió nadie: el staff solo las ve cuando las publicás en el canal de postulaciones del Discord oficial. Si el texto es largo, Discord te ofrece enviarlo como archivo: aceptá esa opción.',
         false,
         true
       );

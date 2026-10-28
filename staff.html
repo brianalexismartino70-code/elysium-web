@@ -43,7 +43,7 @@ scripts:
   <div>
     <h2>Cómo sigue</h2>
     <ol>
-      <li><b>Enviás el examen</b>Descargás tus respuestas y las adjuntás en un ticket del Discord oficial.</li>
+      <li><b>Enviás el examen</b>Descargás tus respuestas y las publicás en el canal de postulaciones del Discord oficial.</li>
       <li><b>Lo leemos</b>Hasta 10 días. Se evalúa criterio y honestidad, no memoria.</li>
       <li><b>Entrevista por voz</b>Si pasaste, te escribimos por Discord para charlar.</li>
       <li><b>Período de prueba</b>30 días con permisos limitados y un referente asignado.</li>
@@ -65,7 +65,7 @@ scripts:
   <div class="notice notice--patina">
     {% include icono.html n="info" %}
     <div>
-      <p><b>Cómo se envía.</b> Este formulario no manda tus respuestas por internet: se guardan solo en este navegador mientras escribís. Al terminar, descargás un archivo de texto (o copiás las respuestas) y lo adjuntás en un ticket del <a class="text-link" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">Discord oficial</a>.</p>
+      <p><b>Cómo se envía.</b> Este formulario no manda tus respuestas por internet: se guardan solo en este navegador mientras escribís. Al terminar, descargás un archivo (o copiás el texto) y lo publicás vos en el <a class="text-link" href="{{ sitio.enlaces.postulaciones }}" target="_blank" rel="noopener">canal de postulaciones</a> del Discord oficial. Ese enlace funciona después de entrar al servidor con la <a class="text-link" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">invitación oficial</a>. Hasta que no lo publiques ahí, el staff no recibe nada. Si el canal no te deja publicar, avisá en el Discord oficial.</p>
     </div>
   </div>
 </div>
@@ -619,7 +619,8 @@ scripts:
           <p class="titulo" id="noticeTitle"></p>
           <p id="noticeText"></p>
           <div class="actions" id="noticeAcciones" style="margin-top:1rem" hidden>
-            <a class="btn btn--sm" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">{% include icono.html n="discord" %} Abrir un ticket en Discord</a>
+            <a class="btn btn--sm" href="{{ sitio.enlaces.discord }}" target="_blank" rel="noopener">{% include icono.html n="discord" %} Entrar al Discord</a>
+            <a class="btn btn--sm btn--ghost" href="{{ sitio.enlaces.postulaciones }}" target="_blank" rel="noopener">{% include icono.html n="ticket" %} Abrir el canal de postulaciones</a>
           </div>
         </div>
       </div>
