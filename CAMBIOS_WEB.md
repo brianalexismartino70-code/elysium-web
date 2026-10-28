@@ -99,6 +99,7 @@ Análisis completo, matriz por país y fuentes en `docs/AUDITORIA_LEGAL.md`, sec
 | Cambio | Detalle |
 |---|---|
 | Ilustraciones propias | `tools/arte/generar_arte.py` genera la portada en dos capas, los cuatro mundos, las portadas de novedades y tres formatos para redes, sin recursos de terceros (`docs/REGISTRO_ASSETS.md`). Retira las imágenes sobre escenas de GTA V |
+| Portada en 3D | Escena construida por código y renderizada con Blender (Cycles): ciudad con bruma, sol y terraza con luz real. Se exporta en dos capas y en los formatos para redes |
 | Portada con profundidad | Ciudad al fondo y columnata en primer plano: se mueven a distinta velocidad con el puntero y al desplazar. Con «menos movimiento», quedan quietas. Velo de contraste más liviano |
 | Mundos | Imagen con `srcset`, miniaturas livianas y una luz que sigue al puntero |
 | Novedades | Portada ilustrada en cada tarjeta y en cada artículo, rotulada como conceptual |

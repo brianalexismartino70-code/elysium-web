@@ -32,11 +32,19 @@ Generadas el 28/10/2026 con `tools/arte/generar_arte.py`. El script dibuja todo 
 - no usa fotos, capturas, modelos de IA ni recursos de terceros;
 - no tiene personajes, logotipos ni marcas.
 
-En este entorno no había una herramienta de generación de imágenes por IA: son ilustraciones procedurales de estilo gráfico, no fotorrealistas.
+En este entorno no había una herramienta de generación de imágenes por IA, ni una GPU para usar un modelo abierto. Por eso los mundos y las portadas de novedades son ilustraciones procedurales de estilo gráfico.
+
+La portada se rehízo en 3D:
+
+- una escena construida por código con `tools/arte/escena_hero.py`;
+- renderizada con Blender 5.2 (módulo oficial `bpy`, GPL, instalado desde PyPI) y su motor Cycles en CPU;
+- terminada con `tools/arte/postproceso_hero.py`.
+
+Lo que produce Blender pertenece al proyecto. No se usaron modelos, texturas ni recursos de terceros.
 
 | Recurso | Qué es y dónde se usa | Autoría y licencia | Estado |
 |---|---|---|---|
-| `assets/img/portada/hero-fondo-*`, `hero-frente-*` | Portada en dos capas: ciudad al atardecer, y columnata con balaustrada en primer plano | Propias del proyecto, generadas por código | **OK.** Rotulada en la portada «Ilustración conceptual · no es una captura del servidor» |
+| `assets/img/portada/hero-fondo-*`, `hero-frente-*` | Portada en dos capas: la ciudad al atardecer y, en primer plano, la terraza con columnas y balaustrada | Propias del proyecto: escena 3D renderizada en Blender | **OK.** Rotulada en la portada «Ilustración conceptual · no es una captura del servidor» |
 | `assets/img/portada/hero-completa-1280.*` | Galería: «La terraza» | Igual | **OK** |
 | `assets/img/mundos/mundo-1…4-*` | Selector de mundos y galería: avenida, cuarentena, patio de contenedores y coliseo | Igual | **OK.** Rotuladas «Ilustración conceptual». Reemplazan a `mundo-1…4.svg` |
 | `assets/img/novedades/novedad-*` | Portadas de las tarjetas y de cada artículo | Recortes de las ilustraciones anteriores | **OK.** Rotuladas en el artículo |
